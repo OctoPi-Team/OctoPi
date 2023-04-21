@@ -71,10 +71,7 @@ export default function App() {
   function updateStates(){
     fetch('http://localhost:4004/api/getBlocks()',{
         method: 'GET',
-        mode: 'cors',
-        headers: {
-          "Content-Type": "application/json",
-        },
+        mode: 'cors'
       }).then(response => {
         if (response.ok) {
           response.json().then((json_response) => {
