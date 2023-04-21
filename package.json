@@ -1,13 +1,17 @@
 {
-  "name": "basic-demo",
+  "name": "test-project",
   "version": "1.0.0",
-  "description": "Shows how to form self-contained components with their own state and user interaction.",
+  "description": "Project of Hochschule Mannheim in collaboration with Sovanta",
+  "repository": "https://github.com/OctoPi-Team/OctoPi",
+  "private": true,
   "keywords": [
     "interaction",
     "pointer-events"
   ],
   "main": "src/index.js",
   "dependencies": {
+    "@sap/cds": "^6",
+    "express": "^4",
     "@react-three/drei": "9.58.5",
     "@react-three/fiber": "8.12.0",
     "@types/three": "0.150.0",
@@ -16,7 +20,9 @@
     "react-scripts": "5.0.1",
     "three": "0.150.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "sqlite3": "^5.1.6"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -28,5 +34,22 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "cds": {
+    "requires": {
+      "test-api": {
+        "kind": "rest",
+        "credentials": {
+          "url": "localhost",
+          "requestTimeout": 30000
+        }
+      },
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "database": "db/data-model.db"
+        }
+      }
+    }
+  }
 }
