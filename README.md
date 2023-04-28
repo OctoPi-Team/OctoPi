@@ -61,3 +61,14 @@ Helps with debugging in the browser
 
 ### simple example project
 https://codesandbox.io/s/peaceful-sara-39x28p?file=/public/index.html  
+
+
+
+## deployment tutorial
+https://cap.cloud.sap/docs/guides/deployment/to-cf#build-mta
+
+
+https://www.youtube.com/watch?v=9MKZhHg-y7s&list=PL6RpkC85SLQAHZ_V3cZsTok0T6BvI4HT1&index=8
+
+
+SAP trial -> HANA CLOUD -> create -> HANA database and follow steps
