@@ -30,4 +30,4 @@ mta_archives/
 # .vscode
 # .idea
 
-./build/
+build/
