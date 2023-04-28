@@ -2,22 +2,10 @@ import { useRef, useState, useEffect } from 'react'
 import { Canvas } from '@react-three/fiber' //useFrame
 import { OrbitControls } from '@react-three/drei'
 
+let SIZE = 10;  // must be less than 10 for now (for the database to work properly)
 
-// makes GET request to save `state` of Block with `id` in database
-// and prints out status to console
 function saveState(id, state){
-  fetch('http://localhost:4004/api/setBlock(id='+id+',state='+state+')',{
-      method: 'GET'
-  }).then(response => {
-      if (response.ok) {
-        console.log('Insert request succeeded');
-      } else {
-        console.log('Insert request failed');
-      }
-    })
-    .catch(error => {
-      console.error('Error making insert request:', error);
-    });
+  localStorage.setItem(id, state);
 }
 
 // the object that creates the 3D Box
@@ -38,7 +26,7 @@ function Box(props) {
       onClick={() => {
         // toogle clicked state
         click(!clicked)
-        saveState(props.block.ID, !clicked)
+        saveState(props.block.id, !clicked)
       }}
       onPointerOver={() => hover(true)}
       onPointerOut={() => hover(false)}>
@@ -49,11 +37,10 @@ function Box(props) {
 }
 
 function Group(props) {
-  let size = 10 // must be less than 10 for now (for the database to work properly)
-  let offset = size / 2
+  let offset = SIZE / 2
   let boxes = Array()
-  for (let x = 0; x < size; x++) {
-    for (let y = 0; y < size; y++) {
+  for (let x = 0; x < SIZE; x++) {
+    for (let y = 0; y < SIZE; y++) {
       boxes.push(<Box position={[x - offset, y - offset, 0]} block={props.blocks[x*10 + y]}/>)
     }
   }
@@ -69,24 +56,12 @@ export default function App() {
   useEffect(updateStates, []);
 
   function updateStates(){
-    fetch('http://localhost:4004/api/getBlocks()',{
-        method: 'GET',
-        mode: 'cors'
-      }).then(response => {
-        if (response.ok) {
-          response.json().then((json_response) => {
-            console.log(json_response.value)
-            setBlocksData(json_response.value)
-            setFetchStatus("done")
-          })
-        }else{
-          throw Error("getBlocks Failed.")
-        }
-      })
-      .catch(error => {
-        setFetchStatus("error")
-        console.error('Error getting state for Box:', error);
-      });
+    let blocks = []
+    for (let id = 0; id < SIZE*SIZE; id++) {
+      blocks.push({id: id, state: (localStorage.getItem(id) === "true" || false)});
+    }
+    setBlocksData(blocks)
+    setFetchStatus("done")
   }
   
   return (<>
