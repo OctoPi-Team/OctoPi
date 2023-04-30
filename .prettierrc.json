@@ -1,5 +1,4 @@
 {
-  "_comment_": "This are the recent configs for prettier",
   "tabWidth": 2,
   "useTabs": false,
   "singleQuote": true,

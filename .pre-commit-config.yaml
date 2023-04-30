@@ -1,0 +1,13 @@
+repos:
+  - repo: https://github.com/prettier/prettier
+    rev: '2.4.1'
+    hooks:
+      - id: prettier
+        args: [--write, --ignore-path=.gitignore]
+        files: \.(js|jsx|ts|tsx|json|md|html|css|scss|yaml)$
+  - repo: https://github.com/eslint/eslint
+    rev: 'v8.39.0'
+    hooks:
+      - id: eslint
+        args: [--fix]
+        files: \.(js|jsx|ts|tsx)$
