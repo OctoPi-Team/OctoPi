@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Mesh, BufferGeometry, Material } from 'three';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
@@ -38,8 +38,8 @@ function Box(props: any) {
 }
 
 function Group(props: any) {
-	let offset = SIZE / 2;
-	let boxes = [];
+	const offset = SIZE / 2;
+	const boxes = [];
 	for (let x = 0; x < SIZE; x++) {
 		for (let y = 0; y < SIZE; y++) {
 			boxes.push(<Box position={[x - offset, y - offset, 0]} block={props.blocks[x * 10 + y]} />);
@@ -57,7 +57,7 @@ export default function App() {
 	useEffect(updateStates, []);
 
 	function updateStates() {
-		let blocks = [];
+		const blocks = [];
 		for (let id = 0; id < SIZE * SIZE; id++) {
 			blocks.push({
 				id: id,
