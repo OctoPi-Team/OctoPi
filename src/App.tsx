@@ -1,14 +1,12 @@
 /* eslint-disable react/no-unknown-property */
 import './styles.css';
-import * as THREE from 'three';
 import React, { Suspense } from 'react';
 import { Canvas, useLoader } from '@react-three/fiber';
 import { OrbitControls, Stage } from '@react-three/drei';
-import { MTLLoader, OBJLoader, DDSLoader } from 'three-stdlib';
+import { MTLLoader, OBJLoader } from 'three-stdlib';
 
-THREE.DefaultLoadingManager.addHandler(/\.dds$/i, new DDSLoader());
-
-function Model(props: any) {
+//Load .obj file
+function Model(props: object) {
 	const materials = useLoader(MTLLoader, '/Ebene.mtl');
 	const obj = useLoader(OBJLoader, '/Ebene.obj', loader => {
 		materials.preload();
