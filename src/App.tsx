@@ -43,7 +43,7 @@ export default function App() {
 			<Canvas style={{ visibility: visible ? 'hidden' : 'visible' }}>
 				<mesh
 					onClick={() => {
-						console.log(window.open('https://duckduckgo.com/'));
+						window.open('https://duckduckgo.com/');
 					}}>
 					<Suspense fallback={null}>
 						<Stage>
