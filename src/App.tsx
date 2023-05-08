@@ -1,30 +1,37 @@
 /* eslint-disable react/no-unknown-property */
 import './styles.css';
-import React, { Suspense } from 'react';
-import { Canvas, useLoader } from '@react-three/fiber';
-import { OrbitControls, Stage } from '@react-three/drei';
-import { MTLLoader, OBJLoader } from 'three-stdlib';
+import React, { useRef } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Vector3, OrthographicCamera } from 'three';
+import Platform from './Platform';
+import Player, { handleKeyDown, handleKeyUp } from './Player';
+import CoordOrigin from './CoordOrigin';
 
-//Load .obj file
-function Model(props: object) {
-	const materials = useLoader(MTLLoader, '/Ebene.mtl');
-	const obj = useLoader(OBJLoader, '/Ebene.obj', loader => {
-		materials.preload();
-		loader.setMaterials(materials);
+function FixedCamera() {
+	const { scene, camera } = useThree();
+	const cameraRef = useRef<OrthographicCamera>(null);
+	useFrame(() => {
+		if (!scene || !cameraRef.current) return;
+		const player = scene.getObjectByName('player');
+		if (!player) return;
+		const playerPosition = player.position;
+		if (playerPosition) {
+			camera.position.set(playerPosition.x - 5, playerPosition.y + 5, playerPosition.z - 5);
+			camera.lookAt(playerPosition);
+		}
 	});
-	return <primitive object={obj} {...props} />;
+	return <orthographicCamera ref={cameraRef} />;
 }
 
 export default function App() {
 	return (
-		<div style={{ width: '100vw', height: '100vh' }}>
+		<div style={{ width: '100vw', height: '100vh' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
 			<Canvas>
-				<Suspense fallback={null}>
-					<Stage>
-						<Model />
-					</Stage>
-				</Suspense>
-				<OrbitControls />
+				<FixedCamera />
+				<Platform />
+				<CoordOrigin />
+				<ambientLight intensity={0.5} />
+				<Player startPosition={new Vector3(1, 0.5, 1)} />
 			</Canvas>
 		</div>
 	);
