@@ -19,12 +19,17 @@ export default function App() {
 	return (
 		<div style={{ width: '100vw', height: '100vh' }}>
 			<Canvas>
-				<Suspense fallback={null}>
-					<Stage>
-						<Model />
-					</Stage>
-				</Suspense>
-				<OrbitControls />
+				<mesh
+					onClick={() => {
+						console.log(window.open('https://duckduckgo.com/'));
+					}}>
+					<Suspense fallback={null}>
+						<Stage>
+							<Model />
+						</Stage>
+					</Suspense>
+					<OrbitControls />
+				</mesh>
 			</Canvas>
 		</div>
 	);
