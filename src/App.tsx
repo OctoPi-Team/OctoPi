@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import './styles.css';
-import React, { Suspense } from 'react';
+import React, { Suspense, useState } from 'react';
 import { Canvas, useLoader } from '@react-three/fiber';
 import { OrbitControls, Stage } from '@react-three/drei';
 import { MTLLoader, OBJLoader } from 'three-stdlib';
@@ -17,9 +17,30 @@ function Model(props: object) {
 }
 
 export default function App() {
+	const [visible, setVisible] = useState(true);
 	return (
 		<div style={{ width: '100vw', height: '100vh' }}>
-			<Video />
+			{visible && (
+				<React.Fragment>
+					<video
+						className="video"
+						onEnded={() => {
+							setVisible(false);
+						}}
+						height={window.innerHeight}
+						width={window.innerWidth}
+						preload="auto"
+						autoPlay
+						data-setup="{}">
+						<source src="10.mp4" type="video/mp4"></source>
+					</video>
+				</React.Fragment>
+			)}
+			<Canvas style={{ visibility: visible ? 'hidden' : 'visible' }}>
+				<ambientLight />
+				<pointLight position={[10, 10, 10]} />
+				<Model />
+			</Canvas>
 		</div>
 	);
 }
