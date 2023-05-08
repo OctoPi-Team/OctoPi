@@ -4,6 +4,7 @@ import React, { Suspense } from 'react';
 import { Canvas, useLoader } from '@react-three/fiber';
 import { OrbitControls, Stage } from '@react-three/drei';
 import { MTLLoader, OBJLoader } from 'three-stdlib';
+import Video from './Video';
 
 //Load .obj file
 function Model(props: object) {
@@ -18,19 +19,7 @@ function Model(props: object) {
 export default function App() {
 	return (
 		<div style={{ width: '100vw', height: '100vh' }}>
-			<Canvas>
-				<mesh
-					onClick={() => {
-						console.log(window.open('https://duckduckgo.com/'));
-					}}>
-					<Suspense fallback={null}>
-						<Stage>
-							<Model />
-						</Stage>
-					</Suspense>
-					<OrbitControls />
-				</mesh>
-			</Canvas>
+			<Video />
 		</div>
 	);
 }
