@@ -15,10 +15,6 @@ interface PlayerArgs {
 	startPosition: Vector3;
 }
 
-function getInterpolatedStairHeight(stairLength: number, stairHeight: number, currentProgression: number) {
-	return currentProgression / (stairLength / stairHeight);
-}
-
 function getHeight(
 	lower_limit: number,
 	upper_limit: number,
@@ -26,12 +22,23 @@ function getHeight(
 	upperHeight: number,
 	currentPos: number
 ) {
+	// get height of the player based on position on the staircase
+	// uses trigometry
+	// x1 is the progression on the staircase width
+	// y1 is the progression on the staircase height
+	// x2 is the total width of the staircase
+	// y2 is the total height of the staircase
+	// these values are calculated via difference between the values passed into the function
+	// y1 is the current height/result we want
+	// tan(x2/y1) = alpha = tan(x1/y2) -> tan-1(tan(x1/y2)) = x2/y1 -> 1/y1 = (x1/y2)/x2 -> y1 = x2 / (x1/y2)
+	// adding the lowerHeight gives us the wanted result
+
 	const progression_until_3nd_platform = upper_limit - currentPos;
 	if (progression_until_3nd_platform > 0) {
-		return (
-			lowerHeight +
-			getInterpolatedStairHeight(upper_limit - lower_limit, upperHeight - lowerHeight, currentPos - lower_limit)
-		);
+		const stairLength = upper_limit - lower_limit;
+		const stairHeight = upperHeight - lowerHeight;
+		const currentProgression = currentPos - lower_limit;
+		return lowerHeight + currentProgression / (stairLength / stairHeight);
 	}
 	return upperHeight;
 }
@@ -44,11 +51,13 @@ function Player({ startPosition }: PlayerArgs) {
 		if (!ref.current) return;
 
 		const speed = 0.05;
+		// x-z plane
 		if (keys.left) ref.current.position.x -= speed;
 		if (keys.right) ref.current.position.x += speed;
 		if (keys.up) ref.current.position.z -= speed;
 		if (keys.down) ref.current.position.z += speed;
 
+		// height
 		const stair_one_start = 10;
 		const stair_two_start = 6.5;
 		if (ref.current.position.x > stair_two_start) {
@@ -71,7 +80,7 @@ function Player({ startPosition }: PlayerArgs) {
 	);
 }
 
-// change keys based on input events
+// change 'keys' based on input events
 export const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = event => {
 	if (event.key === 'ArrowLeft') keys.left = true;
 	if (event.key === 'ArrowRight') keys.right = true;
