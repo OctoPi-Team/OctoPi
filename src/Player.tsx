@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unknown-property */
 import { useFrame } from '@react-three/fiber';
 import React, { useRef } from 'react';
 import { Mesh, Vector3 } from 'three';
