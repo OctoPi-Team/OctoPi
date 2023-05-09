@@ -17,5 +17,9 @@
 		"sourceType": "module",
 		"project": ["./tsconfig.json"]
 	},
-	"plugins": ["react", "@typescript-eslint"]
+	"plugins": ["react", "@typescript-eslint"],
+	"rules": {
+		"react/no-unknown-property": ["off", { "ignore": ["css"] }],
+		"no-console": "warn"
+	}
 }

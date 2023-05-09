@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unknown-property */
 import './styles.css';
 
 import React, { useRef, Suspense, useState } from 'react';
