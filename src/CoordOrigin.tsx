@@ -1,7 +1,6 @@
-/* eslint-disable react/no-unknown-property */
 import './styles.css';
-import React, { useRef } from 'react';
-import { Mesh, BufferGeometry, Material, Color } from 'three';
+import { useRef } from 'react';
+import { Mesh, BufferGeometry, Material } from 'three';
 
 function CoordOrigin() {
 	const originHelper = useRef<Mesh<BufferGeometry, Material | Material[]>>(null);

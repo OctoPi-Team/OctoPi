@@ -1,13 +1,10 @@
 import './styles.css';
 
-import React, { useRef, Suspense, useState } from 'react';
-import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber';
+import React, { useRef, useState } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Vector3, PerspectiveCamera } from 'three';
-import { OrbitControls, Stage } from '@react-three/drei';
-import { MTLLoader, OBJLoader } from 'three-stdlib';
 import Platform from './Platform';
 import Player, { handleKeyDown, handleKeyUp } from './Player';
-import CoordOrigin from './CoordOrigin';
 import Stair from './Stair';
 
 function FixedCamera() {

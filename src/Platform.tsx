@@ -1,5 +1,4 @@
-/* eslint-disable react/no-unknown-property */
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { useLoader } from '@react-three/fiber';
 import { MTLLoader, OBJLoader } from 'three-stdlib';
 import { Mesh, Vector3, BufferGeometry, Material } from 'three';
