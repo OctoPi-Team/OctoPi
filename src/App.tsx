@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unknown-property */
 import './styles.css';
 import React, { Suspense, useState } from 'react';
 import { Canvas, useLoader } from '@react-three/fiber';

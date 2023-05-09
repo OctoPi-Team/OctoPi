@@ -1,5 +1,4 @@
-/* eslint-disable react/no-unknown-property */
-import React, { Suspense, useState } from 'react';
+import { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { useAspect, useVideoTexture, useTexture } from '@react-three/drei';
 
