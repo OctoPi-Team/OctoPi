@@ -1,8 +1,11 @@
 /* eslint-disable react/no-unknown-property */
 import './styles.css';
-import React, { useRef } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+
+import React, { useRef, Suspense, useState} from 'react';
+import { Canvas, useFrame, useThree,useLoader } from '@react-three/fiber';
 import { Vector3, PerspectiveCamera } from 'three';
+import { OrbitControls, Stage } from '@react-three/drei';
+import { MTLLoader, OBJLoader } from 'three-stdlib';
 import Platform from './Platform';
 import Player, { handleKeyDown, handleKeyUp } from './Player';
 import CoordOrigin from './CoordOrigin';
@@ -43,10 +46,36 @@ function Stairs() {
 	);
 }
 
+function Video({ setVisible }: any) {
+	return (
+		<React.Fragment>
+			<video
+				className="video"
+				onEnded={() => {
+					setVisible(false);
+				}}
+				height={window.innerHeight}
+				width={window.innerWidth}
+				preload="auto"
+				autoPlay
+				data-setup="{}">
+				<source src="10.mp4" type="video/mp4"></source>
+			</video>
+		</React.Fragment>
+	);
+}
+
 export default function App() {
+	const [visible, setVisible] = useState(true);
 	return (
 		<div style={{ width: '100vw', height: '100vh' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
-			<Canvas>
+      {visible && <Video setVisible={setVisible} />}
+			<Canvas style={{ visibility: visible ? 'hidden' : 'visible' }}>
+        <mesh
+					onClick={() => {
+						window.open('https://duckduckgo.com/');
+					}}>	
+				</mesh>
 				<Stairs />
 				<FixedCamera />
 				<Platform />
