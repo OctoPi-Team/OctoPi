@@ -46,6 +46,7 @@ function Video({ setVisible }: any) {
 	return (
 		<React.Fragment>
 			<video
+				loop
 				className="video"
 				onEnded={() => {
 					setVisible(false);
