@@ -71,10 +71,6 @@ export default function App() {
 		<div style={{ width: '100vw', height: '100vh' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
 			{visible && <Video setVisible={setVisible} />}
 			<Canvas style={{ visibility: visible ? 'hidden' : 'visible' }}>
-				<mesh
-					onClick={() => {
-						window.open('https://duckduckgo.com/');
-					}}></mesh>
 				<Stairs />
 				<FixedCamera />
 				<Platform />
