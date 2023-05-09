@@ -4,7 +4,6 @@ import React, { Suspense, useState } from 'react';
 import { Canvas, useLoader } from '@react-three/fiber';
 import { OrbitControls, Stage } from '@react-three/drei';
 import { MTLLoader, OBJLoader } from 'three-stdlib';
-//import Video from './Video';
 
 //Load .obj file
 function Model(props: object) {
