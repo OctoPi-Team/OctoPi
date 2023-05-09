@@ -58,6 +58,7 @@ function Video({ setVisible }: any) {
 				width={window.innerWidth}
 				preload="auto"
 				autoPlay
+				muted
 				data-setup="{}">
 				<source src="10.mp4" type="video/mp4"></source>
 			</video>
