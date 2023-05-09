@@ -1,6 +1,6 @@
 import './styles.css';
 
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Vector3, PerspectiveCamera } from 'three';
 import Platform from './Platform';
