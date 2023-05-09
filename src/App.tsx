@@ -1,8 +1,8 @@
 /* eslint-disable react/no-unknown-property */
 import './styles.css';
 
-import React, { useRef, Suspense, useState} from 'react';
-import { Canvas, useFrame, useThree,useLoader } from '@react-three/fiber';
+import React, { useRef, Suspense, useState } from 'react';
+import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber';
 import { Vector3, PerspectiveCamera } from 'three';
 import { OrbitControls, Stage } from '@react-three/drei';
 import { MTLLoader, OBJLoader } from 'three-stdlib';
@@ -69,13 +69,12 @@ export default function App() {
 	const [visible, setVisible] = useState(true);
 	return (
 		<div style={{ width: '100vw', height: '100vh' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
-      {visible && <Video setVisible={setVisible} />}
+			{visible && <Video setVisible={setVisible} />}
 			<Canvas style={{ visibility: visible ? 'hidden' : 'visible' }}>
-        <mesh
+				<mesh
 					onClick={() => {
 						window.open('https://duckduckgo.com/');
-					}}>	
-				</mesh>
+					}}></mesh>
 				<Stairs />
 				<FixedCamera />
 				<Platform />
