@@ -59,7 +59,7 @@ function Video({ setVisible }: any) {
 				autoPlay
 				muted
 				data-setup="{}">
-				<source src="10.mp4" type="video/mp4"></source>
+				<source src="Movie.mp4" type="video/mp4"></source>
 			</video>
 		</React.Fragment>
 	);
