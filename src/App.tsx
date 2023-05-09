@@ -50,6 +50,9 @@ function Video({ setVisible }: any) {
 				onEnded={() => {
 					setVisible(false);
 				}}
+				onClick={() => {
+					setVisible(false);
+				}}
 				height={window.innerHeight}
 				width={window.innerWidth}
 				preload="auto"
