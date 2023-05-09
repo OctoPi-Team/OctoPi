@@ -52,10 +52,10 @@ function Player({ startPosition }: PlayerArgs) {
 
 		const speed = 0.05;
 		// x-z plane
-		if (keys.left) ref.current.position.x -= speed;
-		if (keys.right) ref.current.position.x += speed;
-		if (keys.up) ref.current.position.z -= speed;
-		if (keys.down) ref.current.position.z += speed;
+		if (keys.left) ref.current.position.x += speed;
+		if (keys.right) ref.current.position.x -= speed;
+		if (keys.up) ref.current.position.z += speed;
+		if (keys.down) ref.current.position.z -= speed;
 
 		// height
 		const stair_one_start = 10;
