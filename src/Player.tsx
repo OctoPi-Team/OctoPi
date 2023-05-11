@@ -1,6 +1,10 @@
 import { useFrame } from '@react-three/fiber';
 import React, { useRef } from 'react';
-import { Mesh, Vector3 } from 'three';
+import { BufferGeometry, Material, Mesh, Raycaster, Vector3 } from 'three';
+
+const PLAYER_SIZE = 0.5;
+const SPEED = 0.05;
+// x-z plane
 
 // keys stores the current state of keyboard presses
 const keys = {
@@ -12,6 +16,7 @@ const keys = {
 
 interface PlayerArgs {
 	startPosition: Vector3;
+	platforms: Mesh<BufferGeometry, Material | Material[]>[];
 }
 
 function getHeight(
@@ -42,19 +47,51 @@ function getHeight(
 	return upperHeight;
 }
 
-function Player({ startPosition }: PlayerArgs) {
+function Player({ startPosition, platforms }: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
+	console.log(platforms);
+	console.log(typeof platforms);
 
 	// player movement
 	useFrame(() => {
 		if (!ref.current) return;
 
-		const speed = 0.05;
-		// x-z plane
-		if (keys.left) ref.current.position.x += speed;
-		if (keys.right) ref.current.position.x -= speed;
-		if (keys.up) ref.current.position.z += speed;
-		if (keys.down) ref.current.position.z -= speed;
+		// middle of cube (only works when player is a cube)
+		// TODO change this code when the player sint a cube anymore -> create invisible collision cube
+		const originPoint = ref.current.position.clone();
+
+		const collisionPoints: Vector3[] = [
+			new Vector3(originPoint.x, originPoint.y + PLAYER_SIZE / 2, originPoint.z + PLAYER_SIZE / 2),
+			new Vector3(originPoint.x, originPoint.y + PLAYER_SIZE / 2, originPoint.z - PLAYER_SIZE / 2),
+			new Vector3(originPoint.x - PLAYER_SIZE / 2, originPoint.y + PLAYER_SIZE / 2, originPoint.z),
+			new Vector3(originPoint.x + PLAYER_SIZE / 2, originPoint.y + PLAYER_SIZE / 2, originPoint.z),
+		];
+
+		for (const pointId in collisionPoints) {
+			const point = collisionPoints[pointId];
+			const ray = new Raycaster(point, new Vector3(0, -1, 0).clone().normalize());
+			const results = ray.intersectObjects(platforms);
+
+			console.log(results);
+
+			// collsion with current raycast origin
+			if (results.length > 0) {
+				switch (String(pointId)) {
+					case '0': // right
+						if (keys.right) ref.current.position.z += SPEED;
+						break;
+					case '1': // down
+						if (keys.down) ref.current.position.x -= SPEED;
+						break;
+					case '2': // left
+						if (keys.left) ref.current.position.z -= SPEED;
+						break;
+					case '3': // up
+						if (keys.up) ref.current.position.x += SPEED;
+						break;
+				}
+			}
+		}
 
 		// height
 		const stair_one_start = 10;
@@ -73,7 +110,7 @@ function Player({ startPosition }: PlayerArgs) {
 
 	return (
 		<mesh name="player" ref={ref} position={startPosition} scale={[1, 1, 1]}>
-			<boxBufferGeometry args={[0.5, 0.5, 0.5]} />
+			<boxBufferGeometry args={[PLAYER_SIZE, PLAYER_SIZE, PLAYER_SIZE]} />
 			<meshStandardMaterial color={'blue'} />
 		</mesh>
 	);

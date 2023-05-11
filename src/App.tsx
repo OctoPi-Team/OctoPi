@@ -2,7 +2,7 @@ import './styles.css';
 
 import { useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Vector3, PerspectiveCamera } from 'three';
+import { Vector3, PerspectiveCamera, Mesh, BufferGeometry, Material } from 'three';
 import Platform from './Platform';
 import Player, { handleKeyDown, handleKeyUp } from './Player';
 import Stair from './Stair';
@@ -45,15 +45,21 @@ function Stairs() {
 
 export default function App() {
 	const [visible, setVisible] = useState(true);
+
+	const [platforms, setPlatforms] = useState<Mesh<BufferGeometry, Material | Material[]>[]>([]);
+	function addPlatform(newPlatform: Mesh<BufferGeometry, Material | Material[]>) {
+		if (!platforms.includes(newPlatform)) setPlatforms([...platforms, newPlatform]);
+	}
+
 	return (
 		<div style={{ width: '100vw', height: '100vh' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
 			{visible && <Video setVisible={setVisible} />}
 			<Canvas style={{ visibility: visible ? 'hidden' : 'visible' }}>
 				<Stairs />
 				<FixedCamera />
-				<Platform />
+				<Platform addPlatformRef={addPlatform} />
 				<ambientLight intensity={0.5} />
-				<Player startPosition={new Vector3(1, 0.5, 1)} />
+				<Player startPosition={new Vector3(1, 0.5, 1)} platforms={platforms} />
 			</Canvas>
 		</div>
 	);
