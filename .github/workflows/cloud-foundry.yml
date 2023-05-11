@@ -5,7 +5,7 @@ on:
     - main
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -17,11 +17,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-    - name: Building Node App
     - run: npm run build --if-present
-    - uses: actions/checkout@v3
+      uses: actions/checkout@v3
     - name: Deploy To Cloud Foundry
-    - uses: citizen-of-planet-earth/cf-cli-action@v2
+      uses: citizen-of-planet-earth/cf-cli-action@v2
       with:
         cf_api:  https://api.cf.eu10-004.hana.ondemand.com
         cf_username: ${{ secrets.CF_USER }}
