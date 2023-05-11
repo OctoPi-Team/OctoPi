@@ -5,12 +5,15 @@ import { Mesh, Vector3, BufferGeometry, Material } from 'three';
 
 type PlatformProps = {
 	position?: [number, number, number];
+	addPlatformRef?: (meshRef: Mesh<BufferGeometry, Material | Material[]>) => void;
 };
 
-const Platform = ({ position = [0, 0, 0] }: PlatformProps) => {
+function Platform({ position = [0, 0, 0], addPlatformRef }: PlatformProps) {
 	const meshRef = useRef<Mesh<BufferGeometry, Material | Material[]>>(null);
 	const materials = useLoader(MTLLoader, '/Ebene.mtl');
-
+	if (addPlatformRef && meshRef.current) {
+		addPlatformRef(meshRef.current);
+	}
 	const obj = useLoader(OBJLoader, '/Ebene.obj', loader => {
 		materials.preload();
 		loader.setMaterials(materials);
@@ -28,6 +31,6 @@ const Platform = ({ position = [0, 0, 0] }: PlatformProps) => {
 			<primitive object={obj} />
 		</mesh>
 	);
-};
+}
 
 export default Platform;
