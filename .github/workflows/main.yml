@@ -15,11 +15,11 @@ jobs:
     needs: build
     
     steps:
-    - uses: citizen-of-planet-earth/cf-cli-action@master
+    - uses: citizen-of-planet-earth/cf-cli-action@v2
       with:
-        cf_api: https://api.my-cloud-foundry.com
+        cf_api: https://api.cf.eu10-004.hana.ondemand.com
         cf_username: ${{ secrets.CF_USER }}
         cf_password: ${{ secrets.CF_PASSWORD }}
-        cf_org: AwesomeApp
-        cf_space: Development
-        command: push -f manifest-dev.yml
+        cf_org: sovanta AG TDD (Pay as you go)_hs-mannheim
+        cf_space: Octo Pi
+        command: push -f manifest.yml
