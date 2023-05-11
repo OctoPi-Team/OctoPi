@@ -2,7 +2,11 @@ import './styles.css';
 
 import React from 'react';
 
-export default function Video({ setVisible }: any) {
+type VideoArgs = {
+	setVisible: (visibility: boolean) => void;
+};
+
+export default function Video({ setVisible }: VideoArgs) {
 	return (
 		<React.Fragment>
 			<video
