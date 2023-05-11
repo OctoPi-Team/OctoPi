@@ -24,6 +24,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
+    - name: create build directory
+      run: mkdir -p ./build
     - name: Build the App
       run: npm run build --if-present
       working-directory: ./build
@@ -48,4 +50,4 @@ jobs:
         cf_password: ${{ secrets.CF_PASSWORD }}
         cf_org: sovanta AG TDD (Pay as you go)_hs-mannheim
         cf_space: Octo Pi
-        command: push -f manifest-prod.yml
+        command: push -p ./build -f manifest-prod.yml
