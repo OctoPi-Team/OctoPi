@@ -8,7 +8,7 @@
 			"version": "detect"
 		}
 	},
-	"ignorePatterns": ["vite.config.js", "**/vendor/*.js"],
+	"ignorePatterns": ["vite.config.ts", "**/vendor/*.js"],
 	"extends": [
 		"eslint:recommended",
 		"plugin:react/recommended",
