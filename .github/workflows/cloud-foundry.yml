@@ -14,7 +14,7 @@ jobs:
     - name: Create Cache Folder
       uses: actions/cache@v2
       with:
-        path: build
+        path: "./build"
         key: ${{ runner.os }}-build
 
     - uses: actions/checkout@v3
@@ -24,7 +24,11 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-    - run: npm run build --if-present
+    - name: create build directory
+      run: mkdir -p "./build"
+    - name: Build the App
+      run: npm run build --output-path "./build"
+      working-directory: "./build"
 
   deploy:
     runs-on: ubuntu-latest
@@ -33,7 +37,7 @@ jobs:
     - name: Loading Cache Folder
       uses: actions/cache@v2
       with:
-        path: build
+        path: "${PWD}/build"
         key: ${{ runner.os }}-build
 
     - uses: actions/checkout@v3
@@ -46,4 +50,4 @@ jobs:
         cf_password: ${{ secrets.CF_PASSWORD }}
         cf_org: sovanta AG TDD (Pay as you go)_hs-mannheim
         cf_space: Octo Pi
-        command: push -f manifest-prod.yml
+        command: push -p "./build" -f manifest-prod.yml
