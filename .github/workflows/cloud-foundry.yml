@@ -43,6 +43,7 @@ jobs:
         key: ${{ runner.os }}-build
 
     - run: ls -l 
+    - run: pwd 
     - name: Deploying to Cloud Foundry
       uses: citizen-of-planet-earth/cf-cli-action@v2
       with:
