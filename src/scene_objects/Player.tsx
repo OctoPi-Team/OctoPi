@@ -49,7 +49,6 @@ function getHeight(
 
 function Player({ startPosition, platforms }: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
-
 	// player movement
 	useFrame(() => {
 		if (!ref.current) return;
