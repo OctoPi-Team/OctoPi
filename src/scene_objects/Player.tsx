@@ -61,9 +61,9 @@ function Player({ startPosition, platforms }: PlayerArgs) {
 			// right
 			new Vector3(playerPosition.x, topOfPlayer, playerPosition.z + COLLISION_RANGE),
 			// down
-			new Vector3(playerPosition.x, topOfPlayer, playerPosition.z - COLLISION_RANGE),
-			// left
 			new Vector3(playerPosition.x - COLLISION_RANGE, topOfPlayer, playerPosition.z),
+			// left
+			new Vector3(playerPosition.x, topOfPlayer, playerPosition.z - COLLISION_RANGE),
 			// up
 			new Vector3(playerPosition.x + COLLISION_RANGE, topOfPlayer, playerPosition.z),
 		];
