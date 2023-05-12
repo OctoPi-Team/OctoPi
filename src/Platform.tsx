@@ -2,6 +2,7 @@ import { useRef, useEffect } from 'react';
 import { useLoader } from '@react-three/fiber';
 import { MTLLoader, OBJLoader } from 'three-stdlib';
 import { Mesh, Vector3, BufferGeometry, Material } from 'three';
+import ObjectLoad from './ObjectLoad';
 
 type PlatformProps = {
 	position?: [number, number, number];
@@ -9,28 +10,7 @@ type PlatformProps = {
 };
 
 function Platform({ position = [0, 0, 0], addPlatformRef }: PlatformProps) {
-	const meshRef = useRef<Mesh<BufferGeometry, Material | Material[]>>(null);
-	const materials = useLoader(MTLLoader, '/Ebene.mtl');
-	if (addPlatformRef && meshRef.current) {
-		addPlatformRef(meshRef.current);
-	}
-	const obj = useLoader(OBJLoader, '/Ebene.obj', loader => {
-		materials.preload();
-		loader.setMaterials(materials);
-	});
-
-	useEffect(() => {
-		if (meshRef.current) {
-			const meshPosition = new Vector3(...position);
-			meshRef.current.position.copy(meshPosition);
-		}
-	}, position);
-
-	return (
-		<mesh ref={meshRef} position={position}>
-			<primitive object={obj} />
-		</mesh>
-	);
+	return <ObjectLoad pathObj="/Ebene.obj" pathMtl="/Ebene.mtl" position={position} reference={addPlatformRef} />;
 }
 
 export default Platform;
