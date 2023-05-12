@@ -4,7 +4,7 @@ import { BufferGeometry, Material, Mesh, Raycaster, Vector3 } from 'three';
 
 const PLAYER_SIZE = 0.5;
 const SPEED = 0.05;
-// x-z plane
+const COLLISION_RANGE = 0.3;
 
 // keys stores the current state of keyboard presses
 const keys = {
@@ -49,30 +49,34 @@ function getHeight(
 
 function Player({ startPosition, platforms }: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
-	console.log(platforms);
-	console.log(typeof platforms);
 
 	// player movement
 	useFrame(() => {
 		if (!ref.current) return;
 
-		// middle of cube (only works when player is a cube)
-		// TODO change this code when the player sint a cube anymore -> create invisible collision cube
-		const originPoint = ref.current.position.clone();
-
+		const playerPosition = ref.current.position.clone();
+		const topOfPlayer = playerPosition.y + PLAYER_SIZE / 2;
+		// collision points are origins of raycasts
+		// they are positioned at the edge of the top side of the cube with a distance to the center of COLLISION_RANGE
 		const collisionPoints: Vector3[] = [
-			new Vector3(originPoint.x, originPoint.y + PLAYER_SIZE / 2, originPoint.z + PLAYER_SIZE / 2),
-			new Vector3(originPoint.x, originPoint.y + PLAYER_SIZE / 2, originPoint.z - PLAYER_SIZE / 2),
-			new Vector3(originPoint.x - PLAYER_SIZE / 2, originPoint.y + PLAYER_SIZE / 2, originPoint.z),
-			new Vector3(originPoint.x + PLAYER_SIZE / 2, originPoint.y + PLAYER_SIZE / 2, originPoint.z),
+			// right
+			new Vector3(playerPosition.x, topOfPlayer, playerPosition.z + COLLISION_RANGE),
+			// down
+			new Vector3(playerPosition.x, topOfPlayer, playerPosition.z - COLLISION_RANGE),
+			// left
+			new Vector3(playerPosition.x - COLLISION_RANGE, topOfPlayer, playerPosition.z),
+			// up
+			new Vector3(playerPosition.x + COLLISION_RANGE, topOfPlayer, playerPosition.z),
 		];
 
+		// loop through all points to check if the raycast from that point downwards hits a platform
+		// depending on the result the player can or cant move in the direction of this point
 		for (const pointId in collisionPoints) {
 			const point = collisionPoints[pointId];
-			const ray = new Raycaster(point, new Vector3(0, -1, 0).clone().normalize());
+			const downVector = new Vector3(0, -1, 0).clone().normalize();
+			const ray = new Raycaster(point, downVector);
 			const results = ray.intersectObjects(platforms);
 
-			// collsion with current raycast origin
 			if (results.length > 0) {
 				switch (String(pointId)) {
 					case '0': // right
