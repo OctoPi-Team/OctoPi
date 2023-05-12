@@ -35,11 +35,11 @@ jobs:
     needs: build
     steps:
     - name: create build directory
-      run: mkdir -p "~/build"
+      run: mkdir -p "./build"
     - name: Loading Cache Folder
       uses: actions/cache@v2
       with:
-        path: "~/build"
+        path: "./build"
         key: ${{ runner.os }}-build
 
     - uses: actions/checkout@v3
@@ -52,4 +52,4 @@ jobs:
         cf_password: ${{ secrets.CF_PASSWORD }}
         cf_org: sovanta AG TDD (Pay as you go)_hs-mannheim
         cf_space: Octo Pi
-        command: push -p "~/build" -f manifest-prod.yml
+        command: push -p "${{ runner.workspace }}/build" -f manifest-prod.yml
