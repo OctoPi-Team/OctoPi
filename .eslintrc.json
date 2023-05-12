@@ -3,6 +3,12 @@
 		"browser": true,
 		"es2021": true
 	},
+	"settings": {
+		"react": {
+			"version": "detect"
+		}
+	},
+	"ignorePatterns": ["vite.config.ts", "**/vendor/*.js"],
 	"extends": [
 		"eslint:recommended",
 		"plugin:react/recommended",

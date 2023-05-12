@@ -49,9 +49,6 @@ function getHeight(
 
 function Player({ startPosition, platforms }: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
-	console.log(platforms);
-	console.log(typeof platforms);
-
 	// player movement
 	useFrame(() => {
 		if (!ref.current) return;
@@ -71,8 +68,6 @@ function Player({ startPosition, platforms }: PlayerArgs) {
 			const point = collisionPoints[pointId];
 			const ray = new Raycaster(point, new Vector3(0, -1, 0).clone().normalize());
 			const results = ray.intersectObjects(platforms);
-
-			console.log(results);
 
 			// collsion with current raycast origin
 			if (results.length > 0) {
