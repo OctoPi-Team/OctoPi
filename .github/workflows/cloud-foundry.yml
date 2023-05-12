@@ -37,7 +37,7 @@ jobs:
     - name: Loading Cache Folder
       uses: actions/cache@v2
       with:
-        path: "${PWD}/build"
+        path: "./build"
         key: ${{ runner.os }}-build
 
     - uses: actions/checkout@v3
