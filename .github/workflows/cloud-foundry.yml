@@ -42,14 +42,14 @@ jobs:
         path: "./build"
         key: ${{ runner.os }}-build
 
-
+      run: ls -l && pwd
     - name: Deploying to Cloud Foundry
       uses: citizen-of-planet-earth/cf-cli-action@v2
-      run: ls -l && pwd
       with:
         cf_api:  https://api.cf.eu10-004.hana.ondemand.com
         cf_username: ${{ secrets.CF_USER }}
         cf_password: ${{ secrets.CF_PASSWORD }}
         cf_org: sovanta AG TDD (Pay as you go)_hs-mannheim
         cf_space: Octo Pi
-        command: push -p "${{ runner.workspace }}/OctoPi/build" -f manifest-prod.yml
+        command: push -p /home/runner/work/OctoPi/OctoPi/build -f manifest-prod.yml
+# ${{ runner.workspace }}/OctoPi/build
