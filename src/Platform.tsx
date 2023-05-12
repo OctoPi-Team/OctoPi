@@ -10,15 +10,7 @@ type PlatformProps = {
 };
 
 function Platform({ position = [0, 0, 0], addPlatformRef }: PlatformProps) {
-	return (
-		<ObjectLoad
-			pathObj="/Ebene.obj"
-			pathMtl="/Ebene.mtl"
-			position={position}
-			rotation={[0, 0, 0]}
-			reference={addPlatformRef}
-		/>
-	);
+	return <ObjectLoad pathObj="/Ebene.obj" pathMtl="/Ebene.mtl" position={position} reference={addPlatformRef} />;
 }
 
 export default Platform;
