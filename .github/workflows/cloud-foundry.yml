@@ -2,7 +2,7 @@ name: Automatic Deployment
 on:
   push:
     branches:
-    - deployment-test
+    - main
 
 jobs:
   build:
@@ -19,7 +19,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Build the App
       run: npm ci && npm run build
-    - name: Deploying to Cloud Foundry
+    - name: Deploy to Cloud Foundry
       uses: citizen-of-planet-earth/cf-cli-action@v2
       with:
         cf_api:  https://api.cf.eu10-004.hana.ondemand.com
