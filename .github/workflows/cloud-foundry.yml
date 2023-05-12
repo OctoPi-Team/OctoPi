@@ -52,4 +52,4 @@ jobs:
         cf_password: ${{ secrets.CF_PASSWORD }}
         cf_org: sovanta AG TDD (Pay as you go)_hs-mannheim
         cf_space: Octo Pi
-        command: push -p "${{ runner.workspace }}../OctoPi/build" -f manifest-prod.yml
+        command: push -p "${{ runner.workspace }}/OctoPi/build" -f manifest-prod.yml
