@@ -72,8 +72,6 @@ function Player({ startPosition, platforms }: PlayerArgs) {
 			const ray = new Raycaster(point, new Vector3(0, -1, 0).clone().normalize());
 			const results = ray.intersectObjects(platforms);
 
-			console.log(results);
-
 			// collsion with current raycast origin
 			if (results.length > 0) {
 				switch (String(pointId)) {

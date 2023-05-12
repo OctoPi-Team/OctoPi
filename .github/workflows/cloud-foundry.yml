@@ -1,8 +1,8 @@
-name: CF CLI Action
+name: Automatic Deployment
 on:
   push:
     branches:
-    - main
+    - deployment-test
 
 jobs:
   build:
