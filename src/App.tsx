@@ -9,7 +9,6 @@ import Stair from './scene_objects/Stair';
 import Video from './Video';
 import FixedCamera from './scene_objects/FixedCamera';
 
-
 function Stairs() {
 	// staircase orientations and positions were found by trying different values
 	return (

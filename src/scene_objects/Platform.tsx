@@ -1,7 +1,4 @@
-import { useRef, useEffect } from 'react';
-import { useLoader } from '@react-three/fiber';
-import { MTLLoader, OBJLoader } from 'three-stdlib';
-import { Mesh, Vector3, BufferGeometry, Material } from 'three';
+import { Mesh, BufferGeometry, Material } from 'three';
 import ObjectLoad from '../ObjectLoad';
 
 type PlatformProps = {
