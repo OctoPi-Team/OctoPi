@@ -1,33 +1,14 @@
 import './styles.css';
 
-import { useRef, useState } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Vector3, PerspectiveCamera, Mesh, BufferGeometry, Material } from 'three';
+import { useState } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { Vector3, Mesh, BufferGeometry, Material } from 'three';
 import Platform from './scene_objects/Platform';
 import Player, { handleKeyDown, handleKeyUp } from './scene_objects/Player';
 import Stair from './scene_objects/Stair';
 import Video from './Video';
+import FixedCamera from './scene_objects/FixedCamera';
 
-function FixedCamera() {
-	const { scene, camera } = useThree();
-	const cameraRef = useRef<PerspectiveCamera>(null);
-	useFrame(() => {
-		const distance_from_player_to_camera = 5;
-		if (!scene || !cameraRef.current) return;
-		const player = scene.getObjectByName('player');
-		if (!player) return;
-		const playerPosition = player.position;
-		if (playerPosition) {
-			camera.position.set(
-				playerPosition.x - distance_from_player_to_camera,
-				playerPosition.y + distance_from_player_to_camera,
-				playerPosition.z - distance_from_player_to_camera
-			);
-			camera.lookAt(playerPosition);
-		}
-	});
-	return <perspectiveCamera ref={cameraRef} />;
-}
 
 function Stairs() {
 	// staircase orientations and positions were found by trying different values
@@ -56,7 +37,7 @@ export default function App() {
 			{visible && <Video setVisible={setVisible} />}
 			<Canvas style={{ visibility: visible ? 'hidden' : 'visible' }}>
 				<Stairs />
-				<FixedCamera />
+				<FixedCamera distance_from_player_to_camera={5} />
 				<Platform addPlatformRef={addPlatform} />
 				<ambientLight intensity={0.5} />
 				<Player startPosition={new Vector3(1, 0.5, 1)} platforms={platforms} />
