@@ -42,10 +42,11 @@ jobs:
         path: "./build"
         key: ${{ runner.os }}-build
 
-    - run: ls -l 
-    - run: pwd 
+
     - name: Deploying to Cloud Foundry
       uses: citizen-of-planet-earth/cf-cli-action@v2
+      run: ls -l 
+      run: pwd 
       with:
         cf_api:  https://api.cf.eu10-004.hana.ondemand.com
         cf_username: ${{ secrets.CF_USER }}
