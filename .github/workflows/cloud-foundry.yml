@@ -43,7 +43,7 @@ jobs:
         key: ${{ runner.os }}-build
 
     - run: ls -l 
-    - run: pwd 
+    - run: cwd=${PWD} 
     - name: Deploying to Cloud Foundry
       uses: citizen-of-planet-earth/cf-cli-action@v2
       with:
@@ -52,4 +52,4 @@ jobs:
         cf_password: ${{ secrets.CF_PASSWORD }}
         cf_org: sovanta AG TDD (Pay as you go)_hs-mannheim
         cf_space: Octo Pi
-        command: push -p "${{ runner.workspace }}/build" -f manifest-prod.yml
+        command: push -p "${cwd}/build" -f manifest-prod.yml
