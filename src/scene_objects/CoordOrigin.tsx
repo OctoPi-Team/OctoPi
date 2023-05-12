@@ -1,4 +1,4 @@
-import './styles.css';
+import '../styles.css';
 import { useRef } from 'react';
 import { Mesh, BufferGeometry, Material } from 'three';
 
