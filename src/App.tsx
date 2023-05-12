@@ -3,9 +3,9 @@ import './styles.css';
 import { useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Vector3, PerspectiveCamera, Mesh, BufferGeometry, Material } from 'three';
-import Platform from './Platform';
-import Player, { handleKeyDown, handleKeyUp } from './Player';
-import Stair from './Stair';
+import Platform from './scene_objects/Platform';
+import Player, { handleKeyDown, handleKeyUp } from './scene_objects/Player';
+import Stair from './scene_objects/Stair';
 import Video from './Video';
 
 function FixedCamera() {
