@@ -34,7 +34,7 @@ export default function App() {
 			{visible && <Video setVisible={setVisible} />}
 			<Canvas style={{ visibility: visible ? 'hidden' : 'visible' }}>
 				{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
-				{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distance_from_player_to_camera={5} />}
+				{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={5} />}
 				<CoordOrigin position={new Vector3(2, 0, 5)} />
 				<Stair startPosition={new Vector3(2, 0, 5)} endPosition={new Vector3(2, 1.5, 7)} reference={addStair} />
 				<SimplePlatform position={[0, 0, 0]} size={[10, 0.5, 10]} reference={addPlatform} color={new Color("lightgreen")} />
