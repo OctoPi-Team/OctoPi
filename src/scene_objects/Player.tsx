@@ -1,10 +1,13 @@
 import { useFrame } from '@react-three/fiber';
 import React, { useRef } from 'react';
-import { BufferGeometry, Material, Mesh, Raycaster, Vector3 } from 'three';
+import { BufferGeometry, Material, MathUtils, Mesh, Raycaster, Vector3 } from 'three';
+import { StairType } from './Stair';
 
 const PLAYER_SIZE = 0.5;
 const SPEED = 0.05;
 const COLLISION_RANGE = 0.3;
+const COLLISION_IS_ACTIVE = true;
+
 
 // keys stores the current state of keyboard presses
 const keys = {
@@ -17,14 +20,14 @@ const keys = {
 interface PlayerArgs {
 	startPosition: Vector3;
 	platforms: Mesh<BufferGeometry, Material | Material[]>[];
+	stairs: StairType[];
 }
 
 function getHeight(
-	lower_limit: number,
-	upper_limit: number,
-	lowerHeight: number,
-	upperHeight: number,
-	currentPos: number
+	stairLength: number,
+	stairHeight: number,
+	currentProgression: number,
+	lowerHeight: number
 ) {
 	// get height of the player based on position on the staircase
 	// uses trigometry
@@ -36,25 +39,17 @@ function getHeight(
 	// y1 is the current height/result we want
 	// tan(x2/y1) = alpha = tan(x1/y2) -> tan-1(tan(x1/y2)) = x2/y1 -> 1/y1 = (x1/y2)/x2 -> y1 = x2 / (x1/y2)
 	// adding the lowerHeight gives us the wanted result
-
-	const progression_until_3nd_platform = upper_limit - currentPos;
-	if (progression_until_3nd_platform > 0) {
-		const stairLength = upper_limit - lower_limit;
-		const stairHeight = upperHeight - lowerHeight;
-		const currentProgression = currentPos - lower_limit;
-		return lowerHeight + currentProgression / (stairLength / stairHeight);
-	}
-	return upperHeight;
+	return lowerHeight + currentProgression / (stairLength / stairHeight);
 }
 
-function Player({ startPosition, platforms }: PlayerArgs) {
+function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
 	// player movement
-	useFrame(() => {
+	useFrame((delta) => {
 		if (!ref.current) return;
 
 		const playerPosition = ref.current.position.clone();
-		const topOfPlayer = playerPosition.y + PLAYER_SIZE / 2;
+		const topOfPlayer = playerPosition.y + PLAYER_SIZE;
 		// collision points are origins of raycasts
 		// they are positioned at the edge of the top side of the cube with a distance to the center of COLLISION_RANGE
 		const collisionPoints: Vector3[] = [
@@ -76,7 +71,7 @@ function Player({ startPosition, platforms }: PlayerArgs) {
 			const ray = new Raycaster(point, downVector);
 			const results = ray.intersectObjects(platforms);
 
-			if (results.length > 0) {
+			if (results.length > 0 || !COLLISION_IS_ACTIVE) {
 				switch (String(pointId)) {
 					case '0': // right
 						if (keys.right) ref.current.position.z += SPEED;
@@ -94,6 +89,49 @@ function Player({ startPosition, platforms }: PlayerArgs) {
 			}
 		}
 
+		for (const stair of stairs) {
+
+			function flattenVector(v: Vector3, planeTransformer: Vector3 = new Vector3(1, 0, 1)) {
+				return v.clone().multiply(planeTransformer);
+			}
+			const flattenedStart = flattenVector(stair.startPosition);
+			const flattenedEnd = flattenVector(stair.endPosition);
+			const flattenedPlayer = flattenVector(playerPosition);
+
+			function getAngleFromThreePoints(start: Vector3, middle: Vector3, end: Vector3) {
+				const dir1 = new Vector3().subVectors(middle, start);
+				const dir2 = new Vector3().subVectors(middle, end);
+				return MathUtils.radToDeg(dir2.angleTo(dir1));
+			}
+			const angleBetweenStairStartAndPlayer = getAngleFromThreePoints(flattenedPlayer, flattenedStart, flattenedEnd);
+			const angleBetweenStairEndAndPlayer = getAngleFromThreePoints(flattenedPlayer, flattenedEnd, flattenedStart);
+			const flatStairLength = flattenedStart.distanceTo(flattenedEnd);
+			const distanceFromPlayerToStairCenter = flattenVector(stair.mesh.position).distanceTo(flattenedPlayer);
+			if (
+				// player is after startPosition
+				angleBetweenStairStartAndPlayer < 90
+				// player is before endPosition
+				&& angleBetweenStairEndAndPlayer < 90
+				// player is near enough to the stairs
+				&& distanceFromPlayerToStairCenter < flatStairLength
+			) {
+				// calculate player height
+				let progression = Math.cos(MathUtils.degToRad(angleBetweenStairStartAndPlayer)) * flattenedStart.distanceTo(flattenedPlayer);
+				if (progression < 0.07) {
+					progression = 0;
+				}
+				else if (flatStairLength - progression < 0.07) {
+					progression = flatStairLength;
+				}
+				ref.current.position.y = PLAYER_SIZE / 2 + getHeight(
+					flatStairLength,
+					stair.endPosition.y - stair.startPosition.y,
+					progression,
+					stair.startPosition.y
+				);
+			}
+		}
+		/*
 		// height
 		const stair_one_start = 10;
 		const stair_two_start = 6.5;
@@ -107,10 +145,11 @@ function Player({ startPosition, platforms }: PlayerArgs) {
 			// first plattform and default
 			ref.current.position.y = startPosition.y;
 		}
+		*/
 	});
 
 	return (
-		<mesh name="player" ref={ref} position={startPosition} scale={[1, 1, 1]}>
+		<mesh name="player" ref={ref} position={[startPosition.x, startPosition.y + PLAYER_SIZE / 2, startPosition.z]}>
 			<boxBufferGeometry args={[PLAYER_SIZE, PLAYER_SIZE, PLAYER_SIZE]} />
 			<meshStandardMaterial color={'blue'} />
 		</mesh>
