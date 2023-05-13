@@ -5,7 +5,7 @@ import { StairType } from './Stair';
 
 const PLAYER_SIZE = 0.5;
 const SPEED = 0.05;
-const COLLISION_RANGE = 0.3;
+const COLLISION_RANGE = 0.26;
 const COLLISION_IS_ACTIVE = true;
 
 
@@ -146,11 +146,11 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 				else if (flatStairLength - progression < 0.07) {
 					progression = flatStairLength;
 				}
-				ref.current.position.y = PLAYER_SIZE / 2 + getHeight(
+				ref.current.position.y = getHeight(
 					flatStairLength,
 					stair.endPosition.y - stair.startPosition.y,
 					progression,
-					stair.startPosition.y
+					stair.startPosition.y + PLAYER_SIZE / 2
 				);
 			}
 		}
