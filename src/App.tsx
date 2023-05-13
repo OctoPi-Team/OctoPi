@@ -7,6 +7,7 @@ import Platform from './Platform';
 import Player, { handleKeyDown, handleKeyUp } from './Player';
 import Stair from './Stair';
 import Video from './Video';
+import ShipmentObjects from './ShipmentObjects';
 
 function FixedCamera() {
 	const { scene, camera } = useThree();
@@ -58,6 +59,7 @@ export default function App() {
 				<Stairs />
 				<FixedCamera />
 				<Platform addPlatformRef={addPlatform} />
+				<ShipmentObjects />
 				<ambientLight intensity={0.5} />
 				<Player startPosition={new Vector3(1, 0.5, 1)} platforms={platforms} />
 			</Canvas>

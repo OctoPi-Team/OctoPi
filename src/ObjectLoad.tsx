@@ -9,6 +9,7 @@ type ObjectLoadOptions = {
 	pathMtl: string;
 	position: [number, number, number];
 	rotation?: [number, number, number];
+	scale?: [number, number, number];
 	reference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 };
 // This function is to load an object from a .obj file and a .mtl file. To use it no knowlage of the ObjextLoad function is needed.
@@ -17,6 +18,7 @@ export default function ObjectLoad({
 	pathMtl,
 	position,
 	rotation = [0, 0, 0], // Default rotation is 0, 0, 0, the rotation is in degrees.
+	scale = [1, 1, 1], // Default scale is 1, 1, 1.
 	reference,
 }: ObjectLoadOptions): JSX.Element {
 	const meshRef = useRef<Mesh<BufferGeometry, Material | Material[]>>(null);
@@ -42,7 +44,7 @@ export default function ObjectLoad({
 	}, position);
 
 	return (
-		<mesh ref={meshRef} position={position}>
+		<mesh ref={meshRef} position={position} scale={new Vector3(scale[0], scale[1], scale[2])}>
 			<primitive object={obj} />
 		</mesh>
 	);
