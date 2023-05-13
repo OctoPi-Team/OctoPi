@@ -31,6 +31,16 @@ function getHeight(
 ) {
 	// get height of the player based on position on the staircase
 	// uses trigometry
+	//       y2
+	//   ----------
+	//   |       /
+	//   |      /
+	// x2|--y1-/
+	//   |    /
+	//   x1  /this line is the stair
+	//   |../
+	//   |a/
+	//   |/
 	// x1 is the progression on the staircase width
 	// y1 is the progression on the staircase height
 	// x2 is the total width of the staircase
@@ -116,6 +126,19 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 				&& distanceFromPlayerToStairCenter < flatStairLength
 			) {
 				// calculate player height
+				// D
+				// |
+				// A---C 
+				// |  /
+				// | /
+				// |/
+				// B
+				// 
+				// A - Current Progression Point on stair
+				// B - Stair Start
+				// C - Player Position
+				// D - Stair End
+				// progression == |AB| == cos(alpha)*|BC|
 				let progression = Math.cos(MathUtils.degToRad(angleBetweenStairStartAndPlayer)) * flattenedStart.distanceTo(flattenedPlayer);
 				if (progression < 0.07) {
 					progression = 0;
