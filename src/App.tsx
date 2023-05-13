@@ -11,6 +11,7 @@ import SimplePlatform from './scene_objects/SimeplPlatform';
 import { OrbitControls } from '@react-three/drei';
 import CoordOrigin from './scene_objects/CoordOrigin';
 
+
 const ORBITAL_CONTROLS_ACTIVE = false;
 
 export default function App() {
@@ -39,7 +40,6 @@ export default function App() {
 				<Stair startPosition={new Vector3(2, 0, 5)} endPosition={new Vector3(2, 1.5, 7)} reference={addStair} />
 				<SimplePlatform position={[0, 0, 0]} size={[10, 0.5, 10]} reference={addPlatform} color={new Color("lightgreen")} />
 				<SimplePlatform position={[6, 1.5, 12]} size={[10, 0.5, 10]} reference={addPlatform} color={new Color("yellow")} />
-
 				<ambientLight intensity={0.5} />
 				<Player startPosition={new Vector3(0, 0, 0)} platforms={platforms} stairs={stairs} />
 			</Canvas>
