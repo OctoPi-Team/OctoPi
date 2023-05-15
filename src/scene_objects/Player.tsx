@@ -124,7 +124,7 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 				// A---C
 				// |  /
 				// | /
-				// |/
+				// |/<-- alpha
 				// B
 				//
 				// A - Current Progression Point on stair
