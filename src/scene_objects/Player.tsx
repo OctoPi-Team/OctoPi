@@ -8,7 +8,6 @@ const SPEED = 0.05;
 const COLLISION_RANGE = 0.26;
 const COLLISION_IS_ACTIVE = true;
 
-
 // keys stores the current state of keyboard presses
 const keys = {
 	left: false,
@@ -23,12 +22,7 @@ interface PlayerArgs {
 	stairs: StairType[];
 }
 
-function getHeight(
-	stairLength: number,
-	stairHeight: number,
-	currentProgression: number,
-	lowerHeight: number
-) {
+function getHeight(stairLength: number, stairHeight: number, currentProgression: number, lowerHeight: number) {
 	// get height of the player based on position on the staircase
 	// uses trigometry
 	//       y2
@@ -55,7 +49,7 @@ function getHeight(
 function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
 	// player movement
-	useFrame((delta) => {
+	useFrame(delta => {
 		if (!ref.current) return;
 
 		const playerPosition = ref.current.position.clone();
@@ -100,7 +94,6 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 		}
 
 		for (const stair of stairs) {
-
 			function flattenVector(v: Vector3, planeTransformer: Vector3 = new Vector3(1, 0, 1)) {
 				return v.clone().multiply(planeTransformer);
 			}
@@ -119,31 +112,31 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 			const distanceFromPlayerToStairCenter = flattenVector(stair.mesh.position).distanceTo(flattenedPlayer);
 			if (
 				// player is after startPosition
-				angleBetweenStairStartAndPlayer < 90
+				angleBetweenStairStartAndPlayer < 90 &&
 				// player is before endPosition
-				&& angleBetweenStairEndAndPlayer < 90
+				angleBetweenStairEndAndPlayer < 90 &&
 				// player is near enough to the stairs
-				&& distanceFromPlayerToStairCenter < flatStairLength
+				distanceFromPlayerToStairCenter < flatStairLength
 			) {
 				// calculate player height
 				// D
 				// |
-				// A---C 
+				// A---C
 				// |  /
 				// | /
 				// |/
 				// B
-				// 
+				//
 				// A - Current Progression Point on stair
 				// B - Stair Start
 				// C - Player Position
 				// D - Stair End
 				// progression == |AB| == cos(alpha)*|BC|
-				let progression = Math.cos(MathUtils.degToRad(angleBetweenStairStartAndPlayer)) * flattenedStart.distanceTo(flattenedPlayer);
+				let progression =
+					Math.cos(MathUtils.degToRad(angleBetweenStairStartAndPlayer)) * flattenedStart.distanceTo(flattenedPlayer);
 				if (progression < 0.07) {
 					progression = 0;
-				}
-				else if (flatStairLength - progression < 0.07) {
+				} else if (flatStairLength - progression < 0.07) {
 					progression = flatStairLength;
 				}
 				ref.current.position.y = getHeight(
