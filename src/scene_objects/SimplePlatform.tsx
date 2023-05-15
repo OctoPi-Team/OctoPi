@@ -32,7 +32,7 @@ export default function SimplePlatform({
 
 	return (
 		<>
-			<mesh position={position}>
+			<mesh position={[position[0], position[1] + 3, position[2]]}>
 				<Text
 					fontSize={1}
 					font="/fonts/helvetiker_regular.typeface.json"

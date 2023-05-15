@@ -12,7 +12,7 @@ import { OrbitControls } from '@react-three/drei';
 import CoordOrigin from './scene_objects/CoordOrigin';
 import ShipmentPlatform from './ShipmentObjects';
 
-const ORBITAL_CONTROLS_ACTIVE = false;
+const ORBITAL_CONTROLS_ACTIVE = true;
 
 export default function App() {
 	const [visible, setVisible] = useState(true);
@@ -47,30 +47,35 @@ export default function App() {
 				<Stair startPosition={new Vector3(6, 0, 5)} endPosition={new Vector3(6, 2, 8)} reference={addStair} />
 				<SimplePlatform position={[0, 0, 0]} size={[20, 0.5, 13]} reference={addPlatform} color={new Color(0x3aaa35)} />
 				<SimplePlatform
+					name="Engineering"
 					position={[-13, 4, 20]}
 					size={[15, 0.5, 18]}
 					reference={addPlatform}
 					color={new Color(0xdabdd65)}
 				/>
 				<SimplePlatform
+					name="Design"
 					position={[-20, 1, -2]}
 					size={[14, 0.5, 17]}
 					reference={addPlatform}
 					color={new Color(0xdaf0ee)}
 				/>
 				<SimplePlatform
+					name="Production"
 					position={[-10, 2.5, -22]}
 					size={[19, 0.5, 12]}
 					reference={addPlatform}
 					color={new Color(0x587b7f)}
 				/>
 				<SimplePlatform
+					name="Parts"
 					position={[10, 1.5, -20]}
 					size={[13, 0.5, 18]}
 					reference={addPlatform}
 					color={new Color(0x686868)}
 				/>
 				<SimplePlatform
+					name="Monitoring"
 					position={[25, 4.5, -1]}
 					size={[14, 0.5, 19]}
 					reference={addPlatform}
