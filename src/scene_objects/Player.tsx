@@ -49,7 +49,7 @@ function getHeight(stairLength: number, stairHeight: number, currentProgression:
 function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
 	// player movement
-	useFrame(delta => {
+	useFrame(() => {
 		if (!ref.current) return;
 
 		const playerPosition = ref.current.position.clone();
