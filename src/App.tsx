@@ -42,7 +42,7 @@ export default function App() {
 				<CoordOrigin position={new Vector3(10, 0, -1)} />
 				<CoordOrigin position={new Vector3(6, 0, 5)} />
 
-				<Stair startPosition={new Vector3(6, 0, 5)} endPosition={new Vector3(6, 1.5, 10)} reference={addStair} />
+				<Stair startPosition={new Vector3(6, 0, 5)} endPosition={new Vector3(6, 1.5, 8)} reference={addStair} />
 				<SimplePlatform position={[0, 0, 0]} size={[20, 0.5, 10]} reference={addPlatform} color={new Color(0x3aaa35)} />
 				<SimplePlatform
 					position={[-7, 1.5, 12]}
