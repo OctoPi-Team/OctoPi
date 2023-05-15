@@ -10,8 +10,9 @@ import FixedCamera from './scene_objects/FixedCamera';
 import SimplePlatform from './scene_objects/SimplePlatform';
 import { OrbitControls } from '@react-three/drei';
 import CoordOrigin from './scene_objects/CoordOrigin';
+import ShipmentPlatform from './ShipmentObjects';
 
-const ORBITAL_CONTROLS_ACTIVE = false;
+const ORBITAL_CONTROLS_ACTIVE = true;
 
 export default function App() {
 	const [visible, setVisible] = useState(true);
@@ -75,12 +76,7 @@ export default function App() {
 					reference={addPlatform}
 					color={new Color(0xdddddd)}
 				/>
-				<SimplePlatform
-					position={[8, 1.5, 16]}
-					size={[8, 0.5, 16]}
-					reference={addPlatform}
-					color={new Color(0xb2c4d1)}
-				/>
+				<ShipmentPlatform position={[8, 1.5, 16]} reference={addPlatform} />
 				<ambientLight intensity={0.5} />
 				<Player startPosition={new Vector3(0, 0, 0)} platforms={platforms} stairs={stairs} />
 			</Canvas>
