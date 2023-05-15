@@ -93,19 +93,19 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 			}
 		}
 
+		function flattenVector(v: Vector3, planeTransformer: Vector3 = new Vector3(1, 0, 1)) {
+			return v.clone().multiply(planeTransformer);
+		}
+		function getAngleFromThreePoints(start: Vector3, middle: Vector3, end: Vector3) {
+			const dir1 = new Vector3().subVectors(middle, start);
+			const dir2 = new Vector3().subVectors(middle, end);
+			return MathUtils.radToDeg(dir2.angleTo(dir1));
+		}
 		for (const stair of stairs) {
-			function flattenVector(v: Vector3, planeTransformer: Vector3 = new Vector3(1, 0, 1)) {
-				return v.clone().multiply(planeTransformer);
-			}
 			const flattenedStart = flattenVector(stair.startPosition);
 			const flattenedEnd = flattenVector(stair.endPosition);
 			const flattenedPlayer = flattenVector(playerPosition);
 
-			function getAngleFromThreePoints(start: Vector3, middle: Vector3, end: Vector3) {
-				const dir1 = new Vector3().subVectors(middle, start);
-				const dir2 = new Vector3().subVectors(middle, end);
-				return MathUtils.radToDeg(dir2.angleTo(dir1));
-			}
 			const angleBetweenStairStartAndPlayer = getAngleFromThreePoints(flattenedPlayer, flattenedStart, flattenedEnd);
 			const angleBetweenStairEndAndPlayer = getAngleFromThreePoints(flattenedPlayer, flattenedEnd, flattenedStart);
 			const flatStairLength = flattenedStart.distanceTo(flattenedEnd);
