@@ -12,7 +12,7 @@ import { OrbitControls } from '@react-three/drei';
 import CoordOrigin from './scene_objects/CoordOrigin';
 import ShipmentPlatform from './ShipmentObjects';
 
-const ORBITAL_CONTROLS_ACTIVE = true;
+const ORBITAL_CONTROLS_ACTIVE = false;
 
 export default function App() {
 	const [visible, setVisible] = useState(true);
@@ -44,7 +44,7 @@ export default function App() {
 				<CoordOrigin position={new Vector3(10, 0, -1)} />
 				<CoordOrigin position={new Vector3(6, 0, 5)} />
 
-				<Stair startPosition={new Vector3(6, 0, 5)} endPosition={new Vector3(6, 1.5, 8)} reference={addStair} />
+				<Stair startPosition={new Vector3(6, 0, 5)} endPosition={new Vector3(6, 2, 8)} reference={addStair} />
 				<SimplePlatform position={[0, 0, 0]} size={[20, 0.5, 10]} reference={addPlatform} color={new Color(0x3aaa35)} />
 				<SimplePlatform
 					position={[-7, 1.5, 12]}
@@ -76,7 +76,7 @@ export default function App() {
 					reference={addPlatform}
 					color={new Color(0xdddddd)}
 				/>
-				<ShipmentPlatform position={[8, 1.5, 16]} reference={addPlatform} />
+				<ShipmentPlatform position={[8, 2, 16]} reference={addPlatform} />
 				<ambientLight intensity={0.5} />
 				<Player startPosition={new Vector3(0, 0, 0)} platforms={platforms} stairs={stairs} />
 			</Canvas>
