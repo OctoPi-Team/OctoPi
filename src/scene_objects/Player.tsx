@@ -147,21 +147,6 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 				);
 			}
 		}
-		/*
-		// height
-		const stair_one_start = 10;
-		const stair_two_start = 6.5;
-		if (ref.current.position.x > stair_two_start) {
-			// second to third plattform
-			ref.current.position.y = getHeight(stair_two_start, 9, 1.3, 2.1, ref.current.position.x);
-		} else if (ref.current.position.z > stair_one_start) {
-			// first to second platform
-			ref.current.position.y = getHeight(stair_one_start, 16, 0.5, 1.3, ref.current.position.z);
-		} else {
-			// first plattform and default
-			ref.current.position.y = startPosition.y;
-		}
-		*/
 	});
 
 	return (
