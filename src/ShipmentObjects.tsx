@@ -10,7 +10,7 @@ type ShipmentPlatformOptions = {
 export default function ShipmentPlatform({ position = [0, 0, 0], reference }: ShipmentPlatformOptions): JSX.Element {
 	return (
 		<>
-			<SimplePlatform position={position} size={[8, 0.5, 16]} reference={reference} color={new Color(0xb2c4d1)} />
+			<SimplePlatform position={position} size={[15, 0.5, 18]} reference={reference} color={new Color(0xb2c4d1)} />
 			<ObjectLoad
 				pathObj="/shipment.obj"
 				pathMtl="/shipment.mtl"

@@ -33,7 +33,7 @@ export default function App() {
 	return (
 		<div style={{ width: '100vw', height: '100vh' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
 			{visible && <Video setVisible={setVisible} />}
-			<Canvas style={{ visibility: visible ? 'hidden' : 'visible' }}>
+			<Canvas orthographic camera={{ zoom: 50 }} style={{ visibility: visible ? 'hidden' : 'visible' }}>
 				<directionalLight intensity={0.5} color={'white'} />
 				{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
 				{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={5} />}
@@ -45,38 +45,38 @@ export default function App() {
 				<CoordOrigin position={new Vector3(6, 0, 5)} />
 
 				<Stair startPosition={new Vector3(6, 0, 5)} endPosition={new Vector3(6, 2, 8)} reference={addStair} />
-				<SimplePlatform position={[0, 0, 0]} size={[20, 0.5, 10]} reference={addPlatform} color={new Color(0x3aaa35)} />
+				<SimplePlatform position={[0, 0, 0]} size={[20, 0.5, 13]} reference={addPlatform} color={new Color(0x3aaa35)} />
 				<SimplePlatform
-					position={[-7, 1.5, 12]}
-					size={[11, 0.5, 10]}
+					position={[-13, 4, 20]}
+					size={[15, 0.5, 18]}
 					reference={addPlatform}
 					color={new Color(0xdabdd65)}
 				/>
 				<SimplePlatform
-					position={[-15, 1.5, -2]}
-					size={[8, 0.5, 7]}
+					position={[-20, 1, -2]}
+					size={[14, 0.5, 17]}
 					reference={addPlatform}
 					color={new Color(0xdaf0ee)}
 				/>
 				<SimplePlatform
-					position={[-7, 1.5, -14]}
-					size={[14, 0.5, 10]}
+					position={[-10, 2.5, -22]}
+					size={[19, 0.5, 12]}
 					reference={addPlatform}
 					color={new Color(0x587b7f)}
 				/>
 				<SimplePlatform
-					position={[10, 1.5, -16]}
-					size={[9, 0.5, 15]}
+					position={[10, 1.5, -20]}
+					size={[13, 0.5, 18]}
 					reference={addPlatform}
 					color={new Color(0x686868)}
 				/>
 				<SimplePlatform
-					position={[22, 1.5, -1]}
-					size={[12, 0.5, 13]}
+					position={[25, 4.5, -1]}
+					size={[14, 0.5, 19]}
 					reference={addPlatform}
 					color={new Color(0xdddddd)}
 				/>
-				<ShipmentPlatform position={[8, 2, 16]} reference={addPlatform} />
+				<ShipmentPlatform position={[8, 2, 20]} reference={addPlatform} />
 				<ambientLight intensity={0.5} />
 				<Player startPosition={new Vector3(0, 0, 0)} platforms={platforms} stairs={stairs} />
 			</Canvas>
