@@ -1,6 +1,6 @@
 import { useThree, useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
-import { OrthographicCamera } from 'three';
+import { PerspectiveCamera } from 'three';
 
 type CameraProps = {
 	distanceFromPlayerToCamera: number;
@@ -8,7 +8,7 @@ type CameraProps = {
 
 function FixedCamera({ distanceFromPlayerToCamera }: CameraProps) {
 	const { scene, camera } = useThree();
-	const cameraRef = useRef<OrthographicCamera>(null);
+	const cameraRef = useRef<PerspectiveCamera>(null);
 	useFrame(() => {
 		if (!scene || !cameraRef.current) return;
 		const player = scene.getObjectByName('player');
@@ -23,7 +23,7 @@ function FixedCamera({ distanceFromPlayerToCamera }: CameraProps) {
 			camera.lookAt(playerPosition);
 		}
 	});
-	return <orthographicCamera ref={cameraRef} />;
+	return <perspectiveCamera ref={cameraRef} />;
 }
 
 export default FixedCamera;
