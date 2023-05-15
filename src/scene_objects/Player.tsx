@@ -8,7 +8,6 @@ const SPEED = 0.05;
 const COLLISION_RANGE = 0.26;
 const COLLISION_IS_ACTIVE = true;
 
-
 // keys stores the current state of keyboard presses
 const keys = {
 	left: false,
@@ -23,12 +22,7 @@ interface PlayerArgs {
 	stairs: StairType[];
 }
 
-function getHeight(
-	stairLength: number,
-	stairHeight: number,
-	currentProgression: number,
-	lowerHeight: number
-) {
+function getHeight(stairLength: number, stairHeight: number, currentProgression: number, lowerHeight: number) {
 	// get height of the player based on position on the staircase
 	// uses trigometry
 	//       y2
@@ -55,7 +49,7 @@ function getHeight(
 function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
 	// player movement
-	useFrame((delta) => {
+	useFrame(() => {
 		if (!ref.current) return;
 
 		const playerPosition = ref.current.position.clone();
@@ -99,51 +93,50 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 			}
 		}
 
+		function flattenVector(v: Vector3, planeTransformer: Vector3 = new Vector3(1, 0, 1)) {
+			return v.clone().multiply(planeTransformer);
+		}
+		function getAngleFromThreePoints(start: Vector3, middle: Vector3, end: Vector3) {
+			const dir1 = new Vector3().subVectors(middle, start);
+			const dir2 = new Vector3().subVectors(middle, end);
+			return MathUtils.radToDeg(dir2.angleTo(dir1));
+		}
 		for (const stair of stairs) {
-
-			function flattenVector(v: Vector3, planeTransformer: Vector3 = new Vector3(1, 0, 1)) {
-				return v.clone().multiply(planeTransformer);
-			}
 			const flattenedStart = flattenVector(stair.startPosition);
 			const flattenedEnd = flattenVector(stair.endPosition);
 			const flattenedPlayer = flattenVector(playerPosition);
 
-			function getAngleFromThreePoints(start: Vector3, middle: Vector3, end: Vector3) {
-				const dir1 = new Vector3().subVectors(middle, start);
-				const dir2 = new Vector3().subVectors(middle, end);
-				return MathUtils.radToDeg(dir2.angleTo(dir1));
-			}
 			const angleBetweenStairStartAndPlayer = getAngleFromThreePoints(flattenedPlayer, flattenedStart, flattenedEnd);
 			const angleBetweenStairEndAndPlayer = getAngleFromThreePoints(flattenedPlayer, flattenedEnd, flattenedStart);
 			const flatStairLength = flattenedStart.distanceTo(flattenedEnd);
 			const distanceFromPlayerToStairCenter = flattenVector(stair.mesh.position).distanceTo(flattenedPlayer);
 			if (
 				// player is after startPosition
-				angleBetweenStairStartAndPlayer < 90
+				angleBetweenStairStartAndPlayer < 90 &&
 				// player is before endPosition
-				&& angleBetweenStairEndAndPlayer < 90
+				angleBetweenStairEndAndPlayer < 90 &&
 				// player is near enough to the stairs
-				&& distanceFromPlayerToStairCenter < flatStairLength
+				distanceFromPlayerToStairCenter < flatStairLength
 			) {
 				// calculate player height
 				// D
 				// |
-				// A---C 
+				// A---C
 				// |  /
 				// | /
 				// |/
 				// B
-				// 
+				//
 				// A - Current Progression Point on stair
 				// B - Stair Start
 				// C - Player Position
 				// D - Stair End
 				// progression == |AB| == cos(alpha)*|BC|
-				let progression = Math.cos(MathUtils.degToRad(angleBetweenStairStartAndPlayer)) * flattenedStart.distanceTo(flattenedPlayer);
+				let progression =
+					Math.cos(MathUtils.degToRad(angleBetweenStairStartAndPlayer)) * flattenedStart.distanceTo(flattenedPlayer);
 				if (progression < 0.07) {
 					progression = 0;
-				}
-				else if (flatStairLength - progression < 0.07) {
+				} else if (flatStairLength - progression < 0.07) {
 					progression = flatStairLength;
 				}
 				ref.current.position.y = getHeight(
@@ -154,21 +147,6 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 				);
 			}
 		}
-		/*
-		// height
-		const stair_one_start = 10;
-		const stair_two_start = 6.5;
-		if (ref.current.position.x > stair_two_start) {
-			// second to third plattform
-			ref.current.position.y = getHeight(stair_two_start, 9, 1.3, 2.1, ref.current.position.x);
-		} else if (ref.current.position.z > stair_one_start) {
-			// first to second platform
-			ref.current.position.y = getHeight(stair_one_start, 16, 0.5, 1.3, ref.current.position.z);
-		} else {
-			// first plattform and default
-			ref.current.position.y = startPosition.y;
-		}
-		*/
 	});
 
 	return (

@@ -1,12 +1,11 @@
 import { useEffect, useRef } from 'react';
 import { Mesh, Vector3 } from 'three';
 
-
 export type StairType = {
 	mesh: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>;
 	startPosition: Vector3;
 	endPosition: Vector3;
-}
+};
 
 interface StairProps {
 	startPosition: Vector3;
@@ -37,7 +36,7 @@ function Stair({ startPosition, endPosition, reference }: StairProps) {
 
 	return (
 		<mesh ref={ref}>
-			<boxBufferGeometry args={[1, 0, length]} />
+			<boxBufferGeometry args={[1.5, 0, length]} />
 			<meshStandardMaterial color={'white'} />
 		</mesh>
 	);
