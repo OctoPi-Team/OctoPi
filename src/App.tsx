@@ -33,6 +33,7 @@ export default function App() {
 		<div style={{ width: '100vw', height: '100vh' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
 			{visible && <Video setVisible={setVisible} />}
 			<Canvas style={{ visibility: visible ? 'hidden' : 'visible' }}>
+				<directionalLight intensity={0.5} color={'white'} />
 				{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
 				{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={5} />}
 				<CoordOrigin position={new Vector3(-6, 0, 5)} />
