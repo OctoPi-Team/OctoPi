@@ -11,8 +11,7 @@ import SimplePlatform from './scene_objects/SimplePlatform';
 import { OrbitControls } from '@react-three/drei';
 import CoordOrigin from './scene_objects/CoordOrigin';
 import ShipmentPlatform from './ShipmentObjects';
-
-const ORBITAL_CONTROLS_ACTIVE = true;
+const ORBITAL_CONTROLS_ACTIVE = false;
 
 export default function App() {
 	const [visible, setVisible] = useState(true);
@@ -33,17 +32,10 @@ export default function App() {
 	return (
 		<div style={{ width: '100vw', height: '100vh' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
 			{visible && <Video setVisible={setVisible} />}
-			<Canvas orthographic camera={{ zoom: 50 }} style={{ visibility: visible ? 'hidden' : 'visible' }}>
+			<Canvas orthographic camera={{ zoom: 40 }} style={{ visibility: visible ? 'hidden' : 'visible' }}>
 				<directionalLight intensity={0.5} color={'white'} />
 				{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
-				{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={5} />}
-				<CoordOrigin position={new Vector3(-6, 0, 5)} />
-				<CoordOrigin position={new Vector3(-10, 0, -1)} />
-				<CoordOrigin position={new Vector3(-4, 0, -5)} />
-				<CoordOrigin position={new Vector3(8, 0, -5)} />
-				<CoordOrigin position={new Vector3(10, 0, -1)} />
-				<CoordOrigin position={new Vector3(6, 0, 5)} />
-
+				{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} />}
 				<SimplePlatform position={[0, 0, 0]} size={[20, 0.5, 13]} reference={addPlatform} color={new Color(0x3aaa35)} />
 				<SimplePlatform
 					name="Engineering"
