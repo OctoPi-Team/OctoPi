@@ -11,6 +11,7 @@ import SimplePlatform from './scene_objects/SimplePlatform';
 import { OrbitControls } from '@react-three/drei';
 import CoordOrigin from './scene_objects/CoordOrigin';
 import ShipmentPlatform from './ShipmentPlatform';
+import Tube from './scene_objects/Tube';
 const ORBITAL_CONTROLS_ACTIVE = false;
 
 export default function App() {
@@ -81,6 +82,7 @@ export default function App() {
 				/>
 				<ambientLight intensity={0.5} />
 				<Player startPosition={new Vector3(0, 0, 0)} platforms={platforms} stairs={stairs} />
+				<Tube name="Tube" position={[0, 0, 0]} size={[1, 0.1, 1]} color={new Color(0x000000)} />
 			</Canvas>
 		</div>
 	);

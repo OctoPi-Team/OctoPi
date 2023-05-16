@@ -7,6 +7,7 @@ type CreateTextProps = {
 };
 
 export default function CreateText({ text, position, rotation }: CreateTextProps) {
+	// rotation in Radiant
 	return (
 		<mesh position={position} rotation={[Math.PI / 2, Math.PI, rotation]}>
 			<Text

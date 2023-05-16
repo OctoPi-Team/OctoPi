@@ -31,10 +31,8 @@ export default function SimplePlatform({
 		}
 	}, position);
 	const { camera } = useThree();
-
 	const meshRef = useRef<Mesh>(null);
 	const textRef = useRef<Mesh>(null);
-
 	useFrame(() => {
 		if (meshRef.current && textRef.current) {
 			meshRef.current.lookAt(camera.position);
