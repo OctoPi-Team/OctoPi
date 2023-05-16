@@ -44,7 +44,6 @@ export default function App() {
 				<CoordOrigin position={new Vector3(10, 0, -1)} />
 				<CoordOrigin position={new Vector3(6, 0, 5)} />
 
-				<Stair startPosition={new Vector3(6, 0, 5)} endPosition={new Vector3(6, 2, 8)} reference={addStair} />
 				<SimplePlatform position={[0, 0, 0]} size={[20, 0.5, 13]} reference={addPlatform} color={new Color(0x3aaa35)} />
 				<SimplePlatform
 					name="Engineering"
