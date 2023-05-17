@@ -157,7 +157,7 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 				position={[0, 0, 0]}
 				pathMtl="public/Blank.mtl"
 				scale={[0.015, 0.015, 0.015]}
-				rotation={[-90, 0, -90]}
+				rotation={[-90, 0, 0]}
 			/>
 		</mesh>
 	);
