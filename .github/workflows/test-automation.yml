@@ -22,7 +22,7 @@ jobs:
       - name: Build the App
         run: npm ci && npm run build
       - name: Run Tests
-        run: npm run coverage
+        run: npm run coverage --detectOpenHandles
       - name: Create Test-View folder
         run: mkdir test-view
       - name: Create Test Statistics View
