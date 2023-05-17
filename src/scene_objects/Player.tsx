@@ -153,9 +153,9 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 	return (
 		<mesh name="player" ref={ref} position={[startPosition.x, startPosition.y + PLAYER_SIZE / 2, startPosition.z]}>
 			<ObjectLoad
-				pathObj="public/11102_SoccerPlayer_v3.obj"
+				pathObj="/11102_SoccerPlayer_v3.obj"
 				position={[0, 0, 0]}
-				pathMtl="public/Blank.mtl"
+				pathMtl="/Blank.mtl"
 				scale={[0.015, 0.015, 0.015]}
 				rotation={[-90, 0, 0]}
 			/>
