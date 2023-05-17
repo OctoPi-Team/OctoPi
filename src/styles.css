@@ -68,7 +68,7 @@ video {
 }
 
 .loadingScreen__button:hover {
-	background-color: rgba(20, 208, 70, 0.754);
+	background-color: rgba(0, 119, 32, 0.754);
 	cursor: pointer;
 }
 
