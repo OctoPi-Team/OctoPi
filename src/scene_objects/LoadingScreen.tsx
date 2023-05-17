@@ -7,7 +7,7 @@ type LoadingScreenProps = {
 export const LoadingScreen = ({ setVisible }: LoadingScreenProps) => {
 	const { progress } = useProgress();
 	return (
-		<div className={'loadingScreen'}>
+		<div className="loadingScreen">
 			<div className="loadingScreen__progress">
 				<div
 					className="loadingScreen__progress__value"
