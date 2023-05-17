@@ -9,7 +9,7 @@ describe('Test1', function () {
   let driver;
   beforeEach(async function () {
     driver = await new Builder().forBrowser('firefox').setFirefoxOptions(new firefox.Options().headless()).build();
-  });
+  }, 15);
 
   afterEach(async function () {
     await driver.quit();
