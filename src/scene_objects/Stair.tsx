@@ -36,7 +36,7 @@ function Stair({ startPosition, endPosition, reference }: StairProps) {
 
 	return (
 		<mesh ref={ref}>
-			<boxGeometry args={[1.5, 0, length]} />
+			<boxGeometry args={[1.5, 0.15, length]} />
 			<meshStandardMaterial color={'white'} />
 		</mesh>
 	);
