@@ -4,7 +4,7 @@ import { BufferGeometry, Material, MathUtils, Mesh, Raycaster, Vector3 } from 't
 import { StairType } from './Stair';
 
 const PLAYER_SIZE = 0.5;
-const SPEED = 0.05;
+const SPEED = 0.075;
 const COLLISION_RANGE = 0.26;
 const COLLISION_IS_ACTIVE = true;
 
@@ -78,16 +78,28 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 			if (results.length > 0 || !COLLISION_IS_ACTIVE) {
 				switch (String(pointId)) {
 					case '0': // right
-						if (keys.right) ref.current.position.z += SPEED;
+						if (keys.right) {
+							ref.current.position.z += SPEED / 2;
+							ref.current.position.x -= SPEED / 2;
+						}
 						break;
 					case '1': // down
-						if (keys.down) ref.current.position.x -= SPEED;
+						if (keys.down) {
+							ref.current.position.x -= SPEED / 2;
+							ref.current.position.z -= SPEED / 2;
+						}
 						break;
 					case '2': // left
-						if (keys.left) ref.current.position.z -= SPEED;
+						if (keys.left) {
+							ref.current.position.z -= SPEED / 2;
+							ref.current.position.x += SPEED / 2;
+						}
 						break;
 					case '3': // up
-						if (keys.up) ref.current.position.x += SPEED;
+						if (keys.up) {
+							ref.current.position.x += SPEED / 2;
+							ref.current.position.z += SPEED / 2;
+						}
 						break;
 				}
 			}
