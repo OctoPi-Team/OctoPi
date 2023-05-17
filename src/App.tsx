@@ -82,7 +82,9 @@ export default function App() {
 				/>
 				<ambientLight intensity={0.5} />
 				<Player startPosition={new Vector3(0, 0, 0)} platforms={platforms} stairs={stairs} />
-				<Tube name="Tube" position={[0, 0, 0]} size={[1, 0.1, 1]} color={new Color(0x000000)} />
+				<Tube name="Tube" position={[16, 2, 18]} size={[0.5, 8, 1]}  />
+				<Tube name="Tube" position={[10, 2, 18]} size={[0.5, 8, 1]} />
+				
 			</Canvas>
 		</div>
 	);
