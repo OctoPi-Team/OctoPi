@@ -151,7 +151,7 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 
 	return (
 		<mesh name="player" ref={ref} position={[startPosition.x, startPosition.y + PLAYER_SIZE / 2, startPosition.z]}>
-			<boxBufferGeometry args={[PLAYER_SIZE, PLAYER_SIZE, PLAYER_SIZE]} />
+			<boxGeometry args={[PLAYER_SIZE, PLAYER_SIZE, PLAYER_SIZE]} />
 			<meshStandardMaterial color={'blue'} />
 		</mesh>
 	);

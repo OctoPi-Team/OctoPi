@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { Color, Euler, Mesh, Vector3 } from 'three';
+import { Color, Mesh, Vector3 } from 'three';
 import { Text } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 
@@ -43,19 +43,13 @@ export default function SimplePlatform({
 	return (
 		<>
 			<mesh position={[position[0], position[1] + 3, position[2]]} ref={meshRef}>
-				<Text
-					fontSize={1}
-					font="/fonts/helvetiker_regular.typeface.json"
-					color={0x000000}
-					anchorX="center"
-					anchorY="middle"
-					ref={textRef}>
+				<Text fontSize={1} font="" color={0x000000} anchorX="center" anchorY="middle" ref={textRef}>
 					{name}
 				</Text>
 				<meshStandardMaterial attach="material" color={0x000000} />
 			</mesh>
 			<mesh ref={ref}>
-				<boxBufferGeometry args={size} />
+				<boxGeometry args={size} />
 				<meshStandardMaterial color={color} />
 			</mesh>
 		</>
