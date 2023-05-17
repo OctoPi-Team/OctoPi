@@ -19,6 +19,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Add environment variable SERVER_URL
+        run: echo "SERVER_URL=https://frontend-octopi.cfapps.eu10-004.hana.ondemand.com" > .env
+
       - name: Build the App
         run: npm ci && npm run build
       - name: Run Tests

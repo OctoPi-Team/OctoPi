@@ -2,23 +2,25 @@
 const { assert } = require('console');
 const { Builder, By, Key, until } = require('selenium-webdriver');
 const firefox = require('selenium-webdriver/firefox');
+const server_url = process.env.SERVER_URL || "http://localhost:5173/";
+
 
 describe('Test1', function () {
-	let driver;
-	beforeEach(async function () {
-		driver = await new Builder().forBrowser('firefox').setFirefoxOptions(new firefox.Options().headless()).build();
-	});
+  let driver;
+  beforeEach(async function () {
+    driver = await new Builder().forBrowser('firefox').setFirefoxOptions(new firefox.Options().headless()).build();
+  });
 
-	afterEach(async function () {
-		await driver.quit();
-	});
+  afterEach(async function () {
+    await driver.quit();
+  });
 
-	it('Test1', async function () {
-		await driver.get('http://localhost:5173/');
-		await driver.manage().window().setRect({ width: 1226, height: 771 });
-		await driver.findElement(By.css('.video')).click();
-		await driver.findElement(By.css('canvas')).click();
-		let sgVal = await driver.executeScript('return 45;');
-		expect(sgVal).toBe(45);
-	});
+  it('Test1', async function () {
+    await driver.get(server_url);
+    await driver.manage().window().setRect({ width: 1226, height: 771 });
+    await driver.findElement(By.css('.video')).click();
+    await driver.findElement(By.css('canvas')).click();
+    let sgVal = await driver.executeScript('return 45;');
+    expect(sgVal).toBe(45);
+  });
 });
