@@ -9,7 +9,6 @@ import Video from './Video';
 import FixedCamera from './scene_objects/FixedCamera';
 import SimplePlatform from './scene_objects/SimplePlatform';
 import { OrbitControls } from '@react-three/drei';
-import CoordOrigin from './scene_objects/CoordOrigin';
 import ShipmentPlatform from './ShipmentPlatform';
 import Tube from './scene_objects/Tube';
 const ORBITAL_CONTROLS_ACTIVE = false;
