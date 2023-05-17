@@ -2,6 +2,7 @@ import { useFrame } from '@react-three/fiber';
 import React, { useRef } from 'react';
 import { BufferGeometry, Material, MathUtils, Mesh, Raycaster, Vector3 } from 'three';
 import { StairType } from './Stair';
+import ObjectLoad from '../ObjectLoad';
 
 const PLAYER_SIZE = 0.5;
 const SPEED = 0.05;
@@ -151,8 +152,13 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 
 	return (
 		<mesh name="player" ref={ref} position={[startPosition.x, startPosition.y + PLAYER_SIZE / 2, startPosition.z]}>
-			<boxBufferGeometry args={[PLAYER_SIZE, PLAYER_SIZE, PLAYER_SIZE]} />
-			<meshStandardMaterial color={'blue'} />
+			<ObjectLoad
+				pathObj="public/11102_SoccerPlayer_v3.obj"
+				position={[0, 0, 0]}
+				pathMtl="public/Blank.mtl"
+				scale={[0.015, 0.015, 0.015]}
+				rotation={[-90, 0, 0]}
+			/>
 		</mesh>
 	);
 }
