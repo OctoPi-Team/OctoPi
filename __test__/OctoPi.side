@@ -1,0 +1,57 @@
+{
+  "id": "f6b9d4f6-8ac4-43bd-824d-67caba5ac015",
+  "version": "2.0",
+  "name": "OctoPi",
+  "url": "http://localhost:5173",
+  "tests": [{
+    "id": "65155f9f-9f4c-4fc3-92c3-22d3fd65f6bd",
+    "name": "Test1",
+    "commands": [{
+      "id": "7d4605ef-d26d-4320-9709-9f036cc45477",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6dcf8556-6c8b-40f3-9afb-d003bb6052cc",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1226x771",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "86afecd9-1bfb-4370-a6ff-43d67ff7fe77",
+      "comment": "",
+      "command": "click",
+      "target": "css=.video",
+      "targets": [
+        ["css=.video", "css:finder"],
+        ["xpath=//div[@id='root']/div/video", "xpath:idRelative"],
+        ["xpath=//video", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "3693e18a-1625-4395-a88f-0b748ca9cea3",
+      "comment": "",
+      "command": "click",
+      "target": "css=canvas",
+      "targets": [
+        ["css=canvas", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div/canvas", "xpath:idRelative"],
+        ["xpath=//canvas", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "646f320e-8362-4e65-84bd-fdf1ff05647f",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["65155f9f-9f4c-4fc3-92c3-22d3fd65f6bd"]
+  }],
+  "urls": ["http://localhost:5173/"],
+  "plugins": []
+}
