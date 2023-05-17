@@ -2,6 +2,9 @@ name: Automatic Deployment
 on:
   schedule:
     - cron:  '0 6 * * *'
+  push:
+    branches:
+      - testing
 
 jobs:
   build:
