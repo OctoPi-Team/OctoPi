@@ -8,7 +8,7 @@
 			"version": "detect"
 		}
 	},
-	"ignorePatterns": ["vite.config.ts", "**/vendor/*.js"],
+	"ignorePatterns": ["vite.config.ts", "**/vendor/*.js", "__test__/**/*.js"],
 	"extends": [
 		"eslint:recommended",
 		"plugin:react/recommended",
@@ -25,7 +25,12 @@
 	},
 	"plugins": ["react", "@typescript-eslint"],
 	"rules": {
-		"react/no-unknown-property": ["off", { "ignore": ["css"] }],
+		"react/no-unknown-property": [
+			"off",
+			{
+				"ignore": ["css"]
+			}
+		],
 		"no-console": "warn"
 	}
 }
