@@ -1,0 +1,30 @@
+# Testing
+
+## test creation workflow
+
+tests are written in mocha.js.
+To create End-to-End tests you can install and open the Selenium IDE broswer plugin and open/create the corresponding `*.side` file.
+
+There you can rightclick and export mocha.js code (on the left)
+
+This code is than adapted and used within our tests (`__test__/...`)
+
+
+## executing tests
+
+to execute all tests run `npm run test`
+
+to only execute specific tests, add the path `npm run test __test__/only-one-test.js __test__/another-one.js`
+
+(is done via jest)
+
+for coverage you can run `npm run coverage`
+
+## when to use which tests
+
+selenium tests can be used to trigger a specific order of events, that is too complex to mimic with hardcoding yourself. For the tests to be usefull the conitions need to be assertable -> not every playermovement can be measured by selenium.
+
+It additionally can be used to make the creation process of normal mocha react tests easier, because you can jsut click and it gives you the correct objects and css classes. The resulting code can than be used to rewrite it to normal tests without selenium.
+
+For everything else the React testing framework within mocha is used.
+
