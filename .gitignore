@@ -8,6 +8,7 @@
 # test-artifacts
 test-report.html
 /coverage
+/test-view
 
 # production
 /build
