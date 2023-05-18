@@ -30,7 +30,7 @@ jobs:
         run: |
           npm start &
           echo "Waiting for application to start"
-          until $(curl --output /dev/null --silent --head --fail http://localhost:3000); do
+          until $(curl --output /dev/null --silent --head --fail http://localhost:5173); do
             echo "."
             sleep 1
           done
@@ -39,7 +39,7 @@ jobs:
         run: npm run coverage --detectOpenHandles
         
       - name: Stop Application
-        run: kill $(lsof -t -i:3000) || echo "Application already stopped"
+        run: kill $(lsof -t -i:5173) || echo "Application already stopped"
 
       - name: Create Test-View folder
         run: mkdir test-view
