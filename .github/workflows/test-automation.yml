@@ -25,21 +25,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: apt-get update && apt-get install -y wget bzip2 libxtst6 libgtk-3-0 libx11-xcb-dev libdbus-glib-1-2 libxt6 libpci-dev
-      - name: Download and Install Firefox
-        run: |
-          wget -O firefox.tar.bz2 "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US"
-          tar xvjf firefox.tar.bz2
-          echo "$PWD/firefox" >> $GITHUB_PATH
-
-      - name: Install Geckodriver
-        run: |
-          wget -O geckodriver.tar.gz "https://github.com/mozilla/geckodriver/releases/download/v0.33.0/geckodriver-v0.33.0-linux64.tar.gz"
-          tar xvzf geckodriver.tar.gz
-          echo "$PWD/geckodriver" >> $GITHUB_PATH
-
-      - run: ls -la && pwd && echo $PATH
-
+     
       - name: Install Dependencies
         run: npm ci
       - name: Start Application
@@ -51,8 +37,13 @@ jobs:
             sleep 1
           done
 
-      - name: Run Tests with Coverage
-        run: npm run coverage --detectOpenHandles
+      - name: Run Mocha Tests
+        uses: docker://selenium/standalone-firefox:4.0.0
+        with:
+          args: npm run coverage --detectOpenHandles
+
+#      - name: Run Tests with Coverage
+ #       run: npm run coverage --detectOpenHandles
         
       - name: Stop Application
         run: kill $(lsof -t -i:5173) || echo "Application already stopped"
