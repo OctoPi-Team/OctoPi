@@ -16,7 +16,8 @@ jobs:
     services:
       firefox:
         image: selenium/standalone-firefox:3
-
+    env:
+      FIREFOX_BINARY_PATH: /usr/bin/firefox
     strategy:
       matrix:
         node-version: [18.x]
@@ -38,6 +39,9 @@ jobs:
             echo "."
             sleep 1
           done
+
+      - name: Set Firefox Path
+        run: echo "export FIREFOX_BINARY_PATH=$FIREFOX_BINARY_PATH" >> $GITHUB_ENV
 
       - name: Run Tests with Coverage
         run: npm run coverage --detectOpenHandles
