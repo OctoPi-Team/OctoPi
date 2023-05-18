@@ -26,7 +26,7 @@ jobs:
           cache: 'npm'
 
       - name: Install Firefox
-        run: sudo apt-get install -y firefox
+        run: apt-get install -y firefox
       - name: Install Dependencies
         run: npm ci
       - name: Start Application
