@@ -23,7 +23,8 @@ jobs:
     
     services:
       chrome:
-        image: selenium/standalone-chrome
+        image: selenium/standalone-chrome113.0.5672.63
+    
         ports:
           - 4444:4444
           - 5900:5900
