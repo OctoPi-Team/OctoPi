@@ -25,10 +25,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
-      - name: Install Firefox
-        uses: browser-actions/setup-firefox@v1
-      - run: firefox --version
-
+      - name: Install Geckodriver
+        run: npm install geckodriver
+      
       - name: Install Dependencies
         run: npm ci
       - name: Start Application
