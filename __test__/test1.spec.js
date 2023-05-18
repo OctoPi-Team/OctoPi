@@ -5,8 +5,9 @@ const firefox = require('selenium-webdriver/firefox');
 const server_url = "http://localhost:5173/";
 
 // TODO, implement different browsers are used based on this value
-const browser = process.env.BROWSER || "firefox"
-const browser_path = process.env.BROWSER_PATH || null
+const browser = process.env.BROWSER || "firefox";
+const browser_path = process.env.BROWSER_PATH || null;
+console.log(browser_path);
 
 describe('Test1', function () {
   let driver;
