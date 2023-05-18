@@ -22,8 +22,8 @@ describe('Test1', function () {
         driver = await new Builder().forBrowser('firefox').setFirefoxOptions(firefox_options).build();
         break;
       case "chrome":
-        var capabilities = Capabilities.chrome().headless();
-        let chrome_options = new chrome.Options();
+        var capabilities = Capabilities.chrome();
+        let chrome_options = new chrome.Options().headless();
         if (browser_path != null) {
           chrome_options.setBinaryPath(browser_path);
         }
