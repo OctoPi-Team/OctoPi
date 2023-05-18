@@ -7,7 +7,9 @@ on:
       - testing
 
 jobs:
-  build:
+
+
+start-application:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -19,13 +21,24 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Add environment variable SERVER_URL
-        run: echo "SERVER_URL=https://frontend-octopi.cfapps.eu10-004.hana.ondemand.com" > .env
+          cache: 'npm'
+      - name: Install Dependencies
+        run: npm ci
+      - name: Start Application
+        run: npm start
 
-      - name: Build the App
-        run: npm ci && npm run build
-      - name: Run Tests
-        run: npm start & sleep 5 && npm run coverage --detectOpenHandles
+  run-test-and-deploy-results:
+    needs: start-application
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+      - name: Wait for Webserver to Start
+        run: sleep 5
+      - name: Run Coverage
+        run: npm run coverage --detectOpenHandles
+        
       - name: Create Test-View folder
         run: mkdir test-view
       - name: Create Test Statistics View
