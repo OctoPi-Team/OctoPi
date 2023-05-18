@@ -6,6 +6,7 @@ on:
     branches:
       - testing
 
+ 
 jobs:
   start-application: # TODO rename
     runs-on: ubuntu-latest
@@ -19,7 +20,13 @@ jobs:
         node-version: [18.x]
     env:
       BROWSER: chrome
-
+    
+    services:
+      chrome:
+        image: selenium/standalone-chrome
+        ports:
+          - 4444:4444
+ 
     steps:
       - name: Load Repo
         uses: actions/checkout@v3
