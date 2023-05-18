@@ -18,7 +18,7 @@ jobs:
       matrix:
         node-version: [18.x]
     env:
-      BROWSER: firefox
+      BROWSER: chrome
 
     steps:
       - name: Load Repo
@@ -33,6 +33,7 @@ jobs:
       - uses: browser-actions/setup-chrome@v1
 #      - uses: browser-actions/setup-firefox@v1
         with:
+          chrome-version: 'latest'
           firefox-version: 'latest'
 
       - name: Install Dependencies
