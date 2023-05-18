@@ -20,7 +20,8 @@
 		"lint": "eslint --fix --ext .ts,.tsx ./src",
 		"format": "prettier --write src/*.{js,jsx,ts,tsx,css,md,json,scss} --config ./.prettierrc",
 		"test": "jest",
-		"coverage": "jest --coverage"
+		"coverage": "jest --coverage",
+		"standalone-coverage-test": "start-server-and-test start http://localhost:5173 coverage"
 	},
 	"eslintConfig": {
 		"extends": [
@@ -66,6 +67,7 @@
 		"prettier": "2.8.8",
 		"react-test-renderer": "^18.2.0",
 		"selenium-webdriver": "^4.9.2",
+		"start-server-and-test": "^2.0.0",
 		"ts-jest": "^29.1.0",
 		"ts-node": "^10.9.1",
 		"vite": "^4.3.5"

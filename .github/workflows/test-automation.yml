@@ -25,28 +25,36 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-     
+ 
+      - name: Start selenoid
+        uses: Xotabu4/selenoid-github-action@v2
+  
       - name: Install Dependencies
         run: npm ci
-      - name: Start Application
-        run: |
-          npm start &
-          echo "Waiting for application to start"
-          until $(curl --output /dev/null --silent --head --fail http://localhost:5173); do
-            echo "."
-            sleep 1
-          done
+    
+      - name: Run Tests
+        run: npm run standalone-coverage-test
 
-      - name: Run Mocha Tests
-        uses: docker://selenium/standalone-firefox:4.0.0
-        with:
-          args: npm run coverage --detectOpenHandles
+
+#      - name: Start Application
+ #       run: |
+  #        npm start &
+   #       echo "Waiting for application to start"
+    #      until $(curl --output /dev/null --silent --head --fail http://localhost:5173); do
+     #       echo "."
+      #      sleep 1
+       #   done
+
+#      - name: Run Mocha Tests
+ #       uses: docker://selenium/standalone-firefox:4.0.0
+  #      with:
+   #       args: npm run coverage --detectOpenHandles
 
 #      - name: Run Tests with Coverage
  #       run: npm run coverage --detectOpenHandles
         
-      - name: Stop Application
-        run: kill $(lsof -t -i:5173) || echo "Application already stopped"
+     # - name: Stop Application
+      #  run: kill $(lsof -t -i:5173) || echo "Application already stopped"
 
       - name: Create Test-View folder
         run: mkdir test-view
