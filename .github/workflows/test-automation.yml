@@ -32,6 +32,7 @@ jobs:
      # - run: apt-get update && apt-get install google-chrome-stable
 
       - run: apt-get update && apt-get install -y libgconf-2-4 libatk1.0-0 libatk-bridge2.0-0 libgdk-pixbuf2.0-0 libgtk-3-0 libgbm-dev libnss3-dev libxss-dev libasound2 libx11-xcb-dev dbus
+      - run: mkdir -p /var/run/dbus && dbus-daemon --config-file=/usr/share/dbus-1/system.conf --print-address
       - uses: browser-actions/setup-chrome@v1
 #      - uses: browser-actions/setup-firefox@v1
         with:
