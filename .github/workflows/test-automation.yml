@@ -37,6 +37,7 @@ jobs:
       - uses: browser-actions/setup-chrome@v1
 #      - uses: browser-actions/setup-firefox@v1
         with:
+          args: --no-sandbox --disable-dev-shm-usage
           chrome-version: 'stable'
           firefox-version: 'latest'
 
