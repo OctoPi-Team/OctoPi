@@ -31,6 +31,8 @@ jobs:
      #     wget -O firefox.tar.bz2 "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US"
       #    tar xvjf firefox.tar.bz2
        #   echo "$PWD/firefox" >> $GITHUB_PATH
+      - run: tree /usr/local
+
       - name: "Install Firefox"
         uses: browser-actions/setup-firefox@v1
         with:
