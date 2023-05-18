@@ -7,16 +7,26 @@ const server_url = "http://localhost:5173/";
 // TODO, implement different browsers are used based on this value
 const browser = process.env.BROWSER || "firefox";
 const browser_path = process.env.BROWSER_PATH || null;
-console.log(browser_path);
 
 describe('Test1', function () {
   let driver;
   beforeEach(async function () {
-    let firefox_options = new firefox.Options().headless();
-    if (browser_path != null) {
-      firefox_options = firefox_options.setBinary(browser_path);
+    switch (browser) {
+      case "firefox":
+        let firefox_options = new firefox.Options().headless();
+        if (browser_path != null) {
+          firefox_options = firefox_options.setBinary(browser_path);
+        }
+        driver = await new Builder().forBrowser('firefox').setFirefoxOptions(firefox_options).build();
+        break;
+      case "chrome":
+        let chrome_options = new firefox.Options().headless();
+        if (browser_path != null) {
+          chrome_options = chrome_options.setBinary(browser_path);
+        }
+        driver = await new Builder().forBrowser('chrome').setChromeOptions(chrome_options).build();
+        break;
     }
-    driver = await new Builder().forBrowser('firefox').setFirefoxOptions(firefox_options).build();
   });
 
   afterEach(async function () {
