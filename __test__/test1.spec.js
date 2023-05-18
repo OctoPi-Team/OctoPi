@@ -11,7 +11,7 @@ const browser_path = process.env.BROWSER_PATH || null
 describe('Test1', function () {
   let driver;
   beforeEach(async function () {
-    const firefox_options = new firefox.Options().headless();
+    let firefox_options = new firefox.Options().headless();
     if (browser_path != null) {
       firefox_options = firefox_options.setBinary(browser_path);
     }
