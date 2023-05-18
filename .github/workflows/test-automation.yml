@@ -25,6 +25,13 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
+      - name: Download and Install Firefox
+        run: |
+          wget -O firefox.tar.bz2 "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US"
+          tar xvjf firefox.tar.bz2
+          export PATH="$PWD/firefox:$PATH"
+
+
       - name: Install Geckodriver
         run: npm install geckodriver
       
