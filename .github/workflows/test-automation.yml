@@ -16,9 +16,7 @@ jobs:
     services:
       firefox:
         image: selenium/standalone-firefox:3
-    env:
-      BROWSER: firefox
-      BROWSER_PATH: /usr/bin/firefox
+
     strategy:
       matrix:
         node-version: [18.x]
@@ -40,7 +38,7 @@ jobs:
             echo "."
             sleep 1
           done
-
+      - uses: browser-actions/setup-firefox@v1
       - name: Run Tests with Coverage
         run: npm run coverage --detectOpenHandles
         
