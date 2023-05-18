@@ -25,13 +25,13 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-
+      - run: apt-get update && apt-get install -y wget bzip2 libxtst6 libgtk-3-0 libx11-xcb-dev libdbus-glib-1-2 libxt6 libpci-dev
       - name: Download and Install Firefox
         run: |
           wget -O firefox.tar.bz2 "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US"
           tar xvjf firefox.tar.bz2
           echo "$PWD/firefox" >> $GITHUB_PATH
-  
+
       - name: Install Geckodriver
         run: |
           wget -O geckodriver.tar.gz "https://github.com/mozilla/geckodriver/releases/download/v0.33.0/geckodriver-v0.33.0-linux64.tar.gz"
