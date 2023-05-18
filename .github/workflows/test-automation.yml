@@ -29,7 +29,8 @@ jobs:
       - name: Start selenoid
         uses: Xotabu4/selenoid-github-action@v2
         with:
-          browsers: firefox:latest
+          browsers:
+            firefox: latest
             path: /usr/bin/firefox
       - name: Install Dependencies
         run: npm ci
