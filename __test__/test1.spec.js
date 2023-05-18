@@ -2,13 +2,12 @@
 const { assert } = require('console');
 const { Builder, By, Key, until } = require('selenium-webdriver');
 const firefox = require('selenium-webdriver/firefox');
+const chrome = require('selenium-webdriver/chrome');
 const server_url = "http://localhost:5173/";
 
 // TODO, implement different browsers are used based on this value
-const browser = process.env.BROWSER || "firefox";
-const browser_path = process.env.BROWSER_PATH || null;
-
-console.log(browser);
+const browser = process.env.BROWSER || "chrome";
+const browser_path = process.env.BROWSER_PATH || "/usr/bin/brave-browser";
 
 describe('Test1', function () {
   let driver;
@@ -22,9 +21,9 @@ describe('Test1', function () {
         driver = await new Builder().forBrowser('firefox').setFirefoxOptions(firefox_options).build();
         break;
       case "chrome":
-        let chrome_options = new firefox.Options().headless();
+        let chrome_options = new chrome.Options().headless();
         if (browser_path != null) {
-          chrome_options = chrome_options.setBinary(browser_path);
+          chrome_options.setBinaryPath(browser_path);
         }
         driver = await new Builder().forBrowser('chrome').setChromeOptions(chrome_options).build();
         break;
