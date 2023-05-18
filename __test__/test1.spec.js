@@ -7,7 +7,7 @@ const server_url = "http://localhost:5173/";
 
 // TODO, implement different browsers are used based on this value
 const browser = process.env.BROWSER || "chrome";
-const browser_path = process.env.BROWSER_PATH || "/usr/bin/brave-browser";
+const browser_path = process.env.BROWSER_PATH || null;
 
 describe('Test1', function () {
   let driver;
