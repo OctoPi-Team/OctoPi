@@ -82,6 +82,15 @@ jobs:
      # - name: Stop Application
       #  run: kill $(lsof -t -i:5173) || echo "Application already stopped"
 
+      - uses: nanasess/setup-chromedriver@v2
+        with:
+          # Optional: do not specify to match Chrome's version
+          chromedriver-version: '113.0.5672.126'
+      - run: |
+          export DISPLAY=:99
+          chromedriver --url-base=/wd/hub &
+          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
+
       - name: Create Test-View folder
         run: mkdir test-view
       - name: Create Test Statistics View
