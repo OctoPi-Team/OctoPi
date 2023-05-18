@@ -24,7 +24,7 @@ describe('Test1', function () {
         let chrome_options = new chrome.Options().headless();
         if (browser_path != null) {
           chrome_options.setBinaryPath(browser_path);
-          chrome_options.addArguments("--remote-debugging-port=9222", "--disable-dev-shm-usage", "--no-sandbox", "--disable-gpu", "--disable-software-rasterizer", "--user-data-dir=~/.config/google-chrome", "-disable-extensions");
+          chrome_options.addArguments("--remote-debugging-port=9222", "--disable-dev-shm-usage", "--no-sandbox", "--disable-gpu", "--disable-software-rasterizer", "--user-data-dir=~/.config/google-chrome", "-disable-extensions", "window-size=1400,2100");
         }
         driver = await new Builder().forBrowser('chrome').setChromeOptions(chrome_options).build();
         break;
