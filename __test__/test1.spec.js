@@ -4,12 +4,19 @@ const { Builder, By, Key, until } = require('selenium-webdriver');
 const firefox = require('selenium-webdriver/firefox');
 const server_url = "http://localhost:5173/";
 
+// TODO, implement different browsers are used based on this value
+const browser = process.env.BROWSER || "firefox"
+const browser_path = process.env.BROWSER_PATH || null
 
 describe('Test1', function () {
   let driver;
   beforeEach(async function () {
-    driver = await new Builder().forBrowser('firefox').setFirefoxOptions(new firefox.Options().headless()).build();
-  }, 15000);
+    const firefox_options = new firefox.Options().headless();
+    if (browser_path != null) {
+      firefox_options = firefox_options.setBinary(browser_path);
+    }
+    driver = await new Builder().forBrowser('firefox').setFirefoxOptions(firefox_options).build();
+  });
 
   afterEach(async function () {
     await driver.quit();
