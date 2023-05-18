@@ -21,11 +21,11 @@ jobs:
     env:
       BROWSER: chrome
     
- #   services:
- #     chrome:
- #       image: selenium/standalone-chrome
- #       ports:
-  #        - 4444:4444
+    services:
+      chrome:
+        image: selenium/standalone-chrome
+        ports:
+          - 4444:4444
  
     steps:
       - name: Load Repo
@@ -41,19 +41,19 @@ jobs:
       - run: apt-get update && apt-get install -y libgconf-2-4 libatk1.0-0 libatk-bridge2.0-0 libgdk-pixbuf2.0-0 libgtk-3-0 libgbm-dev libnss3-dev libxss-dev libasound2 libx11-xcb-dev dbus
       - run: mkdir -p /var/run/dbus && dbus-daemon --config-file=/usr/share/dbus-1/system.conf --print-address
       - run: service dbus start
-      - uses: browser-actions/setup-chrome@v1
+#      - uses: browser-actions/setup-chrome@v1
 #      - uses: browser-actions/setup-firefox@v1
-        with:
-          chrome-version: 'stable'
-          firefox-version: 'latest'
+#        with:
+#          chrome-version: 'stable'
+#          firefox-version: 'latest'
 
-      - run: chrome --headless --no-sandbox --disable-gpu --disable-dev-shm-usage --disable-software-rasterizer --user-data-dir=~/.config/google-chrome -disable-extensions window-size=1400,2100
+#      - run: chrome --headless --no-sandbox --disable-gpu --disable-dev-shm-usage --disable-software-rasterizer --user-data-dir=~/.config/google-chrome -disable-extensions window-size=1400,2100
       - name: Install Dependencies
         run: npm ci
     
       - name: Run Tests
-        run:  CHROMIUM_BIN=$(which chrome) npm run standalone-coverage-test
-
+        run: npm run standalone-coverage-test
+# CHROMIUM_BIN=$(which chrome)
 
 #      - name: Start Application
  #       run: |
