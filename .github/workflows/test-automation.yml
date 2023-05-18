@@ -12,6 +12,10 @@ jobs:
 
     container:
       image: node:18
+    
+    services:
+      firefox:
+        image: selenium/standalone-firefox:3
 
     strategy:
       matrix:
