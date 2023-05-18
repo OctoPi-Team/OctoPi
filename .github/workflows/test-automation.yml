@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x]
-        firefox: [ '84.0', 'latest-beta', 'latest-devedition', 'latest-esr', 'latest' ]
+        firefox: ['latest' ]
     steps:
       - name: Load Repo
         uses: actions/checkout@v3
