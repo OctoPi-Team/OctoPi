@@ -28,8 +28,8 @@ describe('Test1', function () {
           chrome_options.setBinaryPath(browser_path);
         }
         chrome_options.addArguments("--disable-dev-shm-usage", "--no-sandbox", "--disable-gpu", "--disable-software-rasterizer", "--user-data-dir=~/.config/google-chrome", "-disable-extensions", "window-size=1400,2100");
-        driver = await new Builder() //.forBrowser('chrome')
-          .usingServer("http://chrome:4444/wd/hub")
+        driver = await new Builder()
+          .usingServer("http://chrome:4444/wd/hub").forBrowser('chrome')
           .withCapabilities(capabilities)
           .setChromeOptions(chrome_options).build();
         //        driver = await new Builder().forBrowser('chrome').setChromeOptions(chrome_options).build();

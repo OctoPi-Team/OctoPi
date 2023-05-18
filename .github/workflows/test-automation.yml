@@ -28,7 +28,7 @@ jobs:
         ports:
           - 4444:4444
           - 5900:5900
-        options: --shm-size="2g" --user-data-dir=/tmp/chrome-user-data
+        options: --shm-size="2g"
  
     steps:
       - name: Load Repo
@@ -43,7 +43,7 @@ jobs:
 
 #      - run: apt-get update && apt-get install -y libgconf-2-4 libatk1.0-0 libatk-bridge2.0-0 libgdk-pixbuf2.0-0 libgtk-3-0 libgbm-dev libnss3-dev libxss-dev libasound2 libx11-xcb-dev dbus
 #      - run: mkdir -p /var/run/dbus && dbus-daemon --config-file=/usr/share/dbus-1/system.conf --print-address
-#      - run: service dbus start
+ #     - run: service dbus start
 #      - uses: browser-actions/setup-chrome@v1
 #      - uses: browser-actions/setup-firefox@v1
 #        with:
@@ -53,9 +53,7 @@ jobs:
 #      - run: chrome --headless --no-sandbox --disable-gpu --disable-dev-shm-usage --disable-software-rasterizer --user-data-dir=~/.config/google-chrome -disable-extensions window-size=1400,2100
       - name: Install Dependencies
         run: npm ci
-      - name: Adjust user data directory permissions
-        run: chmod -R 777 /tmp/chrome-user-data
-
+    
       - name: Run Tests
         run: npm run standalone-coverage-test
 # CHROMIUM_BIN=$(which chrome)
