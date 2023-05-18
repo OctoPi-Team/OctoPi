@@ -24,8 +24,7 @@ describe('Test1', function () {
         let chrome_options = new chrome.Options().headless();
         if (browser_path != null) {
           chrome_options.setBinaryPath(browser_path);
-          chrome_options.addArguments("--remote-debugging-port=9222");
-          chrome_options.addArguments("--disable-gpu'");
+          chrome_options.addArguments("--remote-debugging-port=9222", "--disable-dev-shm-usage", "--no-sandbox", "--disable-gpu");
         }
         driver = await new Builder().forBrowser('chrome').setChromeOptions(chrome_options).build();
         break;
