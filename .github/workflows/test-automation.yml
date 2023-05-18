@@ -27,7 +27,7 @@ jobs:
         ports:
           - 4444:4444
           - 5900:5900
-          
+        options: --shm-size="2g"
  
     steps:
       - name: Load Repo
