@@ -8,6 +8,8 @@ const server_url = "http://localhost:5173/";
 const browser = process.env.BROWSER || "firefox";
 const browser_path = process.env.BROWSER_PATH || null;
 
+console.log(browser);
+
 describe('Test1', function () {
   let driver;
   beforeEach(async function () {
