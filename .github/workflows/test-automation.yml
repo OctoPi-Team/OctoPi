@@ -12,15 +12,10 @@ jobs:
 
     container:
       image: node:18
-    
-    services:
-      firefox:
-        image: selenium/standalone-firefox:3
 
     strategy:
       matrix:
         node-version: [18.x]
-        firefox: ['latest' ]
     steps:
       - name: Load Repo
         uses: actions/checkout@v3
@@ -29,18 +24,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+
+      - name: Install Firefox
+        run: sudo apt-get install -y firefox
       - name: Install Dependencies
         run: npm ci
- 
-      - name: Setup firefox
-        id: setup-firefox
-        uses: browser-actions/setup-firefox@v1
-        with:
-          firefox-version: ${{ matrix.firefox }}
-      - run: |
-          echo Installed firefox versions: ${{ steps.setup-firefox.outputs.firefox-version }}
-          firefox --version
-
       - name: Start Application
         run: |
           npm start &
@@ -49,6 +37,7 @@ jobs:
             echo "."
             sleep 1
           done
+
       - name: Run Tests with Coverage
         run: npm run coverage --detectOpenHandles
         
