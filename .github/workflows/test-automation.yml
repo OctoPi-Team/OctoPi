@@ -29,7 +29,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
-      - run: apt update && apt install -y libnss3-dev
+      - run: apt update && apt install -y libgconf-2-4 libatk1.0-0 libatk-bridge2.0-0 libgdk-pixbuf2.0-0 libgtk-3-0 libgbm-dev libnss3-dev libxss-dev
       - uses: browser-actions/setup-chrome@v1
       - run: chrome --version
       - name: Install Dependencies
