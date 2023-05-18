@@ -29,11 +29,8 @@ jobs:
         run: |
           wget -O firefox.tar.bz2 "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US"
           tar xvjf firefox.tar.bz2
-          export PATH="$PWD/firefox:$PATH"
-
-      - name: locate Firefox
-        run: pwd && ls -la
-
+          echo "$PWD/firefox" >> $GITHUB_PATH
+        
       - name: Install Geckodriver
         run: npm install geckodriver
       
