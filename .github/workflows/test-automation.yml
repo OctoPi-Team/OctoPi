@@ -31,8 +31,8 @@ jobs:
           tar xvjf firefox.tar.bz2
           export PATH="$PWD/firefox:$PATH"
 
-      - name: Firefox version test
-        run: firefox --version
+      - name: locate Firefox
+        run: pwd && ls -la
 
       - name: Install Geckodriver
         run: npm install geckodriver
