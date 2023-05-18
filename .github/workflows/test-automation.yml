@@ -38,12 +38,12 @@ jobs:
           chrome-version: 'latest'
           firefox-version: 'latest'
 
-      - run: chrome --headless --no-sandbox --disable-gpu
+     # - run: chrome --headless --no-sandbox --disable-gpu
       - name: Install Dependencies
         run: npm ci
     
       - name: Run Tests
-        run: npm run standalone-coverage-test
+        run:  CHROMIUM_BIN=$(which chrome) npm run standalone-coverage-test
 
 
 #      - name: Start Application
