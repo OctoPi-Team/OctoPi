@@ -22,18 +22,16 @@ describe('Test1', function () {
         driver = await new Builder().forBrowser('firefox').setFirefoxOptions(firefox_options).build();
         break;
       case "chrome":
-
-        var capabilities = Capabilities.chrome();
-
-
+        //        var capabilities = Capabilities.chrome();
         let chrome_options = new chrome.Options();
         if (browser_path != null) {
           chrome_options.setBinaryPath(browser_path);
-          chrome_options.addArguments("--headless=new --remote-debugging-port=9222", "--disable-dev-shm-usage", "--no-sandbox", "--disable-gpu", "--disable-software-rasterizer", "--user-data-dir=~/.config/google-chrome", "-disable-extensions", "window-size=1400,2100");
         }
-        driver = new Builder()
-          .usingServer("http://chrome:4444/wd/hub")
-          .withCapabilities(capabilities).setChromeOptions(chrome_options).build();
+        chrome_options.addArguments("--headless --remote-debugging-port=9222", "--disable-dev-shm-usage", "--no-sandbox", "--disable-gpu", "--disable-software-rasterizer", "--user-data-dir=~/.config/google-chrome", "-disable-extensions", "window-size=1400,2100");
+        driver = await new Builder().forBrowser('chrome')
+          //         .usingServer("http://chrome:4444/wd/hub")
+          //.withCapabilities(capabilities)
+          .setChromeOptions(chrome_options).build();
         //        driver = await new Builder().forBrowser('chrome').setChromeOptions(chrome_options).build();
         break;
     }
