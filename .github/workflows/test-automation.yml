@@ -7,13 +7,14 @@ on:
       - testing
 
 jobs:
-  start-application:
+  start-application: # TODO rename
     runs-on: ubuntu-latest
 
     container:
       image: node:18
 
     strategy:
+      fail-fast: true
       matrix:
         node-version: [18.x]
     steps:
@@ -25,12 +26,18 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
-      - name: Download and Install Firefox
-        run: |
-          wget -O firefox.tar.bz2 "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US"
-          tar xvjf firefox.tar.bz2
-          echo "$PWD/firefox" >> $GITHUB_PATH
-        
+   #   - name: Download and Install Firefox
+    #    run: |
+     #     wget -O firefox.tar.bz2 "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=en-US"
+      #    tar xvjf firefox.tar.bz2
+       #   echo "$PWD/firefox" >> $GITHUB_PATH
+      - name: "Install Firefox"
+        uses: browser-actions/setup-firefox@v1
+        with:
+            firefox-version: latest
+
+      - run: ls -la && pwd
+
       - name: Install Geckodriver
         run: npm install geckodriver
       
