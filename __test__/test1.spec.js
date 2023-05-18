@@ -2,7 +2,7 @@
 const { assert } = require('console');
 const { Builder, By, Key, until } = require('selenium-webdriver');
 const firefox = require('selenium-webdriver/firefox');
-const server_url = process.env.SERVER_URL || "http://localhost:5173/";
+const server_url = "http://localhost:5173/";
 
 
 describe('Test1', function () {
