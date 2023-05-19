@@ -5,16 +5,14 @@ import Tube from '../../overworld/objects/Tube';
 export type TileProps = {
 	gridPosition: [number, number];
 	tileClickHandler?: (tileProps: TileProps) => void;
+	randomVectorX: Vector3;
+	randomVectorZ: Vector3;
+	hasrightAngleVector?: boolean;
 };
 
-const GRID_SPACING = 0.5;
+const GRID_SPACING = 0.2;
 const TILE_SIZE = 3;
-const randomVectorX = new Vector3(0, 0, -TILE_SIZE / 2);
-const randomVectorZ = new Vector3(0, 0, TILE_SIZE / 2 - 0.4); // if right angle the z axis - 0.4
-const rightAngleVector = new Vector3(-TILE_SIZE / 2, 0, Math.PI / 2 - 0.4); // to make it a right angle vector rotate it to left change the sign of x axis
 
-// Rotate the vector by 90 degrees around the y-axis to make it a right angle vector
-//rightAngleVector.applyAxisAngle(new Vector3(0, 1, 0), Math.PI / 2);
 function getRealPositionFromGridPosition(gridPosition: [number, number]): Vector3 {
 	return new Vector3(
 		gridPosition[0] * GRID_SPACING + gridPosition[0] * TILE_SIZE,
@@ -23,25 +21,42 @@ function getRealPositionFromGridPosition(gridPosition: [number, number]): Vector
 	);
 }
 
-export default function Tile({ gridPosition, tileClickHandler }: TileProps) {
+export default function Tile({
+	gridPosition,
+	tileClickHandler,
+	randomVectorX,
+	randomVectorZ,
+	hasrightAngleVector = false,
+}: TileProps) {
 	const ref = useRef<Mesh>(null);
+
 	useEffect(() => {
-		if (ref && ref.current) {
+		if (ref.current) {
 			const meshPosition = getRealPositionFromGridPosition(gridPosition);
 			ref.current.position.copy(meshPosition);
 		}
-	}, gridPosition);
+	}, [gridPosition]);
+	let rightAngleVector = new Vector3();
+	if (hasrightAngleVector) {
+		rightAngleVector = new Vector3(-TILE_SIZE / 2, 0, Math.PI / 2 - 0.4);
+	}
 
 	return (
 		<>
 			<mesh
 				ref={ref}
 				onClick={() => {
-					if (tileClickHandler) tileClickHandler({ gridPosition: gridPosition });
+					if (tileClickHandler)
+						tileClickHandler({
+							gridPosition: gridPosition,
+							randomVectorX: new Vector3(0, 0, -3 / 2),
+							randomVectorZ: new Vector3(0, 0, 3 / 2 - 0.4),
+							hasrightAngleVector: true,
+						});
 				}}>
-				<Tube position={[0, 0, 0]} color={'black'} vectors={[randomVectorX, randomVectorZ, rightAngleVector]} />
+				<Tube position={[0, 0, 0]} color="black" vectors={[randomVectorX, randomVectorZ, rightAngleVector]} />
 				<boxGeometry args={[TILE_SIZE, 0.5, TILE_SIZE]} />
-				<meshStandardMaterial color={'yellow'} />
+				<meshStandardMaterial color="yellow" />
 			</mesh>
 		</>
 	);

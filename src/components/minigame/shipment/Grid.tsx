@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Tile, { TileProps } from './Tile';
 import { isYieldExpression } from 'typescript';
+import { Vector3 } from 'three';
 
 type GridProps = {
 	size: [number, number];
@@ -50,7 +51,12 @@ export default function Grid({ size }: GridProps) {
 			for (let y = 0; y < size[1]; y++) {
 				if (!(x == 0 && y == 0))
 					// exclude default empty tile
-					addTile({ gridPosition: [x, y] });
+					addTile({
+						gridPosition: [x, y],
+						randomVectorX: new Vector3(Math.random(), 0, -3 / 2),
+						randomVectorZ: new Vector3(Math.random(), 0, 3 / 2 - 0.4),
+						hasrightAngleVector: true,
+					});
 			}
 		}
 	}, [size]);
