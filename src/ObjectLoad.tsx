@@ -17,12 +17,13 @@ export default function ObjectLoad({
 	pathObj,
 	pathMtl,
 	position,
-	rotation = [0, 0, 0], // Default rotation is 0, 0, 0, the rotation is in degrees.
 	scale = [1, 1, 1], // Default scale is 1, 1, 1.
 	reference,
+	rotation = [0, 0, 0], // Default rotation is 0, 0, 0, the rotation is in degrees.
 }: ObjectLoadOptions): JSX.Element {
 	const meshRef = useRef<Mesh<BufferGeometry, Material | Material[]>>(null);
 	const materials = useLoader(MTLLoader, pathMtl);
+
 	if (reference && meshRef.current) {
 		reference(meshRef.current);
 	}
@@ -44,7 +45,7 @@ export default function ObjectLoad({
 	}, position);
 
 	return (
-		<mesh ref={meshRef} position={position} scale={new Vector3(scale[0], scale[1], scale[2])}>
+		<mesh ref={meshRef} position={position} scale={new Vector3(scale[0], scale[1], scale[2])} rotation={rotation}>
 			<primitive object={obj} />
 		</mesh>
 	);
