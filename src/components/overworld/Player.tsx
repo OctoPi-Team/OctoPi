@@ -155,7 +155,7 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 			} else if (keys.left) {
 				newRotation.y -= Math.PI / 4;
 			} else if (keys.up) {
-				newRotation.y -= Math.PI / 1.35;
+				newRotation.y -= Math.PI / 1.3;
 			}
 			setTargetRotation(newRotation);
 
