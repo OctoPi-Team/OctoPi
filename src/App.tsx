@@ -1,17 +1,17 @@
-import './styles.css';
+import './index.css';
 
 import { useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Vector3, Mesh, BufferGeometry, Material, Color } from 'three';
-import Player, { handleKeyDown, handleKeyUp } from './scene_objects/Player';
-import Stair, { StairType } from './scene_objects/Stair';
-import Video from './Video';
-import FixedCamera from './scene_objects/FixedCamera';
-import SimplePlatform from './scene_objects/SimplePlatform';
+import Player, { handleKeyDown, handleKeyUp } from './components/overworld/Player';
+import Stair, { StairType } from './components/overworld/platforms/Stair';
+import Video from './components/startscreen/Video';
+import FixedCamera from './components/overworld/FixedCamera';
+import SimplePlatform from './components/overworld/platforms/SimplePlatform';
 import { OrbitControls } from '@react-three/drei';
-import ShipmentPlatform from './ShipmentPlatform';
-import Tube from './scene_objects/Tube';
-import { LoadingScreen } from './scene_objects/LoadingScreen';
+import ShipmentPlatform from './components/overworld/platforms/ShipmentPlatform';
+import Tube from './components/overworld/objects/Tube';
+import { LoadingScreen } from './components/startscreen/LoadingScreen';
 
 export default function App() {
 	const ORBITAL_CONTROLS_ACTIVE = false;
