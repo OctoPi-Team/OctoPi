@@ -1,4 +1,5 @@
 import { useProgress } from '@react-three/drei';
+import './loadingscreen.css';
 
 type LoadingScreenProps = {
 	setVisible: (visible: boolean) => void;

@@ -1,5 +1,3 @@
-import './loadingscreen.css';
-
 import React from 'react';
 
 type VideoArgs = {
