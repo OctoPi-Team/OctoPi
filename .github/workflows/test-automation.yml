@@ -5,7 +5,10 @@ on:
   push:
     branches:
       - testing
- 
+ pull_request:
+    branches:
+      - main
+
 jobs:
   start-application: # TODO rename
     runs-on: ubuntu-latest
