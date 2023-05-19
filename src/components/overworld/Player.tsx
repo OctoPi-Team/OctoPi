@@ -160,8 +160,6 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 			setTargetRotation(newRotation);
 
 			// Smoothly rotate the player towards the target rotation
-			// Smoothly rotate the player towards the target rotation
-			// Smoothly rotate the player towards the target rotation
 			const diffRotation = new Vector3().subVectors(targetRotation, rotation);
 
 			// Ensure the rotation difference is within -Math.PI to Math.PI range
