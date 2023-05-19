@@ -35,7 +35,12 @@ jobs:
         run: npm run coverage
 
       - name: Create Test Statistics View
-        run: chmod +x test-view-builder.sh && ./test-view-builder.sh
+        run: |
+          mkdir test-view -p
+          cp jest_html_reporters.html ./test-view/index.html
+          cp -r jest-html-reporters-attach/ ./test-view
+          mkdir test-view/coverage -p
+          cp -r coverage/lcov-report ./test-view/coverage
 
       - name: Deploy to Cloud Foundry
         uses: citizen-of-planet-earth/cf-cli-action@v2

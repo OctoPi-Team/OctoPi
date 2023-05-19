@@ -6,13 +6,5 @@ module.exports = {
 	moduleNameMapper: {
 		'\\.(css|less)$': 'identity-obj-proxy',
 	},
-	reporters: [
-		'default',
-		[
-			'./node_modules/jest-html-reporter',
-			{
-				pageTitle: 'Test Report',
-			},
-		],
-	],
+	reporters: ['default', 'jest-html-reporters'],
 };
