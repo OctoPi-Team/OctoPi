@@ -52,6 +52,13 @@ export default function ShipmentPlatform({ position = [0, 0, 0], reference }: Sh
 				scale={[0.08, 0.06, 0.05]}
 				rotation={[0, 90, 0]}
 			/>
+			<ObjectLoad
+				pathObj="/Button/Button.obj"
+				pathMtl="/Button/Button.mtl"
+				position={[position[0], position[1] - 6, position[2] - 5]}
+				scale={[1, 1, 1]}
+				rotation={[0, 90, 0]}
+			/>
 		</>
 	);
 }

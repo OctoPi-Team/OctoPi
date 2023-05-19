@@ -13,7 +13,7 @@ import { useState } from 'react';
 import { SceneProps } from '../../App';
 
 export default function Overworld({ setSceneHook }: SceneProps) {
-	const ORBITAL_CONTROLS_ACTIVE = false;
+	const ORBITAL_CONTROLS_ACTIVE = true;
 	const [visible, setVisible] = useState(true);
 
 	const [platforms, setPlatforms] = useState<Mesh<BufferGeometry, Material | Material[]>[]>([]);
