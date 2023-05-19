@@ -23,6 +23,7 @@ export default function ObjectLoad({
 }: ObjectLoadOptions): JSX.Element {
 	const meshRef = useRef<Mesh<BufferGeometry, Material | Material[]>>(null);
 	const materials = useLoader(MTLLoader, pathMtl);
+
 	if (reference && meshRef.current) {
 		reference(meshRef.current);
 	}
