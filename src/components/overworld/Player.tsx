@@ -160,10 +160,16 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 			setTargetRotation(newRotation);
 
 			// Smoothly rotate the player towards the target rotation
-			const diffRotation = new Vector3();
-			diffRotation.subVectors(targetRotation, rotation);
-			const rotationStep = diffRotation.multiplyScalar(rotationSpeed);
+			// Smoothly rotate the player towards the target rotation
+			// Smoothly rotate the player towards the target rotation
+			const diffRotation = new Vector3().subVectors(targetRotation, rotation);
+
+			// Ensure the rotation difference is within -Math.PI to Math.PI range
+			diffRotation.y = ((diffRotation.y + Math.PI) % (Math.PI * 2)) - Math.PI;
+
+			const rotationStep = new Vector3().copy(diffRotation).multiplyScalar(rotationSpeed);
 			const newPlayerRotation = new Vector3().addVectors(rotation, rotationStep);
+
 			setRotation(newPlayerRotation);
 		}
 	});
