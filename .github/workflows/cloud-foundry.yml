@@ -17,6 +17,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'npm'
       - name: Build the App
         run: npm ci && npm run build
       - name: Deploy to Cloud Foundry

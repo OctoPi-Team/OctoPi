@@ -10,4 +10,4 @@ repos:
     hooks:
       - id: eslint
         args: [--fix]
-        files: \.(js|jsx|ts|tsx)$
+        files: \.(ts|tsx)$

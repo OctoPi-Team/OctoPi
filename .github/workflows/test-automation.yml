@@ -1,0 +1,65 @@
+name: Automatic Test Execution and Result Deployment
+on:
+  schedule:
+    - cron:  '0 6 * * *'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  start-application: # TODO rename
+    runs-on: ubuntu-latest
+
+    container:
+      image: node:18
+
+    strategy:
+      fail-fast: true
+      matrix:
+        node-version: [18.x]
+
+    steps:
+      - name: Set GIT_BRANCH variable (https://stackoverflow.com/a/68674820)
+        run: |
+          GIT_BRANCH=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
+          echo "GIT_BRANCH=$GIT_BRANCH" >> $GITHUB_ENV
+
+      - name: Load Repo
+        uses: actions/checkout@v3
+        
+      - name: Set env Variable
+        run: echo "JEST_HTML_REPORTERS_URL_FOR_TEST_FILES=$(echo https://github.com/OctoPi-Team/OctoPi/tree/${GIT_BRANCH})" >> $GITHUB_ENV
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+
+
+      - name: Install Dependencies
+        run: npm ci
+    
+      - name: Run Tests
+        run: npm run coverage
+
+      - name: Create Test Statistics View
+        run: |
+          mkdir test-view -p
+          cp jest_html_reporters.html ./test-view/index.html
+          cp -r jest-html-reporters-attach/ ./test-view
+          mkdir test-view/coverage -p
+          cp -r coverage/lcov-report ./test-view/coverage
+
+      - name: Deploy to Cloud Foundry
+        uses: citizen-of-planet-earth/cf-cli-action@v2
+        with:
+          cf_api: https://api.cf.eu10-004.hana.ondemand.com
+          cf_username: ${{ secrets.CF_USER }}
+          cf_password: ${{ secrets.CF_PASSWORD }}
+          cf_org: sovanta AG TDD (Pay as you go)_hs-mannheim
+          cf_space: Octo Pi
+          command: push -f manifest-test-statistics.yml
+
+# optional deploy with github actions

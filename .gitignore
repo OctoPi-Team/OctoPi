@@ -5,8 +5,12 @@
 /.pnp
 .pnp.js
 
-# testing
+# test-artifacts
+test-report.html
+jest_html_reporters.html
 /coverage
+/test-view
+/jest-html-reporters-attach
 
 # production
 /build

@@ -10,6 +10,7 @@ export default function Video({ setVisible }: VideoArgs) {
 	return (
 		<React.Fragment>
 			<video
+				data-testid="start-animation-video"
 				loop
 				className="video"
 				onEnded={() => {
@@ -24,7 +25,7 @@ export default function Video({ setVisible }: VideoArgs) {
 				autoPlay
 				muted
 				data-setup="{}">
-				<source src="start_animation.mp4" type="video/mp4"></source>
+				<source data-testid="start-animation-source" src="start_animation.mp4" type="video/mp4"></source>
 			</video>
 		</React.Fragment>
 	);
