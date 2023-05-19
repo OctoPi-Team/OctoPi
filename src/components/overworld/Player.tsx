@@ -165,14 +165,11 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 			const newRotation = new Vector3();
 			if (keys.right) {
 				newRotation.y += Math.PI / 1.3;
-			}
-			if (keys.down) {
+			} else if (keys.down) {
 				newRotation.y += Math.PI / 4;
-			}
-			if (keys.left) {
+			} else if (keys.left) {
 				newRotation.y -= Math.PI / 4;
-			}
-			if (keys.up) {
+			} else if (keys.up) {
 				newRotation.y -= Math.PI / 1.35;
 			}
 			setRotation(newRotation);
