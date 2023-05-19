@@ -11,7 +11,7 @@ const GRID_SPACING = 0.5;
 const TILE_SIZE = 3;
 const randomVectorX = new Vector3(0, 0, -TILE_SIZE / 2);
 const randomVectorZ = new Vector3(0, 0, TILE_SIZE / 2 - 0.4); // if right angle the z axis - 0.4
-const rightAngleVector = new Vector3(TILE_SIZE / 2, 0, Math.PI / 2 - 0.4);
+const rightAngleVector = new Vector3(-TILE_SIZE / 2, 0, Math.PI / 2 - 0.4); // to make it a right angle vector rotate it to left change the sign of x axis
 
 // Rotate the vector by 90 degrees around the y-axis to make it a right angle vector
 //rightAngleVector.applyAxisAngle(new Vector3(0, 1, 0), Math.PI / 2);
