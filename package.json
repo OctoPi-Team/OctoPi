@@ -21,7 +21,8 @@
 		"format": "prettier --write src/*.{js,jsx,ts,tsx,css,md,json,scss} --config ./.prettierrc",
 		"test": "jest",
 		"coverage": "jest --coverage",
-		"standalone-coverage-test": "start-server-and-test start http://localhost:5173 coverage"
+		"__selenium-run": "jest --testMatch='<rootDir>/__test__/**/*.(ts|tsx|js)'",
+		"selenium": "start-server-and-test start http://localhost:5173 __selenium-run"
 	},
 	"eslintConfig": {
 		"extends": [

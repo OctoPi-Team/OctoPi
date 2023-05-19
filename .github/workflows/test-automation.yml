@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - testing
-
  
 jobs:
   start-application: # TODO rename
@@ -18,18 +17,7 @@ jobs:
       fail-fast: true
       matrix:
         node-version: [18.x]
-    env:
-      BROWSER: chrome
-    
-    services:
-      chrome:
-        image: selenium/standalone-chrome:4.9.1-20230508 #selenium/standalone-chrome-113.0.5672.63
-    
-        ports:
-          - 4444:4444
-          - 5900:5900
-        options: --shm-size="2g"
- 
+
     steps:
       - name: Load Repo
         uses: actions/checkout@v3
@@ -39,57 +27,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
-      - name: Get Chrome version
-        run: |
-          CHROME_VERSION=$(curl -s http://chrome:4444/wd/hub/status)
-          echo "Chrome version: $CHROME_VERSION"
-     # - run: apt-get update && apt-get install google-chrome-stable
-
-#      - run: apt-get update && apt-get install -y libgconf-2-4 libatk1.0-0 libatk-bridge2.0-0 libgdk-pixbuf2.0-0 libgtk-3-0 libgbm-dev libnss3-dev libxss-dev libasound2 libx11-xcb-dev dbus
-#      - run: mkdir -p /var/run/dbus && dbus-daemon --config-file=/usr/share/dbus-1/system.conf --print-address
- #     - run: service dbus start
-#      - uses: browser-actions/setup-chrome@v1
-#      - uses: browser-actions/setup-firefox@v1
-#        with:
-#          chrome-version: 'stable'
-#          firefox-version: 'latest'
-
-#      - run: chrome --headless --no-sandbox --disable-gpu --disable-dev-shm-usage --disable-software-rasterizer --user-data-dir=~/.config/google-chrome -disable-extensions window-size=1400,2100
       - name: Install Dependencies
         run: npm ci
     
       - name: Run Tests
-        run: npm run standalone-coverage-test
-# CHROMIUM_BIN=$(which chrome)
-
-#      - name: Start Application
- #       run: |
-  #        npm start &
-   #       echo "Waiting for application to start"
-    #      until $(curl --output /dev/null --silent --head --fail http://localhost:5173); do
-     #       echo "."
-      #      sleep 1
-       #   done
-
-#      - name: Run Mocha Tests
- #       uses: docker://selenium/standalone-firefox:4.0.0
-  #      with:
-   #       args: npm run coverage --detectOpenHandles
-
-#      - name: Run Tests with Coverage
- #       run: npm run coverage --detectOpenHandles
-        
-     # - name: Stop Application
-      #  run: kill $(lsof -t -i:5173) || echo "Application already stopped"
-
-      - uses: nanasess/setup-chromedriver@v2
-        with:
-          # Optional: do not specify to match Chrome's version
-          chromedriver-version: '113.0.5672.126'
-      - run: |
-          export DISPLAY=:99
-          chromedriver --url-base=/wd/hub &
-          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
+        run: npm run coverage
 
       - name: Create Test-View folder
         run: mkdir test-view
@@ -106,4 +48,4 @@ jobs:
           cf_space: Octo Pi
           command: push -f manifest-test-statistics.yml
 
-# deploy with github actions
+# optional deploy with github actions
