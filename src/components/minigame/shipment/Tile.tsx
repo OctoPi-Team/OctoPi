@@ -36,7 +36,7 @@ export default function Tile({
 			ref.current.position.copy(meshPosition);
 		}
 	}, [gridPosition]);
-	let rightAngleVector = new Vector3();
+	let rightAngleVector = null;
 	if (hasrightAngleVector) {
 		rightAngleVector = new Vector3(-TILE_SIZE / 2, 0, Math.PI / 2 - 0.4);
 	}
@@ -46,15 +46,13 @@ export default function Tile({
 			<mesh
 				ref={ref}
 				onClick={() => {
-					if (tileClickHandler)
-						tileClickHandler({
-							gridPosition: gridPosition,
-							randomVectorX: new Vector3(0, 0, -3 / 2),
-							randomVectorZ: new Vector3(0, 0, 3 / 2 - 0.4),
-							hasrightAngleVector: true,
-						});
+					if (tileClickHandler) tileClickHandler({ gridPosition, randomVectorX, randomVectorZ, hasrightAngleVector });
 				}}>
-				<Tube position={[0, 0, 0]} color="black" vectors={[randomVectorX, randomVectorZ, rightAngleVector]} />
+				<Tube
+					position={[0, 0, 0]}
+					color="black"
+					vectors={[randomVectorX, randomVectorZ, rightAngleVector].filter(vector => vector != null) as Vector3[]}
+				/>
 				<boxGeometry args={[TILE_SIZE, 0.5, TILE_SIZE]} />
 				<meshStandardMaterial color="yellow" />
 			</mesh>
