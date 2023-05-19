@@ -1,13 +1,13 @@
 import { useFrame } from '@react-three/fiber';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { BufferGeometry, Material, MathUtils, Mesh, Raycaster, Vector3 } from 'three';
 import { StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
 
-const PLAYER_SIZE = 0.5;
-const SPEED = 0.1;
-const COLLISION_RANGE = 0.26;
-const COLLISION_IS_ACTIVE = true;
+const playerSize = 0.5;
+const speed = 0.1;
+const collisionRange = 0.26;
+const collisionIsActive = true;
 
 // keys stores the current state of keyboard presses
 const keys = {
@@ -49,23 +49,24 @@ function getHeight(stairLength: number, stairHeight: number, currentProgression:
 
 function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
+	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
 	// player movement
 	useFrame(() => {
 		if (!ref.current) return;
 
 		const playerPosition = ref.current.position.clone();
-		const topOfPlayer = playerPosition.y + PLAYER_SIZE;
+		const topOfPlayer = playerPosition.y + playerSize;
 		// collision points are origins of raycasts
-		// they are positioned at the edge of the top side of the cube with a distance to the center of COLLISION_RANGE
+		// they are positioned at the edge of the top side of the cube with a distance to the center of collisionRange
 		const collisionPoints: Vector3[] = [
 			// right
-			new Vector3(playerPosition.x, topOfPlayer, playerPosition.z + COLLISION_RANGE),
+			new Vector3(playerPosition.x, topOfPlayer, playerPosition.z + collisionRange),
 			// down
-			new Vector3(playerPosition.x - COLLISION_RANGE, topOfPlayer, playerPosition.z),
+			new Vector3(playerPosition.x - collisionRange, topOfPlayer, playerPosition.z),
 			// left
-			new Vector3(playerPosition.x, topOfPlayer, playerPosition.z - COLLISION_RANGE),
+			new Vector3(playerPosition.x, topOfPlayer, playerPosition.z - collisionRange),
 			// up
-			new Vector3(playerPosition.x + COLLISION_RANGE, topOfPlayer, playerPosition.z),
+			new Vector3(playerPosition.x + collisionRange, topOfPlayer, playerPosition.z),
 		];
 
 		// loop through all points to check if the raycast from that point downwards hits a platform
@@ -76,30 +77,30 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 			const ray = new Raycaster(point, downVector);
 			const results = ray.intersectObjects(platforms);
 
-			if (results.length > 0 || !COLLISION_IS_ACTIVE) {
+			if (results.length > 0 || !collisionIsActive) {
 				switch (String(pointId)) {
 					case '0': // right
 						if (keys.right) {
-							ref.current.position.z += SPEED / 2;
-							ref.current.position.x -= SPEED / 2;
+							ref.current.position.z += speed / 2;
+							ref.current.position.x -= speed / 2;
 						}
 						break;
 					case '1': // down
 						if (keys.down) {
-							ref.current.position.x -= SPEED / 2;
-							ref.current.position.z -= SPEED / 2;
+							ref.current.position.x -= speed / 2;
+							ref.current.position.z -= speed / 2;
 						}
 						break;
 					case '2': // left
 						if (keys.left) {
-							ref.current.position.z -= SPEED / 2;
-							ref.current.position.x += SPEED / 2;
+							ref.current.position.z -= speed / 2;
+							ref.current.position.x += speed / 2;
 						}
 						break;
 					case '3': // up
 						if (keys.up) {
-							ref.current.position.x += SPEED / 2;
-							ref.current.position.z += SPEED / 2;
+							ref.current.position.x += speed / 2;
+							ref.current.position.z += speed / 2;
 						}
 						break;
 				}
@@ -156,19 +157,40 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 					flatStairLength,
 					stair.endPosition.y - stair.startPosition.y,
 					progression,
-					stair.startPosition.y + PLAYER_SIZE / 2
+					stair.startPosition.y + playerSize / 2
 				);
 			}
+
+			//Set rotation here
+			const newRotation = new Vector3();
+			if (keys.right) {
+				newRotation.y += Math.PI / 1.3;
+			}
+			if (keys.down) {
+				newRotation.y += Math.PI / 4;
+			}
+			if (keys.left) {
+				newRotation.y -= Math.PI / 4;
+			}
+			if (keys.up) {
+				newRotation.y -= Math.PI / 1.35;
+			}
+			setRotation(newRotation);
 		}
 	});
 
 	return (
-		<mesh name="player" ref={ref} position={[startPosition.x, startPosition.y + PLAYER_SIZE / 2, startPosition.z]}>
+		<mesh
+			name="player"
+			ref={ref}
+			position={[startPosition.x, startPosition.y + playerSize / 2, startPosition.z]}
+			rotation={rotation.toArray()} // Set rotation based on state
+		>
 			<ObjectLoad
 				pathObj="/Player/Player.obj"
 				position={[0, 0, 0]}
 				pathMtl="/Player/Player.mtl"
-				scale={[0.25, 0.25, 0.25]}
+				scale={[0.2, 0.2, 0.2]}
 				rotation={[0, 90, 0]}
 			/>
 		</mesh>
