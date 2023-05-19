@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: Set GIT_BRANCH variable (https://stackoverflow.com/a/68674820)
         run: |
-          GIT_BRANCH=${GITHUB_BASE_REF:-${GITHUB_REF#refs/heads/}}
+          GIT_BRANCH=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
           echo "GIT_BRANCH=$GIT_BRANCH" >> $GITHUB_ENV
 
       - name: Load Repo
