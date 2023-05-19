@@ -1,20 +1,4 @@
-import { useRef, useEffect } from 'react';
-import THREE, {
-	Color,
-	Euler,
-	Mesh,
-	Vector3,
-	Vector2,
-	MathUtils,
-	Material,
-	BufferGeometry,
-	MeshStandardMaterial,
-	SphereGeometry,
-	TubeGeometry,
-	CatmullRomCurve3,
-} from 'three';
-import { Text } from '@react-three/drei';
-import { useFrame, useThree } from '@react-three/fiber';
+import THREE, { Vector3, TubeGeometry, CatmullRomCurve3 } from 'three';
 
 type TubeProps = {
 	name?: string;
