@@ -25,31 +25,16 @@ interface PlayerArgs {
 
 function getHeight(stairLength: number, stairHeight: number, currentProgression: number, lowerHeight: number) {
 	// get height of the player based on position on the staircase
-	// uses trigometry
-	//       y2
-	//   ----------
-	//   |       /
-	//   |      /
-	// x2|--y1-/
-	//   |    /
-	//   x1  /this line is the stair
-	//   |../
-	//   |a/
-	//   |/
-	// x1 is the progression on the staircase width
-	// y1 is the progression on the staircase height
-	// x2 is the total width of the staircase
-	// y2 is the total height of the staircase
-	// these values are calculated via difference between the values passed into the function
-	// y1 is the current height/result we want
-	// tan(x2/y1) = alpha = tan(x1/y2) -> tan-1(tan(x1/y2)) = x2/y1 -> 1/y1 = (x1/y2)/x2 -> y1 = x2 / (x1/y2)
-	// adding the lowerHeight gives us the wanted result
+	// uses trigonometry
 	return lowerHeight + currentProgression / (stairLength / stairHeight);
 }
 
 function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
 	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
+	const [targetRotation, setTargetRotation] = useState<Vector3>(new Vector3(0, 0, 0));
+	const rotationSpeed = 0.1;
+
 	// player movement
 	useFrame(() => {
 		if (!ref.current) return;
@@ -70,7 +55,7 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 		];
 
 		// loop through all points to check if the raycast from that point downwards hits a platform
-		// depending on the result the player can or cant move in the direction of this point
+		// depending on the result the player can or can't move in the direction of this point
 		for (const pointId in collisionPoints) {
 			const point = collisionPoints[pointId];
 			const downVector = new Vector3(0, -1, 0).clone().normalize();
@@ -161,7 +146,7 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 				);
 			}
 
-			//Set rotation here
+			// Set target rotation here based on keys pressed
 			const newRotation = new Vector3();
 			if (keys.right) {
 				newRotation.y += Math.PI / 1.3;
@@ -172,7 +157,14 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 			} else if (keys.up) {
 				newRotation.y -= Math.PI / 1.35;
 			}
-			setRotation(newRotation);
+			setTargetRotation(newRotation);
+
+			// Smoothly rotate the player towards the target rotation
+			const diffRotation = new Vector3();
+			diffRotation.subVectors(targetRotation, rotation);
+			const rotationStep = diffRotation.multiplyScalar(rotationSpeed);
+			const newPlayerRotation = new Vector3().addVectors(rotation, rotationStep);
+			setRotation(newPlayerRotation);
 		}
 	});
 
