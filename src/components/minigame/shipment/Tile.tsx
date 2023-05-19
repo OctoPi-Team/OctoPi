@@ -39,6 +39,7 @@ export default function Tile({
 	let rightAngleVector = null;
 	if (hasrightAngleVector) {
 		rightAngleVector = new Vector3(-TILE_SIZE / 2, 0, Math.PI / 2 - 0.4);
+		randomVectorZ = new Vector3(randomVectorZ.x, randomVectorZ.y, 3 / 2 - 0.4);
 	}
 
 	return (
