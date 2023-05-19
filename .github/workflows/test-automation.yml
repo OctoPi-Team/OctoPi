@@ -26,7 +26,7 @@ jobs:
         uses: actions/checkout@v3
         
       - name: Set env Variable
-        run: echo "JEST_HTML_REPORTERS_URL_FOR_TEST_FILES=$(echo https://github.com/OctoPi-Team/OctoPi/tree/$(basename ${GITHUB_REF})/src)" >> $GITHUB_ENV
+        run: echo "JEST_HTML_REPORTERS_URL_FOR_TEST_FILES=$(echo https://github.com/OctoPi-Team/OctoPi/tree/${GITHUB_REF_NAME})" >> $GITHUB_ENV
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
