@@ -19,7 +19,7 @@ jobs:
         node-version: [18.x]
 
     env:
-      JEST_HTML_REPORTERS_URL_FOR_TEST_FILES: https://github.com/OctoPi-Team/OctoPi/blob/main
+      JEST_HTML_REPORTERS_URL_FOR_TEST_FILES: https://github.com/OctoPi-Team/OctoPi/tree/$(basename ${GITHUB_REF})/src
 
     steps:
       - name: Load Repo
@@ -30,8 +30,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-
-      - run: echo $GITHUB_REF && echo $GITHUB_REPOSITORY
 
       - name: Install Dependencies
         run: npm ci
