@@ -18,6 +18,9 @@ jobs:
       matrix:
         node-version: [18.x]
 
+    env:
+      JEST_HTML_REPORTERS_URL_FOR_TEST_FILES: https://github.com/OctoPi-Team/OctoPi/
+
     steps:
       - name: Load Repo
         uses: actions/checkout@v3

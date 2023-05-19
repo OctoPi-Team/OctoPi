@@ -6,5 +6,14 @@ module.exports = {
 	moduleNameMapper: {
 		'\\.(css|less)$': 'identity-obj-proxy',
 	},
-	reporters: ['default', 'jest-html-reporters'],
+	reporters: [
+		'default',
+		[
+			'jest-html-reporters',
+			{
+				includeFailureMsg: true,
+				pageTitle: 'Unit Tests OctoPi',
+			},
+		],
+	],
 };
