@@ -5,7 +5,7 @@ import { StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
 
 const PLAYER_SIZE = 0.5;
-const SPEED = 0.075;
+const SPEED = 0.1;
 const COLLISION_RANGE = 0.26;
 const COLLISION_IS_ACTIVE = true;
 
@@ -165,11 +165,11 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 	return (
 		<mesh name="player" ref={ref} position={[startPosition.x, startPosition.y + PLAYER_SIZE / 2, startPosition.z]}>
 			<ObjectLoad
-				pathObj="/Player.obj"
+				pathObj="/Player/Player.obj"
 				position={[0, 0, 0]}
-				pathMtl="/Player.mtl"
-				scale={[0.015, 0.015, 0.015]}
-				rotation={[-90, 0, 0]}
+				pathMtl="/Player/Player.mtl"
+				scale={[0.25, 0.25, 0.25]}
+				rotation={[0, 90, 0]}
 			/>
 		</mesh>
 	);

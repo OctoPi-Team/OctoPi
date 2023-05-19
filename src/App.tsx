@@ -14,7 +14,7 @@ export type SceneProps = {
 };
 
 export default function App() {
-	const [scene, setScene] = useState<Scene>(Scene.Shipment);
+	const [scene, setScene] = useState<Scene>(Scene.Overworld);
 
 	return (
 		<>
