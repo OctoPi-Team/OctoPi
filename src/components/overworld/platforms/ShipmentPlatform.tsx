@@ -21,7 +21,7 @@ export default function ShipmentPlatform({
 				position={position}
 				size={[15, 0.5, 18]}
 				reference={reference}
-				color={new Color(0xb2c4d1)}
+				color={new Color('#b2c4d1')}
 			/>
 			<ObjectLoad
 				pathObj="/LaufbandUndTrichter.obj"

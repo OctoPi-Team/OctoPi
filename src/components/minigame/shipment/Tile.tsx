@@ -59,11 +59,11 @@ export default function Tile({
 				}}>
 				<Tube
 					position={[0, 0.55, 0]}
-					color="white"
+					color="#3aaa35"
 					vectors={[randomVectorX, randomVectorZ, rightAngleVector].filter(vector => vector != null) as Vector3[]}
 				/>
 				<boxGeometry args={[TILE_SIZE, 0.5, TILE_SIZE]} />
-				<meshStandardMaterial color="yellow" />
+				<meshStandardMaterial color="#b2c4d1" />
 			</mesh>
 		</>
 	);

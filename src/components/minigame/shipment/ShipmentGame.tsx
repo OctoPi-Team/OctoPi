@@ -5,6 +5,7 @@ import { LoadingScreen } from '../../startscreen/LoadingScreen';
 import { useState } from 'react';
 import { OrbitControls, Tube } from '@react-three/drei';
 import FixedCamera from '../../overworld/FixedCamera';
+import ObjectLoad from '../../ObjectLoad';
 
 export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
@@ -25,6 +26,13 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 					<group position={[0, 4, 0]}>
 						{/*nicht optimal, TODO in position in Grid*/}
 						<Grid size={[3, 3]} />
+						<ObjectLoad
+							pathObj="/Trichter/trichter.obj"
+							pathMtl="/Trichter/trichter.mtl"
+							position={[8.7, -3.3, -0.5]}
+							scale={[0.25, 0.25, 0.25]}
+							rotation={[0, 180, 0]}
+						/>
 					</group>
 				</Canvas>
 			</div>
