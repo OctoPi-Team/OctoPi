@@ -22,7 +22,7 @@ function Tube({
 		<>
 			<mesh name={name} position={position}>
 				<primitive object={tubeGeometry} />
-				<meshStandardMaterial color={color} transparent opacity={0.5} side={DoubleSide} />
+				<meshStandardMaterial color={color} transparent opacity={0.77} side={DoubleSide} />
 				{/* <meshStandardMaterial attach="material" color={'white'} transparent opacity={0.5} side={BackSide} /> */}
 			</mesh>
 		</>
