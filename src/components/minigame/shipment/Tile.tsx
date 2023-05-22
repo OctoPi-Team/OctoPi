@@ -8,6 +8,7 @@ export type TileProps = {
 	randomVectorX: Vector3;
 	randomVectorZ: Vector3;
 	hasrightAngleVector?: boolean;
+	directionRight?: boolean;
 };
 
 const GRID_SPACING = 0.2;
@@ -27,6 +28,7 @@ export default function Tile({
 	randomVectorX,
 	randomVectorZ,
 	hasrightAngleVector = false,
+	directionRight = false,
 }: TileProps) {
 	const ref = useRef<Mesh>(null);
 
@@ -38,8 +40,13 @@ export default function Tile({
 	}, [gridPosition]);
 	let rightAngleVector = null;
 	if (hasrightAngleVector) {
-		rightAngleVector = new Vector3(-TILE_SIZE / 2, 0, Math.PI / 2 - 0.4);
-		randomVectorZ = new Vector3(randomVectorZ.x, randomVectorZ.y, 3 / 2 - 0.4);
+		if (directionRight) {
+			rightAngleVector = new Vector3(-TILE_SIZE / 2, 0, Math.PI / 2 - 0.5);
+			randomVectorZ = new Vector3(randomVectorZ.x, randomVectorZ.y, 3 / 2 - 0.5);
+		} else {
+			rightAngleVector = new Vector3(TILE_SIZE / 2, 0, Math.PI / 2 - 0.5);
+			randomVectorZ = new Vector3(randomVectorZ.x, randomVectorZ.y, 3 / 2 - 0.5);
+		}
 	}
 
 	return (
@@ -47,10 +54,11 @@ export default function Tile({
 			<mesh
 				ref={ref}
 				onClick={() => {
-					if (tileClickHandler) tileClickHandler({ gridPosition, randomVectorX, randomVectorZ, hasrightAngleVector });
+					if (tileClickHandler)
+						tileClickHandler({ gridPosition, randomVectorX, randomVectorZ, hasrightAngleVector, directionRight });
 				}}>
 				<Tube
-					position={[0, 0, 0]}
+					position={[0, 0.4, 0]}
 					color="black"
 					vectors={[randomVectorX, randomVectorZ, rightAngleVector].filter(vector => vector != null) as Vector3[]}
 				/>
