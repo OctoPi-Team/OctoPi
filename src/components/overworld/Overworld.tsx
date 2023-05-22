@@ -47,7 +47,7 @@ export default function Overworld({ setSceneHook }: SceneProps) {
 						color={new Color(0x3aaa35)}
 					/>
 					<Stair startPosition={new Vector3(6, 0, 6)} endPosition={new Vector3(6, 2, 9)} reference={addStair} />
-					<ShipmentPlatform position={[8, 2, 18]} reference={addPlatform} />
+					<ShipmentPlatform position={[8, 2, 18]} reference={addPlatform} sceneProps={{ setSceneHook }} />
 					<Stair startPosition={new Vector3(-7, 0, 6)} endPosition={new Vector3(-7, 4, 11)} reference={addStair} />
 					<SimplePlatform
 						name="Engineering"

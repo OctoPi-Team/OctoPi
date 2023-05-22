@@ -1,13 +1,19 @@
 import { Color } from 'three';
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
+import { SceneProps } from '../../../App';
 
 type ShipmentPlatformOptions = {
 	position?: [number, number, number];
 	reference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	sceneProps?: SceneProps;
 };
 
-export default function ShipmentPlatform({ position = [0, 0, 0], reference }: ShipmentPlatformOptions): JSX.Element {
+export default function ShipmentPlatform({
+	position = [0, 0, 0],
+	reference,
+	sceneProps,
+}: ShipmentPlatformOptions): JSX.Element {
 	return (
 		<>
 			<SimplePlatform
@@ -58,6 +64,7 @@ export default function ShipmentPlatform({ position = [0, 0, 0], reference }: Sh
 				position={[position[0], position[1] - 6, position[2] - 5]}
 				scale={[1, 1, 1]}
 				rotation={[0, 90, 0]}
+				onClick={sceneProps ? sceneProps.setSceneHook : null}
 			/>
 		</>
 	);

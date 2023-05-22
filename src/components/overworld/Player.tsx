@@ -148,15 +148,25 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 
 			// Set target rotation here based on keys pressed
 			const newRotation = new Vector3();
-			if (keys.right) {
-				newRotation.y += Math.PI / 1.3;
+
+			if (keys.right && keys.down) {
+				newRotation.y += MathUtils.degToRad(90);
+			} else if (keys.down && keys.left) {
+				newRotation.y += MathUtils.degToRad(0);
+			} else if (keys.left && keys.up) {
+				newRotation.y += MathUtils.degToRad(-90);
+			} else if (keys.up && keys.right) {
+				newRotation.y += MathUtils.degToRad(180);
+			} else if (keys.right) {
+				newRotation.y += MathUtils.degToRad(135);
 			} else if (keys.down) {
-				newRotation.y += Math.PI / 4;
+				newRotation.y += MathUtils.degToRad(45);
 			} else if (keys.left) {
-				newRotation.y -= Math.PI / 4;
+				newRotation.y += MathUtils.degToRad(-45);
 			} else if (keys.up) {
-				newRotation.y -= Math.PI / 1.3;
+				newRotation.y += MathUtils.degToRad(-135);
 			}
+
 			setTargetRotation(newRotation);
 
 			// Smoothly rotate the player towards the target rotation
