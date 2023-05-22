@@ -3,9 +3,11 @@ import { SceneProps } from '../../../App';
 import Grid from './Grid';
 import { LoadingScreen } from '../../startscreen/LoadingScreen';
 import { useState } from 'react';
-import { OrbitControls, Tube } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
+import Tube from '../../overworld/objects/Tube';
 import FixedCamera from '../../overworld/FixedCamera';
 import ObjectLoad from '../../ObjectLoad';
+import { Color, Vector3 } from 'three';
 
 export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
@@ -32,6 +34,17 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 							position={[8.7, -3.3, -0.5]}
 							scale={[0.25, 0.25, 0.25]}
 							rotation={[0, 180, 0]}
+						/>
+						<Tube
+							name="InputTubeInGame"
+							position={[0, 2, 0]}
+							color="#3aaa35"
+							vectors={[
+								new Vector3(-1.8, -1.5, 6.4),
+								new Vector3(-3, -1.2, 6.4),
+								new Vector3(-3.5, 2, 6.4),
+								new Vector3(-8, 2, 6.4),
+							]}
 						/>
 					</group>
 				</Canvas>
