@@ -91,14 +91,10 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 						break;
 				}
 
-				if (movementVector.length() > 0) console.log(movementVector.length());
 				// normalize Vector to avoid diagonal speedup
 				movementVector = movementVector.normalize();
-				if (movementVector.length() > 0) console.log(movementVector.length());
-
 				movementVector = movementVector.multiplyScalar(speed);
-
-				if (movementVector.length() > 0) console.log(movementVector.length()); // apply movement
+				// apply movement
 				ref.current.position.x += movementVector.x;
 				ref.current.position.z += movementVector.z;
 			}
