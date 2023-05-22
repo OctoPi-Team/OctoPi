@@ -41,11 +41,11 @@ export default function Tile({
 	let rightAngleVector = null;
 	if (hasrightAngleVector) {
 		if (directionRight) {
-			rightAngleVector = new Vector3(-TILE_SIZE / 2, 0, Math.PI / 2 - 0.5);
-			randomVectorZ = new Vector3(randomVectorZ.x, randomVectorZ.y, 3 / 2 - 0.5);
+			rightAngleVector = new Vector3(-TILE_SIZE / 2, 0, 0);
+			randomVectorZ = new Vector3(randomVectorZ.x, randomVectorZ.y, 0);
 		} else {
-			rightAngleVector = new Vector3(TILE_SIZE / 2, 0, Math.PI / 2 - 0.5);
-			randomVectorZ = new Vector3(randomVectorZ.x, randomVectorZ.y, 3 / 2 - 0.5);
+			rightAngleVector = new Vector3(TILE_SIZE / 2, 0, 0);
+			randomVectorZ = new Vector3(randomVectorZ.x, randomVectorZ.y, 0);
 		}
 	}
 
@@ -58,8 +58,8 @@ export default function Tile({
 						tileClickHandler({ gridPosition, randomVectorX, randomVectorZ, hasrightAngleVector, directionRight });
 				}}>
 				<Tube
-					position={[0, 0.4, 0]}
-					color="black"
+					position={[0, 0.55, 0]}
+					color="white"
 					vectors={[randomVectorX, randomVectorZ, rightAngleVector].filter(vector => vector != null) as Vector3[]}
 				/>
 				<boxGeometry args={[TILE_SIZE, 0.5, TILE_SIZE]} />
