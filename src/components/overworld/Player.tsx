@@ -63,32 +63,44 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 			const results = ray.intersectObjects(platforms);
 
 			if (results.length > 0 || !collisionIsActive) {
+				let movementVector = new Vector3();
 				switch (String(pointId)) {
 					case '0': // right
 						if (keys.right) {
-							ref.current.position.z += speed / 2;
-							ref.current.position.x -= speed / 2;
+							movementVector.z += 1;
+							movementVector.x -= 1;
 						}
 						break;
 					case '1': // down
 						if (keys.down) {
-							ref.current.position.x -= speed / 2;
-							ref.current.position.z -= speed / 2;
+							movementVector.x -= 1;
+							movementVector.z -= 1;
 						}
 						break;
 					case '2': // left
 						if (keys.left) {
-							ref.current.position.z -= speed / 2;
-							ref.current.position.x += speed / 2;
+							movementVector.z -= 1;
+							movementVector.x += 1;
 						}
 						break;
 					case '3': // up
 						if (keys.up) {
-							ref.current.position.x += speed / 2;
-							ref.current.position.z += speed / 2;
+							movementVector.x += 1;
+							movementVector.z += 1;
 						}
 						break;
 				}
+
+				if (movementVector.length() > 0) console.log(movementVector.length());
+				// normalize Vector to avoid diagonal speedup
+				movementVector = movementVector.normalize();
+				if (movementVector.length() > 0) console.log(movementVector.length());
+
+				movementVector = movementVector.multiplyScalar(speed);
+
+				if (movementVector.length() > 0) console.log(movementVector.length()); // apply movement
+				ref.current.position.x += movementVector.x;
+				ref.current.position.z += movementVector.z;
 			}
 		}
 
