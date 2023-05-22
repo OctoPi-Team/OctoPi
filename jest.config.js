@@ -6,6 +6,9 @@ module.exports = {
 	moduleNameMapper: {
 		'\\.(css|less)$': 'identity-obj-proxy',
 	},
+	globals: {
+		IS_REACT_ACT_ENVIRONMENT: true,
+	},
 	reporters: [
 		'default',
 		[
