@@ -53,10 +53,10 @@ export default function Grid({ size }: GridProps) {
 					// exclude default empty tile
 					addTile({
 						gridPosition: [x, y],
-						randomVectorX: new Vector3(0, 0, -3 / 2),
-						randomVectorZ: new Vector3(0, 0, 3 / 2),
+						VectorX: new Vector3(-3 / 2, 0, 0),
+						VectorZ: new Vector3(3 / 2, 0, 0),
 						hasrightAngleVector: true,
-						directionRight: false,
+						directionRight: true,
 					});
 			}
 		}

@@ -35,6 +35,7 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 							scale={[0.25, 0.25, 0.25]}
 							rotation={[0, 180, 0]}
 						/>
+						{/* TODO relation to the grid */}
 						<Tube
 							name="InputTubeInGame"
 							position={[0, 2, 0]}
