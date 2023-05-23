@@ -1,4 +1,5 @@
 import { useFrame } from '@react-three/fiber';
+import { Scene, SceneProps } from '../../App';
 import React, { useRef, useState } from 'react';
 import { BufferGeometry, Material, MathUtils, Mesh, Raycaster, Vector3 } from 'three';
 import { StairType } from './platforms/Stair';
@@ -21,6 +22,8 @@ interface PlayerArgs {
 	startPosition: Vector3;
 	platforms: Mesh<BufferGeometry, Material | Material[]>[];
 	stairs: StairType[];
+	sceneProps?: SceneProps;
+	buttons: Mesh<BufferGeometry, Material | Material[]>[];
 }
 
 function getHeight(stairLength: number, stairHeight: number, currentProgression: number, lowerHeight: number) {
@@ -29,7 +32,7 @@ function getHeight(stairLength: number, stairHeight: number, currentProgression:
 	return lowerHeight + currentProgression / (stairLength / stairHeight);
 }
 
-function Player({ startPosition, platforms, stairs }: PlayerArgs) {
+function Player({ startPosition, platforms, stairs, buttons, sceneProps }: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
 	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
 	const [targetRotation, setTargetRotation] = useState<Vector3>(new Vector3(0, 0, 0));
@@ -40,6 +43,13 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 		if (!ref.current) return;
 
 		const playerPosition = ref.current.position.clone();
+		const buttonPositions = buttons.map(button => button.position.clone());
+		for (const buttonPosition of buttonPositions) {
+			if (playerPosition.distanceTo(buttonPosition) < 8) {
+				console.log(true);
+				if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
+			}
+		}
 		const topOfPlayer = playerPosition.y + playerSize;
 		// collision points are origins of raycasts
 		// they are positioned at the edge of the top side of the cube with a distance to the center of collisionRange

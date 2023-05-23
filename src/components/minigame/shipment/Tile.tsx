@@ -41,6 +41,7 @@ export default function Tile({
 			ref.current.position.copy(meshPosition);
 		}
 	}, [gridPosition]);
+
 	let rightAngleVector = null;
 	if (hasAngle) {
 		if (isRight) {

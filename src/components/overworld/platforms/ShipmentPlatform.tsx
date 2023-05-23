@@ -2,17 +2,20 @@ import { Color } from 'three';
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
 import { SceneProps } from '../../../App';
+import Button from '../objects/Button';
 
 type ShipmentPlatformOptions = {
 	position?: [number, number, number];
 	reference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 	sceneProps?: SceneProps;
+	buttonreference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 };
 
 export default function ShipmentPlatform({
 	position = [0, 0, 0],
 	reference,
 	sceneProps,
+	buttonreference,
 }: ShipmentPlatformOptions): JSX.Element {
 	return (
 		<>
@@ -58,14 +61,7 @@ export default function ShipmentPlatform({
 				scale={[0.08, 0.06, 0.05]}
 				rotation={[0, 90, 0]}
 			/>
-			<ObjectLoad
-				pathObj="/Button/Button.obj"
-				pathMtl="/Button/Button.mtl"
-				position={[position[0], position[1] - 6, position[2] - 5]}
-				scale={[1, 1, 1]}
-				rotation={[0, 90, 0]}
-				onClick={sceneProps ? sceneProps.setSceneHook : null}
-			/>
+			<Button position={position} reference={buttonreference} />
 		</>
 	);
 }
