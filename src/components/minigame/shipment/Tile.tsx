@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Mesh, Vector3 } from 'three';
 import Tube from '../../overworld/objects/Tube';
 
@@ -7,8 +7,9 @@ export type TileProps = {
 	tileClickHandler?: (tileProps: TileProps) => void;
 	VectorX: Vector3;
 	VectorZ: Vector3;
-	hasrightAngleVector?: boolean;
+	hasAngleVector?: boolean;
 	directionRight?: boolean;
+	color?: string;
 };
 
 const GRID_SPACING = 0.2;
@@ -27,11 +28,12 @@ export default function Tile({
 	tileClickHandler,
 	VectorX,
 	VectorZ,
-	hasrightAngleVector = false,
+	hasAngleVector = false,
 	directionRight = false,
+	color = '#b2c4d1',
 }: TileProps) {
 	const ref = useRef<Mesh>(null);
-	const hasAngle = hasrightAngleVector;
+	const hasAngle = hasAngleVector;
 	const isRight = directionRight;
 	useEffect(() => {
 		if (ref.current) {
@@ -55,8 +57,7 @@ export default function Tile({
 			<mesh
 				ref={ref}
 				onClick={() => {
-					if (tileClickHandler)
-						tileClickHandler({ gridPosition, VectorX, VectorZ, hasrightAngleVector, directionRight });
+					if (tileClickHandler) tileClickHandler({ gridPosition, VectorX, VectorZ, hasAngleVector, directionRight });
 				}}>
 				<Tube
 					position={[0, 0.7, 0]}
@@ -64,7 +65,7 @@ export default function Tile({
 					vectors={[VectorX, VectorZ, rightAngleVector].filter(vector => vector != null) as Vector3[]}
 				/>
 				<boxGeometry args={[TILE_SIZE, 0.5, TILE_SIZE]} />
-				<meshStandardMaterial color="#b2c4d1" />
+				<meshStandardMaterial color={color} />
 			</mesh>
 		</>
 	);

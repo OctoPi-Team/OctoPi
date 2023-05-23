@@ -55,7 +55,7 @@ export default function Grid({ size }: GridProps) {
 						gridPosition: [x, y],
 						VectorX: new Vector3(-3 / 2, 0, 0),
 						VectorZ: new Vector3(3 / 2, 0, 0),
-						hasrightAngleVector: Math.random() < 0.5,
+						hasAngleVector: Math.random() < 0.5,
 						directionRight: Math.random() < 0.5,
 					});
 				}
