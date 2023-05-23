@@ -47,7 +47,7 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 								new Vector3(-1.9, -1.3, INPUTTUBEPOSSITION),
 								new Vector3(-3, -1.2, INPUTTUBEPOSSITION),
 								new Vector3(-3.5, 2, INPUTTUBEPOSSITION),
-								new Vector3(-8, 2, INPUTTUBEPOSSITION),
+								new Vector3(-20, 1.5, INPUTTUBEPOSSITION),
 							]}
 						/>
 					</group>
