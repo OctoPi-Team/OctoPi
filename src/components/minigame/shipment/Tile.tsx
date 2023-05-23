@@ -50,6 +50,11 @@ export default function Tile({
 			rightAngleVector = new Vector3(0, 0, TILE_SIZE / 2);
 			VectorZ = new Vector3(0, VectorZ.y, 0);
 		}
+	} else {
+		if (isRight) {
+			VectorX = new Vector3(0, VectorX.y, -TILE_SIZE / 2);
+			VectorZ = new Vector3(0, VectorZ.y, TILE_SIZE / 2);
+		}
 	}
 
 	return (
