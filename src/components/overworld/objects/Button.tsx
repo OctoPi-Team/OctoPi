@@ -21,7 +21,7 @@ export default function Button(props: ButtonProps) {
 		<ObjectLoad
 			pathObj="/Button/Button.obj"
 			pathMtl="/Button/Button.mtl"
-			position={[props.position[0], props.position[1] - 6, props.position[2] - 5]}
+			position={[props.position[0] + 10, props.position[1] - 6, props.position[2] + 10]}
 			scale={[1, 1, 1]}
 			rotation={[0, 90, 0]}
 			reference={props.reference}

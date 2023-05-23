@@ -105,8 +105,8 @@ export default function Overworld({ setSceneHook }: SceneProps) {
 						buttons={buttons}
 						sceneProps={{ setSceneHook }}
 					/>
-					<Tube name="Tube" position={[16, 2, 18]} size={[0.5, 8, 1]} />
-					<Tube name="Tube" position={[10, 2, 18]} size={[0.5, 8, 1]} />
+					{/* <Tube name="Tube" position={[16, 2, 18]} size={[0.5, 8, 1]} />
+					<Tube name="Tube" position={[10, 2, 18]} size={[0.5, 8, 1]} /> */}
 				</Canvas>
 			</div>
 		</>
