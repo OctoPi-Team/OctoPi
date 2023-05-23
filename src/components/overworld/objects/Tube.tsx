@@ -1,4 +1,4 @@
-import THREE, { Vector3, TubeGeometry, CatmullRomCurve3, BackSide, DoubleSide } from 'three';
+import THREE, { Vector3, TubeGeometry, CatmullRomCurve3, DoubleSide } from 'three';
 
 type TubeProps = {
 	name?: string;
@@ -23,7 +23,6 @@ function Tube({
 			<mesh name={name} position={position}>
 				<primitive object={tubeGeometry} />
 				<meshStandardMaterial color={color} transparent opacity={0.77} side={DoubleSide} />
-				{/* <meshStandardMaterial attach="material" color={'white'} transparent opacity={0.5} side={BackSide} /> */}
 			</mesh>
 		</>
 	);
