@@ -49,15 +49,16 @@ export default function Grid({ size }: GridProps) {
 	useEffect(() => {
 		for (let x = 0; x < size[0]; x++) {
 			for (let y = 0; y < size[1]; y++) {
-				if (!(x == 0 && y == 0))
+				if (!(x === 0 && y === 0)) {
 					// exclude default empty tile
 					addTile({
 						gridPosition: [x, y],
 						VectorX: new Vector3(-3 / 2, 0, 0),
 						VectorZ: new Vector3(3 / 2, 0, 0),
-						hasrightAngleVector: true,
-						directionRight: true,
+						hasrightAngleVector: Math.random() < 0.5,
+						directionRight: Math.random() < 0.5,
 					});
+				}
 			}
 		}
 	}, [size]);

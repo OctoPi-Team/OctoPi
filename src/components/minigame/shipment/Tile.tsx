@@ -31,7 +31,8 @@ export default function Tile({
 	directionRight = false,
 }: TileProps) {
 	const ref = useRef<Mesh>(null);
-
+	const hasAngle = hasrightAngleVector;
+	const isRight = directionRight;
 	useEffect(() => {
 		if (ref.current) {
 			const meshPosition = getRealPositionFromGridPosition(gridPosition);
@@ -39,8 +40,8 @@ export default function Tile({
 		}
 	}, [gridPosition]);
 	let rightAngleVector = null;
-	if (hasrightAngleVector) {
-		if (directionRight) {
+	if (hasAngle) {
+		if (isRight) {
 			rightAngleVector = new Vector3(0, 0, -TILE_SIZE / 2);
 			VectorZ = new Vector3(0, VectorZ.y, 0);
 		} else {
@@ -58,7 +59,7 @@ export default function Tile({
 						tileClickHandler({ gridPosition, VectorX, VectorZ, hasrightAngleVector, directionRight });
 				}}>
 				<Tube
-					position={[0, 0.55, 0]}
+					position={[0, 0.7, 0]}
 					color="#3aaa35"
 					vectors={[VectorX, VectorZ, rightAngleVector].filter(vector => vector != null) as Vector3[]}
 				/>
