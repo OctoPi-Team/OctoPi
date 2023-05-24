@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Mesh, Vector3 } from 'three';
+import { WHITE } from '../../../AllColorVariables';
 
 export type StairType = {
 	mesh: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>;
@@ -37,7 +38,7 @@ function Stair({ startPosition, endPosition, reference }: StairProps) {
 	return (
 		<mesh ref={ref}>
 			<boxGeometry args={[2, 0.25, length]} />
-			<meshStandardMaterial color={'white'} />
+			<meshStandardMaterial color={WHITE} />
 		</mesh>
 	);
 }

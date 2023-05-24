@@ -11,6 +11,7 @@ import { LoadingScreen } from '../startscreen/LoadingScreen';
 import { Canvas } from '@react-three/fiber';
 import { useState } from 'react';
 import { SceneProps } from '../../App';
+import { WHITE, GREEN, ENGINEERING, PRODUCTION, PARTS, MONITORING, DESIGN } from '../../AllColorVariables';
 
 export default function Overworld({ setSceneHook }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
@@ -39,17 +40,12 @@ export default function Overworld({ setSceneHook }: SceneProps) {
 			<div style={{ width: '100vw', height: '100vh' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
 				{visible && <Video setVisible={setVisible} />}
 				<Canvas orthographic camera={{ zoom: 40 }} style={{ visibility: visible ? 'hidden' : 'visible' }}>
-					<directionalLight intensity={0.5} color={'white'} />
+					<directionalLight intensity={0.5} color={WHITE} />
 
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
 					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} />}
 
-					<SimplePlatform
-						position={[0, 0, 0]}
-						size={[20, 0.5, 13]}
-						reference={addPlatform}
-						color={new Color(0x3aaa35)}
-					/>
+					<SimplePlatform position={[0, 0, 0]} size={[20, 0.5, 13]} reference={addPlatform} color={new Color(GREEN)} />
 					<Stair startPosition={new Vector3(6, 0, 6)} endPosition={new Vector3(6, 2, 9)} reference={addStair} />
 					<ShipmentPlatform
 						position={[8, 2, 18]}
@@ -63,7 +59,7 @@ export default function Overworld({ setSceneHook }: SceneProps) {
 						position={[-13, 4, 20]}
 						size={[15, 0.5, 18]}
 						reference={addPlatform}
-						color={new Color(0xdabdd65)}
+						color={new Color(ENGINEERING)}
 					/>
 					<Stair startPosition={new Vector3(-9.5, 0, 0)} endPosition={new Vector3(-13, 1, 0)} reference={addStair} />
 					<SimplePlatform
@@ -71,7 +67,7 @@ export default function Overworld({ setSceneHook }: SceneProps) {
 						position={[-20, 1, -2]}
 						size={[14, 0.5, 17]}
 						reference={addPlatform}
-						color={new Color(0xdaf0ee)}
+						color={new Color(DESIGN)}
 					/>
 					<Stair startPosition={new Vector3(-5, 0, -6)} endPosition={new Vector3(-5, 3, -16)} reference={addStair} />
 					<SimplePlatform
@@ -79,7 +75,7 @@ export default function Overworld({ setSceneHook }: SceneProps) {
 						position={[-10, 3, -22]}
 						size={[19, 0.5, 12]}
 						reference={addPlatform}
-						color={new Color(0x587b7f)}
+						color={new Color(PRODUCTION)}
 					/>
 					<Stair startPosition={new Vector3(6, 0, -6)} endPosition={new Vector3(6, 1.5, -11)} reference={addStair} />
 					<SimplePlatform
@@ -87,7 +83,7 @@ export default function Overworld({ setSceneHook }: SceneProps) {
 						position={[10, 1.5, -20]}
 						size={[13, 0.5, 18]}
 						reference={addPlatform}
-						color={new Color(0x686868)}
+						color={new Color(PARTS)}
 					/>
 					<Stair startPosition={new Vector3(9.5, 0, 0)} endPosition={new Vector3(18, 4.5, 0)} reference={addStair} />
 					<SimplePlatform
@@ -95,7 +91,7 @@ export default function Overworld({ setSceneHook }: SceneProps) {
 						position={[25, 4.5, -1]}
 						size={[14, 0.5, 19]}
 						reference={addPlatform}
-						color={new Color(0xdddddd)}
+						color={new Color(MONITORING)}
 					/>
 					<ambientLight intensity={0.5} />
 					<Player

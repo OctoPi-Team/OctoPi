@@ -6,6 +6,7 @@ import Tube from '../../overworld/objects/Tube';
 import FixedCamera from '../../overworld/FixedCamera';
 import ObjectLoad from '../../ObjectLoad';
 import { Vector3 } from 'three';
+import { GREEN, WHITE } from '../../../AllColorVariables';
 
 export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
@@ -23,7 +24,7 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 			<button onClick={() => setSceneHook(Scene.Overworld)}> </button>
 			<div style={{ width: '100vw', height: '100vh' }} tabIndex={0}>
 				<Canvas orthographic camera={{ zoom: 50, position: [40, 40, 40] }}>
-					<directionalLight intensity={0.5} color={'white'} />
+					<directionalLight intensity={0.5} color={WHITE} />
 					<ambientLight intensity={0.5} />
 
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
@@ -44,7 +45,7 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 						<Tube
 							name="InputTubeInGame"
 							position={[0, 2, 0]}
-							color="#3aaa35"
+							color={GREEN}
 							vectors={[
 								new Vector3(-1.9, -1.3, INPUTTUBEPOSSITION),
 								new Vector3(-3, -1.2, INPUTTUBEPOSSITION),

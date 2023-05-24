@@ -1,4 +1,5 @@
 import THREE, { Vector3, TubeGeometry, CatmullRomCurve3, DoubleSide } from 'three';
+import { WHITE } from '../../../AllColorVariables';
 
 const standardVectors = [
 	new Vector3(0, 0, 0),
@@ -19,7 +20,7 @@ type TubeProps = {
 function Tube({
 	name = 'Tube',
 	position = [0, 0, 0],
-	color = 'white',
+	color = WHITE,
 	vectors = standardVectors,
 }: TubeProps): JSX.Element {
 	const curve = new CatmullRomCurve3(vectors);

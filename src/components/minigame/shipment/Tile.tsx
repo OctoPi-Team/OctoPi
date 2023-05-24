@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Mesh, Vector3 } from 'three';
 import Tube from '../../overworld/objects/Tube';
+import { BLUE, GREEN } from '../../../AllColorVariables';
 
 export type TileProps = {
 	gridPosition: [number, number];
@@ -30,7 +31,7 @@ export default function Tile({
 	VectorZ,
 	hasAngleVector = false,
 	directionRight = false,
-	color = '#b2c4d1',
+	color = BLUE,
 }: TileProps) {
 	const ref = useRef<Mesh>(null);
 	const hasAngle = hasAngleVector;
@@ -67,7 +68,7 @@ export default function Tile({
 				}}>
 				<Tube
 					position={[0, 0.7, 0]}
-					color="#3aaa35"
+					color={GREEN}
 					vectors={[VectorX, VectorZ, rightAngleVector].filter(vector => vector != null) as Vector3[]}
 				/>
 				<boxGeometry args={[TILE_SIZE, 0.5, TILE_SIZE]} />
