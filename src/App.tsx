@@ -15,6 +15,7 @@ import { LoadingScreen } from './components/startscreen/LoadingScreen';
 import MainPlatform from './components/overworld/platforms/MainPlatform';
 import PartsPlatform from './components/overworld/platforms/PartsPlatform';
 import MonitoringPlatform from './components/overworld/platforms/MonitoringPlatform';
+import DesignPlatform from './components/overworld/platforms/DesignPlatform';
 
 export default function App() {
 	const ORBITAL_CONTROLS_ACTIVE = false;
@@ -46,12 +47,6 @@ export default function App() {
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
 					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} />}
 
-					<SimplePlatform
-						position={[0, 0, 0]}
-						size={[20, 0.5, 13]}
-						reference={addPlatform}
-						color={new Color(0x3aaa35)}
-					/>
 					<MainPlatform position={[0, 0, 0]}reference={addPlatform}/>
 					<Stair startPosition={new Vector3(6, 0, 6)} endPosition={new Vector3(6, 2, 9)} reference={addStair} />
 					<ShipmentPlatform position={[8, 2, 18]} reference={addPlatform} />
@@ -64,13 +59,7 @@ export default function App() {
 						color={new Color(0xdabdd65)}
 					/>
 					<Stair startPosition={new Vector3(-9.5, 0, 0)} endPosition={new Vector3(-13, 1, 0)} reference={addStair} />
-					<SimplePlatform
-						name="Design"
-						position={[-20, 1, -2]}
-						size={[14, 0.5, 17]}
-						reference={addPlatform}
-						color={new Color(0xdaf0ee)}
-					/>
+					<DesignPlatform position={[-20, 0.5, -2]} reference={addPlatform} />
 					<Stair startPosition={new Vector3(-5, 0, -6)} endPosition={new Vector3(-5, 3, -16)} reference={addStair} />
 					<SimplePlatform
 						name="Production"
