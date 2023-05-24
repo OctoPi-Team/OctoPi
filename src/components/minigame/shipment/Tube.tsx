@@ -1,5 +1,12 @@
 import THREE, { Vector3, TubeGeometry, CatmullRomCurve3, DoubleSide } from 'three';
 
+const standardVectors = [
+	new Vector3(0, 0, 0),
+	new Vector3(0, 7, 0),
+	new Vector3(-10.5, 7, 5),
+	new Vector3(-10.6, 5.5, 5),
+];
+
 type TubeProps = {
 	name?: string;
 	position: [number, number, number];
@@ -13,7 +20,7 @@ function Tube({
 	name = 'Tube',
 	position = [0, 0, 0],
 	color = 'white',
-	vectors = [new Vector3(0, 0, 0), new Vector3(0, 7, 0), new Vector3(-10.5, 7, 5), new Vector3(-10.6, 5.5, 5)],
+	vectors = standardVectors,
 }: TubeProps): JSX.Element {
 	const curve = new CatmullRomCurve3(vectors);
 
@@ -24,7 +31,6 @@ function Tube({
 			<mesh name={name} position={position}>
 				<primitive object={tubeGeometry} />
 				<meshStandardMaterial color={color} transparent opacity={0.5} side={DoubleSide} />
-				{/* <meshStandardMaterial attach="material" color={'white'} transparent opacity={0.5} side={BackSide} /> */}
 			</mesh>
 		</>
 	);
