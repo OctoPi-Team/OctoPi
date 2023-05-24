@@ -9,6 +9,7 @@ const PLAYER_SIZE = 0.5;
 const SPEED = 0.1;
 const COLLISION_RANGE = 0.26;
 const COLLISION_IS_ACTIVE = true;
+const ROTATION_SPEED = 0.1;
 
 // keys stores the current state of keyboard presses
 const keys = {
@@ -36,7 +37,6 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 	const ref = useRef<Mesh>(null);
 	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
 	const [targetRotation, setTargetRotation] = useState<Vector3>(new Vector3(0, 0, 0));
-	const ROTATION_SPEED = 0.1;
 
 	// player movement
 	useFrame(() => {
