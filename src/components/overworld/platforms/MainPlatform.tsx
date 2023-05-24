@@ -19,7 +19,7 @@ export default function MainPlatform({ position = [0, 0, 0], reference }: MainPl
 			<ObjectLoad
 				pathObj="/Palette/palette.obj"
 				pathMtl="/Palette/palette.mtl"
-				position={[14, position[0], 10.5]}
+				position={[position[0], position[1], position[2]]}
 				scale={[0.15, 0.15, 0.15]}
 				rotation={[0, 0, 0]}
 			/>

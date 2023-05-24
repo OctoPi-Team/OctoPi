@@ -20,8 +20,8 @@ export default function MonitoringPlatform({ position = [0, 0, 0], reference }: 
 			<ObjectLoad
 				pathObj="/Radarschuessel/radarschuessel.obj"
 				pathMtl="/Radarschuessel/radarschuessel.mtl"
-				position={[5.6, position[1], position[2] - 1]}
-				scale={[0.1, 0.1, 0.1]}
+				position={[position[0], 10, position[2]]}
+				scale={[0.8, 0.8, 0.8]}
 				rotation={[0, 0, 0]}
 			/>
 		</>
