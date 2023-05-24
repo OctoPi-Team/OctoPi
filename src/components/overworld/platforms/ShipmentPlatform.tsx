@@ -14,7 +14,6 @@ type ShipmentPlatformOptions = {
 export default function ShipmentPlatform({
 	position = [0, 0, 0],
 	reference,
-	sceneProps,
 	buttonreference,
 }: ShipmentPlatformOptions): JSX.Element {
 	return (

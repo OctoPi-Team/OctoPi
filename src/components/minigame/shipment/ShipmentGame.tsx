@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber';
-import { SceneProps } from '../../../App';
+import { Scene, SceneProps } from '../../../App';
 import Grid from './Grid';
 import { OrbitControls } from '@react-three/drei';
 import Tube from '../../overworld/objects/Tube';
@@ -19,6 +19,8 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 	const INPUTTUBEPOSSITION = (rand - 1) * TILE_SIZE + (rand - 1) * SPACING;
 	return (
 		<>
+			{/* TODO proper button implement */}
+			<button onClick={() => setSceneHook(Scene.Overworld)}> </button>
 			<div style={{ width: '100vw', height: '100vh' }} tabIndex={0}>
 				<Canvas orthographic camera={{ zoom: 50, position: [40, 40, 40] }}>
 					<directionalLight intensity={0.5} color={'white'} />

@@ -1,4 +1,4 @@
-import THREE, { Vector3, TubeGeometry, CatmullRomCurve3, BackSide, DoubleSide } from 'three';
+import THREE, { Vector3, TubeGeometry, CatmullRomCurve3, DoubleSide } from 'three';
 
 type TubeProps = {
 	name?: string;
@@ -8,15 +8,6 @@ type TubeProps = {
 	reference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 	vectors?: [...Vector3[]];
 };
-
-enum TubeTypes {
-	Horizontal,
-	Vertical,
-	UpwardsRightTurn,
-	UpwardsLeftTurn,
-	DownwardsRightTurn,
-	DownwardsLeftTurn,
-}
 
 function Tube({
 	name = 'Tube',

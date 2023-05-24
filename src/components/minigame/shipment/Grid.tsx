@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import Tile, { TileProps } from './Tile';
-import { isYieldExpression } from 'typescript';
 import { Vector3 } from 'three';
 
 type GridProps = {
@@ -23,24 +22,24 @@ export default function Grid({ size }: GridProps) {
 		setTiles(tiles => [...tiles, newTile]);
 	}
 
-	function removeTile(tileToRemove: TileProps) {
-		setTiles(tiles.filter(item => item.gridPosition != tileToRemove.gridPosition));
+	function removeTile(gridPosition: [number, number]) {
+		setTiles(tiles.filter(item => item.gridPosition != gridPosition));
 	}
 
-	function tileClickHandler(props: TileProps) {
-		if (isNeighbourOfEmptyTile(props)) {
+	function tileClickHandler({ VectorX, VectorZ, hasAngleVector, directionRight, color, gridPosition }: TileProps) {
+		if (isNeighbourOfEmptyTile(gridPosition)) {
 			// swap positions of clicked and empty tile
 			const bufferedEmptyTile = emptyTile;
-			setEmptyTile(props.gridPosition);
-			removeTile(props);
-			props.gridPosition = bufferedEmptyTile;
-			addTile(props);
+			setEmptyTile(gridPosition);
+			removeTile(gridPosition);
+			gridPosition = bufferedEmptyTile;
+			addTile({ VectorX, VectorZ, color, hasAngleVector, directionRight, gridPosition });
 		}
 	}
 
-	function isNeighbourOfEmptyTile(tileToCheck: TileProps): boolean {
-		const xDistanceToEmpty = Math.abs(tileToCheck.gridPosition[0] - emptyTile[0]);
-		const yDistanceToEmpty = Math.abs(tileToCheck.gridPosition[1] - emptyTile[1]);
+	function isNeighbourOfEmptyTile(gridPosition: [number, number]): boolean {
+		const xDistanceToEmpty = Math.abs(gridPosition[0] - emptyTile[0]);
+		const yDistanceToEmpty = Math.abs(gridPosition[1] - emptyTile[1]);
 		// check if tile is direct neighbour, diagonals dont count
 		// -> if true tile can be swapped into the space of the empty tile
 		return (xDistanceToEmpty <= 1 && yDistanceToEmpty == 0) || (yDistanceToEmpty <= 1 && xDistanceToEmpty == 0);
