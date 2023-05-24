@@ -12,6 +12,9 @@ import { OrbitControls } from '@react-three/drei';
 import ShipmentPlatform from './components/overworld/platforms/ShipmentPlatform';
 import Tube from './components/overworld/objects/Tube';
 import { LoadingScreen } from './components/startscreen/LoadingScreen';
+import MainPlatform from './components/overworld/platforms/MainPlatform';
+import PartsPlatform from './components/overworld/platforms/PartsPlatform';
+import MonitoringPlatform from './components/overworld/platforms/MonitoringPlatform';
 
 export default function App() {
 	const ORBITAL_CONTROLS_ACTIVE = false;
@@ -49,6 +52,7 @@ export default function App() {
 						reference={addPlatform}
 						color={new Color(0x3aaa35)}
 					/>
+					<MainPlatform position={[0, 0, 0]}reference={addPlatform}/>
 					<Stair startPosition={new Vector3(6, 0, 6)} endPosition={new Vector3(6, 2, 9)} reference={addStair} />
 					<ShipmentPlatform position={[8, 2, 18]} reference={addPlatform} />
 					<Stair startPosition={new Vector3(-7, 0, 6)} endPosition={new Vector3(-7, 4, 11)} reference={addStair} />
@@ -76,21 +80,9 @@ export default function App() {
 						color={new Color(0x587b7f)}
 					/>
 					<Stair startPosition={new Vector3(6, 0, -6)} endPosition={new Vector3(6, 1.5, -11)} reference={addStair} />
-					<SimplePlatform
-						name="Parts"
-						position={[10, 1.5, -20]}
-						size={[13, 0.5, 18]}
-						reference={addPlatform}
-						color={new Color(0x686868)}
-					/>
+					<PartsPlatform position={[10, 1.5, -20]} reference={addPlatform} />
 					<Stair startPosition={new Vector3(9.5, 0, 0)} endPosition={new Vector3(18, 4.5, 0)} reference={addStair} />
-					<SimplePlatform
-						name="Monitoring"
-						position={[25, 4.5, -1]}
-						size={[14, 0.5, 19]}
-						reference={addPlatform}
-						color={new Color(0xdddddd)}
-					/>
+					<MonitoringPlatform position={[25, 4.5, -1]} reference={addPlatform} />
 					<ambientLight intensity={0.5} />
 					<Player startPosition={new Vector3(0, 0, 0)} platforms={platforms} stairs={stairs} />
 					<Tube name="Tube" position={[16, 2, 18]} size={[0.5, 8, 1]} rotation={[0, 0, 0]} />
