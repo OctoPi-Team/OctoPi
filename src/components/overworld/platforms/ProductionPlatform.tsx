@@ -11,23 +11,30 @@ export default function PartsPlatform({ position = [0, 0, 0], reference }: Parts
 	return (
 		<>
 			<SimplePlatform
-				name={'Parts'}
+				name={'Producting'}
 				position={position}
-				size={[13, 0.5, 18]}
+				size={[19, 0.5, 12]}
 				reference={reference}
-				color={new Color(0x686868)}
+				color={new Color(0x587b7f)}
 			/>
 			<ObjectLoad
-				pathObj="/Metallregal/metallregal.obj"
-				pathMtl="/Metallregal/metallregal.mtl"
+				pathObj="/Schreibtisch/schreibtisch.obj"
+				pathMtl="/Schreibtisch/schreibtisch.mtl"
 				position={[5.6, position[1], position[2] - 1]}
 				scale={[0.5, 0.5, 0.5]}
 				rotation={[0, 0, 0]}
 			/>
 			<ObjectLoad
-				pathObj="/kaputtesMetallregal/kaputtesMetallregal.obj"
-				pathMtl="/kaputtesMetallregal/kaputtesMetallregal.mtl"
-				position={[position[0], position[1], position[2]]}
+				pathObj="/Notebook/notebook.obj"
+				pathMtl="/Notebook/notebook.mtl"
+				position={[position[0], position[1]+4, position[2]]}
+				scale={[0.15, 0.15, 0.15]}
+				rotation={[0, 0, 0]}
+			/>
+            <ObjectLoad
+				pathObj="/Drehstuhl/drehstuhl.obj"
+				pathMtl="/Drehstuhl/drehstuhl.mtl"
+				position={[position[0]+4, position[1], position[2]]}
 				scale={[0.15, 0.15, 0.15]}
 				rotation={[0, 0, 0]}
 			/>
