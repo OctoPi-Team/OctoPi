@@ -59,6 +59,20 @@ export default function ShipmentPlatform({ position = [0, 0, 0], reference }: Sh
 				scale={[0.15, 0.15, 0.15]}
 				rotation={[0, 0, 0]}
 			/>
+			<ObjectLoad
+				pathObj="/PaketMitAugen/paketMitAugen.obj"
+				pathMtl="/PaketMitAugen/paketMitAugen.mtl"
+				position={[position[0] + 5.8, position[1] + 1, position[2] - 7.25]}
+				scale={[0.25, 0.25, 0.25]}
+				rotation={[0, 8, 0]}
+			/>
+			<ObjectLoad
+				pathObj="/UmgeknicktesPaket/umgeknicktesPaket.obj"
+				pathMtl="/UmgeknicktesPaket/umgeknicktesPaket.mtl"
+				position={[position[0] - 6, position[1], position[2] - 8]}
+				scale={[0.13, 0.13, 0.13]}
+				rotation={[0, 8, 0]}
+			/>
 		</>
 	);
 }
