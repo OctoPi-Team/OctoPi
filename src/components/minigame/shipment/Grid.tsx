@@ -13,6 +13,11 @@ function getTilesFromProps(props: TileProps[], tileClickHandler: (tileProps: Til
 	}
 	return tileElements;
 }
+//function to create random tiletype
+function getRandomTileType(): TileType {
+	const tileTypes = Object.values(TileType).map(value => value as TileType);
+	return tileTypes[Math.floor(Math.random() * tileTypes.length)];
+}
 
 export default function Grid({ size }: GridProps) {
 	const [tiles, setTiles] = useState<TileProps[]>([]);
@@ -54,7 +59,7 @@ export default function Grid({ size }: GridProps) {
 						gridPosition: [x, y],
 						VectorX: new Vector3(-3 / 2, 0, 0),
 						VectorZ: new Vector3(3 / 2, 0, 0),
-						tileType: TileType.AngleLeft,
+						tileType: getRandomTileType(),
 					});
 				}
 			}
