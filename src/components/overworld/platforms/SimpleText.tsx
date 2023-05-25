@@ -20,7 +20,7 @@ export function SimpleText({ position, textValue }: SimpleTextProps) {
 		<Text
 			ref={ref}
 			position={[position[0], position[1] + 3, position[2]]}
-			ontSize={1}
+			fontSize={1}
 			font=""
 			color={0x000000}
 			anchorX="center"
