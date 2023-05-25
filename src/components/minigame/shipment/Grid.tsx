@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Tile, { TileProps } from './Tile';
+import Tile, { TileProps, TileType } from './Tile';
 import { Vector3 } from 'three';
 
 type GridProps = {
@@ -26,14 +26,14 @@ export default function Grid({ size }: GridProps) {
 		setTiles(tiles.filter(item => item.gridPosition != gridPosition));
 	}
 
-	function tileClickHandler({ VectorX, VectorZ, hasAngleVector, directionRight, color, gridPosition }: TileProps) {
+	function tileClickHandler({ VectorX, VectorZ, tileType, color, gridPosition }: TileProps) {
 		if (isNeighbourOfEmptyTile(gridPosition)) {
 			// swap positions of clicked and empty tile
 			const bufferedEmptyTile = emptyTile;
 			setEmptyTile(gridPosition);
 			removeTile(gridPosition);
 			gridPosition = bufferedEmptyTile;
-			addTile({ VectorX, VectorZ, color, hasAngleVector, directionRight, gridPosition });
+			addTile({ VectorX, VectorZ, color, tileType, gridPosition });
 		}
 	}
 
@@ -54,8 +54,7 @@ export default function Grid({ size }: GridProps) {
 						gridPosition: [x, y],
 						VectorX: new Vector3(-3 / 2, 0, 0),
 						VectorZ: new Vector3(3 / 2, 0, 0),
-						hasAngleVector: Math.random() < 0.5,
-						directionRight: Math.random() < 0.5,
+						tileType: TileType.AngleLeft,
 					});
 				}
 			}
