@@ -64,11 +64,5 @@
 		"react-test-renderer": "^18.2.0",
 		"ts-node": "^10.9.1",
 		"vite": "^4.3.5"
-	},
-	"jest": {
-		"testEnvironment": "jsdom",
-		"globals": {
-			"IS_REACT_ACT_ENVIRONMENT": true
-		}
 	}
 }
