@@ -3,6 +3,7 @@ import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
 import { SceneProps } from '../../../App';
 import Button from '../objects/Button';
+import { BLUE } from '../../../AllColorVariables';
 
 type ShipmentPlatformOptions = {
 	position?: [number, number, number];
@@ -14,7 +15,6 @@ type ShipmentPlatformOptions = {
 export default function ShipmentPlatform({
 	position = [0, 0, 0],
 	reference,
-	sceneProps,
 	buttonreference,
 }: ShipmentPlatformOptions): JSX.Element {
 	return (
@@ -24,7 +24,7 @@ export default function ShipmentPlatform({
 				position={position}
 				size={[15, 0.5, 18]}
 				reference={reference}
-				color={new Color('#b2c4d1')}
+				color={new Color(BLUE)}
 			/>
 			<ObjectLoad
 				pathObj="/LaufbandUndTrichter.obj"

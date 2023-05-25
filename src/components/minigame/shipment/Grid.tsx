@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import Tile, { TileProps } from './Tile';
-import { isYieldExpression } from 'typescript';
+import Tile, { TileProps, TileType } from './Tile';
 import { Vector3 } from 'three';
 
 type GridProps = {
@@ -14,6 +13,11 @@ function getTilesFromProps(props: TileProps[], tileClickHandler: (tileProps: Til
 	}
 	return tileElements;
 }
+//function to create random tiletype
+function getRandomTileType(): TileType {
+	const tileTypes = Object.values(TileType).map(value => value as TileType);
+	return tileTypes[Math.floor(Math.random() * tileTypes.length)];
+}
 
 export default function Grid({ size }: GridProps) {
 	const [tiles, setTiles] = useState<TileProps[]>([]);
@@ -23,24 +27,24 @@ export default function Grid({ size }: GridProps) {
 		setTiles(tiles => [...tiles, newTile]);
 	}
 
-	function removeTile(tileToRemove: TileProps) {
-		setTiles(tiles.filter(item => item.gridPosition != tileToRemove.gridPosition));
+	function removeTile(gridPosition: [number, number]) {
+		setTiles(tiles.filter(item => item.gridPosition != gridPosition));
 	}
 
-	function tileClickHandler(props: TileProps) {
-		if (isNeighbourOfEmptyTile(props)) {
+	function tileClickHandler({ Vector1, Vector2, tileType, color, gridPosition }: TileProps) {
+		if (isNeighbourOfEmptyTile(gridPosition)) {
 			// swap positions of clicked and empty tile
 			const bufferedEmptyTile = emptyTile;
-			setEmptyTile(props.gridPosition);
-			removeTile(props);
-			props.gridPosition = bufferedEmptyTile;
-			addTile(props);
+			setEmptyTile(gridPosition);
+			removeTile(gridPosition);
+			gridPosition = bufferedEmptyTile;
+			addTile({ Vector1, Vector2, color, tileType, gridPosition });
 		}
 	}
 
-	function isNeighbourOfEmptyTile(tileToCheck: TileProps): boolean {
-		const xDistanceToEmpty = Math.abs(tileToCheck.gridPosition[0] - emptyTile[0]);
-		const yDistanceToEmpty = Math.abs(tileToCheck.gridPosition[1] - emptyTile[1]);
+	function isNeighbourOfEmptyTile(gridPosition: [number, number]): boolean {
+		const xDistanceToEmpty = Math.abs(gridPosition[0] - emptyTile[0]);
+		const yDistanceToEmpty = Math.abs(gridPosition[1] - emptyTile[1]);
 		// check if tile is direct neighbour, diagonals dont count
 		// -> if true tile can be swapped into the space of the empty tile
 		return (xDistanceToEmpty <= 1 && yDistanceToEmpty == 0) || (yDistanceToEmpty <= 1 && xDistanceToEmpty == 0);
@@ -53,10 +57,9 @@ export default function Grid({ size }: GridProps) {
 					// exclude default empty tile
 					addTile({
 						gridPosition: [x, y],
-						VectorX: new Vector3(-3 / 2, 0, 0),
-						VectorZ: new Vector3(3 / 2, 0, 0),
-						hasAngleVector: Math.random() < 0.5,
-						directionRight: Math.random() < 0.5,
+						Vector1: new Vector3(-3 / 2, 0, 0),
+						Vector2: new Vector3(3 / 2, 0, 0),
+						tileType: getRandomTileType(),
 					});
 				}
 			}

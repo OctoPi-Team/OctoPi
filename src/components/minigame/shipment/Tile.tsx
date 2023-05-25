@@ -1,14 +1,23 @@
 import { useEffect, useRef } from 'react';
 import { Mesh, Vector3 } from 'three';
 import Tube from '../../overworld/objects/Tube';
+import { BLUE, GREEN } from '../../../AllColorVariables';
+
+export enum TileType {
+	AngleRight,
+	AngleLeft,
+	StraightNormal,
+	StraightInverted,
+	AngleRightInverted,
+	AngleLeftInverted,
+}
 
 export type TileProps = {
 	gridPosition: [number, number];
 	tileClickHandler?: (tileProps: TileProps) => void;
-	VectorX: Vector3;
-	VectorZ: Vector3;
-	hasAngleVector?: boolean;
-	directionRight?: boolean;
+	Vector1: Vector3;
+	Vector2: Vector3;
+	tileType: TileType;
 	color?: string;
 };
 
@@ -23,18 +32,9 @@ function getRealPositionFromGridPosition(gridPosition: [number, number]): Vector
 	);
 }
 
-export default function Tile({
-	gridPosition,
-	tileClickHandler,
-	VectorX,
-	VectorZ,
-	hasAngleVector = false,
-	directionRight = false,
-	color = '#b2c4d1',
-}: TileProps) {
+export default function Tile({ gridPosition, tileClickHandler, Vector1, Vector2, tileType, color = BLUE }: TileProps) {
 	const ref = useRef<Mesh>(null);
-	const hasAngle = hasAngleVector;
-	const isRight = directionRight;
+
 	useEffect(() => {
 		if (ref.current) {
 			const meshPosition = getRealPositionFromGridPosition(gridPosition);
@@ -42,20 +42,38 @@ export default function Tile({
 		}
 	}, [gridPosition]);
 
-	let rightAngleVector = null;
-	if (hasAngle) {
-		if (isRight) {
+	let rightAngleVector: Vector3 | null = null;
+
+	switch (tileType) {
+		case TileType.AngleRight:
 			rightAngleVector = new Vector3(0, 0, -TILE_SIZE / 2);
-			VectorZ = new Vector3(0, VectorZ.y, 0);
-		} else {
+			Vector2 = new Vector3(0, Vector2.y, 0);
+			break;
+		case TileType.AngleLeft:
 			rightAngleVector = new Vector3(0, 0, TILE_SIZE / 2);
-			VectorZ = new Vector3(0, VectorZ.y, 0);
-		}
-	} else {
-		if (isRight) {
-			VectorX = new Vector3(0, VectorX.y, -TILE_SIZE / 2);
-			VectorZ = new Vector3(0, VectorZ.y, TILE_SIZE / 2);
-		}
+			Vector2 = new Vector3(0, Vector2.y, 0);
+			break;
+		case TileType.StraightNormal:
+			break;
+		case TileType.StraightInverted:
+			Vector1 = new Vector3(0, Vector1.y, -TILE_SIZE / 2);
+			Vector2 = new Vector3(0, Vector2.y, TILE_SIZE / 2);
+			break;
+		case TileType.AngleRightInverted:
+			// Handle AngleRightInverson case
+			Vector1 = new Vector3(TILE_SIZE / 2, Vector1.y, 0);
+			rightAngleVector = new Vector3(0, 0, -TILE_SIZE / 2);
+			Vector2 = new Vector3(0, Vector2.y, 0);
+			break;
+		case TileType.AngleLeftInverted:
+			// Handle AngleLeftInverted case
+			Vector1 = new Vector3(TILE_SIZE / 2, Vector1.y, 0);
+			rightAngleVector = new Vector3(0, 0, TILE_SIZE / 2);
+			Vector2 = new Vector3(0, Vector2.y, 0);
+			break;
+			break;
+		default:
+			break;
 	}
 
 	return (
@@ -63,12 +81,18 @@ export default function Tile({
 			<mesh
 				ref={ref}
 				onClick={() => {
-					if (tileClickHandler) tileClickHandler({ gridPosition, VectorX, VectorZ, hasAngleVector, directionRight });
+					if (tileClickHandler)
+						tileClickHandler({
+							gridPosition,
+							Vector1,
+							Vector2,
+							tileType,
+						});
 				}}>
 				<Tube
 					position={[0, 0.7, 0]}
-					color="#3aaa35"
-					vectors={[VectorX, VectorZ, rightAngleVector].filter(vector => vector != null) as Vector3[]}
+					color={GREEN}
+					vectors={[Vector1, Vector2, rightAngleVector].filter(vector => vector != null) as Vector3[]}
 				/>
 				<boxGeometry args={[TILE_SIZE, 0.5, TILE_SIZE]} />
 				<meshStandardMaterial color={color} />

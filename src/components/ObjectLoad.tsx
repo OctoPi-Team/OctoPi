@@ -12,7 +12,7 @@ type ObjectLoadOptions = {
 	rotation?: [number, number, number];
 	scale?: [number, number, number];
 	reference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
-	onClick?: ((val: any) => void) | null;
+	onClick?: ((val: Scene.Shipment) => void) | null;
 };
 // This function is to load an object from a .obj file and a .mtl file. To use it no knowlage of the ObjextLoad function is needed.
 export default function ObjectLoad({

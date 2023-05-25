@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { Text } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
+import { BLACK } from '../../../AllColorVariables';
 
 type SimpleTextProps = {
 	position: [number, number, number];
@@ -22,7 +23,7 @@ export function SimpleText({ position, textValue }: SimpleTextProps) {
 			position={[position[0], position[1] + 3, position[2]]}
 			fontSize={1}
 			font=""
-			color={0x000000}
+			color={BLACK}
 			anchorX="center"
 			anchorY="middle">
 			{textValue}
