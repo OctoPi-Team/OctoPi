@@ -31,14 +31,14 @@ export default function Grid({ size }: GridProps) {
 		setTiles(tiles.filter(item => item.gridPosition != gridPosition));
 	}
 
-	function tileClickHandler({ VectorX, VectorZ, tileType, color, gridPosition }: TileProps) {
+	function tileClickHandler({ Vector1, Vector2, tileType, color, gridPosition }: TileProps) {
 		if (isNeighbourOfEmptyTile(gridPosition)) {
 			// swap positions of clicked and empty tile
 			const bufferedEmptyTile = emptyTile;
 			setEmptyTile(gridPosition);
 			removeTile(gridPosition);
 			gridPosition = bufferedEmptyTile;
-			addTile({ VectorX, VectorZ, color, tileType, gridPosition });
+			addTile({ Vector1, Vector2, color, tileType, gridPosition });
 		}
 	}
 
@@ -57,9 +57,9 @@ export default function Grid({ size }: GridProps) {
 					// exclude default empty tile
 					addTile({
 						gridPosition: [x, y],
-						VectorX: new Vector3(-3 / 2, 0, 0),
-						VectorZ: new Vector3(3 / 2, 0, 0),
-						tileType: getRandomTileType(),
+						Vector1: new Vector3(-3 / 2, 0, 0),
+						Vector2: new Vector3(3 / 2, 0, 0),
+						tileType: TileType.AngleRightInverted,
 					});
 				}
 			}

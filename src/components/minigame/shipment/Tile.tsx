@@ -15,8 +15,8 @@ export enum TileType {
 export type TileProps = {
 	gridPosition: [number, number];
 	tileClickHandler?: (tileProps: TileProps) => void;
-	VectorX: Vector3;
-	VectorZ: Vector3;
+	Vector1: Vector3;
+	Vector2: Vector3;
 	tileType: TileType;
 	color?: string;
 };
@@ -32,7 +32,7 @@ function getRealPositionFromGridPosition(gridPosition: [number, number]): Vector
 	);
 }
 
-export default function Tile({ gridPosition, tileClickHandler, VectorX, VectorZ, tileType, color = BLUE }: TileProps) {
+export default function Tile({ gridPosition, tileClickHandler, Vector1, Vector2, tileType, color = BLUE }: TileProps) {
 	const ref = useRef<Mesh>(null);
 
 	useEffect(() => {
@@ -47,20 +47,21 @@ export default function Tile({ gridPosition, tileClickHandler, VectorX, VectorZ,
 	switch (tileType) {
 		case TileType.AngleRight:
 			rightAngleVector = new Vector3(0, 0, -TILE_SIZE / 2);
-			VectorZ = new Vector3(0, VectorZ.y, 0);
+			Vector2 = new Vector3(0, Vector2.y, 0);
 			break;
 		case TileType.AngleLeft:
 			rightAngleVector = new Vector3(0, 0, TILE_SIZE / 2);
-			VectorZ = new Vector3(0, VectorZ.y, 0);
+			Vector2 = new Vector3(0, Vector2.y, 0);
 			break;
 		case TileType.StraightNormal:
 			break;
 		case TileType.StraightInverted:
-			VectorX = new Vector3(0, VectorX.y, -TILE_SIZE / 2);
-			VectorZ = new Vector3(0, VectorZ.y, TILE_SIZE / 2);
+			Vector1 = new Vector3(0, Vector1.y, -TILE_SIZE / 2);
+			Vector2 = new Vector3(0, Vector2.y, TILE_SIZE / 2);
 			break;
 		case TileType.AngleRightInverted:
-			// Handle AngleRightInverted case
+			// Handle AngleRightInverson case
+
 			break;
 		case TileType.AngleLeftInverted:
 			// Handle AngleLeftInverted case
@@ -77,15 +78,15 @@ export default function Tile({ gridPosition, tileClickHandler, VectorX, VectorZ,
 					if (tileClickHandler)
 						tileClickHandler({
 							gridPosition,
-							VectorX,
-							VectorZ,
+							Vector1,
+							Vector2,
 							tileType,
 						});
 				}}>
 				<Tube
 					position={[0, 0.7, 0]}
 					color={GREEN}
-					vectors={[VectorX, VectorZ, rightAngleVector].filter(vector => vector != null) as Vector3[]}
+					vectors={[Vector1, Vector2, rightAngleVector].filter(vector => vector != null) as Vector3[]}
 				/>
 				<boxGeometry args={[TILE_SIZE, 0.5, TILE_SIZE]} />
 				<meshStandardMaterial color={color} />
