@@ -1,22 +1,26 @@
 import { Vector3, Color, BufferGeometry, Material, Mesh } from 'three';
 import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp } from './Player';
 import Stair, { StairType } from './platforms/Stair';
-import Video from '../startscreen/Video';
 import FixedCamera from './FixedCamera';
 import SimplePlatform from './platforms/SimplePlatform';
 import { OrbitControls } from '@react-three/drei';
 import ShipmentPlatform from './platforms/ShipmentPlatform';
 import Tube from './objects/Tube';
-import { LoadingScreen } from '../startscreen/LoadingScreen';
 import { Canvas } from '@react-three/fiber';
 import { useState } from 'react';
 import { SceneProps } from '../../App';
 import { WHITE, GREEN, ENGINEERING, PRODUCTION, PARTS, MONITORING, DESIGN } from '../../AllColorVariables';
 import { Joystick } from 'react-joystick-component';
 
-export default function Overworld({ setSceneHook }: SceneProps) {
+type OverworldProps = {
+	sceneProps: SceneProps;
+	visible: boolean;
+};
+
+export default function Overworld({ sceneProps, visible }: OverworldProps) {
+	const setSceneHook = sceneProps.setSceneHook;
+
 	const ORBITAL_CONTROLS_ACTIVE = false;
-	const [visible, setVisible] = useState(true);
 
 	const [platforms, setPlatforms] = useState<Mesh<BufferGeometry, Material | Material[]>[]>([]);
 	const [stairs, setStairs] = useState<StairType[]>([]);
@@ -37,9 +41,7 @@ export default function Overworld({ setSceneHook }: SceneProps) {
 	}
 	return (
 		<>
-			{visible && <LoadingScreen setVisible={setVisible} />}
 			<div style={{ width: '100vw', height: '100vh' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
-				{visible && <Video setVisible={setVisible} />}
 				<Joystick
 					baseColor="lightgreen"
 					stickColor="darkgreen"
