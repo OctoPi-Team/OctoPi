@@ -59,7 +59,7 @@ export default function Grid({ size }: GridProps) {
 						gridPosition: [x, y],
 						Vector1: new Vector3(-3 / 2, 0, 0),
 						Vector2: new Vector3(3 / 2, 0, 0),
-						tileType: TileType.AngleRightInverted,
+						tileType: getRandomTileType(),
 					});
 				}
 			}

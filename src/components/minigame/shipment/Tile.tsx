@@ -61,10 +61,16 @@ export default function Tile({ gridPosition, tileClickHandler, Vector1, Vector2,
 			break;
 		case TileType.AngleRightInverted:
 			// Handle AngleRightInverson case
-
+			Vector1 = new Vector3(TILE_SIZE / 2, Vector1.y, 0);
+			rightAngleVector = new Vector3(0, 0, -TILE_SIZE / 2);
+			Vector2 = new Vector3(0, Vector2.y, 0);
 			break;
 		case TileType.AngleLeftInverted:
 			// Handle AngleLeftInverted case
+			Vector1 = new Vector3(TILE_SIZE / 2, Vector1.y, 0);
+			rightAngleVector = new Vector3(0, 0, TILE_SIZE / 2);
+			Vector2 = new Vector3(0, Vector2.y, 0);
+			break;
 			break;
 		default:
 			break;
