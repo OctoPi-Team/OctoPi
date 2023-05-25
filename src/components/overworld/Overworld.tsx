@@ -1,5 +1,5 @@
 import { Vector3, Color, BufferGeometry, Material, Mesh } from 'three';
-import Player, { handleKeyDown, handleKeyUp } from './Player';
+import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp } from './Player';
 import Stair, { StairType } from './platforms/Stair';
 import Video from '../startscreen/Video';
 import FixedCamera from './FixedCamera';
@@ -12,6 +12,7 @@ import { Canvas } from '@react-three/fiber';
 import { useState } from 'react';
 import { SceneProps } from '../../App';
 import { WHITE, GREEN, ENGINEERING, PRODUCTION, PARTS, MONITORING, DESIGN } from '../../AllColorVariables';
+import { Joystick } from 'react-joystick-component';
 
 export default function Overworld({ setSceneHook }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
@@ -39,6 +40,14 @@ export default function Overworld({ setSceneHook }: SceneProps) {
 			{visible && <LoadingScreen setVisible={setVisible} />}
 			<div style={{ width: '100vw', height: '100vh' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
 				{visible && <Video setVisible={setVisible} />}
+				<Joystick
+					baseColor="lightgreen"
+					stickColor="darkgreen"
+					size={100}
+					move={handleJoystickMove}
+					stop={handleJoystickStop}
+				/>
+
 				<Canvas orthographic camera={{ zoom: 40 }} style={{ visibility: visible ? 'hidden' : 'visible' }}>
 					<directionalLight intensity={0.5} color={WHITE} />
 

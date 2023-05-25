@@ -1,9 +1,10 @@
 import { useFrame } from '@react-three/fiber';
 import { Scene, SceneProps } from '../../App';
 import React, { useRef, useState } from 'react';
-import { BufferGeometry, Material, MathUtils, Mesh, Raycaster, Vector3 } from 'three';
+import { BufferGeometry, Material, MathUtils, Mesh, Raycaster, Vector2, Vector3 } from 'three';
 import { StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
+import { IJoystickUpdateEvent } from 'react-joystick-component/build/lib/Joystick';
 
 const PLAYER_SIZE = 0.5;
 const SPEED = 0.1;
@@ -230,6 +231,49 @@ export const handleKeyUp: React.KeyboardEventHandler<HTMLDivElement> = event => 
 	if (event.key === 'ArrowRight') keys.right = false;
 	if (event.key === 'ArrowUp') keys.up = false;
 	if (event.key === 'ArrowDown') keys.down = false;
+};
+
+export const handleJoystickMove = (stick: IJoystickUpdateEvent) => {
+	// reset all keys
+	handleJoystickStop();
+	if (stick.x && stick.y) {
+		// calculate angle of joystick
+		const directionVector = new Vector2(stick.x, stick.y);
+		const directionAngle = MathUtils.radToDeg(directionVector.angle());
+		// 0 deg is Right 180deg is Left etc.
+		//    102.5  57.5
+		//    \    |    /
+		//     \   |   /
+		//      \  |  /
+		// 147.5 \ | / 12.5
+		//        \|/
+		//180 --------------0
+		//        /|\
+		// 212.5 / | \ 347.5
+		//      /  |  \
+		//     /   |   \
+		//    /    |    \
+		//   257.5   302.5
+		if (directionAngle > 302.5 || directionAngle < 57.5) {
+			keys.right = true;
+		}
+		if (directionAngle > 12.5 && directionAngle < 147.5) {
+			keys.up = true;
+		}
+		if (directionAngle > 102.5 && directionAngle < 257.5) {
+			keys.left = true;
+		}
+		if (directionAngle > 212.5 && directionAngle < 347.5) {
+			keys.down = true;
+		}
+	}
+};
+
+export const handleJoystickStop = () => {
+	keys.left = false;
+	keys.right = false;
+	keys.up = false;
+	keys.down = false;
 };
 
 export default Player;
