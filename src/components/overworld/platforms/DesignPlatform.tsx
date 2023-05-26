@@ -20,7 +20,7 @@ export default function DesignPlatform({ position = [0, 0, 0], reference }: Desi
 			<ObjectLoad
 				pathObj="/Whiteboard/whiteboard.obj"
 				pathMtl="/Whiteboard/whiteboard.mtl"
-				position={[position[0]-2, position[1], position[2]+5]}
+				position={[position[0] - 2, position[1], position[2] + 5]}
 				scale={[0.15, 0.15, 0.15]}
 				rotation={[0, 0, 0]}
 			/>

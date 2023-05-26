@@ -7,7 +7,7 @@ type GridProps = {
 	size: [number, number];
 };
 
-function getTilesFromProps(props: TileProps[], tileClickHandler: (tileProps: TileProps) => void): Array<JSX.Element> {^
+function getTilesFromProps(props: TileProps[], tileClickHandler: (tileProps: TileProps) => void): Array<JSX.Element> {
 	const tileElements = [];
 	for (const prop of props) {
 		tileElements.push(<Tile tileClickHandler={tileClickHandler} {...prop} />);
@@ -28,7 +28,6 @@ export default function Grid({ size }: GridProps) {
 	function addTile(newTile: TileProps) {
 		setTiles(tiles => [...tiles, newTile]);
 	}
-
 
 	function removeTile(gridPosition: [number, number]) {
 		setTiles(tiles.filter(item => item.gridPosition != gridPosition));

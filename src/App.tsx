@@ -5,7 +5,6 @@ import Overworld from './components/overworld/Overworld';
 import ShipmentGame from './components/minigame/shipment/ShipmentGame';
 import { LoadingScreen } from './components/startscreen/LoadingScreen';
 
-
 export enum Scene {
 	Overworld,
 	Shipment,
@@ -16,7 +15,6 @@ export type SceneProps = {
 };
 
 export default function App() {
-
 	const [scene, setScene] = useState<Scene>(Scene.Overworld);
 	const [visible, setVisible] = useState(true);
 

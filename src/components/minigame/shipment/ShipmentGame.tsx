@@ -48,7 +48,7 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 							rotation={[0, 180, 0]}
 						/>
 						<Tube name="InputTubeInGame" position={[0, 2, 0]} color={GREEN} vectors={VECTORS_FOR_TUBE} />
-          </group>
+					</group>
 				</Canvas>
 			</div>
 		</>

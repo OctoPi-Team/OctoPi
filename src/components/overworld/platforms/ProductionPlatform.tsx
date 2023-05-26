@@ -27,14 +27,14 @@ export default function PartsPlatform({ position = [0, 0, 0], reference }: Parts
 			<ObjectLoad
 				pathObj="/Notebook/notebook.obj"
 				pathMtl="/Notebook/notebook.mtl"
-				position={[position[0], position[1]+4, position[2]]}
+				position={[position[0], position[1] + 4, position[2]]}
 				scale={[0.15, 0.15, 0.15]}
 				rotation={[0, 0, 0]}
 			/>
-            <ObjectLoad
+			<ObjectLoad
 				pathObj="/Drehstuhl/drehstuhl.obj"
 				pathMtl="/Drehstuhl/drehstuhl.mtl"
-				position={[position[0]+4, position[1], position[2]]}
+				position={[position[0] + 4, position[1], position[2]]}
 				scale={[0.15, 0.15, 0.15]}
 				rotation={[0, 0, 0]}
 			/>

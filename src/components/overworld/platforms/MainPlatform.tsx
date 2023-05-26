@@ -28,7 +28,7 @@ export default function MainPlatform({ position = [0, 0, 0], reference }: MainPl
 			<ObjectLoad
 				pathObj="/Kaffeemaschine/kaffeemaschine.obj"
 				pathMtl="/Kaffeemaschine/kaffeemaschine.mtl"
-				position={[position[0]+4, position[1], position[2]]}
+				position={[position[0] + 4, position[1], position[2]]}
 				scale={[0.15, 0.15, 0.15]}
 				rotation={[0, 0, 0]}
 			/>
