@@ -1,8 +1,7 @@
 import { useRef, useEffect } from 'react';
-import { Color, Mesh, Vector3 } from 'three';
-import { Text } from '@react-three/drei';
-import { useFrame, useThree } from '@react-three/fiber';
-import { BLACK } from '../../../AllColorVariables';
+import { useFrame, useThree, Color } from '@react-three/fiber';
+import { Vector3 } from 'three';
+import { SimpleText } from './SimpleText';
 
 // This interface is used to set the options of the ObjectLoad function.
 type SimplePlatformProps = {
@@ -21,7 +20,7 @@ export default function SimplePlatform({
 	color,
 	reference,
 }: SimplePlatformProps) {
-	const ref = useRef<Mesh>(null);
+	const ref = useRef<THREE.Mesh>(null);
 	if (reference && ref.current) {
 		reference(ref.current);
 	}
@@ -31,9 +30,10 @@ export default function SimplePlatform({
 			ref.current.position.copy(meshPosition);
 		}
 	}, position);
+
 	const { camera } = useThree();
-	const meshRef = useRef<Mesh>(null);
-	const textRef = useRef<Mesh>(null);
+	const meshRef = useRef<THREE.Mesh>(null);
+	const textRef = useRef<THREE.Mesh>(null);
 	useFrame(() => {
 		if (meshRef.current && textRef.current) {
 			meshRef.current.lookAt(camera.position);
@@ -43,12 +43,7 @@ export default function SimplePlatform({
 
 	return (
 		<>
-			<mesh position={[position[0], position[1] + 3, position[2]]} ref={meshRef}>
-				<Text fontSize={1} font="" color={BLACK} anchorX="center" anchorY="middle" ref={textRef}>
-					{name}
-				</Text>
-				<meshStandardMaterial attach="material" color={BLACK} />
-			</mesh>
+			<SimpleText position={position} textValue={name} />
 			<mesh ref={ref}>
 				<boxGeometry args={size} />
 				<meshStandardMaterial color={color} />
