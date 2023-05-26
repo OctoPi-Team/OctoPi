@@ -1,11 +1,38 @@
-# Start our Application
+<h1 align="center">Welcome to Operation : Innovation 👋</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-0.6-blue.svg?cacheSeconds=2592000" />
+</p>
 
-## Script Commands
+> Game to get the attention of customers at an industrial fair 🚀.
 
-### `npm start`
+### 🏠 [Homepage](https://octopi-team.github.io/OctoPi-Website/index.html#)
 
-Start the server to run our application.
+### ✨ [Demo](https://frontend-octopi.cfapps.eu10-004.hana.ondemand.com/)
 
-### `npm run lint`
+<img src="https://github.com/OctoPi-Team/OctoPi/assets/95755235/7b4790da-8fe3-4468-a97e-5d4c4eeca0d2" alt= “” width="500" >
 
-Check your Code with ESLint. It should print out your errors or warnings.
+## Install
+
+```sh
+npm install
+```
+
+## Usage
+
+```sh
+npm start
+```
+
+## Run tests
+
+```sh
+npm run test
+```
+
+## Author
+
+👤 **OctoPi**
+
+## Show your support
+
+Give a ⭐️ if this project helped you!
