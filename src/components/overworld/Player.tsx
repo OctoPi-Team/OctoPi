@@ -1,13 +1,16 @@
 import { useFrame } from '@react-three/fiber';
-import React, { useRef } from 'react';
-import { BufferGeometry, Material, MathUtils, Mesh, Raycaster, Vector3 } from 'three';
+import { Scene, SceneProps } from '../../App';
+import React, { useRef, useState } from 'react';
+import { BufferGeometry, Material, MathUtils, Mesh, Raycaster, Vector2, Vector3 } from 'three';
 import { StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
+import { IJoystickUpdateEvent } from 'react-joystick-component/build/lib/Joystick';
 
 const PLAYER_SIZE = 0.5;
-const SPEED = 0.075;
+const SPEED = 0.1;
 const COLLISION_RANGE = 0.26;
 const COLLISION_IS_ACTIVE = true;
+const ROTATION_SPEED = 0.1;
 
 // keys stores the current state of keyboard presses
 const keys = {
@@ -21,39 +24,32 @@ interface PlayerArgs {
 	startPosition: Vector3;
 	platforms: Mesh<BufferGeometry, Material | Material[]>[];
 	stairs: StairType[];
+	sceneProps?: SceneProps;
+	buttons: Mesh<BufferGeometry, Material | Material[]>[];
 }
 
 function getHeight(stairLength: number, stairHeight: number, currentProgression: number, lowerHeight: number) {
 	// get height of the player based on position on the staircase
-	// uses trigometry
-	//       y2
-	//   ----------
-	//   |       /
-	//   |      /
-	// x2|--y1-/
-	//   |    /
-	//   x1  /this line is the stair
-	//   |../
-	//   |a/
-	//   |/
-	// x1 is the progression on the staircase width
-	// y1 is the progression on the staircase height
-	// x2 is the total width of the staircase
-	// y2 is the total height of the staircase
-	// these values are calculated via difference between the values passed into the function
-	// y1 is the current height/result we want
-	// tan(x2/y1) = alpha = tan(x1/y2) -> tan-1(tan(x1/y2)) = x2/y1 -> 1/y1 = (x1/y2)/x2 -> y1 = x2 / (x1/y2)
-	// adding the lowerHeight gives us the wanted result
+	// uses trigonometry
 	return lowerHeight + currentProgression / (stairLength / stairHeight);
 }
 
-function Player({ startPosition, platforms, stairs }: PlayerArgs) {
+function Player({ startPosition, platforms, stairs, buttons, sceneProps }: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
+	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
+	const [targetRotation, setTargetRotation] = useState<Vector3>(new Vector3(0, 0, 0));
+
 	// player movement
 	useFrame(() => {
 		if (!ref.current) return;
 
 		const playerPosition = ref.current.position.clone();
+		const buttonPositions = buttons.map(button => button.position.clone());
+		for (const buttonPosition of buttonPositions) {
+			if (playerPosition.distanceTo(buttonPosition) < 8) {
+				if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
+			}
+		}
 		const topOfPlayer = playerPosition.y + PLAYER_SIZE;
 		// collision points are origins of raycasts
 		// they are positioned at the edge of the top side of the cube with a distance to the center of COLLISION_RANGE
@@ -69,7 +65,7 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 		];
 
 		// loop through all points to check if the raycast from that point downwards hits a platform
-		// depending on the result the player can or cant move in the direction of this point
+		// depending on the result the player can or can't move in the direction of this point
 		for (const pointId in collisionPoints) {
 			const point = collisionPoints[pointId];
 			const downVector = new Vector3(0, -1, 0).clone().normalize();
@@ -77,32 +73,40 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 			const results = ray.intersectObjects(platforms);
 
 			if (results.length > 0 || !COLLISION_IS_ACTIVE) {
+				let movementVector = new Vector3();
 				switch (String(pointId)) {
 					case '0': // right
 						if (keys.right) {
-							ref.current.position.z += SPEED / 2;
-							ref.current.position.x -= SPEED / 2;
+							movementVector.z += 1;
+							movementVector.x -= 1;
 						}
 						break;
 					case '1': // down
 						if (keys.down) {
-							ref.current.position.x -= SPEED / 2;
-							ref.current.position.z -= SPEED / 2;
+							movementVector.x -= 1;
+							movementVector.z -= 1;
 						}
 						break;
 					case '2': // left
 						if (keys.left) {
-							ref.current.position.z -= SPEED / 2;
-							ref.current.position.x += SPEED / 2;
+							movementVector.z -= 1;
+							movementVector.x += 1;
 						}
 						break;
 					case '3': // up
 						if (keys.up) {
-							ref.current.position.x += SPEED / 2;
-							ref.current.position.z += SPEED / 2;
+							movementVector.x += 1;
+							movementVector.z += 1;
 						}
 						break;
 				}
+
+				// normalize Vector to avoid diagonal speedUp
+				movementVector = movementVector.normalize();
+				movementVector = movementVector.multiplyScalar(SPEED);
+				// apply movement
+				ref.current.position.x += movementVector.x;
+				ref.current.position.z += movementVector.z;
 			}
 		}
 
@@ -159,17 +163,56 @@ function Player({ startPosition, platforms, stairs }: PlayerArgs) {
 					stair.startPosition.y + PLAYER_SIZE / 2
 				);
 			}
+
+			// Set target rotation here based on keys pressed
+			const newRotation = new Vector3();
+
+			if (keys.right && keys.down) {
+				newRotation.y += MathUtils.degToRad(90);
+			} else if (keys.down && keys.left) {
+				newRotation.y += MathUtils.degToRad(0);
+			} else if (keys.left && keys.up) {
+				newRotation.y += MathUtils.degToRad(-90);
+			} else if (keys.up && keys.right) {
+				newRotation.y += MathUtils.degToRad(180);
+			} else if (keys.right) {
+				newRotation.y += MathUtils.degToRad(135);
+			} else if (keys.down) {
+				newRotation.y += MathUtils.degToRad(45);
+			} else if (keys.left) {
+				newRotation.y += MathUtils.degToRad(-45);
+			} else if (keys.up) {
+				newRotation.y += MathUtils.degToRad(-135);
+			}
+
+			setTargetRotation(newRotation);
+
+			// Smoothly rotate the player towards the target rotation
+			const diffRotation = new Vector3().subVectors(targetRotation, rotation);
+
+			// Ensure the rotation difference is within -Math.PI to Math.PI range
+			diffRotation.y = ((diffRotation.y + Math.PI) % (Math.PI * 2)) - Math.PI;
+
+			const rotationStep = new Vector3().copy(diffRotation).multiplyScalar(ROTATION_SPEED);
+			const newPlayerRotation = new Vector3().addVectors(rotation, rotationStep);
+
+			setRotation(newPlayerRotation);
 		}
 	});
 
 	return (
-		<mesh name="player" ref={ref} position={[startPosition.x, startPosition.y + PLAYER_SIZE / 2, startPosition.z]}>
+		<mesh
+			name="player"
+			ref={ref}
+			position={[startPosition.x, startPosition.y + PLAYER_SIZE / 2, startPosition.z]}
+			rotation={rotation.toArray()} // Set rotation based on state
+		>
 			<ObjectLoad
-				pathObj="/Player.obj"
+				pathObj="/Player/Player.obj"
 				position={[0, 0, 0]}
-				pathMtl="/Player.mtl"
-				scale={[0.015, 0.015, 0.015]}
-				rotation={[-90, 0, 0]}
+				pathMtl="/Player/Player.mtl"
+				scale={[0.2, 0.2, 0.2]}
+				rotation={[0, 90, 0]}
 			/>
 		</mesh>
 	);
@@ -188,6 +231,49 @@ export const handleKeyUp: React.KeyboardEventHandler<HTMLDivElement> = event => 
 	if (event.key === 'ArrowRight') keys.right = false;
 	if (event.key === 'ArrowUp') keys.up = false;
 	if (event.key === 'ArrowDown') keys.down = false;
+};
+
+export const handleJoystickMove = (stick: IJoystickUpdateEvent) => {
+	// reset all keys
+	handleJoystickStop();
+	if (stick.x && stick.y) {
+		// calculate angle of joystick
+		const directionVector = new Vector2(stick.x, stick.y);
+		const directionAngle = MathUtils.radToDeg(directionVector.angle());
+		// 0 deg is Right 180deg is Left etc.
+		//    102.5  57.5
+		//    \    |    /
+		//     \   |   /
+		//      \  |  /
+		// 147.5 \ | / 12.5
+		//        \|/
+		//180 --------------0
+		//        /|\
+		// 212.5 / | \ 347.5
+		//      /  |  \
+		//     /   |   \
+		//    /    |    \
+		//   257.5   302.5
+		if (directionAngle > 302.5 || directionAngle < 57.5) {
+			keys.right = true;
+		}
+		if (directionAngle > 12.5 && directionAngle < 147.5) {
+			keys.up = true;
+		}
+		if (directionAngle > 102.5 && directionAngle < 257.5) {
+			keys.left = true;
+		}
+		if (directionAngle > 212.5 && directionAngle < 347.5) {
+			keys.down = true;
+		}
+	}
+};
+
+export const handleJoystickStop = () => {
+	keys.left = false;
+	keys.right = false;
+	keys.up = false;
+	keys.down = false;
 };
 
 export default Player;

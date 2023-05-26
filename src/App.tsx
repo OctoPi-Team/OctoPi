@@ -3,6 +3,8 @@ import './index.css';
 import { useState } from 'react';
 import Overworld from './components/overworld/Overworld';
 import ShipmentGame from './components/minigame/shipment/ShipmentGame';
+import { LoadingScreen } from './components/startscreen/LoadingScreen';
+
 
 export enum Scene {
 	Overworld,
@@ -14,11 +16,14 @@ export type SceneProps = {
 };
 
 export default function App() {
-	const [scene, setScene] = useState<Scene>(Scene.Shipment);
+
+	const [scene, setScene] = useState<Scene>(Scene.Overworld);
+	const [visible, setVisible] = useState(true);
 
 	return (
 		<>
-			{scene == Scene.Overworld && <Overworld setSceneHook={setScene} />}
+			{visible && <LoadingScreen setVisible={setVisible} />}
+			{scene == Scene.Overworld && <Overworld sceneProps={{ setSceneHook: setScene }} visible={visible} />}
 			{scene == Scene.Shipment && <ShipmentGame setSceneHook={setScene} />}
 		</>
 	);
