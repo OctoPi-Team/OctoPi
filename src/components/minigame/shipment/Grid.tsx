@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import Tile, { TileProps, TileType } from './Tile';
 import { Vector3 } from 'three';
 
@@ -13,6 +14,7 @@ function getTilesFromProps(props: TileProps[], tileClickHandler: (tileProps: Til
 	}
 	return tileElements;
 }
+
 //function to create random tiletype
 function getRandomTileType(): TileType {
 	const tileTypes = Object.values(TileType).map(value => value as TileType);

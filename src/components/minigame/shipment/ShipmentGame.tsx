@@ -1,4 +1,5 @@
 import { Canvas } from '@react-three/fiber';
+
 import { Scene, SceneProps } from '../../../App';
 import Grid from './Grid';
 import { OrbitControls } from '@react-three/drei';
