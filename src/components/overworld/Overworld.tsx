@@ -78,7 +78,7 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 						color={new Color(0xdabdd65)}
 					/>
 					<Stair startPosition={new Vector3(-9.5, 0, 0)} endPosition={new Vector3(-13, 1, 0)} reference={addStair} />
-					<DesignPlatform position={[-20, 0.5, -2]} reference={addPlatform} />
+					<DesignPlatform position={[-20, 1, -2]} reference={addPlatform} />
 					<Stair startPosition={new Vector3(-5, 0, -6)} endPosition={new Vector3(-5, 3, -16)} reference={addStair} />
 					<SimplePlatform
 						name="Production"
