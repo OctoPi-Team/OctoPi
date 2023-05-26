@@ -43,6 +43,7 @@
 		]
 	},
 	"devDependencies": {
+		"@react-three/test-renderer": "^8.1.2",
 		"@testing-library/react": "^14.0.0",
 		"@types/jest": "^27.5.2",
 		"@types/node": "^16.18.25",

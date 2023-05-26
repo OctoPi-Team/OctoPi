@@ -2,6 +2,7 @@ import { useRef, useEffect } from 'react';
 import { Color, Mesh, Vector3 } from 'three';
 import { Text } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
+import { BLACK } from '../../../AllColorVariables';
 
 // This interface is used to set the options of the ObjectLoad function.
 type SimplePlatformProps = {
@@ -43,10 +44,10 @@ export default function SimplePlatform({
 	return (
 		<>
 			<mesh position={[position[0], position[1] + 3, position[2]]} ref={meshRef}>
-				<Text fontSize={1} font="" color={0x000000} anchorX="center" anchorY="middle" ref={textRef}>
+				<Text fontSize={1} font="" color={BLACK} anchorX="center" anchorY="middle" ref={textRef}>
 					{name}
 				</Text>
-				<meshStandardMaterial attach="material" color={0x000000} />
+				<meshStandardMaterial attach="material" color={BLACK} />
 			</mesh>
 			<mesh ref={ref}>
 				<boxGeometry args={size} />

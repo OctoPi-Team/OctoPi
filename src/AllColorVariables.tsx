@@ -1,0 +1,11 @@
+export const RED = 'red';
+export const WHITE = 'white';
+export const GREEN = '#3aaa35';
+export const BLUE = '#b2c4d1';
+export const BLACK = '#000000';
+export const ENGINEERING = '#96d6b3';
+export const SHIPMENT = '#dabb65';
+export const MONITORING = '#daf0ee';
+export const PRODUCTION = '#c4c4c4';
+export const PARTS = '#fffae3';
+export const DESIGN = '#eeb9c0';

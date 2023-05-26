@@ -1,13 +1,22 @@
 import { Color } from 'three';
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
+import { SceneProps } from '../../../App';
+import Button from '../objects/Button';
+import { BLUE } from '../../../AllColorVariables';
 
 type ShipmentPlatformOptions = {
 	position?: [number, number, number];
 	reference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	sceneProps?: SceneProps;
+	buttonreference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 };
 
-export default function ShipmentPlatform({ position = [0, 0, 0], reference }: ShipmentPlatformOptions): JSX.Element {
+export default function ShipmentPlatform({
+	position = [0, 0, 0],
+	reference,
+	buttonreference,
+}: ShipmentPlatformOptions): JSX.Element {
 	return (
 		<>
 			<SimplePlatform
@@ -15,7 +24,7 @@ export default function ShipmentPlatform({ position = [0, 0, 0], reference }: Sh
 				position={position}
 				size={[15, 0.5, 18]}
 				reference={reference}
-				color={new Color(0xb2c4d1)}
+				color={new Color(BLUE)}
 			/>
 			<ObjectLoad
 				pathObj="/LaufbandUndTrichter.obj"
@@ -52,6 +61,7 @@ export default function ShipmentPlatform({ position = [0, 0, 0], reference }: Sh
 				scale={[0.08, 0.06, 0.05]}
 				rotation={[0, 90, 0]}
 			/>
+			<Button position={position} reference={buttonreference} />
 		</>
 	);
 }
