@@ -98,7 +98,7 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 						stairs={stairs}
 						buttons={buttons}
 						sceneProps={{ setSceneHook }}
-					/>{' '}
+					/>
 					<Tube name="Tube" position={[16, 2, 18]} size={[0.5, 8, 1]} rotation={[0, 0, 0]} />
 					<Tube name="Tube" position={[10, 2, 18]} size={[0.5, 8, 1]} rotation={[0, 0, 0]} />
 				</Canvas>
