@@ -21,6 +21,14 @@ export default function ShipmentPlatform({
 		<>
 			<SimplePlatform position={position} size={[18, 0.5, 18]} reference={reference} color={new Color(BLUE)} />
 			<ObjectLoad
+				pathObj="/ShipmentLogo/ship-logo.obj"
+				pathMtl="/ShipmentLogo/ship-logo.mtl"
+				position={[position[0] + 10, position[1], position[2] - 8]}
+				scale={[2, 2, 2]}
+				rotation={[0, 270, 0]}
+			/>
+
+			<ObjectLoad
 				pathObj="/LaufbandUndTrichter.obj"
 				pathMtl="/LaufbandUndTrichter.mtl"
 				position={position}

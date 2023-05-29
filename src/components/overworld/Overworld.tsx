@@ -62,7 +62,7 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 					{/* changes color of canvas from white to 'args'*/}
 					<color attach="background" args={['beige']} />
 					{/* Can cast shadows if 'shadows' for Canvas and 'castShadow' for directionalLight is set, meshes need 'castShadow' and/or 'receiveShadow'*/}
-					<directionalLight intensity={0.5} color={WHITE} />
+					<directionalLight intensity={0.6} color={WHITE} />
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
 					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} />}
 					<MainPlatform position={[0, 0, 0]} reference={addPlatform} />
@@ -93,7 +93,7 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 					<PartsPlatform position={[16, -4, -20]} reference={addPlatform} />
 					<Stair startPosition={new Vector3(9.5, 0, 0)} endPosition={new Vector3(18, 4.5, 0)} reference={addStair} />
 					<MonitoringPlatform position={[25, 4.5, -3]} reference={addPlatform} />
-					<ambientLight intensity={0.5} />
+					<ambientLight intensity={0.3} />
 					<Player
 						startPosition={new Vector3(0, 0, 0)}
 						platforms={platforms}
