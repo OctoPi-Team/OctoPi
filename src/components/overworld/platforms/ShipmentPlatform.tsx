@@ -30,14 +30,14 @@ export default function ShipmentPlatform({
 			<ObjectLoad
 				pathObj="/Packet/packet.obj"
 				pathMtl="/Packet/packet.mtl"
-				position={[5.6, position[1], position[2] - 1]}
+				position={[position[0], position[1], position[2] - 1]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}
 			/>
 			<ObjectLoad
 				pathObj="/Packet/packet.obj"
 				pathMtl="/Packet/packet.mtl"
-				position={[5.6, position[1], position[2] - 1]}
+				position={[position[0], position[1], position[2] - 1]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}
 			/>
@@ -58,7 +58,7 @@ export default function ShipmentPlatform({
 			<ObjectLoad
 				pathObj="/Palette/palette.obj"
 				pathMtl="/Palette/palette.mtl"
-				position={[14, 2, 10.5]}
+				position={[position[0] + 7, position[1], position[2]]}
 				scale={[0.15, 0.15, 0.15]}
 				rotation={[0, 0, 0]}
 			/>
