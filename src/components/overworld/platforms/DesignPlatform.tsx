@@ -10,13 +10,7 @@ type DesignPlatformOptions = {
 export default function DesignPlatform({ position = [0, 0, 0], reference }: DesignPlatformOptions): JSX.Element {
 	return (
 		<>
-			<SimplePlatform
-				name={'Design'}
-				position={position}
-				size={[14, 0.5, 17]}
-				reference={reference}
-				color={new Color(0xdaf0ee)}
-			/>
+			<SimplePlatform position={position} size={[18, 0.5, 20]} reference={reference} color={new Color(0xdaf0ee)} />
 			<ObjectLoad
 				pathObj="/Whiteboard/whiteboard.obj"
 				pathMtl="/Whiteboard/whiteboard.mtl"

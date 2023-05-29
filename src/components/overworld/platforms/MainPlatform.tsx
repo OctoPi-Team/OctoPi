@@ -1,6 +1,7 @@
 import { Color } from 'three';
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
+import { GREEN } from '../../../AllColorVariables';
 
 type MainPlatformOptions = {
 	position?: [number, number, number];
@@ -10,7 +11,7 @@ type MainPlatformOptions = {
 export default function MainPlatform({ position = [0, 0, 0], reference }: MainPlatformOptions): JSX.Element {
 	return (
 		<>
-			<SimplePlatform position={[0, 0, 0]} size={[20, 0.5, 13]} reference={reference} color={new Color(0x3aaa35)} />
+			<SimplePlatform position={position} size={[20, 0.5, 13]} reference={reference} color={new Color(GREEN)} />
 			<ObjectLoad
 				pathObj="/Palette/palette.obj"
 				pathMtl="/Palette/palette.mtl"

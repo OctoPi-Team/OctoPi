@@ -13,13 +13,7 @@ export default function MonitoringPlatform({
 }: MonitoringPlatformOptions): JSX.Element {
 	return (
 		<>
-			<SimplePlatform
-				name={'Monitoring'}
-				position={position}
-				size={[14, 0.5, 19]}
-				reference={reference}
-				color={new Color(0xdddddd)}
-			/>
+			<SimplePlatform position={position} size={[14, 0.5, 21]} reference={reference} color={new Color(0xdddddd)} />
 			<ObjectLoad
 				pathObj="/Radarschuessel/radarschuessel.obj"
 				pathMtl="/Radarschuessel/radarschuessel.mtl"

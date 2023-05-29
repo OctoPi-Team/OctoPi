@@ -19,13 +19,7 @@ export default function ShipmentPlatform({
 }: ShipmentPlatformOptions): JSX.Element {
 	return (
 		<>
-			<SimplePlatform
-				name={'Shipment'}
-				position={position}
-				size={[15, 0.5, 18]}
-				reference={reference}
-				color={new Color(BLUE)}
-			/>
+			<SimplePlatform position={position} size={[18, 0.5, 18]} reference={reference} color={new Color(BLUE)} />
 			<ObjectLoad
 				pathObj="/LaufbandUndTrichter.obj"
 				pathMtl="/LaufbandUndTrichter.mtl"

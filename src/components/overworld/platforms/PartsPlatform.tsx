@@ -10,13 +10,7 @@ type PartsPlatformOptions = {
 export default function PartsPlatform({ position = [0, 0, 0], reference }: PartsPlatformOptions): JSX.Element {
 	return (
 		<>
-			<SimplePlatform
-				name={'Parts'}
-				position={position}
-				size={[13, 0.5, 18]}
-				reference={reference}
-				color={new Color(0x686868)}
-			/>
+			<SimplePlatform position={position} size={[24, 0.5, 18]} reference={reference} color={new Color(0x686868)} />
 			<ObjectLoad
 				pathObj="/Metallregal/metallregal.obj"
 				pathMtl="/Metallregal/metallregal.mtl"
