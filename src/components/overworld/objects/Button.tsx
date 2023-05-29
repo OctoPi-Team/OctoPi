@@ -19,8 +19,7 @@ export default function Button(props: ButtonProps) {
 
 	return (
 		<ObjectLoad
-			pathObj="/Button/Button.obj"
-			pathMtl="/Button/Button.mtl"
+			path="/Button/button.glb"
 			position={[props.position[0] + 10, props.position[1] - 6, props.position[2] + 10]}
 			scale={[1, 1, 1]}
 			rotation={[0, 90, 0]}

@@ -207,13 +207,7 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 			position={[startPosition.x, startPosition.y + PLAYER_SIZE / 2, startPosition.z]}
 			rotation={rotation.toArray()} // Set rotation based on state
 		>
-			<ObjectLoad
-				pathObj="/Player/Player.obj"
-				position={[0, 0, 0]}
-				pathMtl="/Player/Player.mtl"
-				scale={[0.2, 0.2, 0.2]}
-				rotation={[0, 90, 0]}
-			/>
+			<ObjectLoad path="/Player/player.glb" position={[0, 0, 0]} scale={[0.2, 0.2, 0.2]} rotation={[0, 90, 0]} />
 		</mesh>
 	);
 }
