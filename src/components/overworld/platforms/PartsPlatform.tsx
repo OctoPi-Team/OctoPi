@@ -18,15 +18,13 @@ export default function PartsPlatform({ position = [0, 0, 0], reference }: Parts
 				color={new Color(0x686868)}
 			/>
 			<ObjectLoad
-				pathObj="/Metallregal/metallregal.obj"
-				pathMtl="/Metallregal/metallregal.mtl"
+				path="/Metallregal/metallregal.glb"
 				position={[5.6, position[1], position[2] - 1]}
 				scale={[0.5, 0.5, 0.5]}
 				rotation={[0, 0, 0]}
 			/>
 			<ObjectLoad
-				pathObj="/kaputtesMetallregal/kaputtesMetallregal.obj"
-				pathMtl="/kaputtesMetallregal/kaputtesMetallregal.mtl"
+				path="/kaputtesMetallregal/kaputtesMetallregal.glb"
 				position={[position[0], position[1], position[2]]}
 				scale={[0.15, 0.15, 0.15]}
 				rotation={[0, 0, 0]}

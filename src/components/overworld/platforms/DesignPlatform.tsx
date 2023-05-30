@@ -18,22 +18,19 @@ export default function DesignPlatform({ position = [0, 0, 0], reference }: Desi
 				color={new Color(0xdaf0ee)}
 			/>
 			<ObjectLoad
-				pathObj="/Whiteboard/whiteboard.obj"
-				pathMtl="/Whiteboard/whiteboard.mtl"
+				path="/Whiteboard/whiteboard.glb"
 				position={[position[0] - 2, position[1], position[2] + 5]}
 				scale={[0.15, 0.15, 0.15]}
 				rotation={[0, 0, 0]}
 			/>
 			<ObjectLoad
-				pathObj="/TischMitStuehlen/tischMitStuehlen.obj"
-				pathMtl="/TischMitStuehlen/tischMitStuehlen.mtl"
+				path="/TischMitStuehlen/tischMitStuehlen.glb"
 				position={[position[0] - 4, position[1], position[2] - 3]}
 				scale={[0.08, 0.08, 0.08]}
 				rotation={[0, 0, 0]}
 			/>
 			<ObjectLoad
-				pathObj="/Buecherregal/buecherregal.obj"
-				pathMtl="/Buecherregal/buecherregal.mtl"
+				path="/Buecherregal/buecherregal.glb"
 				position={[position[0] + 5.5, position[1], position[2] + 7.6]}
 				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 1.6, 0]}

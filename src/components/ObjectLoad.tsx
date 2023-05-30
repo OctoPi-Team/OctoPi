@@ -1,13 +1,12 @@
 import { useRef, useEffect } from 'react';
 import { useLoader } from '@react-three/fiber';
-import { MTLLoader, OBJLoader } from 'three-stdlib';
+import { GLTFLoader } from 'three-stdlib';
 import { Mesh, Vector3, BufferGeometry, Material, MathUtils } from 'three';
 import { Scene } from '../App';
 
 // This interface is used to set the options of the ObjectLoad function.
 type ObjectLoadOptions = {
-	pathObj: string;
-	pathMtl: string;
+	path: string;
 	position: [number, number, number];
 	rotation?: [number, number, number];
 	scale?: [number, number, number];
@@ -16,8 +15,7 @@ type ObjectLoadOptions = {
 };
 // This function is to load an object from a .obj file and a .mtl file. To use it no knowlage of the ObjextLoad function is needed.
 export default function ObjectLoad({
-	pathObj,
-	pathMtl,
+	path,
 	position,
 	scale = [1, 1, 1], // Default scale is 1, 1, 1.
 	reference,
@@ -25,15 +23,11 @@ export default function ObjectLoad({
 	onClick,
 }: ObjectLoadOptions): JSX.Element {
 	const meshRef = useRef<Mesh<BufferGeometry, Material | Material[]>>(null);
-	const materials = useLoader(MTLLoader, pathMtl);
 
 	if (reference && meshRef.current) {
 		reference(meshRef.current);
 	}
-	const obj = useLoader(OBJLoader, pathObj, loader => {
-		materials.preload();
-		loader.setMaterials(materials);
-	});
+	const obj = useLoader(GLTFLoader, path);
 
 	useEffect(() => {
 		if (meshRef.current) {
@@ -56,7 +50,7 @@ export default function ObjectLoad({
 			onClick={() => {
 				if (onClick) onClick(Scene.Shipment);
 			}}>
-			<primitive object={obj} />
+			<primitive object={obj.scene} />
 		</mesh>
 	);
 }

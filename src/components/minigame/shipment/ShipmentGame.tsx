@@ -41,8 +41,7 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 					<group position={[0, 4, 0]}>
 						<Grid size={SIZE_OF_GAME_MATRIX} />
 						<ObjectLoad
-							pathObj="/Trichter/trichter.obj"
-							pathMtl="/Trichter/trichter.mtl"
+							path="/Trichter/trichter.glb"
 							position={[(2.9 + 0.2) * SIZE_OF_GAME_MATRIX[0], -3.3, -0.5]}
 							scale={[0.25, 0.25, 0.25]}
 							rotation={[0, 180, 0]}
