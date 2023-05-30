@@ -2,7 +2,7 @@ import { useFrame } from '@react-three/fiber';
 import { Scene, SceneProps } from '../../App';
 import React, { useRef, useState } from 'react';
 import { BufferGeometry, Material, MathUtils, Mesh, Raycaster, Vector2, Vector3 } from 'three';
-import { StairType } from './platforms/Stair';
+import { STAIR_WIDTH, StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
 import { IJoystickUpdateEvent } from 'react-joystick-component/build/lib/Joystick';
 
@@ -126,14 +126,14 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 			const angleBetweenStairStartAndPlayer = getAngleFromThreePoints(flattenedPlayer, flattenedStart, flattenedEnd);
 			const angleBetweenStairEndAndPlayer = getAngleFromThreePoints(flattenedPlayer, flattenedEnd, flattenedStart);
 			const flatStairLength = flattenedStart.distanceTo(flattenedEnd);
-			const distanceFromPlayerToStairCenter = flattenVector(stair.mesh.position).distanceTo(flattenedPlayer);
+			const sidwayDistanceFromPLayerToStair = Math.sin(MathUtils.degToRad(angleBetweenStairStartAndPlayer)) * flattenedStart.distanceTo(flattenedPlayer);
 			if (
 				// player is after startPosition
 				angleBetweenStairStartAndPlayer < 90 &&
 				// player is before endPosition
 				angleBetweenStairEndAndPlayer < 90 &&
 				// player is near enough to the stairs
-				distanceFromPlayerToStairCenter < flatStairLength
+				sidwayDistanceFromPLayerToStair <= STAIR_WIDTH / 2
 			) {
 				// calculate player height
 				// D

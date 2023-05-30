@@ -8,6 +8,8 @@ export type StairType = {
 	endPosition: Vector3;
 };
 
+export const STAIR_WIDTH = 2;
+
 interface StairProps {
 	startPosition: Vector3;
 	endPosition: Vector3;
@@ -37,7 +39,7 @@ function Stair({ startPosition, endPosition, reference }: StairProps) {
 
 	return (
 		<mesh ref={ref}>
-			<boxGeometry args={[2, 0.25, length]} />
+			<boxGeometry args={[STAIR_WIDTH, 0.25, length]} />
 			<meshStandardMaterial color={WHITE} />
 		</mesh>
 	);
