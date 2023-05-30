@@ -30,7 +30,23 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 	return (
 		<>
 			{/* TODO proper button implement */}
-			<button onClick={() => setSceneHook(Scene.Overworld)}> </button>
+			<button
+				style={{
+					position: 'absolute',
+					right: '75px',
+					top: '50px',
+					zIndex: '100',
+					background: 'red',
+					border: 'none',
+					padding: '10px',
+					borderRadius: '50px',
+					color: 'white',
+					cursor: 'pointer',
+					fontSize: '20px',
+				}}
+				onClick={() => setSceneHook(Scene.Overworld)}>
+				Spiel verlassen
+			</button>
 			<div style={{ width: '100vw', height: '100vh' }} tabIndex={0}>
 				<Canvas orthographic camera={{ zoom: 50, position: [40, 40, 40] }}>
 					<directionalLight intensity={0.5} color={WHITE} />
