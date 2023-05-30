@@ -1,10 +1,10 @@
-import { Vector3, Color, BufferGeometry, Material, Mesh, CameraHelper } from 'three';
+import { Vector3, Color, BufferGeometry, Material, Mesh } from 'three';
 
 import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp } from './Player';
 import Stair, { StairType } from './platforms/Stair';
 import FixedCamera from './FixedCamera';
 import SimplePlatform from './platforms/SimplePlatform';
-import { OrbitControls, useHelper } from '@react-three/drei';
+import { OrbitControls, OrthographicCamera } from '@react-three/drei';
 import ShipmentPlatform from './platforms/ShipmentPlatform';
 import Tube from './objects/Tube';
 
@@ -67,22 +67,22 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 					{/* changes color of canvas from white to 'args'*/}
 					<color attach="background" args={['white']} />
 					<gridHelper args={[10, 10, 'black', 'white']} />
-					{/* DirectionalLight can cast shadows if 'shadows' for Canvas and 'castShadow' for directionalLight is set, meshes need 'castShadow' and/or 'receiveShadow'*/}
-					{/* Light is coming from top and left, changing its postition effects the shadows most*/}
+					{/* DirectionalLight can cast shadows if 'shadows' for Canvas and 'castShadow' for directionalLight is set,
+					 meshes need 'castShadow' and/or 'receiveShadow'*/}
 					<directionalLight
-						position={[0, 0.1, -0.25]}
-						intensity={1}
-						shadow-mapSize-width={2048}
-						shadow-mapSize-height={2048}
-						shadow-camera-left={-1000}
-						shadow-camera-right={1000}
-						shadow-camera-near={0.1}
+						position={[0.05, 1, -0.25]}
+						intensity={0.8}
+						shadow-mapSize-width={1000}
+						shadow-mapSize-height={1000}
+						shadow-camera-left={-500}
+						shadow-camera-right={500}
+						shadow-camera-near={1}
 						shadow-camera-far={1000}
-						shadow-camera-top={1000}
-						shadow-camera-bottom={-1000}
+						shadow-camera-top={500}
+						shadow-camera-bottom={-500}
 						castShadow
 					/>
-					<ambientLight intensity={0.3}></ambientLight>
+					<ambientLight intensity={0.2}></ambientLight>
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
 					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} />}
 					<MainPlatform position={[0, 0, 0]} reference={addPlatform} />
