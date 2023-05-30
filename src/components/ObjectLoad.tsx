@@ -49,6 +49,8 @@ export default function ObjectLoad({
 
 	return (
 		<mesh
+			castShadow
+			receiveShadow
 			ref={meshRef}
 			position={position}
 			scale={new Vector3(scale[0], scale[1], scale[2])}

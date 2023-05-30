@@ -1,10 +1,10 @@
-import { Vector3, Color, BufferGeometry, Material, Mesh } from 'three';
+import { Vector3, Color, BufferGeometry, Material, Mesh, CameraHelper } from 'three';
 
 import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp } from './Player';
 import Stair, { StairType } from './platforms/Stair';
 import FixedCamera from './FixedCamera';
 import SimplePlatform from './platforms/SimplePlatform';
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls, useHelper } from '@react-three/drei';
 import ShipmentPlatform from './platforms/ShipmentPlatform';
 import Tube from './objects/Tube';
 
@@ -46,6 +46,7 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 	function addButtons(newButton: Mesh<BufferGeometry, Material | Material[]>) {
 		if (!buttons.includes(newButton)) setButtons(button => [...button, newButton]);
 	}
+
 	return (
 		<>
 			<div style={{ width: '100vw', height: '100vh' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
@@ -58,11 +59,30 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 				/>
 
 				{/* Default values for orthographic camera: near: 0.1, far: 1000, z: 5, lookAt: [0,0,0]*/}
-				<Canvas orthographic camera={{ zoom: 40 }} style={{ visibility: visible ? 'hidden' : 'visible' }}>
+				<Canvas
+					orthographic
+					shadows
+					camera={{ zoom: 40, position: [0, 0, 0] }}
+					style={{ visibility: visible ? 'hidden' : 'visible' }}>
 					{/* changes color of canvas from white to 'args'*/}
-					<color attach="background" args={['beige']} />
-					{/* Can cast shadows if 'shadows' for Canvas and 'castShadow' for directionalLight is set, meshes need 'castShadow' and/or 'receiveShadow'*/}
-					<directionalLight intensity={0.6} color={WHITE} />
+					<color attach="background" args={['white']} />
+					<gridHelper args={[10, 10, 'black', 'white']} />
+					{/* DirectionalLight can cast shadows if 'shadows' for Canvas and 'castShadow' for directionalLight is set, meshes need 'castShadow' and/or 'receiveShadow'*/}
+					{/* Light is coming from top and left, changing its postition effects the shadows most*/}
+					<directionalLight
+						position={[0, 0.1, -0.25]}
+						intensity={1}
+						shadow-mapSize-width={2048}
+						shadow-mapSize-height={2048}
+						shadow-camera-left={-1000}
+						shadow-camera-right={1000}
+						shadow-camera-near={0.1}
+						shadow-camera-far={1000}
+						shadow-camera-top={1000}
+						shadow-camera-bottom={-1000}
+						castShadow
+					/>
+					<ambientLight intensity={0.3}></ambientLight>
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
 					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} />}
 					<MainPlatform position={[0, 0, 0]} reference={addPlatform} />
@@ -93,7 +113,6 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 					<PartsPlatform position={[16, -4, -20]} reference={addPlatform} />
 					<Stair startPosition={new Vector3(9.5, 0, 0)} endPosition={new Vector3(18, 4.5, 0)} reference={addStair} />
 					<MonitoringPlatform position={[25, 4.5, -3]} reference={addPlatform} />
-					<ambientLight intensity={0.3} />
 					<Player
 						startPosition={new Vector3(0, 0, 0)}
 						platforms={platforms}
