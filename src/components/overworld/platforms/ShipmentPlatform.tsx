@@ -82,6 +82,27 @@ export default function ShipmentPlatform({
 				scale={[0.13, 0.13, 0.13]}
 				rotation={[0, 8, 0]}
 			/>
+			<ObjectLoad
+				pathObj="/Paket_1/paket_1.obj"
+				pathMtl="/Paket_1/paket_1.mtl"
+				position={[position[0]-3, position[1], position[2] - 2]}
+				scale={[0.2, 0.2, 0.2]}
+				rotation={[0, 0, 0]}
+			/>
+			<ObjectLoad
+				pathObj="/Paket_2/paket_2.obj"
+				pathMtl="/Paket_2/paket_2.mtl"
+				position={[position[0]-3.5, position[1], position[2] - 2]}
+				scale={[0.1, 0.1, 0.1]}
+				rotation={[0, 0, 0]}
+			/>
+			<ObjectLoad
+				pathObj="/Packet/packet.obj"
+				pathMtl="/Packet/packet.mtl"
+				position={[5.6, position[1], position[2] - 1]}
+				scale={[0.1, 0.1, 0.1]}
+				rotation={[0, 0, 0]}
+			/>
 			<Button position={position} reference={buttonreference} />
 		</>
 	);
