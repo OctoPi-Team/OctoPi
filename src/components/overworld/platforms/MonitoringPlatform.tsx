@@ -14,10 +14,18 @@ export default function MonitoringPlatform({
 	return (
 		<>
 			<SimplePlatform position={position} size={[14, 0.5, 21]} reference={reference} color={new Color(0xdddddd)} />
+
+			<ObjectLoad
+				pathObj="/Plattformbeschriftung/MonitoringLogo/monitoring-logo.obj"
+				pathMtl="/Plattformbeschriftung/MonitoringLogo/monitoring-logo.mtl"
+				position={[position[0] + 3, position[1] + 5, position[2] - 14]}
+				scale={[2, 2, 2]}
+				rotation={[0, 270, 0]}
+			/>
 			<ObjectLoad
 				pathObj="/Radarschuessel/radarschuessel.obj"
 				pathMtl="/Radarschuessel/radarschuessel.mtl"
-				position={[position[0], 10, position[2]]}
+				position={[position[0], position[1], position[2]]}
 				scale={[0.8, 0.8, 0.8]}
 				rotation={[0, 0, 0]}
 			/>
