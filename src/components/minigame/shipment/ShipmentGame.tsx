@@ -8,6 +8,7 @@ import FixedCamera from '../../overworld/FixedCamera';
 import ObjectLoad from '../../ObjectLoad';
 import { Vector3 } from 'three';
 import { GREEN, WHITE } from '../../../AllColorVariables';
+import NavigationButton from '../../overworld/objects/NavigationButton';
 
 export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
@@ -30,40 +31,12 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 	return (
 		<>
 			{/* TODO proper button implement */}
-			<button
-				style={{
-					position: 'absolute',
-					right: '75px',
-					top: '50px',
-					zIndex: '100',
-					background: 'green',
-					border: 'none',
-					padding: '10px',
-					borderRadius: '50px',
-					color: 'white',
-					cursor: 'pointer',
-					fontSize: '20px',
-				}}
-				onClick={() => setSceneHook(Scene.Overworld)}>
-				{'\u21BB'} 
-			</button>
-			<button
-				style={{
-					position: 'absolute',
-					left: '20px',
-					bottom: '20px',
-					zIndex: '100',
-					background: 'green',
-					border: 'none',
-					padding: '10px',
-					borderRadius: '50px',
-					color: 'white',
-					cursor: 'pointer',
-					fontSize: '20px',
-				}}
-				onClick={() => setSceneHook(Scene.Overworld)}>
-				&larr; zur&uuml;ck
-			</button>
+			<NavigationButton position="absolute" right="75" top="50px" text={'\u21BB'} 
+			onClick={() => setSceneHook(Scene.Overworld)}			
+			/>
+			<NavigationButton position="absolute" left="20px" bottom="20px" text="&larr; zurück"
+			onClick={() => setSceneHook(Scene.Overworld)}			
+			/>
 			<div style={{ width: '100vw', height: '100vh' }} tabIndex={0}>
 				<Canvas orthographic camera={{ zoom: 50, position: [40, 40, 40] }}>
 					<directionalLight intensity={0.5} color={WHITE} />
