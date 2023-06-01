@@ -19,21 +19,45 @@ export default function PartsPlatform({ position = [0, 0, 0], reference }: Parts
 			/>
 			<ObjectLoad
 				path="/Schreibtisch/schreibtisch.glb"
-				position={[5.6, position[1], position[2] - 1]}
-				scale={[0.5, 0.5, 0.5]}
-				rotation={[0, 0, 0]}
+				position={[position[0], position[1], position[2] - 3]}
+				scale={[0.3, 0.3, 0.3]}
+				rotation={[0, 90, 0]}
 			/>
 			<ObjectLoad
 				path="/Notebook/notebook.glb"
-				position={[position[0], position[1] + 4, position[2]]}
+				position={[position[0] - 9.5, position[1] + 4, position[2] - 9.5]}
+				scale={[0.25, 0.25, 0.25]}
+				rotation={[0, 180, 0]}
+			/>
+			<ObjectLoad
+				path="/Drehstuhl/drehstuhl.glb"
+				position={[position[0], position[1], position[2] - 4]}
+				scale={[0.15, 0.15, 0.15]}
+				rotation={[0, 180, 0]}
+			/>
+			<ObjectLoad
+				path="/Roboterarm_kaputt/roboterarm_kaputt.glb"
+				position={[position[0] + 6, position[1], position[2]]}
+				scale={[0.1, 0.1, 0.1]}
+				rotation={[0, 0, 0]}
+			/>
+			<ObjectLoad
+				path="/Notebook/notebook_2.glb"
+				position={[position[0] + 4, position[1] + 4, position[2] - 6.5]}
+				scale={[0.25, 0.25, 0.25]}
+				rotation={[0, 0, 0]}
+			/>
+			<ObjectLoad
+				path="/Drehstuhl/drehstuhl_2.glb"
+				position={[position[0] + 4, position[1], position[2] - 3]}
 				scale={[0.15, 0.15, 0.15]}
 				rotation={[0, 0, 0]}
 			/>
 			<ObjectLoad
-				path="/Drehstuhl/drehstuhl.glb"
-				position={[position[0] + 4, position[1], position[2]]}
-				scale={[0.15, 0.15, 0.15]}
-				rotation={[0, 0, 0]}
+				path="/Schreibtisch/schreibtisch_2.glb"
+				position={[position[0] + 4, position[1], position[2] - 4]}
+				scale={[0.3, 0.3, 0.3]}
+				rotation={[0, 270, 0]}
 			/>
 		</>
 	);
