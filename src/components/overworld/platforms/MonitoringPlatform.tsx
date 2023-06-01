@@ -21,23 +21,20 @@ export default function MonitoringPlatform({
 				color={new Color(0xdddddd)}
 			/>
 			<ObjectLoad
-				pathObj="/Radarschuessel_kaputt_final/radarschuessel_kaputt_final.obj"
-				pathMtl="/Radarschuessel_kaputt_final/radarschuessel_kaputt_final.mtl"
-				position={[position[0],position[1], position[2] + 5]}
+				path="/Radarschuessel_kaputt_final/radarschuessel_kaputt_final.glb"
+				position={[position[0], position[1], position[2] + 5]}
 				scale={[0.7, 0.7, 0.7]}
 				rotation={[0, 0, 0]}
 			/>
 			<ObjectLoad
-				pathObj="/TV/tv.obj"
-				pathMtl="/TV/tv.mtl"
+				path="/TV/tv.glb"
 				position={[position[0] + 3, position[1] + 2, position[2] - 4]}
 				scale={[0.10, 0.10, 0.10]}
 				rotation={[0, 8, 0]}
 			/>
 			<ObjectLoad
-				pathObj="/kleinerTisch/kleinerTisch.obj"
-				pathMtl="/kleinerTisch/kleinerTisch.mtl"
-				position={[position[0] + 3.5 , position[1], position[2] - 0.5]}
+				path="/kleinerTisch/kleinerTisch.glb"
+				position={[position[0] + 3.5, position[1], position[2] - 0.5]}
 				scale={[0.5, 0.5, 0.6]}
 				rotation={[0, 8, 0]}
 			/>

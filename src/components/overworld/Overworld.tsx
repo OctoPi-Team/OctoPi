@@ -51,13 +51,22 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 	return (
 		<>
 			<div style={{ width: '100vw', height: '100vh' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
-				<Joystick
-					baseColor="lightgreen"
-					stickColor="darkgreen"
-					size={100}
-					move={handleJoystickMove}
-					stop={handleJoystickStop}
-				/>
+				<div
+					style={{
+						position: 'absolute',
+						zIndex: '50',
+						right: '200px',
+						bottom: '200px',
+						visibility: visible ? 'hidden' : 'visible',
+					}}>
+					<Joystick
+						baseColor="lightgreen"
+						stickColor="darkgreen"
+						size={100}
+						move={handleJoystickMove}
+						stop={handleJoystickStop}
+					/>
+				</div>
 
 				<Canvas orthographic camera={{ zoom: 40 }} style={{ visibility: visible ? 'hidden' : 'visible' }}>
 					<directionalLight intensity={0.5} color={WHITE} />
@@ -89,7 +98,7 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 						stairs={stairs}
 						buttons={buttons}
 						sceneProps={{ setSceneHook }}
-					/>{' '}
+					/>
 					<Tube name="Tube" position={[16, 2, 18]} size={[0.5, 8, 1]} rotation={[0, 0, 0]} />
 					<Tube name="Tube" position={[10, 2, 18]} size={[0.5, 8, 1]} rotation={[0, 0, 0]} />
 				</Canvas>
