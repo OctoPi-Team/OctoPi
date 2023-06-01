@@ -112,10 +112,6 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 				} else {
 					movementVector = movementVector.normalize().multiplyScalar(SPEED);
 				}
-
-				// apply movement
-				ref.current.position.x += movementVector.x;
-				ref.current.position.z += movementVector.z;
 				// apply movement
 				ref.current.position.x += movementVector.x;
 				ref.current.position.z += movementVector.z;
