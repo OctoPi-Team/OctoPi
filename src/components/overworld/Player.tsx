@@ -164,7 +164,7 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 				);
 			}
 		}
-		setTargetRotation(new Vector3(targetRotation.x, getPlayerRotationFromKeys(targetRotation.y), targetRotation.z));
+		setTargetRotation(getPlayerRotationFromKeys(targetRotation));
 
 		// Smoothly rotate the player towards the target rotation
 		const diffRotation = new Vector3().subVectors(targetRotation, rotation);
@@ -190,8 +190,9 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 	);
 }
 
-function getPlayerRotationFromKeys(currentRotation: number): number {
-	let rotationDegree = MathUtils.radToDeg(currentRotation);
+
+function getPlayerRotationFromKeys(currentRotation: Vector3): Vector3 {
+	let rotationDegree = MathUtils.radToDeg(currentRotation.y);
 	if (keys.right && keys.down) {
 		rotationDegree = 90;
 	} else if (keys.down && keys.left) {
@@ -209,7 +210,7 @@ function getPlayerRotationFromKeys(currentRotation: number): number {
 	} else if (keys.up) {
 		rotationDegree = -135;
 	}
-	return MathUtils.degToRad(rotationDegree);
+	return new Vector3(currentRotation.x, MathUtils.degToRad(rotationDegree), currentRotation.z);
 }
 
 // change 'keys' based on input events
