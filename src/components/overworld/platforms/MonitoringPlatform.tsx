@@ -29,7 +29,7 @@ export default function MonitoringPlatform({
 			<ObjectLoad
 				path="/TV/tv.glb"
 				position={[position[0] + 3, position[1] + 2, position[2] - 4]}
-				scale={[0.10, 0.10, 0.10]}
+				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 8, 0]}
 			/>
 			<ObjectLoad
@@ -38,7 +38,6 @@ export default function MonitoringPlatform({
 				scale={[0.5, 0.5, 0.6]}
 				rotation={[0, 8, 0]}
 			/>
-
 		</>
 	);
 }

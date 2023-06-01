@@ -13,7 +13,7 @@ const COLLISION_IS_ACTIVE = true;
 const ROTATION_SPEED = 0.1;
 
 // keys stores the current state of keyboard presses
-const keys = {
+export const keys = {
 	left: false,
 	right: false,
 	up: false,
@@ -100,7 +100,6 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 						}
 						break;
 				}
-
 				// normalize Vector to avoid diagonal speedUp
 				movementVector = movementVector.normalize();
 				movementVector = movementVector.multiplyScalar(SPEED);

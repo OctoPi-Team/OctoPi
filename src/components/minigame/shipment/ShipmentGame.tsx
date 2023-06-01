@@ -1,5 +1,4 @@
 import { Canvas } from '@react-three/fiber';
-
 import { Scene, SceneProps } from '../../../App';
 import Grid from './Grid';
 import { OrbitControls } from '@react-three/drei';
@@ -8,6 +7,8 @@ import FixedCamera from '../../overworld/FixedCamera';
 import ObjectLoad from '../../ObjectLoad';
 import { Vector3 } from 'three';
 import { GREEN, WHITE } from '../../../AllColorVariables';
+import { keys } from '../../overworld/Player';
+import { ReactNode } from 'react';
 
 export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
@@ -27,9 +28,14 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 		new Vector3(-20, 1.5, INPUTTUBEPOSSITION),
 	];
 
+	// Bugfix "Back Button Keeps Player Moving"
+	// Here is the code for the bugfix:
+	function resetKeys(): ReactNode {
+		return (keys.left = false) && (keys.right = false) && (keys.up = false) && (keys.down = false);
+	}
+
 	return (
 		<>
-			{/* TODO proper button implement */}
 			<button
 				style={{
 					position: 'absolute',
@@ -46,6 +52,11 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 				}}
 				onClick={() => setSceneHook(Scene.Overworld)}>
 				Spiel verlassen
+				{(keys.left = false)}
+				{(keys.right = false)}
+				{(keys.up = false)}
+				{(keys.down = false)}
+				{resetKeys()}
 			</button>
 			<div style={{ width: '100vw', height: '100vh' }} tabIndex={0}>
 				<Canvas orthographic camera={{ zoom: 50, position: [40, 40, 40] }}>

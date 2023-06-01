@@ -53,7 +53,6 @@ export default function DesignPlatform({ position = [0, 0, 0], reference }: Desi
 				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 90, 0]}
 			/>
-
 		</>
 	);
 }

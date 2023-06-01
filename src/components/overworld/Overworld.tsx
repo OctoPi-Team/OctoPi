@@ -81,7 +81,7 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 						buttonreference={addButtons}
 					/>
 					<Stair startPosition={new Vector3(-7, 0, 6)} endPosition={new Vector3(-7, 4, 11)} reference={addStair} />
-					<EngineeringPlatform position={[-13, 4, 20]} reference={addPlatform} />				
+					<EngineeringPlatform position={[-13, 4, 20]} reference={addPlatform} />
 
 					<Stair startPosition={new Vector3(-9.5, 0, 0)} endPosition={new Vector3(-13, 1, 0)} reference={addStair} />
 					<DesignPlatform position={[-20, 1, -2]} reference={addPlatform} />

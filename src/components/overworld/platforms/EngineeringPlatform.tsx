@@ -7,10 +7,19 @@ type EngineeringPlatformOptions = {
 	reference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 };
 
-export default function EngineeringPlatform({ position = [0, 0, 0], reference }: EngineeringPlatformOptions): JSX.Element {
+export default function EngineeringPlatform({
+	position = [0, 0, 0],
+	reference,
+}: EngineeringPlatformOptions): JSX.Element {
 	return (
 		<>
-			<SimplePlatform name={'Engineering'} position={position} size={[15, 0.5, 18]} reference={reference} color={new Color(0xdabdd65)} />
+			<SimplePlatform
+				name={'Engineering'}
+				position={position}
+				size={[15, 0.5, 18]}
+				reference={reference}
+				color={new Color(0xdabdd65)}
+			/>
 			<ObjectLoad
 				path="/Wegweiser/wegweiser.glb"
 				position={[position[0] + 7, position[1], position[2]]}
