@@ -11,7 +11,7 @@ import Tube from './objects/Tube';
 import { Canvas } from '@react-three/fiber';
 import { useState } from 'react';
 import { SceneProps } from '../../App';
-import { WHITE, GREEN, ENGINEERING, PRODUCTION, PARTS, MONITORING, DESIGN } from '../../AllColorVariables';
+import { WHITE } from '../../AllColorVariables';
 import { Joystick } from 'react-joystick-component';
 import DesignPlatform from './platforms/DesignPlatform';
 import MainPlatform from './platforms/MainPlatform';
