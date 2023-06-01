@@ -7,7 +7,9 @@ import ObjectLoad from '../ObjectLoad';
 import { IJoystickUpdateEvent } from 'react-joystick-component/build/lib/Joystick';
 
 const PLAYER_SIZE = 0.5;
-const SPEED = 0.065;
+const CPU_FACTOR = 1; // Adjust this based on CPU performance
+const FPS_FACTOR = 1; // Adjust this based on the target FPS
+const SPEED = 0.1 * CPU_FACTOR * FPS_FACTOR;
 const COLLISION_RANGE = 0.26;
 const COLLISION_IS_ACTIVE = true;
 const ROTATION_SPEED = 0.1;
@@ -112,6 +114,7 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 				} else {
 					movementVector = movementVector.normalize().multiplyScalar(SPEED);
 				}
+
 				// apply movement
 				ref.current.position.x += movementVector.x;
 				ref.current.position.z += movementVector.z;
