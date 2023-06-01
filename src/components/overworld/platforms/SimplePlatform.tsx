@@ -13,20 +13,14 @@ type SimplePlatformProps = {
 };
 
 // This function is to load an object from a .obj file and a .mtl file. To use it no knowlage of the ObjextLoad function is needed.
-export default function SimplePlatform({
-	name,
-	position,
-	size = [1, 0.1, 1], // Default rotation is 0, 0, 0, the rotation is in degrees.
-	color,
-	reference,
-}: SimplePlatformProps) {
+export default function SimplePlatform({ name, position, size = [1, 0.1, 1], color, reference }: SimplePlatformProps) {
 	const ref = useRef<THREE.Mesh>(null);
 	if (reference && ref.current) {
 		reference(ref.current);
 	}
 	useEffect(() => {
 		if (ref && ref.current) {
-			const meshPosition = new Vector3(...[position[0], position[1] - size[1] / 2, position[2]]);
+			const meshPosition = new Vector3(position[0], position[1] - size[1] / 2, position[2]);
 			ref.current.position.copy(meshPosition);
 		}
 	}, position);

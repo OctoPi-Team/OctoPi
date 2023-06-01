@@ -11,12 +11,14 @@ import Tube from './objects/Tube';
 import { Canvas } from '@react-three/fiber';
 import { useState } from 'react';
 import { SceneProps } from '../../App';
-import { WHITE, GREEN, ENGINEERING, PRODUCTION, PARTS, MONITORING, DESIGN } from '../../AllColorVariables';
+import { WHITE } from '../../AllColorVariables';
 import { Joystick } from 'react-joystick-component';
 import DesignPlatform from './platforms/DesignPlatform';
 import MainPlatform from './platforms/MainPlatform';
 import MonitoringPlatform from './platforms/MonitoringPlatform';
 import PartsPlatform from './platforms/PartsPlatform';
+import ProductionPlatform from './platforms/ProductionPlatform';
+import EngineeringPlatform from './platforms/EngineeringPlatform';
 
 type OverworldProps = {
 	sceneProps: SceneProps;
@@ -79,23 +81,12 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 						buttonreference={addButtons}
 					/>
 					<Stair startPosition={new Vector3(-7, 0, 6)} endPosition={new Vector3(-7, 4, 11)} reference={addStair} />
-					<SimplePlatform
-						name="Engineering"
-						position={[-13, 4, 20]}
-						size={[15, 0.5, 18]}
-						reference={addPlatform}
-						color={new Color(0xdabdd65)}
-					/>
+					<EngineeringPlatform position={[-13, 4, 20]} reference={addPlatform} />				
+
 					<Stair startPosition={new Vector3(-9.5, 0, 0)} endPosition={new Vector3(-13, 1, 0)} reference={addStair} />
 					<DesignPlatform position={[-20, 1, -2]} reference={addPlatform} />
 					<Stair startPosition={new Vector3(-5, 0, -6)} endPosition={new Vector3(-5, 3, -16)} reference={addStair} />
-					<SimplePlatform
-						name="Production"
-						position={[-10, 3, -22]}
-						size={[19, 0.5, 12]}
-						reference={addPlatform}
-						color={new Color(0x587b7f)}
-					/>
+					<ProductionPlatform position={[-10, 3, -22]} reference={addPlatform} />
 					<Stair startPosition={new Vector3(6, 0, -6)} endPosition={new Vector3(6, 1.5, -11)} reference={addStair} />
 					<PartsPlatform position={[10, 1.5, -20]} reference={addPlatform} />
 					<Stair startPosition={new Vector3(9.5, 0, 0)} endPosition={new Vector3(18, 4.5, 0)} reference={addStair} />

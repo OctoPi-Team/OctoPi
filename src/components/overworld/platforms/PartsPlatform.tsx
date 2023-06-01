@@ -20,8 +20,8 @@ export default function PartsPlatform({ position = [0, 0, 0], reference }: Parts
 			<ObjectLoad
 				path="/Metallregal/metallregal.glb"
 				position={[5.6, position[1], position[2] - 1]}
-				scale={[0.5, 0.5, 0.5]}
-				rotation={[0, 0, 0]}
+				scale={[0.15, 0.15, 0.15]}
+				rotation={[0, 90, 0]}
 			/>
 			<ObjectLoad
 				path="/kaputtesMetallregal/kaputtesMetallregal.glb"
