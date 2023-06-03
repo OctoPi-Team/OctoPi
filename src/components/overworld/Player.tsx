@@ -134,7 +134,7 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 			const angleBetweenStairStartAndPlayer = getAngleFromThreePoints(flattenedPlayer, flattenedStart, flattenedEnd);
 			const angleBetweenStairEndAndPlayer = getAngleFromThreePoints(flattenedPlayer, flattenedEnd, flattenedStart);
 			const flatStairLength = flattenedStart.distanceTo(flattenedEnd);
-			const sidwayDistanceFromPLayerToStair =
+			const sidwayDistanceFromPlayerToStair =
 				Math.sin(MathUtils.degToRad(angleBetweenStairStartAndPlayer)) * flattenedStart.distanceTo(flattenedPlayer);
 			if (
 				// player is after startPosition
@@ -142,7 +142,7 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 				// player is before endPosition
 				angleBetweenStairEndAndPlayer < 90 &&
 				// player is near enough to the stairs
-				sidwayDistanceFromPLayerToStair <= STAIR_WIDTH / 2
+				sidwayDistanceFromPlayerToStair <= STAIR_WIDTH / 2
 			) {
 				// calculate player height
 				// D
