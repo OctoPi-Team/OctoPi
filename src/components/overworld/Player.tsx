@@ -271,16 +271,15 @@ export const handleJoystickMove = (stick: IJoystickUpdateEvent) => {
 	}
 };
 
-export function resetKeys(): ReactNode {
+export function resetKeys() {
 	keys.left = false;
 	keys.right = false;
 	keys.up = false;
 	keys.down = false;
-	return;
 }
 
 export const handleJoystickStop = () => {
-	resetKeys()
+	resetKeys();
 };
 
 export default Player;
