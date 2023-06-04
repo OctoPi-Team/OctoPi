@@ -3,6 +3,7 @@ import { useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three-stdlib';
 import { Mesh, Vector3, BufferGeometry, Material, MathUtils } from 'three';
 import { Scene } from '../App';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 
 // This interface is used to set the options of the ObjectLoad function.
 type ObjectLoadOptions = {
@@ -27,7 +28,12 @@ export default function ObjectLoad({
 	if (reference && meshRef.current) {
 		reference(meshRef.current);
 	}
-	const obj = useLoader(GLTFLoader, path);
+
+	const dracoLoader = new DRACOLoader();
+	dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+	const obj = useLoader(GLTFLoader, path, loader => {
+		loader.setDRACOLoader(dracoLoader);
+	});
 
 	useEffect(() => {
 		if (meshRef.current) {
