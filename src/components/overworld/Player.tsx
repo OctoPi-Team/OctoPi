@@ -280,7 +280,10 @@ export function resetKeys(): ReactNode {
 }
 
 export const handleJoystickStop = () => {
-	resetKeys;
+	keys.left = false;
+	keys.right = false;
+	keys.up = false;
+	keys.down = false;
 };
 
 export default Player;
