@@ -72,8 +72,8 @@ export default function Grid({ size }: GridProps) {
 					z.push(-1);
 					continue;
 				}
-				// @ts-ignore
-				z.push(oneDimensionArray.pop());
+				const nextValue = oneDimensionArray.pop();
+				if (nextValue) z.push(nextValue);
 			}
 			twoDimensionArray[x] = [];
 			twoDimensionArray[x] = twoDimensionArray[x].concat(z);
@@ -104,11 +104,10 @@ export default function Grid({ size }: GridProps) {
 					y++;
 					break;
 				default:
-					console.log('wtf are you doing here');
+					// this case is not supposed to happen
 					return false;
 			}
 			if (x == size[0] && y == 0 && currentDirection == direction.right) {
-				console.log('YOU WIN');
 				return true;
 			}
 			// Team outofbounds
@@ -149,16 +148,12 @@ export default function Grid({ size }: GridProps) {
 					}
 					break;
 				case TileType.StraightNormal:
-					if (currentDirection == direction.left) {
-					} else if (currentDirection == direction.right) {
-					} else {
+					if (currentDirection != direction.left && currentDirection != direction.right) {
 						return false;
 					}
 					break;
 				case TileType.StraightInverted:
-					if (currentDirection == direction.up) {
-					} else if (currentDirection == direction.down) {
-					} else {
+					if (currentDirection != direction.up && currentDirection != direction.down) {
 						return false;
 					}
 					break;
@@ -236,6 +231,7 @@ export default function Grid({ size }: GridProps) {
 		}
 	}, [size]);
 	if (checkVictory()) {
+		alert('YOU WIN');
 	}
 
 	return <>{...getTilesFromProps(tiles, tileClickHandler)}</>;
