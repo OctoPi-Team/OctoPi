@@ -1,6 +1,6 @@
 import { useFrame } from '@react-three/fiber';
 import { Scene, SceneProps } from '../../App';
-import React, { useRef, useState } from 'react';
+import React, { ReactNode, useRef, useState } from 'react';
 import { BufferGeometry, Material, MathUtils, Mesh, Raycaster, Vector2, Vector3 } from 'three';
 import { STAIR_WIDTH, StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
@@ -13,7 +13,7 @@ const COLLISION_IS_ACTIVE = true;
 const ROTATION_SPEED = 0.1;
 
 // keys stores the current state of keyboard presses
-const keys = {
+export const keys = {
 	left: false,
 	right: false,
 	up: false,
@@ -100,7 +100,6 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 						}
 						break;
 				}
-
 				// normalize Vector to avoid diagonal speedUp
 				// Check if two keys are pressed simultaneously
 				const isTwoKeysPressed =
@@ -272,11 +271,16 @@ export const handleJoystickMove = (stick: IJoystickUpdateEvent) => {
 	}
 };
 
-export const handleJoystickStop = () => {
+export function resetKeys(): ReactNode {
 	keys.left = false;
 	keys.right = false;
 	keys.up = false;
 	keys.down = false;
+	return;
+}
+
+export const handleJoystickStop = () => {
+	resetKeys;
 };
 
 export default Player;

@@ -1,5 +1,4 @@
 import { Canvas } from '@react-three/fiber';
-
 import { Scene, SceneProps } from '../../../App';
 import Grid from './Grid';
 import { OrbitControls } from '@react-three/drei';
@@ -8,6 +7,7 @@ import FixedCamera from '../../overworld/FixedCamera';
 import ObjectLoad from '../../ObjectLoad';
 import { Vector3 } from 'three';
 import { GREEN, WHITE } from '../../../AllColorVariables';
+import { resetKeys } from '../../overworld/Player';
 
 export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
@@ -28,7 +28,6 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 
 	return (
 		<>
-			{/* TODO proper button implement */}
 			<button
 				style={{
 					position: 'absolute',
@@ -45,6 +44,7 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 				}}
 				onClick={() => setSceneHook(Scene.Overworld)}>
 				Spiel verlassen
+				{resetKeys()}
 			</button>
 			<div style={{ width: '100vw', height: '100vh' }} tabIndex={0}>
 				<Canvas orthographic camera={{ zoom: 50, position: [40, 40, 40] }}>
