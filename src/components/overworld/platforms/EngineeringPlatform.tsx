@@ -14,15 +14,22 @@ export default function EngineeringPlatform({
 	return (
 		<>
 			<SimplePlatform
-				name={'Engineering'}
+				name={''}
 				position={position}
 				size={[15, 0.5, 18]}
 				reference={reference}
 				color={new Color(0xdabdd65)}
 			/>
 			<ObjectLoad
+				path="/Plattformbeschriftung/EngineeringLogo/engineering-logo.glb"
+				position={[position[0] + 8.25, position[1], position[2] - 9]}
+				scale={[2, 2, 2]}
+				rotation={[0, 270, 0]}
+			/>
+
+			<ObjectLoad
 				path="/Wegweiser/wegweiser.glb"
-				position={[position[0] + 7, position[1], position[2]]}
+				position={[position[0], position[1], position[2]]}
 				scale={[0.4, 0.4, 0.4]}
 				rotation={[0, 0, 0]}
 			/>
@@ -30,7 +37,7 @@ export default function EngineeringPlatform({
 				path="/Zeichentisch/zeichentisch_2.glb"
 				position={[position[0] - 2, position[1], position[2] - 4]}
 				scale={[0.3, 0.3, 0.3]}
-				rotation={[0, 0, 0]}
+				rotation={[0, 90, 0]}
 			/>
 			<ObjectLoad
 				path="/Schreibtisch/schreibtisch_3.glb"

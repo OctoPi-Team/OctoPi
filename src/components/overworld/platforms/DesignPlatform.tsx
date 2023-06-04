@@ -1,6 +1,7 @@
 import { Color } from 'three';
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
+import { DESIGN } from '../../../AllColorVariables';
 
 type DesignPlatformOptions = {
 	position?: [number, number, number];
@@ -10,18 +11,12 @@ type DesignPlatformOptions = {
 export default function DesignPlatform({ position = [0, 0, 0], reference }: DesignPlatformOptions): JSX.Element {
 	return (
 		<>
-			<SimplePlatform
-				name={''}
-				position={position}
-				size={[14, 0.5, 17]}
-				reference={reference}
-				color={new Color(0xdaf0ee)}
-			/>
+			<SimplePlatform position={position} size={[18, 0.5, 20]} reference={reference} color={DESIGN} />
 			<ObjectLoad
-				path="/Text/DesignText.glb"
-				position={[position[0] + 4, position[1] + 2, position[2]]}
-				scale={[1.5, 1.5, 1.5]}
-				rotation={[0, 200, 0]}
+				path="/Plattformbeschriftung/DesignLogo/design-logo.glb"
+				position={[position[0] + 10, position[1], position[2] + 3]}
+				scale={[2, 2, 2]}
+				rotation={[0, -90, 0]}
 			/>
 			<ObjectLoad
 				path="/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb"

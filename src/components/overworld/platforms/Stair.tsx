@@ -48,7 +48,7 @@ function Stair({ startPosition, endPosition, reference }: StairProps) {
 	});
 
 	return (
-		<mesh ref={ref}>
+		<mesh ref={ref} castShadow receiveShadow>
 			<boxGeometry args={[STAIR_WIDTH, stairHeight, length]} />
 			<meshStandardMaterial color={WHITE} />
 		</mesh>

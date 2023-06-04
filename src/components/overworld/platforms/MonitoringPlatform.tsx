@@ -13,16 +13,17 @@ export default function MonitoringPlatform({
 }: MonitoringPlatformOptions): JSX.Element {
 	return (
 		<>
-			<SimplePlatform
-				name={'Monitoring'}
-				position={position}
-				size={[14, 0.5, 19]}
-				reference={reference}
-				color={new Color(0xdddddd)}
+			<SimplePlatform position={position} size={[14, 0.5, 21]} reference={reference} color={new Color(0xdddddd)} />
+
+			<ObjectLoad
+				path="/Plattformbeschriftung/MonitoringLogo/monitoring-logo.glb"
+				position={[position[0] + 3, position[1] + 5, position[2] - 8]}
+				scale={[2, 2, 2]}
+				rotation={[0, 270, 0]}
 			/>
 			<ObjectLoad
 				path="/Radarschuessel_kaputt_final/radarschuessel_kaputt_final.glb"
-				position={[position[0], position[1], position[2] + 5]}
+				position={[position[0], position[1] - 0.5, position[2] + 5]}
 				scale={[0.7, 0.7, 0.7]}
 				rotation={[0, 0, 0]}
 			/>
