@@ -1,6 +1,6 @@
 # Blender 3.5.1
 # www.blender.org
-mtllib ship-logo.mtl
+mtllib production-logo.mtl
 o Text
 v 6.877716 0.000000 0.130000
 v 6.421716 0.525000 0.130000
