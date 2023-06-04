@@ -22,7 +22,6 @@ function getRandomTileType(): number {
 	return Math.floor(Math.random() * 6);
 }
 
-
 function isNeighbourOfEmptyTile(gridPosition: [number, number], emptyTile: [number, number]): boolean {
 	const xDistanceToEmpty = Math.abs(gridPosition[0] - emptyTile[0]);
 	const yDistanceToEmpty = Math.abs(gridPosition[1] - emptyTile[1]);
@@ -236,3 +235,5 @@ export default function Grid({ size }: GridProps) {
 
 	return <>{...getTilesFromProps(tiles, tileClickHandler)}</>;
 }
+
+export const ExportedForTestingOnly = { getTilesFromProps, shuffle, generateFunctioningTable, checkVictory, isNeighbourOfEmptyTile, getRandomTileType };
