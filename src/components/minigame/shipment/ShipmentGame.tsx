@@ -44,7 +44,6 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 				}}
 				onClick={() => setSceneHook(Scene.Overworld)}>
 				Spiel verlassen
-				{resetKeys()}
 			</button>
 			<div style={{ width: '100vw', height: '100vh' }} tabIndex={0}>
 				<Canvas orthographic camera={{ zoom: 50, position: [40, 40, 40] }}>
@@ -65,6 +64,7 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 					</group>
 				</Canvas>
 			</div>
+			{resetKeys()}
 		</>
 	);
 }
