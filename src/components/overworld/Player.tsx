@@ -1,19 +1,19 @@
 import { useFrame } from '@react-three/fiber';
 import { Scene, SceneProps } from '../../App';
-import React, { useRef, useState } from 'react';
+import React, { ReactNode, useRef, useState } from 'react';
 import { BufferGeometry, Material, MathUtils, Mesh, Raycaster, Vector2, Vector3 } from 'three';
-import { StairType } from './platforms/Stair';
+import { STAIR_WIDTH, StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
 import { IJoystickUpdateEvent } from 'react-joystick-component/build/lib/Joystick';
 
 const PLAYER_SIZE = 0.5;
-const SPEED = 0.1;
+const SPEED = 0.065;
 const COLLISION_RANGE = 0.26;
 const COLLISION_IS_ACTIVE = true;
 const ROTATION_SPEED = 0.1;
 
 // keys stores the current state of keyboard presses
-const keys = {
+export const keys = {
 	left: false,
 	right: false,
 	up: false,
@@ -100,10 +100,17 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 						}
 						break;
 				}
-
 				// normalize Vector to avoid diagonal speedUp
-				movementVector = movementVector.normalize();
-				movementVector = movementVector.multiplyScalar(SPEED);
+				// Check if two keys are pressed simultaneously
+				const isTwoKeysPressed =
+					(keys.left && keys.up) || (keys.right && keys.up) || (keys.left && keys.down) || (keys.right && keys.down);
+
+				// Adjust the movement vector based on the two pressed keys
+				if (isTwoKeysPressed) {
+					movementVector = movementVector.normalize().multiplyScalar(SPEED / Math.sqrt(2));
+				} else {
+					movementVector = movementVector.normalize().multiplyScalar(SPEED);
+				}
 				// apply movement
 				ref.current.position.x += movementVector.x;
 				ref.current.position.z += movementVector.z;
@@ -126,14 +133,15 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 			const angleBetweenStairStartAndPlayer = getAngleFromThreePoints(flattenedPlayer, flattenedStart, flattenedEnd);
 			const angleBetweenStairEndAndPlayer = getAngleFromThreePoints(flattenedPlayer, flattenedEnd, flattenedStart);
 			const flatStairLength = flattenedStart.distanceTo(flattenedEnd);
-			const distanceFromPlayerToStairCenter = flattenVector(stair.mesh.position).distanceTo(flattenedPlayer);
+			const sidewayDistanceFromPlayerToStair =
+				Math.sin(MathUtils.degToRad(angleBetweenStairStartAndPlayer)) * flattenedStart.distanceTo(flattenedPlayer);
 			if (
 				// player is after startPosition
 				angleBetweenStairStartAndPlayer < 90 &&
 				// player is before endPosition
 				angleBetweenStairEndAndPlayer < 90 &&
 				// player is near enough to the stairs
-				distanceFromPlayerToStairCenter < flatStairLength
+				sidewayDistanceFromPlayerToStair <= STAIR_WIDTH / 2
 			) {
 				// calculate player height
 				// D
@@ -160,44 +168,22 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 					flatStairLength,
 					stair.endPosition.y - stair.startPosition.y,
 					progression,
-					stair.startPosition.y + PLAYER_SIZE / 2
+					stair.startPosition.y + PLAYER_SIZE / 2 + startPosition.y
 				);
 			}
-
-			// Set target rotation here based on keys pressed
-			const newRotation = new Vector3();
-
-			if (keys.right && keys.down) {
-				newRotation.y += MathUtils.degToRad(90);
-			} else if (keys.down && keys.left) {
-				newRotation.y += MathUtils.degToRad(0);
-			} else if (keys.left && keys.up) {
-				newRotation.y += MathUtils.degToRad(-90);
-			} else if (keys.up && keys.right) {
-				newRotation.y += MathUtils.degToRad(180);
-			} else if (keys.right) {
-				newRotation.y += MathUtils.degToRad(135);
-			} else if (keys.down) {
-				newRotation.y += MathUtils.degToRad(45);
-			} else if (keys.left) {
-				newRotation.y += MathUtils.degToRad(-45);
-			} else if (keys.up) {
-				newRotation.y += MathUtils.degToRad(-135);
-			}
-
-			setTargetRotation(newRotation);
-
-			// Smoothly rotate the player towards the target rotation
-			const diffRotation = new Vector3().subVectors(targetRotation, rotation);
-
-			// Ensure the rotation difference is within -Math.PI to Math.PI range
-			diffRotation.y = ((diffRotation.y + Math.PI) % (Math.PI * 2)) - Math.PI;
-
-			const rotationStep = new Vector3().copy(diffRotation).multiplyScalar(ROTATION_SPEED);
-			const newPlayerRotation = new Vector3().addVectors(rotation, rotationStep);
-
-			setRotation(newPlayerRotation);
 		}
+		setTargetRotation(getPlayerRotationFromKeys(targetRotation));
+
+		// Smoothly rotate the player towards the target rotation
+		const diffRotation = new Vector3().subVectors(targetRotation, rotation);
+
+		// Ensure the rotation difference is within -Math.PI to Math.PI range
+		diffRotation.y = ((diffRotation.y + Math.PI) % (Math.PI * 2)) - Math.PI;
+
+		const rotationStep = new Vector3().copy(diffRotation).multiplyScalar(ROTATION_SPEED);
+		const newPlayerRotation = new Vector3().addVectors(rotation, rotationStep);
+
+		setRotation(newPlayerRotation);
 	});
 
 	return (
@@ -210,6 +196,28 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 			<ObjectLoad path="/Player/player.glb" position={[0, 0, 0]} scale={[0.2, 0.2, 0.2]} rotation={[0, 90, 0]} />
 		</mesh>
 	);
+}
+
+function getPlayerRotationFromKeys(currentRotation: Vector3): Vector3 {
+	let rotationDegree = MathUtils.radToDeg(currentRotation.y);
+	if (keys.right && keys.down) {
+		rotationDegree = 90;
+	} else if (keys.down && keys.left) {
+		rotationDegree = 0;
+	} else if (keys.left && keys.up) {
+		rotationDegree = -90;
+	} else if (keys.up && keys.right) {
+		rotationDegree = 180;
+	} else if (keys.right) {
+		rotationDegree = 135;
+	} else if (keys.down) {
+		rotationDegree = 45;
+	} else if (keys.left) {
+		rotationDegree = -45;
+	} else if (keys.up) {
+		rotationDegree = -135;
+	}
+	return new Vector3(currentRotation.x, MathUtils.degToRad(rotationDegree), currentRotation.z);
 }
 
 // change 'keys' based on input events
@@ -263,11 +271,17 @@ export const handleJoystickMove = (stick: IJoystickUpdateEvent) => {
 	}
 };
 
-export const handleJoystickStop = () => {
+export function resetKeys() {
 	keys.left = false;
 	keys.right = false;
 	keys.up = false;
 	keys.down = false;
+}
+
+export const handleJoystickStop = () => {
+	resetKeys();
 };
 
 export default Player;
+
+export const ExportedForTestingOnly = { keys, handleJoystickStop, handleJoystickMove, getPlayerRotationFromKeys };
