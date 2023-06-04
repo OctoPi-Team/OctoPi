@@ -1,4 +1,3 @@
-import ReactThreeTestRenderer from '@react-three/test-renderer';
 import { SimpleText } from '../SimpleText';
 
 test('mesh to have two children', async () => {
