@@ -12,7 +12,14 @@ export default function MainPlatform({ position = [0, 0, 0], reference }: MainPl
 	return (
 		<>
 			<SimplePlatform position={position} size={[20, 0.5, 13]} reference={reference} color={new Color(GREEN)} />
-			<ObjectLoad
+
+		</>
+	);
+}
+
+
+/*
+<ObjectLoad
 				path="/Kommode/kommode.glb"
 				position={[position[0], position[1], position[2]]}
 				scale={[0.15, 0.15, 0.15]}
@@ -24,6 +31,4 @@ export default function MainPlatform({ position = [0, 0, 0], reference }: MainPl
 				scale={[0.05, 0.05, 0.05]}
 				rotation={[0, 0, 0]}
 			/>
-		</>
-	);
-}
+*/

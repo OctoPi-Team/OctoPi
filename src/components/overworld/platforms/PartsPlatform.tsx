@@ -13,7 +13,7 @@ export default function PartsPlatform({ position = [0, 0, 0], reference }: Parts
 			<SimplePlatform position={position} size={[24, 0.5, 18]} reference={reference} color={new Color(0x686868)} />
 			<ObjectLoad
 				path="/Plattformbeschriftung/PartsLogo/parts-logo.glb"
-				position={[position[0] + 1, position[1] + 10, position[2]]}
+				position={[position[0] - 10, position[1] + 10, position[2]]}
 				scale={[2, 2, 2]}
 				rotation={[0, 180, 0]}
 			/>
@@ -25,9 +25,9 @@ export default function PartsPlatform({ position = [0, 0, 0], reference }: Parts
 			/>
 			<ObjectLoad
 				path="/kaputtesMetallregal/kaputtesMetallregal.glb"
-				position={[position[0], position[1], position[2]]}
-				scale={[0.15, 0.15, 0.15]}
-				rotation={[0, 0, 0]}
+				position={[position[0] + 5, position[1], position[2] + 2]}
+				scale={[0.5, 0.5, 0.5]}
+				rotation={[0, 90, 0]}
 			/>
 		</>
 	);

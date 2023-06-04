@@ -13,10 +13,10 @@ export default function DesignPlatform({ position = [0, 0, 0], reference }: Desi
 		<>
 			<SimplePlatform position={position} size={[18, 0.5, 20]} reference={reference} color={DESIGN} />
 			<ObjectLoad
-				path="/Text/DesignText.glb"
-				position={[position[0] + 4, position[1] + 2, position[2]]}
-				scale={[1.5, 1.5, 1.5]}
-				rotation={[0, 200, 0]}
+				path="/Plattformbeschriftung/DesignLogo/design-logo.glb"
+				position={[position[0] + 10, position[1], position[2] + 3]}
+				scale={[2, 2, 2]}
+				rotation={[0, -90, 0]}
 			/>
 			<ObjectLoad
 				path="/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb"

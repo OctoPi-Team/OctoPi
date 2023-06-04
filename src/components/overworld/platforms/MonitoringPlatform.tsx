@@ -17,13 +17,13 @@ export default function MonitoringPlatform({
 
 			<ObjectLoad
 				path="/Plattformbeschriftung/MonitoringLogo/monitoring-logo.glb"
-				position={[position[0] + 3, position[1] + 5, position[2] - 14]}
+				position={[position[0] + 3, position[1] + 5, position[2] - 8]}
 				scale={[2, 2, 2]}
 				rotation={[0, 270, 0]}
 			/>
 			<ObjectLoad
 				path="/Radarschuessel_kaputt_final/radarschuessel_kaputt_final.glb"
-				position={[position[0], position[1], position[2] + 5]}
+				position={[position[0], position[1] - 0.5, position[2] + 5]}
 				scale={[0.7, 0.7, 0.7]}
 				rotation={[0, 0, 0]}
 			/>

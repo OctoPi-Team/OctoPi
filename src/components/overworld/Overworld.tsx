@@ -6,7 +6,6 @@ import FixedCamera from './FixedCamera';
 import SimplePlatform from './platforms/SimplePlatform';
 import { OrbitControls, OrthographicCamera } from '@react-three/drei';
 import ShipmentPlatform from './platforms/ShipmentPlatform';
-import Tube from './objects/Tube';
 
 import { Canvas } from '@react-three/fiber';
 import { useState } from 'react';
@@ -76,7 +75,6 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 					style={{ visibility: visible ? 'hidden' : 'visible' }}>
 					{/* changes color of canvas from white to 'args'*/}
 					<color attach="background" args={['white']} />
-					<gridHelper args={[10, 10, 'black', 'white']} />
 					{/* DirectionalLight can cast shadows if 'shadows' for Canvas and 'castShadow' for directionalLight is set,
 					 meshes need 'castShadow' and/or 'receiveShadow'*/}
 					<directionalLight
@@ -96,9 +94,9 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
 					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} />}
 					<MainPlatform position={[0, 0, 0]} reference={addPlatform} />
-					<Stair startPosition={new Vector3(8, 0, 6.5)} endPosition={new Vector3(8, 0, 11)} reference={addStair} />
+					<Stair startPosition={new Vector3(8, 0, 6.5)} endPosition={new Vector3(8, 2, 11)} reference={addStair} />
 					<ShipmentPlatform
-						position={[9, 0, 20]}
+						position={[9, 2, 20]}
 						reference={addPlatform}
 						sceneProps={{ setSceneHook }}
 						buttonreference={addButtons}
@@ -107,21 +105,19 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 					<EngineeringPlatform position={[-13, 4, 20]} reference={addPlatform} />
 					<Stair startPosition={new Vector3(-9.5, 0, 0)} endPosition={new Vector3(-16.2, 2, 0)} reference={addStair} />
 					<DesignPlatform position={[-25.2, 2, -2]} reference={addPlatform} />
-					<Stair startPosition={new Vector3(-5, 0, -6)} endPosition={new Vector3(-5, 3, -16)} reference={addStair} />
+					<Stair startPosition={new Vector3(-7, 0, -6)} endPosition={new Vector3(-7, 3, -16)} reference={addStair} />
 					<ProductionPlatform position={[-10, 3, -22]} reference={addPlatform} />
-					<Stair startPosition={new Vector3(6, 0, -6.5)} endPosition={new Vector3(6, -4, -11.5)} reference={addStair} />
-					<PartsPlatform position={[16, -4, -20]} reference={addPlatform} />
+					<Stair startPosition={new Vector3(6, 0, -6.5)} endPosition={new Vector3(6, 1, -11.5)} reference={addStair} />
+					<PartsPlatform position={[16, 1, -20]} reference={addPlatform} />
 					<Stair startPosition={new Vector3(9.5, 0, 0)} endPosition={new Vector3(18, 4.5, 0)} reference={addStair} />
 					<MonitoringPlatform position={[25, 4.5, -3]} reference={addPlatform} />
 					<Player
-						startPosition={new Vector3(0, 0, 0)}
+						startPosition={new Vector3(0, -0.3, 0)}
 						platforms={platforms}
 						stairs={stairs}
 						buttons={buttons}
 						sceneProps={{ setSceneHook }}
 					/>
-					<Tube name="Tube" position={[16, 2, 18]} size={[0.5, 8, 1]} rotation={[0, 0, 0]} />
-					<Tube name="Tube" position={[10, 2, 18]} size={[0.5, 8, 1]} rotation={[0, 0, 0]} />
 				</Canvas >
 			</div >
 		</>
