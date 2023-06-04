@@ -19,7 +19,7 @@ function getTilesFromProps(props: TileProps[], tileClickHandler: (tileProps: Til
 function getRandomTileType(): number {
 	//const tileTypes = Object.values(TileType).map(value => value as TileType);
 	//return tileTypes[Math.floor(Math.random() * tileTypes.length)];
-	return Math.ceil(Math.random() * 6) - 1;
+	return Math.floor(Math.random() * 6);
 }
 
 export default function Grid({ size }: GridProps) {
@@ -79,8 +79,8 @@ export default function Grid({ size }: GridProps) {
 			twoDimensionArray[x] = twoDimensionArray[x].concat(z);
 		}
 		//starting position coordinates
-		let x: number = -1;
-		let y: number = 3;
+		let x = -1;
+		let y = 3;
 		enum direction {
 			right,
 			left,
@@ -219,7 +219,7 @@ export default function Grid({ size }: GridProps) {
 
 	useEffect(() => {
 		const TILES = generateFunctioningTable();
-		let counter: number = 0;
+		let counter = 0;
 		for (let x = 0; x < size[0]; x++) {
 			for (let y = 0; y < size[1]; y++) {
 				if (!(x === 0 && y === 0)) {

@@ -1,16 +1,19 @@
-import { Color } from 'three';
+import { PRODUCTION } from '../../../AllColorVariables';
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
 
-type PartsPlatformOptions = {
+type ProductionPlatformOptions = {
 	position?: [number, number, number];
 	reference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 };
 
-export default function PartsPlatform({ position = [0, 0, 0], reference }: PartsPlatformOptions): JSX.Element {
+export default function ProductionPlatform({
+	position = [0, 0, 0],
+	reference,
+}: ProductionPlatformOptions): JSX.Element {
 	return (
 		<>
-			<SimplePlatform position={position} size={[19, 0.5, 12]} reference={reference} color={new Color(0x587b7f)} />
+			<SimplePlatform position={position} size={[19, 0.5, 12]} reference={reference} color={PRODUCTION} />
 			<ObjectLoad
 				path="/Roboterarm_kaputt/roboterarm_kaputt.glb"
 				position={[position[0], position[1], position[2] + 2]}
@@ -44,7 +47,6 @@ export default function PartsPlatform({ position = [0, 0, 0], reference }: Parts
 					scale={[0.25, 0.25, 0.25]}
 					rotation={[0, 160, 0]}
 				/>
-
 			</group>
 			<group name="corner-desk">
 				<ObjectLoad

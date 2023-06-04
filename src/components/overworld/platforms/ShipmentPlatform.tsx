@@ -1,9 +1,8 @@
-import { Color, Group } from 'three';
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
 import { SceneProps } from '../../../App';
 import Button from '../objects/Button';
-import { BLUE } from '../../../AllColorVariables';
+import { SHIPMENT } from '../../../AllColorVariables';
 import Tube from '../objects/Tube';
 
 type ShipmentPlatformOptions = {
@@ -20,7 +19,7 @@ export default function ShipmentPlatform({
 }: ShipmentPlatformOptions): JSX.Element {
 	return (
 		<>
-			<SimplePlatform position={position} size={[18, 0.5, 18]} reference={reference} color={new Color(BLUE)} />
+			<SimplePlatform position={position} size={[18, 0.5, 18]} reference={reference} color={SHIPMENT} />
 			<ObjectLoad
 				path="/Plattformbeschriftung/ShipmentLogo/ship-logo.glb"
 				position={[position[0] + 10, position[1], position[2] - 9]}
@@ -102,7 +101,12 @@ export default function ShipmentPlatform({
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}
 			/>
-			<Tube name="Tube" position={[position[0] + 7.6, position[1] - 1.9, position[2] + 0.5]} size={[0.5, 8, 1]} rotation={[0, 0, 0]} />
+			<Tube
+				name="Tube"
+				position={[position[0] + 7.6, position[1] - 1.9, position[2] + 0.5]}
+				size={[0.5, 8, 1]}
+				rotation={[0, 0, 0]}
+			/>
 			<Button position={position} reference={buttonreference} />
 		</>
 	);

@@ -1,4 +1,4 @@
-import { Color } from 'three';
+import { PARTS } from '../../../AllColorVariables';
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
 
@@ -10,7 +10,7 @@ type PartsPlatformOptions = {
 export default function PartsPlatform({ position = [0, 0, 0], reference }: PartsPlatformOptions): JSX.Element {
 	return (
 		<>
-			<SimplePlatform position={position} size={[24, 0.5, 18]} reference={reference} color={new Color(0x686868)} />
+			<SimplePlatform position={position} size={[24, 0.5, 18]} reference={reference} color={PARTS} />
 			<ObjectLoad
 				path="/Plattformbeschriftung/PartsLogo/parts-logo.glb"
 				position={[position[0] - 10, position[1] + 10, position[2]]}
