@@ -7,8 +7,7 @@ import FixedCamera from '../../overworld/FixedCamera';
 import ObjectLoad from '../../ObjectLoad';
 import { Vector3 } from 'three';
 import { GREEN, WHITE } from '../../../AllColorVariables';
-import { keys } from '../../overworld/Player';
-import { ReactNode } from 'react';
+import { resetKeys } from '../../overworld/Player';
 
 export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
@@ -27,24 +26,6 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 		new Vector3(-3.5, 2, INPUTTUBEPOSSITION),
 		new Vector3(-20, 1.5, INPUTTUBEPOSSITION),
 	];
-
-	// Bugfix "Back Button Keeps Player Moving"
-	// Here is the code for the bugfix:
-	function resetKeys(): ReactNode {
-		{
-			keys.left = false;
-		}
-		{
-			keys.right = false;
-		}
-		{
-			keys.up = false;
-		}
-		{
-			keys.down = false;
-		}
-		return;
-	}
 
 	return (
 		<>
