@@ -52,7 +52,7 @@ export default function ObjectLoad({
 			onClick={() => {
 				if (onClick) onClick(Scene.Shipment);
 			}}>
-			<primitive object={obj.scene} />
+			<primitive object={obj.scene.clone(true)} />
 		</mesh>
 	);
 }
