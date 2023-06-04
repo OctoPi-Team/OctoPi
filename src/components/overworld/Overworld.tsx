@@ -68,7 +68,7 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 					/>
 				</div>
 
-				<Canvas orthographic camera={{ zoom: 40 }} style={{ visibility: visible ? 'hidden' : 'visible' }}>
+				<Canvas orthographic camera={{ zoom: 50 }} style={{ visibility: visible ? 'hidden' : 'visible' }}>
 					<directionalLight intensity={0.5} color={WHITE} />
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
 					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} />}
