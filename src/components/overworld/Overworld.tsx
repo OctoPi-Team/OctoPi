@@ -11,12 +11,14 @@ import Tube from './objects/Tube';
 import { Canvas } from '@react-three/fiber';
 import { useState } from 'react';
 import { SceneProps } from '../../App';
-import { WHITE, GREEN, ENGINEERING, PRODUCTION, PARTS, MONITORING, DESIGN } from '../../AllColorVariables';
+import { WHITE } from '../../AllColorVariables';
 import { Joystick } from 'react-joystick-component';
 import DesignPlatform from './platforms/DesignPlatform';
 import MainPlatform from './platforms/MainPlatform';
 import MonitoringPlatform from './platforms/MonitoringPlatform';
 import PartsPlatform from './platforms/PartsPlatform';
+import ProductionPlatform from './platforms/ProductionPlatform';
+import EngineeringPlatform from './platforms/EngineeringPlatform';
 
 type OverworldProps = {
 	sceneProps: SceneProps;
@@ -50,14 +52,22 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 	return (
 		<>
 			<div style={{ width: '100vw', height: '100vh' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
-				<Joystick
-					baseColor="lightgreen"
-					stickColor="darkgreen"
-					size={100}
-					move={handleJoystickMove}
-					stop={handleJoystickStop}
-				/>
-
+				<div
+					style={{
+						position: 'absolute',
+						zIndex: '50',
+						right: '200px',
+						bottom: '200px',
+						visibility: visible ? 'hidden' : 'visible',
+					}}>
+					<Joystick
+						baseColor="lightgreen"
+						stickColor="darkgreen"
+						size={100}
+						move={handleJoystickMove}
+						stop={handleJoystickStop}
+					/>
+				</div>
 				{/* Default values for orthographic camera: near: 0.1, far: 1000, z: 5, lookAt: [0,0,0]*/}
 				<Canvas
 					orthographic
@@ -93,22 +103,12 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 						sceneProps={{ setSceneHook }}
 						buttonreference={addButtons}
 					/>
-					<Stair startPosition={new Vector3(-7, -4, 16.5)} endPosition={new Vector3(-7, 0, 6.4)} reference={addStair} />
-					<SimplePlatform
-						position={[-10, -4, 22]}
-						size={[20, 0.5, 11]}
-						reference={addPlatform}
-						color={new Color(0xdabdd65)}
-					/>
+					<Stair startPosition={new Vector3(-7, 0, 6)} endPosition={new Vector3(-7, 4, 11)} reference={addStair} />
+					<EngineeringPlatform position={[-13, 4, 20]} reference={addPlatform} />
 					<Stair startPosition={new Vector3(-9.5, 0, 0)} endPosition={new Vector3(-16.2, 2, 0)} reference={addStair} />
 					<DesignPlatform position={[-25.2, 2, -2]} reference={addPlatform} />
-					<Stair startPosition={new Vector3(-5, 0, -6.5)} endPosition={new Vector3(-5, 0, -15)} reference={addStair} />
-					<SimplePlatform
-						position={[-12, 0, -21]}
-						size={[19, 0.5, 12]}
-						reference={addPlatform}
-						color={new Color(0x587b7f)}
-					/>
+					<Stair startPosition={new Vector3(-5, 0, -6)} endPosition={new Vector3(-5, 3, -16)} reference={addStair} />
+					<ProductionPlatform position={[-10, 3, -22]} reference={addPlatform} />
 					<Stair startPosition={new Vector3(6, 0, -6.5)} endPosition={new Vector3(6, -4, -11.5)} reference={addStair} />
 					<PartsPlatform position={[16, -4, -20]} reference={addPlatform} />
 					<Stair startPosition={new Vector3(9.5, 0, 0)} endPosition={new Vector3(18, 4.5, 0)} reference={addStair} />
@@ -122,8 +122,8 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 					/>
 					<Tube name="Tube" position={[16, 2, 18]} size={[0.5, 8, 1]} rotation={[0, 0, 0]} />
 					<Tube name="Tube" position={[10, 2, 18]} size={[0.5, 8, 1]} rotation={[0, 0, 0]} />
-				</Canvas>
-			</div>
+				</Canvas >
+			</div >
 		</>
 	);
 }

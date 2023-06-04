@@ -1,5 +1,4 @@
 import { Canvas } from '@react-three/fiber';
-
 import { Scene, SceneProps } from '../../../App';
 import Grid from './Grid';
 import { OrbitControls } from '@react-three/drei';
@@ -8,6 +7,7 @@ import FixedCamera from '../../overworld/FixedCamera';
 import ObjectLoad from '../../ObjectLoad';
 import { Vector3 } from 'three';
 import { GREEN, WHITE } from '../../../AllColorVariables';
+import { resetKeys } from '../../overworld/Player';
 
 export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
@@ -18,8 +18,7 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 	const TILE_SIZE = 3;
 
 	//calculate random input tube position with relation to the grid
-	const RAND = Math.ceil(Math.random() * SIZE_OF_GAME_MATRIX[1]);
-	const INPUTTUBEPOSSITION = (RAND - 1) * TILE_SIZE + (RAND - 1) * SPACING;
+	const INPUTTUBEPOSSITION = TILE_SIZE * TILE_SIZE + TILE_SIZE * SPACING;
 	const VECTORS_FOR_TUBE = [
 		new Vector3(-1.9, -1.3, INPUTTUBEPOSSITION),
 		new Vector3(-3, -1.2, INPUTTUBEPOSSITION),
@@ -29,8 +28,24 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 
 	return (
 		<>
-			{/* TODO proper button implement */}
-			<button onClick={() => setSceneHook(Scene.Overworld)}> </button>
+			<button
+				style={{
+					position: 'absolute',
+					right: '75px',
+					top: '50px',
+					zIndex: '100',
+					background: 'red',
+					border: 'none',
+					padding: '10px',
+					borderRadius: '50px',
+					color: 'white',
+					cursor: 'pointer',
+					fontSize: '20px',
+				}}
+				onClick={() => setSceneHook(Scene.Overworld)}>
+				Spiel verlassen
+				{resetKeys()}
+			</button>
 			<div style={{ width: '100vw', height: '100vh' }} tabIndex={0}>
 				<Canvas orthographic camera={{ zoom: 50, position: [40, 40, 40] }}>
 					<directionalLight intensity={0.5} color={WHITE} />
@@ -41,8 +56,7 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 					<group position={[0, 4, 0]}>
 						<Grid size={SIZE_OF_GAME_MATRIX} />
 						<ObjectLoad
-							pathObj="/Trichter/trichter.obj"
-							pathMtl="/Trichter/trichter.mtl"
+							path="/Trichter/trichter.glb"
 							position={[(2.9 + 0.2) * SIZE_OF_GAME_MATRIX[0], -3.3, -0.5]}
 							scale={[0.25, 0.25, 0.25]}
 							rotation={[0, 180, 0]}
