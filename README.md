@@ -1,3 +1,6 @@
+### About this branch
+> A discussion regarding the contents of this branch was opened.
+
 <h1 align="center">Welcome to Operation : Innovation 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.6-blue.svg?cacheSeconds=2592000" />

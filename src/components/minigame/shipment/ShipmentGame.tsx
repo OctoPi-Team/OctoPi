@@ -1,5 +1,4 @@
 import { Canvas } from '@react-three/fiber';
-
 import { Scene, SceneProps } from '../../../App';
 import Grid from './Grid';
 import { OrbitControls } from '@react-three/drei';
@@ -8,6 +7,7 @@ import FixedCamera from '../../overworld/FixedCamera';
 import ObjectLoad from '../../ObjectLoad';
 import { Vector3 } from 'three';
 import { GREEN, WHITE } from '../../../AllColorVariables';
+import { resetKeys } from '../../overworld/Player';
 
 export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
@@ -18,8 +18,7 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 	const TILE_SIZE = 3;
 
 	//calculate random input tube position with relation to the grid
-	const RAND = Math.ceil(Math.random() * SIZE_OF_GAME_MATRIX[1]);
-	const INPUTTUBEPOSSITION = (RAND - 1) * TILE_SIZE + (RAND - 1) * SPACING;
+	const INPUTTUBEPOSSITION = TILE_SIZE * TILE_SIZE + TILE_SIZE * SPACING;
 	const VECTORS_FOR_TUBE = [
 		new Vector3(-1.9, -1.3, INPUTTUBEPOSSITION),
 		new Vector3(-3, -1.2, INPUTTUBEPOSSITION),
@@ -29,7 +28,6 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 
 	return (
 		<>
-			{/* TODO proper button implement */}
 			<button
 				style={{
 					position: 'absolute',
@@ -66,6 +64,7 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 					</group>
 				</Canvas>
 			</div>
+			{resetKeys()}
 		</>
 	);
 }

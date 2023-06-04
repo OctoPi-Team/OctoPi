@@ -38,7 +38,7 @@ export default function SimplePlatform({ name, position, size = [1, 0.1, 1], col
 	return (
 		<>
 			<SimpleText position={position} textValue={name} />
-			<mesh ref={ref}>
+			<mesh ref={ref} castShadow receiveShadow>
 				<boxGeometry args={size} />
 				<meshStandardMaterial color={color} />
 			</mesh>

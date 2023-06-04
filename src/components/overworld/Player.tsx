@@ -1,6 +1,6 @@
 import { useFrame } from '@react-three/fiber';
 import { Scene, SceneProps } from '../../App';
-import React, { useRef, useState } from 'react';
+import React, { ReactNode, useRef, useState } from 'react';
 import { BufferGeometry, Material, MathUtils, Mesh, Raycaster, Vector2, Vector3 } from 'three';
 import { STAIR_WIDTH, StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
@@ -15,7 +15,7 @@ const COLLISION_IS_ACTIVE = true;
 const ROTATION_SPEED = 0.1;
 
 // keys stores the current state of keyboard presses
-const keys = {
+export const keys = {
 	left: false,
 	right: false,
 	up: false,
@@ -102,7 +102,6 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 						}
 						break;
 				}
-
 				// normalize Vector to avoid diagonal speedUp
 				// Check if two keys are pressed simultaneously
 				const isTwoKeysPressed =
@@ -137,7 +136,7 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 			const angleBetweenStairStartAndPlayer = getAngleFromThreePoints(flattenedPlayer, flattenedStart, flattenedEnd);
 			const angleBetweenStairEndAndPlayer = getAngleFromThreePoints(flattenedPlayer, flattenedEnd, flattenedStart);
 			const flatStairLength = flattenedStart.distanceTo(flattenedEnd);
-			const sidwayDistanceFromPLayerToStair =
+			const sidewayDistanceFromPlayerToStair =
 				Math.sin(MathUtils.degToRad(angleBetweenStairStartAndPlayer)) * flattenedStart.distanceTo(flattenedPlayer);
 			if (
 				// player is after startPosition
@@ -145,7 +144,7 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 				// player is before endPosition
 				angleBetweenStairEndAndPlayer < 90 &&
 				// player is near enough to the stairs
-				sidwayDistanceFromPLayerToStair <= STAIR_WIDTH / 2
+				sidewayDistanceFromPlayerToStair <= STAIR_WIDTH / 2
 			) {
 				// calculate player height
 				// D
@@ -172,7 +171,7 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 					flatStairLength,
 					stair.endPosition.y - stair.startPosition.y,
 					progression,
-					stair.startPosition.y + PLAYER_SIZE / 2
+					stair.startPosition.y + PLAYER_SIZE / 2 + startPosition.y
 				);
 			}
 		}
@@ -275,11 +274,15 @@ export const handleJoystickMove = (stick: IJoystickUpdateEvent) => {
 	}
 };
 
-export const handleJoystickStop = () => {
+export function resetKeys() {
 	keys.left = false;
 	keys.right = false;
 	keys.up = false;
 	keys.down = false;
+}
+
+export const handleJoystickStop = () => {
+	resetKeys();
 };
 
 export default Player;
