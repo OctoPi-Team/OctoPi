@@ -168,7 +168,7 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 					flatStairLength,
 					stair.endPosition.y - stair.startPosition.y,
 					progression,
-					stair.startPosition.y + PLAYER_SIZE / 2
+					stair.startPosition.y + PLAYER_SIZE / 2 + startPosition.y
 				);
 			}
 		}
@@ -280,7 +280,7 @@ export function resetKeys(): ReactNode {
 }
 
 export const handleJoystickStop = () => {
-	resetKeys;
+	resetKeys();
 };
 
 export default Player;
