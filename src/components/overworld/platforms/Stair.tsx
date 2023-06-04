@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Mesh, Vector3 } from 'three';
+import { Mesh, Vector3, Vector2, MathUtils } from 'three';
 import { WHITE } from '../../../AllColorVariables';
 
 export type StairType = {
@@ -8,15 +8,26 @@ export type StairType = {
 	endPosition: Vector3;
 };
 
+export const STAIR_WIDTH = 2;
+
 interface StairProps {
 	startPosition: Vector3;
 	endPosition: Vector3;
 	reference?: (stair: StairType) => void;
 }
 
+function getCorrectedStairOffset(centerPosition: Vector3, direction: Vector3, stairHeight: number): Vector3 {
+	const heightAngle = MathUtils.degToRad(90) - direction.angleTo(new Vector3(0, -1, 0));
+	const heightOffset = Math.cos(heightAngle) * stairHeight / 2;
+	const planeOffset = Math.sin(heightAngle) * stairHeight / 2;
+	const offsetPerDirection = direction.clone().normalize().multiply(new Vector3(1, 0, 1)).multiplyScalar(planeOffset);
+	return new Vector3(offsetPerDirection.x, heightOffset, offsetPerDirection.z);
+}
+
 function Stair({ startPosition, endPosition, reference }: StairProps) {
 	const ref = useRef<Mesh>(null);
 	const length = startPosition.distanceTo(endPosition);
+	const stairHeight = 0.25;
 	if (reference && ref.current) {
 		reference({ mesh: ref.current, startPosition: startPosition.clone(), endPosition: endPosition.clone() });
 	}
@@ -30,14 +41,15 @@ function Stair({ startPosition, endPosition, reference }: StairProps) {
 					.normalize()
 					.multiplyScalar(length / 2)
 			);
-			ref.current.position.copy(centerPosition);
-			ref.current.lookAt(endPosition);
+			const offset = getCorrectedStairOffset(centerPosition, direction, stairHeight);
+			ref.current.position.copy(centerPosition.clone().sub(offset));
+			ref.current.lookAt(endPosition.clone().sub(offset));
 		}
 	});
 
 	return (
-		<mesh ref={ref}>
-			<boxGeometry args={[2, 0.25, length]} />
+		<mesh ref={ref} castShadow receiveShadow>
+			<boxGeometry args={[STAIR_WIDTH, stairHeight, length]} />
 			<meshStandardMaterial color={WHITE} />
 		</mesh>
 	);
