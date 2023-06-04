@@ -31,14 +31,26 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 	return (
 		<>
 			{/* TODO proper button implement */}
-			<NavigationButton position="absolute" right="75px" top="50px" text={'\u21BB'} 
-			onClick={() => setSceneHook(Scene.Overworld)}			
+			<NavigationButton
+				position="absolute"
+				right="75px"
+				top="50px"
+				text={'\u21BB'}
+				onClick={() => setSceneHook(Scene.Overworld)}
 			/>
-			<NavigationButton position="absolute" right="30px" top="50px" text="i"
-			onClick={() => setSceneHook(Scene.Overworld)}			
+			<NavigationButton
+				position="absolute"
+				right="30px"
+				top="50px"
+				text="i"
+				onClick={() => setSceneHook(Scene.Overworld)}
 			/>
-			<NavigationButton position="absolute" left="20px" bottom="20px" text="&larr; zurück"
-			onClick={() => setSceneHook(Scene.Overworld)}			
+			<NavigationButton
+				position="absolute"
+				left="20px"
+				bottom="20px"
+				text="&larr;"
+				onClick={() => setSceneHook(Scene.Overworld)}
 			/>
 			<div style={{ width: '100vw', height: '100vh' }} tabIndex={0}>
 				<Canvas orthographic camera={{ zoom: 50, position: [40, 40, 40] }}>
