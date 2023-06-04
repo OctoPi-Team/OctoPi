@@ -31,7 +31,19 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 	// Bugfix "Back Button Keeps Player Moving"
 	// Here is the code for the bugfix:
 	function resetKeys(): ReactNode {
-		return (keys.left = false) && (keys.right = false) && (keys.up = false) && (keys.down = false);
+		{
+			keys.left = false;
+		}
+		{
+			keys.right = false;
+		}
+		{
+			keys.up = false;
+		}
+		{
+			keys.down = false;
+		}
+		return null;
 	}
 
 	return (
@@ -52,10 +64,6 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 				}}
 				onClick={() => setSceneHook(Scene.Overworld)}>
 				Spiel verlassen
-				{(keys.left = false)}
-				{(keys.right = false)}
-				{(keys.up = false)}
-				{(keys.down = false)}
 				{resetKeys()}
 			</button>
 			<div style={{ width: '100vw', height: '100vh' }} tabIndex={0}>
