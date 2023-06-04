@@ -7,7 +7,7 @@ import ObjectLoad from '../ObjectLoad';
 import { IJoystickUpdateEvent } from 'react-joystick-component/build/lib/Joystick';
 
 const PLAYER_SIZE = 0.5;
-const SPEED = 0.1;
+const SPEED = 0.065;
 const COLLISION_RANGE = 0.26;
 const COLLISION_IS_ACTIVE = true;
 const ROTATION_SPEED = 0.1;
@@ -102,8 +102,16 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 				}
 
 				// normalize Vector to avoid diagonal speedUp
-				movementVector = movementVector.normalize();
-				movementVector = movementVector.multiplyScalar(SPEED);
+				// Check if two keys are pressed simultaneously
+				const isTwoKeysPressed =
+					(keys.left && keys.up) || (keys.right && keys.up) || (keys.left && keys.down) || (keys.right && keys.down);
+
+				// Adjust the movement vector based on the two pressed keys
+				if (isTwoKeysPressed) {
+					movementVector = movementVector.normalize().multiplyScalar(SPEED / Math.sqrt(2));
+				} else {
+					movementVector = movementVector.normalize().multiplyScalar(SPEED);
+				}
 				// apply movement
 				ref.current.position.x += movementVector.x;
 				ref.current.position.z += movementVector.z;
@@ -126,14 +134,15 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 			const angleBetweenStairStartAndPlayer = getAngleFromThreePoints(flattenedPlayer, flattenedStart, flattenedEnd);
 			const angleBetweenStairEndAndPlayer = getAngleFromThreePoints(flattenedPlayer, flattenedEnd, flattenedStart);
 			const flatStairLength = flattenedStart.distanceTo(flattenedEnd);
-			const sidwayDistanceFromPLayerToStair = Math.sin(MathUtils.degToRad(angleBetweenStairStartAndPlayer)) * flattenedStart.distanceTo(flattenedPlayer);
+			const sidewayDistanceFromPlayerToStair =
+				Math.sin(MathUtils.degToRad(angleBetweenStairStartAndPlayer)) * flattenedStart.distanceTo(flattenedPlayer);
 			if (
 				// player is after startPosition
 				angleBetweenStairStartAndPlayer < 90 &&
 				// player is before endPosition
 				angleBetweenStairEndAndPlayer < 90 &&
 				// player is near enough to the stairs
-				sidwayDistanceFromPLayerToStair <= STAIR_WIDTH / 2
+				sidewayDistanceFromPlayerToStair <= STAIR_WIDTH / 2
 			) {
 				// calculate player height
 				// D
@@ -189,7 +198,6 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 		</mesh>
 	);
 }
-
 
 function getPlayerRotationFromKeys(currentRotation: Vector3): Vector3 {
 	let rotationDegree = MathUtils.radToDeg(currentRotation.y);
@@ -272,6 +280,5 @@ export const handleJoystickStop = () => {
 };
 
 export default Player;
-
 
 export const ExportedForTestingOnly = { keys, handleJoystickStop, handleJoystickMove, getPlayerRotationFromKeys };
