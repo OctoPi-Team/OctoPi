@@ -30,7 +30,7 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 
 	// Bugfix "Back Button Keeps Player Moving"
 	// Here is the code for the bugfix:
-	function resetKeys() {
+	function resetKeys(): ReactNode {
 		{
 			keys.left = false;
 		}
