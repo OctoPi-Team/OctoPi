@@ -22,6 +22,173 @@ function getRandomTileType(): number {
 	return Math.floor(Math.random() * 6);
 }
 
+
+function isNeighbourOfEmptyTile(gridPosition: [number, number], emptyTile: [number, number]): boolean {
+	const xDistanceToEmpty = Math.abs(gridPosition[0] - emptyTile[0]);
+	const yDistanceToEmpty = Math.abs(gridPosition[1] - emptyTile[1]);
+	// check if tile is direct neighbour, diagonals dont count
+	// -> if true tile can be swapped into the space of the empty tile
+	return (xDistanceToEmpty <= 1 && yDistanceToEmpty == 0) || (yDistanceToEmpty <= 1 && xDistanceToEmpty == 0);
+}
+
+function checkVictory(size: [number, number], emptyTile: [number, number], tileList: TileProps[]): boolean {
+	tileList.sort((a, b) => (a.gridPosition > b.gridPosition ? 1 : -1));
+	if (tileList.length == 0) return false;
+	const oneDimensionArray: number[] = [];
+	tileList.forEach(tile => {
+		oneDimensionArray.push(tile.tileType);
+	});
+	const twoDimensionArray: number[][] = [];
+	let z: number[];
+	oneDimensionArray.reverse();
+	for (let x = 0; x < size[0]; x++) {
+		z = [];
+		for (let y = 0; y < size[1]; y++) {
+			if (x == emptyTile[0] && y == emptyTile[1]) {
+				//empty	tile
+				z.push(-1);
+				continue;
+			}
+			const nextValue = oneDimensionArray.pop();
+			if (nextValue) z.push(nextValue);
+		}
+		twoDimensionArray[x] = [];
+		twoDimensionArray[x] = twoDimensionArray[x].concat(z);
+	}
+	//starting position coordinates
+	let x = -1;
+	let y = 3;
+	enum direction {
+		right,
+		left,
+		up,
+		down,
+	}
+	let currentDirection: direction = direction.right;
+	for (let z = 0; z < size[0] * size[1]; z++) {
+		//moving into new tile
+		switch (+currentDirection) {
+			case direction.right:
+				x++;
+				break;
+			case direction.left:
+				x--;
+				break;
+			case direction.up:
+				y--;
+				break;
+			case direction.down:
+				y++;
+				break;
+			default:
+				// this case is not supposed to happen
+				return false;
+		}
+		if (x == size[0] && y == 0 && currentDirection == direction.right) {
+			return true;
+		}
+		// Team outofbounds
+		if (x < 0 || y < 0 || y > 3 || x > 3) {
+			return false;
+		}
+		if (twoDimensionArray[x][y] == -1) {
+			return false;
+		}
+
+		//changing direction
+		switch (twoDimensionArray[x][y]) {
+			case TileType.AngleRightInverted:
+				if (currentDirection == direction.left) {
+					currentDirection = direction.up;
+				} else if (currentDirection == direction.down) {
+					currentDirection = direction.right;
+				} else {
+					return false;
+				}
+				break;
+			case TileType.AngleRight:
+				if (currentDirection == direction.right) {
+					currentDirection = direction.up;
+				} else if (currentDirection == direction.down) {
+					currentDirection = direction.left;
+				} else {
+					return false;
+				}
+				break;
+			case TileType.AngleLeft:
+				if (currentDirection == direction.right) {
+					currentDirection = direction.down;
+				} else if (currentDirection == direction.up) {
+					currentDirection = direction.left;
+				} else {
+					return false;
+				}
+				break;
+			case TileType.StraightNormal:
+				if (currentDirection != direction.left && currentDirection != direction.right) {
+					return false;
+				}
+				break;
+			case TileType.StraightInverted:
+				if (currentDirection != direction.up && currentDirection != direction.down) {
+					return false;
+				}
+				break;
+			case TileType.AngleLeftInverted:
+				if (currentDirection == direction.up) {
+					currentDirection = direction.right;
+				} else if (currentDirection == direction.left) {
+					currentDirection = direction.down;
+				} else {
+					return false;
+				}
+				break;
+		}
+	}
+	return false;
+}
+function shuffle<T>(array: T[]): T[] {
+	let currentIndex = array.length,
+		randomIndex;
+
+	// While there remain elements to shuffle.
+	while (currentIndex != 0) {
+		// Pick a remaining element.
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex--;
+
+		// And swap it with the current element.
+		[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+	}
+
+	return array;
+}
+
+function generateFunctioningTable(size: [number, number]) {
+	//in order to keep the game simple,these are the minimum required tiles
+	let possibleBoard = [0, 5, 2];
+	//three different arrangements that will make the game solvable
+	const RAND = Math.ceil(Math.random() * 3);
+	if (RAND == 1) {
+		const OPTION1 = [2, 2, 3, 3];
+		possibleBoard.push(...OPTION1);
+	}
+	if (RAND == 2) {
+		const OPTION2 = [0, 0, 5, 5];
+		possibleBoard.push(...OPTION2);
+	}
+	if (RAND == 3) {
+		const OPTION3 = [0, 2, 3, 5];
+		possibleBoard.push(...OPTION3);
+	}
+	// at this pont the board is solvable and we can fill it with random tiles
+	for (let x = 0; x < size[0] * size[1] - 8; x++) {
+		possibleBoard.push(getRandomTileType());
+	}
+	possibleBoard = shuffle(possibleBoard);
+	return possibleBoard;
+}
+
 export default function Grid({ size }: GridProps) {
 	const [tiles, setTiles] = useState<TileProps[]>([]);
 	const [emptyTile, setEmptyTile] = useState<[number, number]>([0, 0]);
@@ -35,7 +202,7 @@ export default function Grid({ size }: GridProps) {
 	}
 
 	function tileClickHandler({ Vector1, Vector2, tileType, color, gridPosition }: TileProps) {
-		if (isNeighbourOfEmptyTile(gridPosition)) {
+		if (isNeighbourOfEmptyTile(gridPosition, emptyTile)) {
 			// swap positions of clicked and empty tile
 			const bufferedEmptyTile = emptyTile;
 			setEmptyTile(gridPosition);
@@ -45,175 +212,8 @@ export default function Grid({ size }: GridProps) {
 		}
 	}
 
-	function isNeighbourOfEmptyTile(gridPosition: [number, number]): boolean {
-		const xDistanceToEmpty = Math.abs(gridPosition[0] - emptyTile[0]);
-		const yDistanceToEmpty = Math.abs(gridPosition[1] - emptyTile[1]);
-		// check if tile is direct neighbour, diagonals dont count
-		// -> if true tile can be swapped into the space of the empty tile
-		return (xDistanceToEmpty <= 1 && yDistanceToEmpty == 0) || (yDistanceToEmpty <= 1 && xDistanceToEmpty == 0);
-	}
-
-	function checkVictory(): boolean {
-		const tileList = tiles;
-		tileList.sort((a, b) => (a.gridPosition > b.gridPosition ? 1 : -1));
-		if (tileList.length == 0) return false;
-		const oneDimensionArray: number[] = [];
-		tileList.forEach(tile => {
-			oneDimensionArray.push(tile.tileType);
-		});
-		const twoDimensionArray: number[][] = [];
-		let z: number[];
-		oneDimensionArray.reverse();
-		for (let x = 0; x < size[0]; x++) {
-			z = [];
-			for (let y = 0; y < size[1]; y++) {
-				if (x == emptyTile[0] && y == emptyTile[1]) {
-					//empty	tile
-					z.push(-1);
-					continue;
-				}
-				const nextValue = oneDimensionArray.pop();
-				if (nextValue) z.push(nextValue);
-			}
-			twoDimensionArray[x] = [];
-			twoDimensionArray[x] = twoDimensionArray[x].concat(z);
-		}
-		//starting position coordinates
-		let x = -1;
-		let y = 3;
-		enum direction {
-			right,
-			left,
-			up,
-			down,
-		}
-		let currentDirection: direction = direction.right;
-		for (let z = 0; z < size[0] * size[1]; z++) {
-			//moving into new tile
-			switch (+currentDirection) {
-				case direction.right:
-					x++;
-					break;
-				case direction.left:
-					x--;
-					break;
-				case direction.up:
-					y--;
-					break;
-				case direction.down:
-					y++;
-					break;
-				default:
-					// this case is not supposed to happen
-					return false;
-			}
-			if (x == size[0] && y == 0 && currentDirection == direction.right) {
-				return true;
-			}
-			// Team outofbounds
-			if (x < 0 || y < 0 || y > 3 || x > 3) {
-				return false;
-			}
-			if (twoDimensionArray[x][y] == -1) {
-				return false;
-			}
-
-			//changing direction
-			switch (twoDimensionArray[x][y]) {
-				case TileType.AngleRightInverted:
-					if (currentDirection == direction.left) {
-						currentDirection = direction.up;
-					} else if (currentDirection == direction.down) {
-						currentDirection = direction.right;
-					} else {
-						return false;
-					}
-					break;
-				case TileType.AngleRight:
-					if (currentDirection == direction.right) {
-						currentDirection = direction.up;
-					} else if (currentDirection == direction.down) {
-						currentDirection = direction.left;
-					} else {
-						return false;
-					}
-					break;
-				case TileType.AngleLeft:
-					if (currentDirection == direction.right) {
-						currentDirection = direction.down;
-					} else if (currentDirection == direction.up) {
-						currentDirection = direction.left;
-					} else {
-						return false;
-					}
-					break;
-				case TileType.StraightNormal:
-					if (currentDirection != direction.left && currentDirection != direction.right) {
-						return false;
-					}
-					break;
-				case TileType.StraightInverted:
-					if (currentDirection != direction.up && currentDirection != direction.down) {
-						return false;
-					}
-					break;
-				case TileType.AngleLeftInverted:
-					if (currentDirection == direction.up) {
-						currentDirection = direction.right;
-					} else if (currentDirection == direction.left) {
-						currentDirection = direction.down;
-					} else {
-						return false;
-					}
-					break;
-			}
-		}
-		return false;
-	}
-	function shuffle<T>(array: T[]): T[] {
-		let currentIndex = array.length,
-			randomIndex;
-
-		// While there remain elements to shuffle.
-		while (currentIndex != 0) {
-			// Pick a remaining element.
-			randomIndex = Math.floor(Math.random() * currentIndex);
-			currentIndex--;
-
-			// And swap it with the current element.
-			[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-		}
-
-		return array;
-	}
-
-	function generateFunctioningTable() {
-		//in order to keep the game simple,these are the minimum required tiles
-		let possibleBoard = [0, 5, 2];
-		//three different arrangements that will make the game solvable
-		const RAND = Math.ceil(Math.random() * 3);
-		if (RAND == 1) {
-			const OPTION1 = [2, 2, 3, 3];
-			possibleBoard.push(...OPTION1);
-		}
-		if (RAND == 2) {
-			const OPTION2 = [0, 0, 5, 5];
-			possibleBoard.push(...OPTION2);
-		}
-		if (RAND == 3) {
-			const OPTION3 = [0, 2, 3, 5];
-			possibleBoard.push(...OPTION3);
-		}
-		// at this pont the board is solvable and we can fill it with random tiles
-		for (let x = 0; x < size[0] * size[1] - 8; x++) {
-			possibleBoard.push(getRandomTileType());
-		}
-		possibleBoard = shuffle(possibleBoard);
-		return possibleBoard;
-	}
-
 	useEffect(() => {
-		const TILES = generateFunctioningTable();
+		const TILES = generateFunctioningTable(size);
 		let counter = 0;
 		for (let x = 0; x < size[0]; x++) {
 			for (let y = 0; y < size[1]; y++) {
@@ -230,7 +230,7 @@ export default function Grid({ size }: GridProps) {
 			}
 		}
 	}, [size]);
-	if (checkVictory()) {
+	if (checkVictory(size, emptyTile, tiles)) {
 		alert('YOU WIN');
 	}
 
