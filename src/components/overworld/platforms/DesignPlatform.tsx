@@ -1,4 +1,3 @@
-import { Color } from 'three';
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
 import { DESIGN } from '../../../AllColorVariables';

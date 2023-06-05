@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Mesh, Vector3, Vector2, MathUtils } from 'three';
+import { Mesh, Vector3, MathUtils } from 'three';
 import { WHITE } from '../../../AllColorVariables';
 
 export type StairType = {
@@ -18,8 +18,8 @@ interface StairProps {
 
 function getCorrectedStairOffset(centerPosition: Vector3, direction: Vector3, stairHeight: number): Vector3 {
 	const heightAngle = MathUtils.degToRad(90) - direction.angleTo(new Vector3(0, -1, 0));
-	const heightOffset = Math.cos(heightAngle) * stairHeight / 2;
-	const planeOffset = Math.sin(heightAngle) * stairHeight / 2;
+	const heightOffset = (Math.cos(heightAngle) * stairHeight) / 2;
+	const planeOffset = (Math.sin(heightAngle) * stairHeight) / 2;
 	const offsetPerDirection = direction.clone().normalize().multiply(new Vector3(1, 0, 1)).multiplyScalar(planeOffset);
 	return new Vector3(offsetPerDirection.x, heightOffset, offsetPerDirection.z);
 }

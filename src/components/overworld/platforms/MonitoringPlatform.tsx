@@ -1,6 +1,6 @@
-import { Color } from 'three';
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
+import { MONITORING } from '../../../AllColorVariables';
 
 type MonitoringPlatformOptions = {
 	position?: [number, number, number];
@@ -13,7 +13,7 @@ export default function MonitoringPlatform({
 }: MonitoringPlatformOptions): JSX.Element {
 	return (
 		<>
-			<SimplePlatform position={position} size={[14, 0.5, 21]} reference={reference} color={new Color(0xdddddd)} />
+			<SimplePlatform position={position} size={[14, 0.5, 21]} reference={reference} color={MONITORING} />
 
 			<ObjectLoad
 				path="/Plattformbeschriftung/MonitoringLogo/monitoring-logo.glb"
