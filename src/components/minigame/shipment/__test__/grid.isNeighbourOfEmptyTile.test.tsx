@@ -1,6 +1,5 @@
 import { ExportedForTestingOnly } from "../Grid";
 
-//describe('GridFunctionIsNeighbourOfEmptyTile', function () {
 it('isNeighbourOfEmptyTileWithGridPositionOnZeroZeroCornerTest', async function () {
     ExportedForTestingOnly.isNeighbourOfEmptyTile([0, 0], [1, 1]);
 });
@@ -64,4 +63,4 @@ it('isNeighbourOfEmptyTileGridPositionIsDiagonalToEmptyTileTest', async function
 it('isNeighbourOfEmptyTileGridPositionIsMoreThanOneAwayOfEmptyTileTest', async function () {
     expect(ExportedForTestingOnly.isNeighbourOfEmptyTile([0, 0], [2, 2])).toBeFalsy();
 });
-//});
+
