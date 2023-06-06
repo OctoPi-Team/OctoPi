@@ -25,9 +25,11 @@ function getRandomTileType(): number {
 function isNeighbourOfEmptyTile(gridPosition: [number, number], emptyTile: [number, number]): boolean {
 	const xDistanceToEmpty = Math.abs(gridPosition[0] - emptyTile[0]);
 	const yDistanceToEmpty = Math.abs(gridPosition[1] - emptyTile[1]);
-	// check if tile is direct neighbour, diagonals dont count
+	// check if tile is direct neighbour, diagonals and same tilePos dont count
 	// -> if true tile can be swapped into the space of the empty tile
-	return (xDistanceToEmpty <= 1 && yDistanceToEmpty == 0) || (yDistanceToEmpty <= 1 && xDistanceToEmpty == 0);
+	console.log(gridPosition[0] == emptyTile[0] && gridPosition[1] == emptyTile[1]);
+	return !(gridPosition[0] == emptyTile[0] && gridPosition[1] == emptyTile[1])
+		&& ((xDistanceToEmpty <= 1 && yDistanceToEmpty == 0) || (yDistanceToEmpty <= 1 && xDistanceToEmpty == 0));
 }
 
 function checkVictory(size: [number, number], emptyTile: [number, number], tileList: TileProps[]): boolean {
@@ -233,7 +235,9 @@ export default function Grid({ size }: GridProps) {
 		alert('YOU WIN');
 	}
 
-	return <>{...getTilesFromProps(tiles, tileClickHandler)}</>;
+	return <>{getTilesFromProps(tiles, tileClickHandler)}</>;
 }
 
-export const ExportedForTestingOnly = { getTilesFromProps, shuffle, generateFunctioningTable, checkVictory, isNeighbourOfEmptyTile, getRandomTileType };
+export const ExportedForTestingOnly = {
+	getTilesFromProps, shuffle, generateFunctioningTable, checkVictory, isNeighbourOfEmptyTile, getRandomTileType
+};
