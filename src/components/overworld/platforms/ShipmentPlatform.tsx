@@ -48,7 +48,7 @@ export default function ShipmentPlatform({
 			<ObjectLoad
 				path="/LKW/lkw.glb"
 				position={[position[0], position[1], position[2] + 8]}
-				scale={[0.08, 0.06, 0.05]}
+				scale={[1, 1, 1]}
 				rotation={[0, 90, 0]}
 			/>
 			<ObjectLoad
