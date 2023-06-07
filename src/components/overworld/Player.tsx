@@ -1,7 +1,7 @@
 import { useFrame } from '@react-three/fiber';
 import { Scene, SceneProps } from '../../App';
 import React, { useRef, useState } from 'react';
-import { BufferGeometry, Material, MathUtils, Mesh, Raycaster, Vector2, Vector3 } from 'three';
+import { Box3, BufferGeometry, Material, MathUtils, Mesh, Raycaster, Vector2, Vector3 } from 'three';
 import { STAIR_WIDTH, StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
 import { IJoystickUpdateEvent } from 'react-joystick-component/build/lib/Joystick';
@@ -28,6 +28,7 @@ interface PlayerArgs {
 	stairs: StairType[];
 	sceneProps?: SceneProps;
 	buttons: Mesh<BufferGeometry, Material | Material[]>[];
+	collisionObjects: Box3[];
 }
 
 function getHeight(stairLength: number, stairHeight: number, currentProgression: number, lowerHeight: number) {
@@ -36,7 +37,7 @@ function getHeight(stairLength: number, stairHeight: number, currentProgression:
 	return lowerHeight + currentProgression / (stairLength / stairHeight);
 }
 
-function Player({ startPosition, platforms, stairs, buttons, sceneProps }: PlayerArgs) {
+function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisionObjects }: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
 	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
 	const [targetRotation, setTargetRotation] = useState<Vector3>(new Vector3(0, 0, 0));
@@ -44,7 +45,6 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 	// player movement
 	useFrame(() => {
 		if (!ref.current) return;
-
 		const playerPosition = ref.current.position.clone();
 		const buttonPositions = buttons.map(button => button.position.clone());
 		for (const buttonPosition of buttonPositions) {
@@ -114,9 +114,16 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 					movementVector = movementVector.normalize().multiplyScalar(SPEED);
 				}
 
-				// apply movement
+				// move player forward
 				ref.current.position.x += movementVector.x;
 				ref.current.position.z += movementVector.z;
+				// check if he collides with any objects
+				const playerCollisionBox = new Box3().setFromObject(ref.current);
+				if (collisionObjects && playerCollisionBox && collisionObjects.some((x) => x.intersectsBox(playerCollisionBox))) {
+					// if he collides with anything move him back again
+					ref.current.position.x -= movementVector.x;
+					ref.current.position.z -= movementVector.z;
+				}
 			}
 		}
 
