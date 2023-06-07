@@ -95,15 +95,19 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 						sceneProps={{ setSceneHook }}
 						buttonreference={addButtons}
 					/>
-					<Stair startPosition={new Vector3(-7, 0, 6)} endPosition={new Vector3(-7, 4, 11)} reference={addStair} />
-					<EngineeringPlatform position={[-13, 4, 20]} reference={addPlatform} />
-					<Stair startPosition={new Vector3(-9.5, 0, 0)} endPosition={new Vector3(-16.2, 2, 0)} reference={addStair} />
+					<Stair startPosition={new Vector3(-7, 0, 6.5)} endPosition={new Vector3(-7, 4, 13)} reference={addStair} />
+					<EngineeringPlatform position={[-13, 4, 22]} reference={addPlatform} />
+					<Stair startPosition={new Vector3(-10, 0, 0)} endPosition={new Vector3(-16.2, 2, 0)} reference={addStair} />
 					<DesignPlatform position={[-25.2, 2, -2]} reference={addPlatform} />
-					<Stair startPosition={new Vector3(-7, 0, -6)} endPosition={new Vector3(-7, 3, -16)} reference={addStair} />
+					<Stair
+						startPosition={new Vector3(-6.9, 0, -6.5)}
+						endPosition={new Vector3(-7, 3, -16)}
+						reference={addStair}
+					/>
 					<ProductionPlatform position={[-10, 3, -22]} reference={addPlatform} />
 					<Stair startPosition={new Vector3(6, 0, -6.5)} endPosition={new Vector3(6, 1, -11.5)} reference={addStair} />
 					<PartsPlatform position={[16, 1, -20]} reference={addPlatform} />
-					<Stair startPosition={new Vector3(9.5, 0, 0)} endPosition={new Vector3(18, 4.5, 0)} reference={addStair} />
+					<Stair startPosition={new Vector3(10, 0, 0)} endPosition={new Vector3(18, 4.5, 0)} reference={addStair} />
 					<MonitoringPlatform position={[25, 4.5, -3]} reference={addPlatform} />
 					<Player
 						startPosition={new Vector3(0, -0.3, 0)}
