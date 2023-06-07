@@ -84,7 +84,7 @@ export default function ShipmentPlatform({
 				/>
 			</group>
 			<ObjectLoad
-				path="/Paket_1/paket_1.glb"
+				path="/Packet/packet.glb"
 				position={[position[0] - 2.8, position[1] + 0.7, position[2]]}
 				scale={[0.2, 0.2, 0.2]}
 				rotation={[0, 0, 0]}
