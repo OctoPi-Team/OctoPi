@@ -1,4 +1,4 @@
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { Scene, SceneProps } from '../../../App';
 import Grid from './Grid';
 import { OrbitControls } from '@react-three/drei';
@@ -9,14 +9,15 @@ import { Vector3 } from 'three';
 import { GREEN, WHITE } from '../../../AllColorVariables';
 import NavigationButton from '../../overworld/objects/NavigationButton';
 import { resetKeys } from '../../overworld/Player';
+import Sphere from './Sphere';
+export const TILE_SIZE = 3;
+export const SIZE_OF_GAME_MATRIX: [number, number] = [4, 4];
+export const SPACING = 0.2;
 
 export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
-	const ORBITAL_CONTROLS_ACTIVE = false;
+	const ORBITAL_CONTROLS_ACTIVE = true;
 	// const [visible, setVisible] = useState(true);
 	// TODO add Loading Screen -> {visible && <LoadingScreen setVisible={setVisible} />}
-	const SIZE_OF_GAME_MATRIX: [number, number] = [4, 4];
-	const SPACING = 0.2;
-	const TILE_SIZE = 3;
 
 	//calculate random input tube position with relation to the grid
 	const INPUTTUBEPOSSITION = TILE_SIZE * TILE_SIZE + TILE_SIZE * SPACING;
@@ -27,6 +28,7 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 		new Vector3(-20, 1.5, INPUTTUBEPOSSITION),
 	];
 
+	// @ts-ignore
 	return (
 		<>
 			{/* TODO proper button implement */}

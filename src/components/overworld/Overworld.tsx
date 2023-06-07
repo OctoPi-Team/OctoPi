@@ -71,7 +71,7 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 				<Canvas
 					orthographic
 					shadows
-					camera={{ zoom: 40, position: [0, 0, 0] }}
+					camera={{ zoom: 60, position: [0, 0, 0] }}
 					style={{ visibility: visible ? 'hidden' : 'visible' }}>
 					{/* changes color of canvas from white to 'args'*/}
 					<color attach="background" args={['white']} />
@@ -118,8 +118,8 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 						buttons={buttons}
 						sceneProps={{ setSceneHook }}
 					/>
-				</Canvas >
-			</div >
+				</Canvas>
+			</div>
 		</>
 	);
 }
