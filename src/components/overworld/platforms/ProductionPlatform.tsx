@@ -44,7 +44,6 @@ export default function PartsPlatform({ position = [0, 0, 0], reference }: Parts
 					scale={[0.25, 0.25, 0.25]}
 					rotation={[0, 160, 0]}
 				/>
-
 			</group>
 			<group name="corner-desk">
 				<ObjectLoad
