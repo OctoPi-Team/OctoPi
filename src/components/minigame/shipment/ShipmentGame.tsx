@@ -9,8 +9,6 @@ import { Vector3 } from 'three';
 import { GREEN, WHITE } from '../../../AllColorVariables';
 import NavigationButton from '../../overworld/objects/NavigationButton';
 import { resetKeys } from '../../overworld/Player';
-import { useState } from 'react';
-import InformationButton from '../../overworld/objects/InformationButton';
 
 export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
