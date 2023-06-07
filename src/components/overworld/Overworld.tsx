@@ -53,8 +53,8 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 					style={{
 						position: 'absolute',
 						zIndex: '50',
-						right: '200px',
-						bottom: '200px',
+						right: '100px',
+						bottom: '80px',
 						visibility: visible ? 'hidden' : 'visible',
 					}}>
 					<Joystick
