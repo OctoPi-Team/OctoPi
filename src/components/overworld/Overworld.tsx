@@ -1,16 +1,14 @@
-import { Vector3, Color, BufferGeometry, Material, Mesh } from 'three';
+import { Vector3, BufferGeometry, Material, Mesh } from 'three';
 
 import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp } from './Player';
 import Stair, { StairType } from './platforms/Stair';
 import FixedCamera from './FixedCamera';
-import SimplePlatform from './platforms/SimplePlatform';
-import { OrbitControls, OrthographicCamera } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
 import ShipmentPlatform from './platforms/ShipmentPlatform';
 
 import { Canvas } from '@react-three/fiber';
 import { useState } from 'react';
 import { SceneProps } from '../../App';
-import { WHITE } from '../../AllColorVariables';
 import { Joystick } from 'react-joystick-component';
 import DesignPlatform from './platforms/DesignPlatform';
 import MainPlatform from './platforms/MainPlatform';

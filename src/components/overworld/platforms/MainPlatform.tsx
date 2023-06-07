@@ -1,5 +1,3 @@
-import { Color } from 'three';
-import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
 import { GREEN } from '../../../AllColorVariables';
 
@@ -11,12 +9,10 @@ type MainPlatformOptions = {
 export default function MainPlatform({ position = [0, 0, 0], reference }: MainPlatformOptions): JSX.Element {
 	return (
 		<>
-			<SimplePlatform position={position} size={[20, 0.5, 13]} reference={reference} color={new Color(GREEN)} />
-
+			<SimplePlatform position={position} size={[20, 0.5, 13]} reference={reference} color={GREEN} />
 		</>
 	);
 }
-
 
 /*
 <ObjectLoad

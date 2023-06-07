@@ -1,6 +1,6 @@
-import { Color } from 'three';
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
+import { ENGINEERING } from '../../../AllColorVariables';
 
 type EngineeringPlatformOptions = {
 	position?: [number, number, number];
@@ -13,13 +13,7 @@ export default function EngineeringPlatform({
 }: EngineeringPlatformOptions): JSX.Element {
 	return (
 		<>
-			<SimplePlatform
-				name={''}
-				position={position}
-				size={[15, 0.5, 18]}
-				reference={reference}
-				color={new Color(0xdabdd65)}
-			/>
+			<SimplePlatform name={''} position={position} size={[15, 0.5, 18]} reference={reference} color={ENGINEERING} />
 			<ObjectLoad
 				path="/Plattformbeschriftung/EngineeringLogo/engineering-logo.glb"
 				position={[position[0] + 8.25, position[1], position[2] - 9]}
