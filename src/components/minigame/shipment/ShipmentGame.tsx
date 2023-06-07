@@ -9,6 +9,8 @@ import { Vector3 } from 'three';
 import { GREEN, WHITE } from '../../../AllColorVariables';
 import NavigationButton from '../../overworld/objects/NavigationButton';
 import { resetKeys } from '../../overworld/Player';
+import { useState } from 'react';
+import InformationButton from '../../overworld/objects/InformationButton';
 
 export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
@@ -26,23 +28,30 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 		new Vector3(-3.5, 2, INPUTTUBEPOSSITION),
 		new Vector3(-20, 1.5, INPUTTUBEPOSSITION),
 	];
-
 	return (
 		<>
-			{/* TODO proper button implement */}
 			<NavigationButton
 				position="absolute"
 				right="75px"
 				top="50px"
 				text={'\u21BB'}
-				onClick={() => setSceneHook(Scene.Overworld)}
+				onClick={() => {
+					setSceneHook(Scene.Overworld);
+					setTimeout(() => {
+						setSceneHook(Scene.Shipment);
+					}, 50);
+				}}
 			/>
 			<NavigationButton
 				position="absolute"
 				right="30px"
 				top="50px"
 				text="i"
-				onClick={() => setSceneHook(Scene.Overworld)}
+				onClick={() => {
+					window.alert(
+						'Willkommen zu unserem Spiel Operation:Innovation! Das Spiel ist ganz simpel. Klicke auf eine der verschiedenen Grids und verändere somit die Position der verschiedenen Röhren. Sobald du eine Verbindung erfolgreich zum Trichter geschafft hast, hast du gewonnen! Viel Erfolg!'
+					);
+				}}
 			/>
 			<NavigationButton
 				position="absolute"
