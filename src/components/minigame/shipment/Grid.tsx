@@ -236,4 +236,11 @@ export default function Grid({ size }: GridProps) {
 	return <>{...getTilesFromProps(tiles, tileClickHandler)}</>;
 }
 
-export const ExportedForTestingOnly = { getTilesFromProps, shuffle, generateFunctioningTable, checkVictory, isNeighbourOfEmptyTile, getRandomTileType };
+export const ExportedForTestingOnly = {
+	getTilesFromProps,
+	shuffle,
+	generateFunctioningTable,
+	checkVictory,
+	isNeighbourOfEmptyTile,
+	getRandomTileType,
+};
