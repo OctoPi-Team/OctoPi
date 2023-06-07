@@ -119,7 +119,7 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisi
 				ref.current.position.z += movementVector.z;
 				// check if he collides with any objects
 				const playerCollisionBox = new Box3().setFromObject(ref.current);
-				if (collisionObjects && playerCollisionBox && collisionObjects.some((x) => x.intersectsBox(playerCollisionBox))) {
+				if (collisionObjects && playerCollisionBox && collisionObjects.some(x => x.intersectsBox(playerCollisionBox))) {
 					// if he collides with anything move him back again
 					ref.current.position.x -= movementVector.x;
 					ref.current.position.z -= movementVector.z;
