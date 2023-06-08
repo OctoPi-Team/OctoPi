@@ -288,4 +288,4 @@ export const handleJoystickStop = () => {
 
 export default Player;
 
-export const ExportedForTestingOnly = { keys, handleJoystickStop, handleJoystickMove, getPlayerRotationFromKeys };
+export const ExportedForTestingOnly = { keys, handleJoystickStop, handleJoystickMove, getPlayerRotationFromKeys, getHeight, getNewLerpedPlayerRoation, getNewPlayerHeight, getAngleFromThreePoints, flattenVector, checkIfPlayerCollidesWithPlatformOrBorderOrObject, getMovementVectorFromKeys };
