@@ -26,12 +26,12 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 
 	const ORBITAL_CONTROLS_ACTIVE = false;
 
-	const [platforms, setPlatforms] = useState<Mesh<BufferGeometry, Material | Material[]>[]>([]);
+	const [platforms, setPlatforms] = useState<Box3[]>([]);
 	const [stairs, setStairs] = useState<StairType[]>([]);
 	const [buttons, setButtons] = useState<Mesh<BufferGeometry, Material | Material[]>[]>([]);
 	const [collisionBoxes, setCollisionBoxes] = useState<Box3[]>([]);
 
-	function addPlatform(newPlatform: Mesh<BufferGeometry, Material | Material[]>) {
+	function addPlatform(newPlatform: Box3) {
 		if (!platforms.includes(newPlatform)) setPlatforms(platforms => [...platforms, newPlatform]);
 	}
 

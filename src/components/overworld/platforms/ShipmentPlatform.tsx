@@ -9,7 +9,7 @@ import { Box3 } from 'three';
 
 type ShipmentPlatformOptions = {
 	position?: [number, number, number];
-	reference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	reference?: (meshRef: Box3) => void;
 	sceneProps?: SceneProps;
 	buttonreference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
