@@ -42,14 +42,14 @@ export default function EngineeringPlatform({
 			/>
 			<ObjectLoad
 				path="/Monitor/monitor.glb"
-				position={[position[0] - 2.5, position[1] + 4, position[2] + 3.5]}
+				position={[position[0] - 2.5, position[1] + 4, position[2] + 4.5]}
 				scale={[0.2, 0.2, 0.2]}
 				rotation={[0, 180, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
 				path="/Drehstuhl/drehstuhl.glb"
-				position={[position[0], position[1], position[2] + 6]}
+				position={[position[0] - 0.8, position[1], position[2] + 7]}
 				scale={[0.15, 0.15, 0.15]}
 				rotation={[0, 180, 0]}
 				collisionRefSetter={addCollisionBox}

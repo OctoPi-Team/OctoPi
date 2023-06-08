@@ -25,17 +25,16 @@ export default function ShipmentPlatform({
 		<>
 			<SimplePlatform position={position} size={[18, 0.5, 18]} reference={reference} color={SHIPMENT} />
 			<Text text={'Shipment'} position={[position[0] + 10, position[1], position[2] - 9]} rotation={[0, 270, 0]} />
-			<ObjectLoad path="/LaufbandUndTrichter.glb" position={position} scale={[0.1, 0.1, 0.1]} rotation={[0, 180, 0]} />
 			<ObjectLoad
 				path="/LaufbandUndTrichter.glb"
-				position={position}
+				position={[position[0] - 3, position[1], position[2] + 4]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 180, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
 				path="/Packet/packet.glb"
-				position={[position[0] - 3.4, position[1], position[2] - 1]}
+				position={[position[0] - 1.5, position[1], position[2] - 1]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
@@ -56,7 +55,7 @@ export default function ShipmentPlatform({
 			/>
 			<ObjectLoad
 				path="/LKW/lkw.glb"
-				position={[position[0], position[1], position[2] + 8]}
+				position={[position[0], position[1], position[2] + 9.5]}
 				scale={[1, 1, 1]}
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
@@ -100,7 +99,7 @@ export default function ShipmentPlatform({
 			</group>
 			<ObjectLoad
 				path="/Packet/packet.glb"
-				position={[position[0] - 2.8, position[1] + 0.7, position[2]]}
+				position={[position[0] + 5, position[1], position[2] - 5.5]}
 				scale={[0.2, 0.2, 0.2]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
@@ -120,7 +119,7 @@ export default function ShipmentPlatform({
 				collisionRefSetter={addCollisionBox}
 			/>
 			<Tube name="Tube" position={[position[0] + 7.6, position[1] - 1.9, position[2] + 0.5]} size={[0.5, 8, 1]} />
-			<Button position={position} reference={buttonreference} />
+			<Button position={[position[0] - 6, position[1] + 6, position[2] - 9]} reference={buttonreference} />
 		</>
 	);
 }

@@ -20,7 +20,7 @@ export default function ProductionPlatform({
 			<SimplePlatform position={position} size={[19, 0.5, 12]} reference={reference} color={PRODUCTION} />
 			<ObjectLoad
 				path="/Roboterarm_kaputt/roboterarm_kaputt.glb"
-				position={[position[0], position[1], position[2] + 2]}
+				position={[position[0] - 2, position[1], position[2] + 2]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
@@ -31,21 +31,21 @@ export default function ProductionPlatform({
 			<group>
 				<ObjectLoad
 					path="/Notebook/notebook.glb"
-					position={[position[0] + 1.1, position[1] + 2, position[2] - 9.5]}
+					position={[position[0] + 4, position[1] + 6, position[2] - 5]}
 					scale={[0.28, 0.28, 0.28]}
 					rotation={[0, 150, 0]}
 					collisionRefSetter={addCollisionBox}
 				/>
 				<ObjectLoad
 					path="/Schreibtisch/schreibtisch.glb"
-					position={[position[0] + 7, position[1], position[2] - 2]}
+					position={[position[0] + 8, position[1], position[2] - 2]}
 					scale={[0.5, 0.5, 0.25]}
 					rotation={[0, 90, 0]}
 					collisionRefSetter={addCollisionBox}
 				/>
 				<ObjectLoad
 					path="/Drehstuhl/drehstuhl.glb"
-					position={[position[0] + 7, position[1], position[2] - 4]}
+					position={[position[0] + 7, position[1], position[2] - 1.5]}
 					scale={[0.25, 0.25, 0.25]}
 					rotation={[0, 160, 0]}
 					collisionRefSetter={addCollisionBox}
@@ -54,21 +54,21 @@ export default function ProductionPlatform({
 			<group name="corner-desk">
 				<ObjectLoad
 					path="/Schreibtisch/schreibtisch.glb"
-					position={[position[0] + 5, position[1], position[2] + 3]}
+					position={[position[0] + 8, position[1], position[2] + 3]}
 					scale={[0.4, 0.4, 0.4]}
-					rotation={[0, 50, 0]}
+					rotation={[0, 90, 0]}
 					collisionRefSetter={addCollisionBox}
 				/>
 				<ObjectLoad
 					path="/Drehstuhl/drehstuhl.glb"
-					position={[position[0] + 5, position[1], position[2] + 1.6]}
+					position={[position[0] + 7, position[1], position[2] + 3]}
 					scale={[0.22, 0.22, 0.22]}
 					rotation={[0, 170, 0]}
 					collisionRefSetter={addCollisionBox}
 				/>
 				<ObjectLoad
 					path="/Notebook/notebook.glb"
-					position={[position[0] + 3, position[1] - 0.2, position[2] - 1.5]}
+					position={[position[0] + 7, position[1] + 2.5, position[2] + 3]}
 					scale={[0.25, 0.25, 0.25]}
 					rotation={[0, 140, 0]}
 					collisionRefSetter={addCollisionBox}
