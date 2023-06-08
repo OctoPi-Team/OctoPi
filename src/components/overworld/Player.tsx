@@ -48,7 +48,7 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisi
 		const playerPosition = ref.current.position.clone();
 		const buttonPositions = buttons.map(button => button.position.clone());
 		for (const buttonPosition of buttonPositions) {
-			if (playerPosition.distanceTo(buttonPosition) < 8) {
+			if (playerPosition.distanceTo(buttonPosition) < 1) {
 				if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
 			}
 		}
