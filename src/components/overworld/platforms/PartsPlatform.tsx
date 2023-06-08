@@ -1,6 +1,7 @@
 import { PARTS } from '../../../AllColorVariables';
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
+import Text from '../../Text';
 import { Box3 } from 'three';
 
 type PartsPlatformOptions = {
@@ -17,13 +18,7 @@ export default function PartsPlatform({
 	return (
 		<>
 			<SimplePlatform position={position} size={[24, 0.5, 18]} reference={reference} color={PARTS} />
-			<ObjectLoad
-				path="/Plattformbeschriftung/PartsLogo/parts-logo.glb"
-				position={[position[0] - 10, position[1] + 10, position[2]]}
-				scale={[2, 2, 2]}
-				rotation={[0, 180, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
+			<Text text={'Parts'} position={[position[0] - 10, position[1] + 10, position[2]]} rotation={[0, 180, 0]} />
 			<ObjectLoad
 				path="/Metallregal/metallregal.glb"
 				position={[position[0], position[1], position[2] - 1]}

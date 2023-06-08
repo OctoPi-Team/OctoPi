@@ -1,6 +1,7 @@
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
 import { DESIGN } from '../../../AllColorVariables';
+import Text from '../../Text';
 import { Box3 } from 'three';
 
 type DesignPlatformOptions = {
@@ -17,13 +18,7 @@ export default function DesignPlatform({
 	return (
 		<>
 			<SimplePlatform position={position} size={[18, 0.5, 20]} reference={reference} color={DESIGN} />
-			<ObjectLoad
-				path="/Plattformbeschriftung/DesignLogo/design-logo.glb"
-				position={[position[0] + 10, position[1], position[2] + 3]}
-				scale={[2, 2, 2]}
-				rotation={[0, -90, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
+			<Text text={'Design'} position={[position[0] + 10, position[1], position[2] + 3]} rotation={[0, -90, 0]} />
 			<ObjectLoad
 				path="/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb"
 				position={[position[0] - 2, position[1], position[2] + 2]}

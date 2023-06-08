@@ -1,6 +1,7 @@
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
 import { MONITORING } from '../../../AllColorVariables';
+import Text from '../../Text';
 import { Box3 } from 'three';
 
 type MonitoringPlatformOptions = {
@@ -17,14 +18,7 @@ export default function MonitoringPlatform({
 	return (
 		<>
 			<SimplePlatform position={position} size={[14, 0.5, 21]} reference={reference} color={MONITORING} />
-
-			<ObjectLoad
-				path="/Plattformbeschriftung/MonitoringLogo/monitoring-logo.glb"
-				position={[position[0] + 3, position[1] + 5, position[2] - 8]}
-				scale={[2, 2, 2]}
-				rotation={[0, 270, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
+			<Text text={'Monitoring'} position={[position[0] + 3, position[1] + 5, position[2] - 8]} rotation={[0, 270, 0]} />
 			<ObjectLoad
 				path="/Radarschuessel_kaputt_final/radarschuessel_kaputt_final.glb"
 				position={[position[0], position[1] - 0.5, position[2] + 5]}

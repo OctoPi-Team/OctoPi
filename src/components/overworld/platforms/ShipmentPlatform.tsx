@@ -4,6 +4,7 @@ import { SceneProps } from '../../../App';
 import Button from '../objects/Button';
 import { SHIPMENT } from '../../../AllColorVariables';
 import Tube from '../objects/Tube';
+import Text from '../../Text';
 import { Box3 } from 'three';
 
 type ShipmentPlatformOptions = {
@@ -23,13 +24,8 @@ export default function ShipmentPlatform({
 	return (
 		<>
 			<SimplePlatform position={position} size={[18, 0.5, 18]} reference={reference} color={SHIPMENT} />
-			<ObjectLoad
-				path="/Plattformbeschriftung/ShipmentLogo/ship-logo.glb"
-				position={[position[0] + 10, position[1], position[2] - 9]}
-				scale={[2, 2, 2]}
-				rotation={[0, 270, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
+			<Text text={'Shipment'} position={[position[0] + 10, position[1], position[2] - 9]} rotation={[0, 270, 0]} />
+			<ObjectLoad path="/LaufbandUndTrichter.glb" position={position} scale={[0.1, 0.1, 0.1]} rotation={[0, 180, 0]} />
 			<ObjectLoad
 				path="/LaufbandUndTrichter.glb"
 				position={position}
@@ -61,7 +57,7 @@ export default function ShipmentPlatform({
 			<ObjectLoad
 				path="/LKW/lkw.glb"
 				position={[position[0], position[1], position[2] + 8]}
-				scale={[0.08, 0.06, 0.05]}
+				scale={[1, 1, 1]}
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
@@ -103,14 +99,14 @@ export default function ShipmentPlatform({
 				/>
 			</group>
 			<ObjectLoad
-				path="/Paket_1/paket_1.glb"
+				path="/Packet/packet.glb"
 				position={[position[0] - 2.8, position[1] + 0.7, position[2]]}
 				scale={[0.2, 0.2, 0.2]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
-				path="/Paket_2/paket_2.glb"
+				path="/Packet/packet.glb"
 				position={[position[0] - 3.5, position[1], position[2] - 1.5]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}
