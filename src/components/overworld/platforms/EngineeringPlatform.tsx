@@ -28,13 +28,13 @@ export default function EngineeringPlatform({
 				rotation={[0, 0, 0]}
 			/>
 			<ObjectLoad
-				path="/Zeichentisch/zeichentisch_2.glb"
+				path="/Zeichentisch/zeichentisch.glb"
 				position={[position[0] - 2, position[1], position[2] - 4]}
 				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 90, 0]}
 			/>
 			<ObjectLoad
-				path="/Schreibtisch/schreibtisch_3.glb"
+				path="/Schreibtisch/schreibtisch.glb"
 				position={[position[0], position[1], position[2] + 7]}
 				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 90, 0]}
@@ -46,7 +46,7 @@ export default function EngineeringPlatform({
 				rotation={[0, 180, 0]}
 			/>
 			<ObjectLoad
-				path="/Drehstuhl/drehstuhl_3.glb"
+				path="/Drehstuhl/drehstuhl.glb"
 				position={[position[0], position[1], position[2] + 6]}
 				scale={[0.15, 0.15, 0.15]}
 				rotation={[0, 180, 0]}

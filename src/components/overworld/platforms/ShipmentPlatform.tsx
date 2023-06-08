@@ -90,7 +90,7 @@ export default function ShipmentPlatform({
 				rotation={[0, 0, 0]}
 			/>
 			<ObjectLoad
-				path="/Paket_2/paket_2.glb"
+				path="/Packet/packet.glb"
 				position={[position[0] - 3.5, position[1], position[2] - 1.5]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}

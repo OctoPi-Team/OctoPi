@@ -30,7 +30,7 @@ export default function ProductionPlatform({
 
 			<group>
 				<ObjectLoad
-					path="/Notebook/notebook_2.glb"
+					path="/Notebook/notebook.glb"
 					position={[position[0] + 1.1, position[1] + 2, position[2] - 9.5]}
 					scale={[0.28, 0.28, 0.28]}
 					rotation={[0, 150, 0]}
@@ -50,13 +50,13 @@ export default function ProductionPlatform({
 			</group>
 			<group name="corner-desk">
 				<ObjectLoad
-					path="/Schreibtisch/schreibtisch_2.glb"
+					path="/Schreibtisch/schreibtisch.glb"
 					position={[position[0] + 5, position[1], position[2] + 3]}
 					scale={[0.4, 0.4, 0.4]}
 					rotation={[0, 50, 0]}
 				/>
 				<ObjectLoad
-					path="/Drehstuhl/drehstuhl_2.glb"
+					path="/Drehstuhl/drehstuhl.glb"
 					position={[position[0] + 5, position[1], position[2] + 1.6]}
 					scale={[0.22, 0.22, 0.22]}
 					rotation={[0, 170, 0]}
