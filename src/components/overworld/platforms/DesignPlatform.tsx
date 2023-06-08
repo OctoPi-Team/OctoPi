@@ -12,11 +12,7 @@ export default function DesignPlatform({ position = [0, 0, 0], reference }: Desi
 	return (
 		<>
 			<SimplePlatform position={position} size={[18, 0.5, 20]} reference={reference} color={DESIGN} />
-			<Text
-				text={"Design"}
-				position={[position[0] + 10, position[1], position[2] + 3]}
-				rotation={[0, -90, 0]}
-			/>
+			<Text text={'Design'} position={[position[0] + 10, position[1], position[2] + 3]} rotation={[0, -90, 0]} />
 			<ObjectLoad
 				path="/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb"
 				position={[position[0] - 2, position[1], position[2] + 2]}

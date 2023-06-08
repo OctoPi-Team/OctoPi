@@ -5,8 +5,8 @@ import Stair, { StairType } from './platforms/Stair';
 import FixedCamera from './FixedCamera';
 import { OrbitControls } from '@react-three/drei';
 import ShipmentPlatform from './platforms/ShipmentPlatform';
-import { Canvas, Props, useThree } from '@react-three/fiber';
-import { useEffect, useRef, useState } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { useState } from 'react';
 import { SceneProps } from '../../App';
 import { Joystick } from 'react-joystick-component';
 import DesignPlatform from './platforms/DesignPlatform';
@@ -68,7 +68,8 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 					orthographic
 					shadows
 					camera={{ zoom: 4, position: [0, 0, 0] }}
-					style={{ visibility: visible ? 'hidden' : 'visible' }}>{/*set zoom very low, to force preloading of all textures*/}
+					style={{ visibility: visible ? 'hidden' : 'visible' }}>
+					{/*set zoom very low, to force preloading of all textures*/}
 					<color attach="background" args={['white']} />
 					<directionalLight
 						position={[-0.2, 1, -0.5]}

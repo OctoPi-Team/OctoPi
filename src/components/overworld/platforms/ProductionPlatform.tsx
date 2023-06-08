@@ -21,11 +21,7 @@ export default function ProductionPlatform({
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}
 			/>
-			<Text
-				text={"Production"}
-				position={[position[0] + 2, position[1], position[2] + 7]}
-				rotation={[0, 180, 0]}
-			/>
+			<Text text={'Production'} position={[position[0] + 2, position[1], position[2] + 7]} rotation={[0, 180, 0]} />
 			<gridHelper position={[position[0] - 3, position[1], position[2]]} args={[10, 10, 'black', 'white']} />
 
 			<group>
