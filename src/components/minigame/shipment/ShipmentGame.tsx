@@ -15,7 +15,7 @@ export const SIZE_OF_GAME_MATRIX: [number, number] = [4, 4];
 export const SPACING = 0.2;
 
 export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
-	const ORBITAL_CONTROLS_ACTIVE = true;
+	const ORBITAL_CONTROLS_ACTIVE = false;
 	// const [visible, setVisible] = useState(true);
 	// TODO add Loading Screen -> {visible && <LoadingScreen setVisible={setVisible} />}
 
