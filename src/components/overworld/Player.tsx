@@ -1,15 +1,13 @@
 import { useFrame } from '@react-three/fiber';
 import { Scene, SceneProps } from '../../App';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Box3, BufferGeometry, Material, MathUtils, Mesh, Vector2, Vector3 } from 'three';
 import { STAIR_WIDTH, StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
 import { IJoystickUpdateEvent } from 'react-joystick-component/build/lib/Joystick';
 
 const PLAYER_SIZE = 0.5;
-const CPU_FACTOR = 1; // Adjust this based on CPU performance
-const FPS_FACTOR = 1; // Adjust this based on the target FPS
-const SPEED = 0.1 * CPU_FACTOR * FPS_FACTOR;
+const SPEED = 200;
 const COLLISION_IS_ACTIVE = true;
 const ROTATION_SPEED = 0.1;
 
@@ -42,7 +40,9 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisi
 	const [targetRotation, setTargetRotation] = useState<Vector3>(new Vector3(0, 0, 0));
 
 	// player movement
-	useFrame(() => {
+	useFrame((state) => {
+		state.clock.autoStart = true;
+		const deltaTime = state.clock.getDelta();
 		if (!ref.current) return;
 		const playerPosition = ref.current.position.clone();
 		const buttonPositions = buttons.map(button => button.position.clone());
@@ -71,7 +71,8 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisi
 		}
 
 		// normalize Vector to avoid diagonal speedUp
-		movementVector = movementVector.normalize().multiplyScalar(SPEED);
+		console.log(SPEED * deltaTime);
+		movementVector = movementVector.normalize().multiplyScalar(SPEED * deltaTime);
 
 		// move player forward
 		ref.current.position.x += movementVector.x;
