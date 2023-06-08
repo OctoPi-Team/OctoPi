@@ -24,16 +24,15 @@ export default function App() {
 
 		const resetTimer = () => {
 			clearTimeout(timeoutId);
-			timeoutId = setTimeout(() => setVisible(true), 3000); // Adjust the delay (in milliseconds) as per your requirement
+			timeoutId = setTimeout(() => setVisible(true), 30000); // Adjust the delay (in milliseconds) as per your requirement
 		};
 
 		const handleActivity = () => {
-			setVisible(false);
 			resetTimer();
 		};
 
 		// Add event listeners to detect user activity
-		window.addEventListener('touched', handleActivity);
+		window.addEventListener('touchmove', handleActivity);
 		window.addEventListener('keydown', handleActivity);
 
 		// Start the timer initially
@@ -42,7 +41,7 @@ export default function App() {
 		// Clean up event listeners
 		return () => {
 			clearTimeout(timeoutId);
-			window.removeEventListener('touchend', handleActivity);
+			window.removeEventListener('touchmove', handleActivity);
 			window.removeEventListener('keydown', handleActivity);
 		};
 	}, []);
