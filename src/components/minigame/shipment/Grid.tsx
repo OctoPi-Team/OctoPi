@@ -241,7 +241,7 @@ export default function Grid({ size }: GridProps) {
 	}
 
 	function tileClickHandler({ Vector1, Vector2, tileType, color, gridPosition }: TileProps) {
-		if (isNeighbourOfEmptyTile(gridPosition, emptyTile)) {
+		if (isNeighbourOfEmptyTile(gridPosition)) {
 			// swap positions of clicked and empty tile
 			const bufferedEmptyTile = emptyTile;
 			setEmptyTile(gridPosition);
@@ -484,11 +484,7 @@ export default function Grid({ size }: GridProps) {
 				}
 			}
 		}
-
-	}, [size]);
-	if (checkVictory(size, emptyTile, tiles)) {
-		alert('YOU WIN');
-	}
+	};
 
 	useEffect(() => {
 		onupdate();
