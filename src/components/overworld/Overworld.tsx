@@ -21,10 +21,9 @@ import { LoadingScreen } from '../startscreen/LoadingScreen';
 type OverworldProps = {
 	sceneProps: SceneProps;
 	visible: boolean;
-	setLoadingScreenVisible: (visible: boolean) => void;
 };
 
-export default function Overworld({ sceneProps, visible, setLoadingScreenVisible }: OverworldProps) {
+export default function Overworld({ sceneProps, visible }: OverworldProps) {
 	const setSceneHook = sceneProps.setSceneHook;
 
 	const ORBITAL_CONTROLS_ACTIVE = false;
@@ -117,8 +116,6 @@ export default function Overworld({ sceneProps, visible, setLoadingScreenVisible
 						stairs={stairs}
 						buttons={buttons}
 						sceneProps={{ setSceneHook }}
-						LoadingScreenIsVisible={visible}
-						setLoadingScreenVisible={setLoadingScreenVisible}
 					/>
 				</Canvas>
 			</div>

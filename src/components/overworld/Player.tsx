@@ -30,8 +30,6 @@ interface PlayerArgs {
 	sceneProps?: SceneProps;
 	buttons: Mesh<BufferGeometry, Material | Material[]>[];
 	sceneHook?: Scene;
-	LoadingScreenIsVisible?: boolean;
-	setLoadingScreenVisible: (visible: boolean) => void;
 }
 
 function getHeight(stairLength: number, stairHeight: number, currentProgression: number, lowerHeight: number) {
@@ -40,30 +38,13 @@ function getHeight(stairLength: number, stairHeight: number, currentProgression:
 	return lowerHeight + currentProgression / (stairLength / stairHeight);
 }
 
-function Player({
-	startPosition,
-	platforms,
-	stairs,
-	buttons,
-	sceneProps,
-	LoadingScreenIsVisible,
-	setLoadingScreenVisible,
-}: PlayerArgs) {
+function Player({ startPosition, platforms, stairs, buttons, sceneProps }: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
 	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
 	const [targetRotation, setTargetRotation] = useState<Vector3>(new Vector3(0, 0, 0));
 
 	// player movement
 	useFrame(() => {
-		if (checkForActivity() === false && LoadingScreenIsVisible === false) {
-			setTimeout(() => {
-				if (checkForActivity() === false) {
-					console.log('Player is inactive');
-					setLoadingScreenVisible(true);
-				}
-			}, 30000);
-		}
-
 		if (!ref.current) return;
 
 		const playerPosition = ref.current.position.clone();
