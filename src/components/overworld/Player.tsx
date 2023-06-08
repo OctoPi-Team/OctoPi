@@ -43,6 +43,14 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 
 	// player movement
 	useFrame(() => {
+		if (checkForActivity() === false) {
+			setTimeout(() => {
+				if (checkForActivity() === false) {
+					console.log('Player is inactive');
+				}
+			}, 1000);
+		}
+
 		if (!ref.current) return;
 
 		const playerPosition = ref.current.position.clone();
@@ -199,6 +207,14 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps }: Playe
 			<ObjectLoad path="/Player/player.glb" position={[0, 0, 0]} scale={[0.2, 0.2, 0.2]} rotation={[0, 90, 0]} />
 		</mesh>
 	);
+}
+
+export function checkForActivity() {
+	if (keys.left || keys.right || keys.up || keys.down) {
+		return;
+	}
+	handleJoystickStop();
+	return false;
 }
 
 function getPlayerRotationFromKeys(currentRotation: Vector3): Vector3 {
