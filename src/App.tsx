@@ -23,7 +23,7 @@ export default function App() {
 
 		const resetTimer = () => {
 			clearTimeout(timeoutId);
-			timeoutId = setTimeout(() => setVisible(true), 10000000000); // Adjust the delay (in milliseconds) as per your requirement
+			timeoutId = setTimeout(() => setVisible(true), 1000000000); // Adjust the delay (in milliseconds) as per your requirement
 		};
 
 		const handleActivity = () => {
