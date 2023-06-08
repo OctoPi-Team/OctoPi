@@ -117,7 +117,7 @@ export function FinalTube(qwd: TileProps[]) {
 				break;
 		}
 	}
-	//let curv = new CatmullRomCurve3(fullcurve.getSpacedPoints(1000), false, 'centripetal', 20);
+
 	let tubeGeometry = new TubeGeometry(fullcurve, 100, 0.4, 100, false);
 
 	return (
@@ -125,7 +125,7 @@ export function FinalTube(qwd: TileProps[]) {
 			<mesh name={name} position={position}>
 				<primitive object={tubeGeometry} />
 				<meshStandardMaterial color={color} transparent opacity={0.65} side={DoubleSide} />
-				<Sphere curv={fullcurve.getSpacedPoints(1000)} />
+				<Sphere curv={fullcurve} />
 			</mesh>
 		</>
 	);

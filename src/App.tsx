@@ -15,8 +15,8 @@ export type SceneProps = {
 };
 
 export default function App() {
-	const [scene, setScene] = useState<Scene>(Scene.Shipment);
-	const [visible, setVisible] = useState(false);
+	const [scene, setScene] = useState<Scene>(Scene.Overworld);
+	const [visible, setVisible] = useState(true);
 
 	return (
 		<>
