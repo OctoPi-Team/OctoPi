@@ -13,6 +13,7 @@ export enum Scene {
 
 export type SceneProps = {
 	setSceneHook: (newActiveScene: Scene) => void;
+	visible?: boolean;
 };
 
 export default function App() {
@@ -49,7 +50,7 @@ export default function App() {
 		<>
 			{visible && <LoadingScreen setVisible={setVisible} />}
 			{scene === Scene.Overworld && <Overworld sceneProps={{ setSceneHook: setScene }} visible={visible} />}
-			{scene === Scene.Shipment && <ShipmentGame setSceneHook={setScene} />}
+			{scene === Scene.Shipment && <ShipmentGame setSceneHook={setScene} visible={visible} />}
 		</>
 	);
 }
