@@ -8,6 +8,15 @@ type LoadingScreenProps = {
 
 export const LoadingScreen = ({ setVisible }: LoadingScreenProps) => {
 	const { progress } = useProgress();
+	const button = document.querySelector('.loadingScreen__button') as HTMLElement;
+	if (button) {
+		if (progress < 100) {
+			button.style.backgroundColor = 'grey';
+		}
+		if (progress === 100) {
+			button.style.backgroundColor = 'rgba(0, 149, 7, 0.729)';
+		}
+	}
 	return (
 		<>
 			<div className="loadingScreen">

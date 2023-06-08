@@ -9,8 +9,9 @@ import { Vector3 } from 'three';
 import { GREEN, WHITE } from '../../../AllColorVariables';
 import NavigationButton from '../../overworld/objects/NavigationButton';
 import { resetKeys } from '../../overworld/Player';
+import { useEffect } from 'react';
 
-export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
+export default function ShipMentMinigame({ setSceneHook, visible }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
 	// const [visible, setVisible] = useState(true);
 	// TODO add Loading Screen -> {visible && <LoadingScreen setVisible={setVisible} />}
@@ -26,6 +27,12 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 		new Vector3(-3.5, 2, INPUTTUBEPOSSITION),
 		new Vector3(-20, 1.5, INPUTTUBEPOSSITION),
 	];
+	useEffect(() => {
+		if (visible === true) {
+			setSceneHook(Scene.Overworld);
+		}
+	}, [visible, setSceneHook]);
+
 	return (
 		<>
 			<NavigationButton

@@ -1,9 +1,11 @@
 import SimplePlatform from './SimplePlatform';
 import { GREEN } from '../../../AllColorVariables';
+import { Box3 } from 'three';
 
 type MainPlatformOptions = {
 	position?: [number, number, number];
 	reference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	addCollisionBox?: (newCollisionBox: Box3) => void;
 };
 
 export default function MainPlatform({ position = [0, 0, 0], reference }: MainPlatformOptions): JSX.Element {
