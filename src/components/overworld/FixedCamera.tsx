@@ -27,6 +27,8 @@ function FixedCamera({ distanceFromPlayerToCamera, visibility }: CameraProps) {
 
 	if (!visibility && camera.zoom < 40) {
 		camera.zoom = 40;
+	} else if (visibility && camera.zoom > 4) {
+		camera.zoom = 4;
 	}
 
 	return <orthographicCamera ref={cameraRef} />;

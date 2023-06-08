@@ -1,9 +1,9 @@
-import { useEffect, useRef } from 'react';
-import { Mesh, Vector3, MathUtils } from 'three';
+import { useEffect, useRef, useState } from 'react';
+import { Mesh, Vector3, MathUtils, Box3 } from 'three';
 import { WHITE } from '../../../AllColorVariables';
 
 export type StairType = {
-	mesh: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>;
+	mesh: Box3;
 	startPosition: Vector3;
 	endPosition: Vector3;
 };
@@ -28,8 +28,15 @@ function Stair({ startPosition, endPosition, reference }: StairProps) {
 	const ref = useRef<Mesh>(null);
 	const length = startPosition.distanceTo(endPosition);
 	const stairHeight = 0.25;
-	if (reference && ref.current) {
-		reference({ mesh: ref.current, startPosition: startPosition.clone(), endPosition: endPosition.clone() });
+	const [collsionRefWasSet, collsionRefSet] = useState(false);
+
+	if (!collsionRefWasSet && reference && ref.current) {
+		collsionRefSet(true);
+		reference({
+			mesh: new Box3().setFromObject(ref.current).expandByVector(new Vector3(1, 10, 1)),
+			startPosition: startPosition.clone(),
+			endPosition: endPosition.clone(),
+		});
 	}
 	useEffect(() => {
 		if (ref && ref.current) {

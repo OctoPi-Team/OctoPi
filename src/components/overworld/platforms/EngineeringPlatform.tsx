@@ -6,7 +6,7 @@ import { Box3 } from 'three';
 
 type EngineeringPlatformOptions = {
 	position?: [number, number, number];
-	reference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	reference?: (meshRef: Box3) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
 };
 

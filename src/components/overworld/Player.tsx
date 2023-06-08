@@ -1,16 +1,13 @@
 import { useFrame } from '@react-three/fiber';
 import { Scene, SceneProps } from '../../App';
-import React, { useRef, useState } from 'react';
-import { Box3, BufferGeometry, Material, MathUtils, Mesh, Raycaster, Vector2, Vector3 } from 'three';
+import React, { useEffect, useRef, useState } from 'react';
+import { Box3, BufferGeometry, Material, MathUtils, Mesh, Vector2, Vector3 } from 'three';
 import { STAIR_WIDTH, StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
 import { IJoystickUpdateEvent } from 'react-joystick-component/build/lib/Joystick';
 
 const PLAYER_SIZE = 0.5;
-const CPU_FACTOR = 1; // Adjust this based on CPU performance
-const FPS_FACTOR = 1; // Adjust this based on the target FPS
-const SPEED = 0.1 * CPU_FACTOR * FPS_FACTOR;
-const COLLISION_RANGE = 0.26;
+const SPEED = 0.1;
 const COLLISION_IS_ACTIVE = true;
 const ROTATION_SPEED = 0.1;
 
@@ -24,7 +21,7 @@ export const keys = {
 
 interface PlayerArgs {
 	startPosition: Vector3;
-	platforms: Mesh<BufferGeometry, Material | Material[]>[];
+	platforms: Box3[];
 	stairs: StairType[];
 	sceneProps?: SceneProps;
 	buttons: Mesh<BufferGeometry, Material | Material[]>[];
@@ -52,79 +49,42 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisi
 				if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
 			}
 		}
-		const topOfPlayer = playerPosition.y + PLAYER_SIZE;
-		// collision points are origins of raycasts
-		// they are positioned at the edge of the top side of the cube with a distance to the center of COLLISION_RANGE
-		const collisionPoints: Vector3[] = [
-			// right
-			new Vector3(playerPosition.x, topOfPlayer, playerPosition.z + COLLISION_RANGE),
-			// down
-			new Vector3(playerPosition.x - COLLISION_RANGE, topOfPlayer, playerPosition.z),
-			// left
-			new Vector3(playerPosition.x, topOfPlayer, playerPosition.z - COLLISION_RANGE),
-			// up
-			new Vector3(playerPosition.x + COLLISION_RANGE, topOfPlayer, playerPosition.z),
-		];
+		// get movement vector from keypresses
+		let movementVector = new Vector3();
+		if (keys.right) {
+			movementVector.z += 1;
+			movementVector.x -= 1;
+		}
+		if (keys.down) {
+			movementVector.x -= 1;
+			movementVector.z -= 1;
+		}
+		if (keys.left) {
+			movementVector.z -= 1;
+			movementVector.x += 1;
+		}
+		if (keys.up) {
+			movementVector.x += 1;
+			movementVector.z += 1;
+		}
 
-		// loop through all points to check if the raycast from that point downwards hits a platform
-		// depending on the result the player can or can't move in the direction of this point
-		for (const pointId in collisionPoints) {
-			const point = collisionPoints[pointId];
-			const downVector = new Vector3(0, -1, 0).clone().normalize();
-			const ray = new Raycaster(point, downVector);
-			const results = ray.intersectObjects(platforms);
+		// normalize Vector to avoid diagonal speedUp
+		movementVector = movementVector.normalize().multiplyScalar(SPEED);
 
-			if (results.length > 0 || !COLLISION_IS_ACTIVE) {
-				let movementVector = new Vector3();
-				switch (String(pointId)) {
-					case '0': // right
-						if (keys.right) {
-							movementVector.z += 1;
-							movementVector.x -= 1;
-						}
-						break;
-					case '1': // down
-						if (keys.down) {
-							movementVector.x -= 1;
-							movementVector.z -= 1;
-						}
-						break;
-					case '2': // left
-						if (keys.left) {
-							movementVector.z -= 1;
-							movementVector.x += 1;
-						}
-						break;
-					case '3': // up
-						if (keys.up) {
-							movementVector.x += 1;
-							movementVector.z += 1;
-						}
-						break;
-				}
-				// normalize Vector to avoid diagonal speedUp
-				// Check if two keys are pressed simultaneously
-				const isTwoKeysPressed =
-					(keys.left && keys.up) || (keys.right && keys.up) || (keys.left && keys.down) || (keys.right && keys.down);
-
-				// Adjust the movement vector based on the two pressed keys
-				if (isTwoKeysPressed) {
-					movementVector = movementVector.normalize().multiplyScalar(SPEED / Math.sqrt(2));
-				} else {
-					movementVector = movementVector.normalize().multiplyScalar(SPEED);
-				}
-
-				// move player forward
-				ref.current.position.x += movementVector.x;
-				ref.current.position.z += movementVector.z;
-				// check if he collides with any objects
-				const playerCollisionBox = new Box3().setFromObject(ref.current);
-				if (collisionObjects && playerCollisionBox && collisionObjects.some(x => x.intersectsBox(playerCollisionBox))) {
-					// if he collides with anything move him back again
-					ref.current.position.x -= movementVector.x;
-					ref.current.position.z -= movementVector.z;
-				}
-			}
+		// move player forward
+		ref.current.position.x += movementVector.x;
+		ref.current.position.z += movementVector.z;
+		// check if he collides with any objects or is outside any plattform collision box
+		const playerCollisionBox = new Box3().setFromObject(ref.current);
+		if (
+			// collision with border
+			(!platforms.some(x => x.containsBox(playerCollisionBox)) && COLLISION_IS_ACTIVE) ||
+			// collision with objects
+			(collisionObjects && playerCollisionBox && collisionObjects.some(x => x.intersectsBox(playerCollisionBox)))
+		) {
+			// if he collides with anything move him back again
+			ref.current.position.x -= movementVector.x;
+			ref.current.position.z -= movementVector.z;
 		}
 
 		function flattenVector(v: Vector3, planeTransformer: Vector3 = new Vector3(1, 0, 1)) {
