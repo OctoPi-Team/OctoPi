@@ -1,6 +1,7 @@
 import { PRODUCTION } from '../../../AllColorVariables';
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
+import Text from '../../Text';
 
 type ProductionPlatformOptions = {
 	position?: [number, number, number];
@@ -20,10 +21,9 @@ export default function ProductionPlatform({
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}
 			/>
-			<ObjectLoad
-				path="/Plattformbeschriftung/ProductionLogo/production-logo.glb"
+			<Text
+				text={"Production"}
 				position={[position[0] + 2, position[1], position[2] + 7]}
-				scale={[2, 2, 2]}
 				rotation={[0, 180, 0]}
 			/>
 			<gridHelper position={[position[0] - 3, position[1], position[2]]} args={[10, 10, 'black', 'white']} />

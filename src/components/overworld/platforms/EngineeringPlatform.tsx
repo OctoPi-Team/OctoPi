@@ -1,6 +1,7 @@
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
 import { ENGINEERING } from '../../../AllColorVariables';
+import Text from '../../Text';
 
 type EngineeringPlatformOptions = {
 	position?: [number, number, number];
@@ -14,13 +15,11 @@ export default function EngineeringPlatform({
 	return (
 		<>
 			<SimplePlatform name={''} position={position} size={[15, 0.5, 18]} reference={reference} color={ENGINEERING} />
-			<ObjectLoad
-				path="/Plattformbeschriftung/EngineeringLogo/engineering-logo.glb"
+			<Text
+				text={"Engineering"}
 				position={[position[0] + 8.25, position[1], position[2] - 9]}
-				scale={[2, 2, 2]}
 				rotation={[0, 270, 0]}
 			/>
-
 			<ObjectLoad
 				path="/Wegweiser/wegweiser.glb"
 				position={[position[0], position[1], position[2]]}

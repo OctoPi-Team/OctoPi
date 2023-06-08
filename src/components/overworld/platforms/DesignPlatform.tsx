@@ -1,6 +1,7 @@
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
 import { DESIGN } from '../../../AllColorVariables';
+import Text from '../../Text';
 
 type DesignPlatformOptions = {
 	position?: [number, number, number];
@@ -11,10 +12,9 @@ export default function DesignPlatform({ position = [0, 0, 0], reference }: Desi
 	return (
 		<>
 			<SimplePlatform position={position} size={[18, 0.5, 20]} reference={reference} color={DESIGN} />
-			<ObjectLoad
-				path="/Plattformbeschriftung/DesignLogo/design-logo.glb"
+			<Text
+				text={"Design"}
 				position={[position[0] + 10, position[1], position[2] + 3]}
-				scale={[2, 2, 2]}
 				rotation={[0, -90, 0]}
 			/>
 			<ObjectLoad

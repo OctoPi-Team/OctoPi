@@ -5,7 +5,6 @@ import Stair, { StairType } from './platforms/Stair';
 import FixedCamera from './FixedCamera';
 import { OrbitControls } from '@react-three/drei';
 import ShipmentPlatform from './platforms/ShipmentPlatform';
-
 import { Canvas } from '@react-three/fiber';
 import { useState } from 'react';
 import { SceneProps } from '../../App';

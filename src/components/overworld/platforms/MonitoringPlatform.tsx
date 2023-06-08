@@ -1,6 +1,7 @@
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
 import { MONITORING } from '../../../AllColorVariables';
+import Text from '../../Text';
 
 type MonitoringPlatformOptions = {
 	position?: [number, number, number];
@@ -14,11 +15,9 @@ export default function MonitoringPlatform({
 	return (
 		<>
 			<SimplePlatform position={position} size={[14, 0.5, 21]} reference={reference} color={MONITORING} />
-
-			<ObjectLoad
-				path="/Plattformbeschriftung/MonitoringLogo/monitoring-logo.glb"
+			<Text
+				text={"Monitoring"}
 				position={[position[0] + 3, position[1] + 5, position[2] - 8]}
-				scale={[2, 2, 2]}
 				rotation={[0, 270, 0]}
 			/>
 			<ObjectLoad

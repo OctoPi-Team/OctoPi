@@ -4,6 +4,7 @@ import { SceneProps } from '../../../App';
 import Button from '../objects/Button';
 import { SHIPMENT } from '../../../AllColorVariables';
 import Tube from '../objects/Tube';
+import Text from '../../Text';
 
 type ShipmentPlatformOptions = {
 	position?: [number, number, number];
@@ -20,10 +21,9 @@ export default function ShipmentPlatform({
 	return (
 		<>
 			<SimplePlatform position={position} size={[18, 0.5, 18]} reference={reference} color={SHIPMENT} />
-			<ObjectLoad
-				path="/Plattformbeschriftung/ShipmentLogo/ship-logo.glb"
+			<Text
+				text={"Shipment"}
 				position={[position[0] + 10, position[1], position[2] - 9]}
-				scale={[2, 2, 2]}
 				rotation={[0, 270, 0]}
 			/>
 			<ObjectLoad path="/LaufbandUndTrichter.glb" position={position} scale={[0.1, 0.1, 0.1]} rotation={[0, 180, 0]} />

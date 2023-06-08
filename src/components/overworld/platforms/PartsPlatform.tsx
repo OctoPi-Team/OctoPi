@@ -1,6 +1,7 @@
 import { PARTS } from '../../../AllColorVariables';
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
+import Text from '../../Text';
 
 type PartsPlatformOptions = {
 	position?: [number, number, number];
@@ -11,10 +12,9 @@ export default function PartsPlatform({ position = [0, 0, 0], reference }: Parts
 	return (
 		<>
 			<SimplePlatform position={position} size={[24, 0.5, 18]} reference={reference} color={PARTS} />
-			<ObjectLoad
-				path="/Plattformbeschriftung/PartsLogo/parts-logo.glb"
+			<Text
+				text={"Parts"}
 				position={[position[0] - 10, position[1] + 10, position[2]]}
-				scale={[2, 2, 2]}
 				rotation={[0, 180, 0]}
 			/>
 			<ObjectLoad
