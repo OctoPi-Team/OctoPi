@@ -111,7 +111,7 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisi
 				// player is before endPosition
 				angleBetweenStairEndAndPlayer < 90 &&
 				// player is near enough to the stairs
-				sidewayDistanceFromPlayerToStair <= STAIR_WIDTH / 2
+				sidewayDistanceFromPlayerToStair <= STAIR_WIDTH / 2 * 1.5//quickfix *1.5 to make detection range bigger
 			) {
 				// calculate player height
 				// D
