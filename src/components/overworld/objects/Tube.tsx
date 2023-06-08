@@ -17,7 +17,7 @@ function Tube({
 }: TubeProps): JSX.Element {
 	const curve = new CatmullRomCurve3(vectors);
 
-	const tubeGeometry = new TubeGeometry(curve, 100, 0.4, 100, false);
+	const tubeGeometry = new TubeGeometry(curve, 100, 0.4, 5, false);
 
 	return (
 		<>
