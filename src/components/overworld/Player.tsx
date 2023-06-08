@@ -1,6 +1,6 @@
 import { useFrame } from '@react-three/fiber';
 import { Scene, SceneProps } from '../../App';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Box3, BufferGeometry, Material, MathUtils, Mesh, Vector2, Vector3 } from 'three';
 import { STAIR_WIDTH, StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
@@ -34,12 +34,15 @@ function getHeight(stairLength: number, stairHeight: number, currentProgression:
 	return lowerHeight + currentProgression / (stairLength / stairHeight);
 }
 
-function getMovementVectorFromKeys(speed: number, keys: {
-	left: boolean,
-	right: boolean,
-	up: boolean,
-	down: boolean
-}): Vector3 {
+function getMovementVectorFromKeys(
+	speed: number,
+	keys: {
+		left: boolean;
+		right: boolean;
+		up: boolean;
+		down: boolean;
+	}
+): Vector3 {
 	let movementVector = new Vector3();
 	if (keys.right) {
 		movementVector.z += 1;
@@ -62,9 +65,15 @@ function getMovementVectorFromKeys(speed: number, keys: {
 	return movementVector;
 }
 
-function checkIfPlayerCollidesWithPlatformOrBorderOrObject(playerBox: Box3, platforms: Box3[], collisionObjects: Box3[]): boolean {
-	return (!platforms.some(x => x.containsBox(playerBox)) && COLLISION_IS_ACTIVE)  // collision with border
-		|| (collisionObjects && playerBox && collisionObjects.some(x => x.intersectsBox(playerBox)));  // collision with objects
+function checkIfPlayerCollidesWithPlatformOrBorderOrObject(
+	playerBox: Box3,
+	platforms: Box3[],
+	collisionObjects: Box3[]
+): boolean {
+	return (
+		(!platforms.some(x => x.containsBox(playerBox)) && COLLISION_IS_ACTIVE) || // collision with border
+		(collisionObjects && playerBox && collisionObjects.some(x => x.intersectsBox(playerBox)))
+	); // collision with objects
 }
 
 function flattenVector(v: Vector3, planeTransformer: Vector3 = new Vector3(1, 0, 1)) {
@@ -76,7 +85,12 @@ function getAngleFromThreePoints(start: Vector3, middle: Vector3, end: Vector3) 
 	return MathUtils.radToDeg(dir2.angleTo(dir1));
 }
 
-function getNewPlayerHeight(stairs: StairType[], playerPosition: Vector3, stairWidth: number, playerSize: number): number {
+function getNewPlayerHeight(
+	stairs: StairType[],
+	playerPosition: Vector3,
+	stairWidth: number,
+	playerSize: number
+): number {
 	for (const stair of stairs) {
 		const flattenedStart = flattenVector(stair.startPosition);
 		const flattenedEnd = flattenVector(stair.endPosition);
@@ -157,7 +171,13 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisi
 		// move player forward
 		ref.current.position.x += movementVector.x;
 		ref.current.position.z += movementVector.z;
-		if (checkIfPlayerCollidesWithPlatformOrBorderOrObject(new Box3().setFromObject(ref.current), platforms, collisionObjects)) {
+		if (
+			checkIfPlayerCollidesWithPlatformOrBorderOrObject(
+				new Box3().setFromObject(ref.current),
+				platforms,
+				collisionObjects
+			)
+		) {
 			// if he collides with anything move him back again
 			ref.current.position.x -= movementVector.x;
 			ref.current.position.z -= movementVector.z;
