@@ -209,14 +209,6 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisi
 	);
 }
 
-export function checkForActivity() {
-	if (keys.left || keys.right || keys.up || keys.down) {
-		return;
-	}
-	handleJoystickStop();
-	return false;
-}
-
 function getPlayerRotationFromKeys(currentRotation: Vector3): Vector3 {
 	let rotationDegree = MathUtils.radToDeg(currentRotation.y);
 	if (keys.right && keys.down) {
