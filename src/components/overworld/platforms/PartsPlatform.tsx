@@ -22,14 +22,14 @@ export default function PartsPlatform({
 			<ObjectLoad
 				path="/Metallregal/metallregal.glb"
 				position={[position[0], position[1], position[2] - 1]}
-				scale={[0.5, 0.5, 0.5]}
+				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
 				path="/kaputtesMetallregal/kaputtesMetallregal.glb"
 				position={[position[0] + 5, position[1], position[2] + 2]}
-				scale={[0.5, 0.5, 0.5]}
+				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>

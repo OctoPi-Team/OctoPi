@@ -35,14 +35,14 @@ export default function DesignPlatform({
 			/>
 			<ObjectLoad
 				path="/Hocker/hocker.glb"
-				position={[position[0] + 2, position[1], position[2] - 15]}
+				position={[position[0] - 4.5, position[1], position[2] - 5]}
 				scale={[1, 1, 1]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
 				path="/Buecherregal/buecherregal.glb"
-				position={[position[0] + 5.5, position[1], position[2] + 7.6]}
+				position={[position[0] + 5.5, position[1], position[2] + 9]}
 				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
