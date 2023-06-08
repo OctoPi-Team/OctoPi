@@ -7,7 +7,7 @@ import ObjectLoad from '../ObjectLoad';
 import { IJoystickUpdateEvent } from 'react-joystick-component/build/lib/Joystick';
 
 const PLAYER_SIZE = 0.5;
-const SPEED = 200;
+const SPEED = 0.1;
 const COLLISION_IS_ACTIVE = true;
 const ROTATION_SPEED = 0.1;
 
@@ -40,9 +40,7 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisi
 	const [targetRotation, setTargetRotation] = useState<Vector3>(new Vector3(0, 0, 0));
 
 	// player movement
-	useFrame((state) => {
-		state.clock.autoStart = true;
-		const deltaTime = state.clock.getDelta();
+	useFrame(() => {
 		if (!ref.current) return;
 		const playerPosition = ref.current.position.clone();
 		const buttonPositions = buttons.map(button => button.position.clone());
@@ -71,8 +69,7 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisi
 		}
 
 		// normalize Vector to avoid diagonal speedUp
-		console.log(SPEED * deltaTime);
-		movementVector = movementVector.normalize().multiplyScalar(SPEED * deltaTime);
+		movementVector = movementVector.normalize().multiplyScalar(SPEED);
 
 		// move player forward
 		ref.current.position.x += movementVector.x;
