@@ -71,22 +71,18 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 						stop={handleJoystickStop}
 					/>
 				</div>
-				{/* Default values for orthographic camera: near: 0.1, far: 1000, z: 5, lookAt: [0,0,0]*/}
 				<Canvas
 					orthographic
 					shadows
 					camera={{ zoom: 4, position: [0, 0, 0] }}
 					style={{ visibility: visible ? 'hidden' : 'visible' }}>
 					{/*set zoom very low, to force preloading of all textures*/}
-					{/* changes color of canvas from white to 'args'*/}
 					<color attach="background" args={['white']} />
-					{/* DirectionalLight can cast shadows if 'shadows' for Canvas and 'castShadow' for directionalLight is set,
-					 meshes need 'castShadow' and/or 'receiveShadow'*/}
 					<directionalLight
-						position={[0.05, 1, -0.25]}
-						intensity={0.8}
-						shadow-mapSize-width={1000}
-						shadow-mapSize-height={1000}
+						position={[-0.3, 1, -0.5]}
+						intensity={0.9}
+						shadow-mapSize-width={2048}
+						shadow-mapSize-height={2048}
 						shadow-camera-left={-500}
 						shadow-camera-right={500}
 						shadow-camera-near={1}
@@ -95,7 +91,7 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 						shadow-camera-bottom={-500}
 						castShadow
 					/>
-					<ambientLight intensity={0.2}></ambientLight>
+					<ambientLight intensity={0.3}></ambientLight>
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
 					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} visibility={visible} />}
 					<MainPlatform position={[0, 0, 0]} reference={addPlatform} addCollisionBox={addCollisionBox} />
