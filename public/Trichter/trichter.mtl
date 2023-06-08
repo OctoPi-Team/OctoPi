@@ -1,9 +1,10 @@
-# Blender 3.5.1 MTL File: 'Trichter.blend'
-# www.blender.org
+# Blender MTL File: 'None'
+# Material Count: 1
 
 newmtl 272984_23_05_11_15_10_24_1
 Ns 0.000000
 Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
