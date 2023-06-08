@@ -34,6 +34,110 @@ function getHeight(stairLength: number, stairHeight: number, currentProgression:
 	return lowerHeight + currentProgression / (stairLength / stairHeight);
 }
 
+function getMovementVectorFromKeys(speed: number, keys: {
+	left: boolean,
+	right: boolean,
+	up: boolean,
+	down: boolean
+}): Vector3 {
+	let movementVector = new Vector3();
+	if (keys.right) {
+		movementVector.z += 1;
+		movementVector.x -= 1;
+	}
+	if (keys.down) {
+		movementVector.x -= 1;
+		movementVector.z -= 1;
+	}
+	if (keys.left) {
+		movementVector.z -= 1;
+		movementVector.x += 1;
+	}
+	if (keys.up) {
+		movementVector.x += 1;
+		movementVector.z += 1;
+	}
+	// normalize Vector to avoid diagonal speedUp
+	movementVector = movementVector.normalize().multiplyScalar(speed);
+	return movementVector;
+}
+
+function checkIfPlayerCollidesWithPlatformOrBorderOrObject(playerBox: Box3, platforms: Box3[], collisionObjects: Box3[]): boolean {
+	return (!platforms.some(x => x.containsBox(playerBox)) && COLLISION_IS_ACTIVE)  // collision with border
+		|| (collisionObjects && playerBox && collisionObjects.some(x => x.intersectsBox(playerBox)));  // collision with objects
+}
+
+function flattenVector(v: Vector3, planeTransformer: Vector3 = new Vector3(1, 0, 1)) {
+	return v.clone().multiply(planeTransformer);
+}
+function getAngleFromThreePoints(start: Vector3, middle: Vector3, end: Vector3) {
+	const dir1 = new Vector3().subVectors(middle, start);
+	const dir2 = new Vector3().subVectors(middle, end);
+	return MathUtils.radToDeg(dir2.angleTo(dir1));
+}
+
+function getNewPlayerHeight(stairs: StairType[], playerPosition: Vector3, stairWidth: number, playerSize: number): number {
+	for (const stair of stairs) {
+		const flattenedStart = flattenVector(stair.startPosition);
+		const flattenedEnd = flattenVector(stair.endPosition);
+		const flattenedPlayer = flattenVector(playerPosition);
+
+		const angleBetweenStairStartAndPlayer = getAngleFromThreePoints(flattenedPlayer, flattenedStart, flattenedEnd);
+		const angleBetweenStairEndAndPlayer = getAngleFromThreePoints(flattenedPlayer, flattenedEnd, flattenedStart);
+		const flatStairLength = flattenedStart.distanceTo(flattenedEnd);
+		const sidewayDistanceFromPlayerToStair =
+			Math.sin(MathUtils.degToRad(angleBetweenStairStartAndPlayer)) * flattenedStart.distanceTo(flattenedPlayer);
+		if (
+			// player is after startPosition
+			angleBetweenStairStartAndPlayer < 90 &&
+			// player is before endPosition
+			angleBetweenStairEndAndPlayer < 90 &&
+			// player is near enough to the stairs
+			sidewayDistanceFromPlayerToStair <= stairWidth / 2
+		) {
+			// calculate player height
+			// D
+			// |
+			// A---C
+			// |  /
+			// | /
+			// |/<-- alpha
+			// B
+			//
+			// A - Current Progression Point on stair
+			// B - Stair Start
+			// C - Player Position
+			// D - Stair End
+			// progression == |AB| == cos(alpha)*|BC|
+			let progression =
+				Math.cos(MathUtils.degToRad(angleBetweenStairStartAndPlayer)) * flattenedStart.distanceTo(flattenedPlayer);
+			if (progression < 0.07) {
+				progression = 0;
+			} else if (flatStairLength - progression < 0.07) {
+				progression = flatStairLength;
+			}
+			return getHeight(
+				flatStairLength,
+				stair.endPosition.y - stair.startPosition.y,
+				progression,
+				stair.startPosition.y + playerSize / 2
+			);
+		}
+	}
+	return 0;
+}
+
+function getNewLerpedPlayerRoation(rotation: Vector3, targetRotation: Vector3, rotation_speed: number): Vector3 {
+	// Smoothly rotate the player towards the target rotation
+	const diffRotation = new Vector3().subVectors(targetRotation, rotation);
+
+	// Ensure the rotation difference is within -Math.PI to Math.PI range
+	diffRotation.y = ((diffRotation.y + Math.PI) % (Math.PI * 2)) - Math.PI;
+
+	const rotationStep = new Vector3().copy(diffRotation).multiplyScalar(rotation_speed);
+	return new Vector3().addVectors(rotation, rotationStep);
+}
+
 function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisionObjects }: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
 	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
@@ -49,111 +153,21 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisi
 				if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
 			}
 		}
-		// get movement vector from keypresses
-		let movementVector = new Vector3();
-		if (keys.right) {
-			movementVector.z += 1;
-			movementVector.x -= 1;
-		}
-		if (keys.down) {
-			movementVector.x -= 1;
-			movementVector.z -= 1;
-		}
-		if (keys.left) {
-			movementVector.z -= 1;
-			movementVector.x += 1;
-		}
-		if (keys.up) {
-			movementVector.x += 1;
-			movementVector.z += 1;
-		}
-
-		// normalize Vector to avoid diagonal speedUp
-		movementVector = movementVector.normalize().multiplyScalar(SPEED);
-
+		const movementVector = getMovementVectorFromKeys(SPEED, keys);
 		// move player forward
 		ref.current.position.x += movementVector.x;
 		ref.current.position.z += movementVector.z;
-		// check if he collides with any objects or is outside any plattform collision box
-		const playerCollisionBox = new Box3().setFromObject(ref.current);
-		if (
-			// collision with border
-			(!platforms.some(x => x.containsBox(playerCollisionBox)) && COLLISION_IS_ACTIVE) ||
-			// collision with objects
-			(collisionObjects && playerCollisionBox && collisionObjects.some(x => x.intersectsBox(playerCollisionBox)))
-		) {
+		if (checkIfPlayerCollidesWithPlatformOrBorderOrObject(new Box3().setFromObject(ref.current), platforms, collisionObjects)) {
 			// if he collides with anything move him back again
 			ref.current.position.x -= movementVector.x;
 			ref.current.position.z -= movementVector.z;
 		}
+		// player height
+		ref.current.position.y = startPosition.y + getNewPlayerHeight(stairs, playerPosition, STAIR_WIDTH, PLAYER_SIZE);
 
-		function flattenVector(v: Vector3, planeTransformer: Vector3 = new Vector3(1, 0, 1)) {
-			return v.clone().multiply(planeTransformer);
-		}
-		function getAngleFromThreePoints(start: Vector3, middle: Vector3, end: Vector3) {
-			const dir1 = new Vector3().subVectors(middle, start);
-			const dir2 = new Vector3().subVectors(middle, end);
-			return MathUtils.radToDeg(dir2.angleTo(dir1));
-		}
-		for (const stair of stairs) {
-			const flattenedStart = flattenVector(stair.startPosition);
-			const flattenedEnd = flattenVector(stair.endPosition);
-			const flattenedPlayer = flattenVector(playerPosition);
-
-			const angleBetweenStairStartAndPlayer = getAngleFromThreePoints(flattenedPlayer, flattenedStart, flattenedEnd);
-			const angleBetweenStairEndAndPlayer = getAngleFromThreePoints(flattenedPlayer, flattenedEnd, flattenedStart);
-			const flatStairLength = flattenedStart.distanceTo(flattenedEnd);
-			const sidewayDistanceFromPlayerToStair =
-				Math.sin(MathUtils.degToRad(angleBetweenStairStartAndPlayer)) * flattenedStart.distanceTo(flattenedPlayer);
-			if (
-				// player is after startPosition
-				angleBetweenStairStartAndPlayer < 90 &&
-				// player is before endPosition
-				angleBetweenStairEndAndPlayer < 90 &&
-				// player is near enough to the stairs
-				sidewayDistanceFromPlayerToStair <= STAIR_WIDTH / 2
-			) {
-				// calculate player height
-				// D
-				// |
-				// A---C
-				// |  /
-				// | /
-				// |/<-- alpha
-				// B
-				//
-				// A - Current Progression Point on stair
-				// B - Stair Start
-				// C - Player Position
-				// D - Stair End
-				// progression == |AB| == cos(alpha)*|BC|
-				let progression =
-					Math.cos(MathUtils.degToRad(angleBetweenStairStartAndPlayer)) * flattenedStart.distanceTo(flattenedPlayer);
-				if (progression < 0.07) {
-					progression = 0;
-				} else if (flatStairLength - progression < 0.07) {
-					progression = flatStairLength;
-				}
-				ref.current.position.y = getHeight(
-					flatStairLength,
-					stair.endPosition.y - stair.startPosition.y,
-					progression,
-					stair.startPosition.y + PLAYER_SIZE / 2 + startPosition.y
-				);
-			}
-		}
+		// player rotation
 		setTargetRotation(getPlayerRotationFromKeys(targetRotation));
-
-		// Smoothly rotate the player towards the target rotation
-		const diffRotation = new Vector3().subVectors(targetRotation, rotation);
-
-		// Ensure the rotation difference is within -Math.PI to Math.PI range
-		diffRotation.y = ((diffRotation.y + Math.PI) % (Math.PI * 2)) - Math.PI;
-
-		const rotationStep = new Vector3().copy(diffRotation).multiplyScalar(ROTATION_SPEED);
-		const newPlayerRotation = new Vector3().addVectors(rotation, rotationStep);
-
-		setRotation(newPlayerRotation);
+		setRotation(getNewLerpedPlayerRoation(rotation, targetRotation, ROTATION_SPEED));
 	});
 
 	return (
