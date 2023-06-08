@@ -1,9 +1,9 @@
-import { useEffect, useRef } from 'react';
-import { Mesh, Vector3, Vector2, MathUtils } from 'three';
+import { useEffect, useRef, useState } from 'react';
+import { Mesh, Vector3, MathUtils, Box3 } from 'three';
 import { WHITE } from '../../../AllColorVariables';
 
 export type StairType = {
-	mesh: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>;
+	mesh: Box3;
 	startPosition: Vector3;
 	endPosition: Vector3;
 };
@@ -18,8 +18,8 @@ interface StairProps {
 
 function getCorrectedStairOffset(centerPosition: Vector3, direction: Vector3, stairHeight: number): Vector3 {
 	const heightAngle = MathUtils.degToRad(90) - direction.angleTo(new Vector3(0, -1, 0));
-	const heightOffset = Math.cos(heightAngle) * stairHeight / 2;
-	const planeOffset = Math.sin(heightAngle) * stairHeight / 2;
+	const heightOffset = (Math.cos(heightAngle) * stairHeight) / 2;
+	const planeOffset = (Math.sin(heightAngle) * stairHeight) / 2;
 	const offsetPerDirection = direction.clone().normalize().multiply(new Vector3(1, 0, 1)).multiplyScalar(planeOffset);
 	return new Vector3(offsetPerDirection.x, heightOffset, offsetPerDirection.z);
 }
@@ -28,8 +28,15 @@ function Stair({ startPosition, endPosition, reference }: StairProps) {
 	const ref = useRef<Mesh>(null);
 	const length = startPosition.distanceTo(endPosition);
 	const stairHeight = 0.25;
-	if (reference && ref.current) {
-		reference({ mesh: ref.current, startPosition: startPosition.clone(), endPosition: endPosition.clone() });
+	const [collsionRefWasSet, collsionRefSet] = useState(false);
+
+	if (!collsionRefWasSet && reference && ref.current) {
+		collsionRefSet(true);
+		reference({
+			mesh: new Box3().setFromObject(ref.current).expandByVector(new Vector3(1, 10, 1)),
+			startPosition: startPosition.clone(),
+			endPosition: endPosition.clone(),
+		});
 	}
 	useEffect(() => {
 		if (ref && ref.current) {

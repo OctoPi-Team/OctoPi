@@ -1,16 +1,13 @@
-import { Vector3, Color, BufferGeometry, Material, Mesh } from 'three';
+import { Vector3, BufferGeometry, Material, Mesh, Box3 } from 'three';
 
 import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp } from './Player';
 import Stair, { StairType } from './platforms/Stair';
 import FixedCamera from './FixedCamera';
-import SimplePlatform from './platforms/SimplePlatform';
-import { OrbitControls, OrthographicCamera } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
 import ShipmentPlatform from './platforms/ShipmentPlatform';
-
 import { Canvas } from '@react-three/fiber';
 import { useState } from 'react';
 import { SceneProps } from '../../App';
-import { WHITE } from '../../AllColorVariables';
 import { Joystick } from 'react-joystick-component';
 import DesignPlatform from './platforms/DesignPlatform';
 import MainPlatform from './platforms/MainPlatform';
@@ -29,12 +26,19 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 
 	const ORBITAL_CONTROLS_ACTIVE = false;
 
-	const [platforms, setPlatforms] = useState<Mesh<BufferGeometry, Material | Material[]>[]>([]);
+	const [platforms, setPlatforms] = useState<Box3[]>([]);
 	const [stairs, setStairs] = useState<StairType[]>([]);
 	const [buttons, setButtons] = useState<Mesh<BufferGeometry, Material | Material[]>[]>([]);
+	const [collisionBoxes, setCollisionBoxes] = useState<Box3[]>([]);
 
-	function addPlatform(newPlatform: Mesh<BufferGeometry, Material | Material[]>) {
+	function addPlatform(newPlatform: Box3) {
 		if (!platforms.includes(newPlatform)) setPlatforms(platforms => [...platforms, newPlatform]);
+	}
+
+	function addCollisionBox(newCollisionBox: Box3) {
+		if (!collisionBoxes.includes(newCollisionBox)) {
+			setCollisionBoxes(collisionBoxes => [...collisionBoxes, newCollisionBox]);
+		}
 	}
 
 	function addStair(newStair: StairType) {
@@ -71,8 +75,9 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 				<Canvas
 					orthographic
 					shadows
-					camera={{ zoom: 60, position: [0, 0, 0] }}
+					camera={{ zoom: 4, position: [0, 0, 0] }}
 					style={{ visibility: visible ? 'hidden' : 'visible' }}>
+					{/*set zoom very low, to force preloading of all textures*/}
 					{/* changes color of canvas from white to 'args'*/}
 					<color attach="background" args={['white']} />
 					{/* DirectionalLight can cast shadows if 'shadows' for Canvas and 'castShadow' for directionalLight is set,
@@ -92,31 +97,33 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 					/>
 					<ambientLight intensity={0.2}></ambientLight>
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
-					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} />}
-					<MainPlatform position={[0, 0, 0]} reference={addPlatform} />
-					<Stair startPosition={new Vector3(8, 0, 6.5)} endPosition={new Vector3(8, 2, 11)} reference={addStair} />
+					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} visibility={visible} />}
+					<MainPlatform position={[0, 0, 0]} reference={addPlatform} addCollisionBox={addCollisionBox} />
+					<Stair startPosition={new Vector3(8, 0, 6.5)} endPosition={new Vector3(8, 4, 16)} reference={addStair} />
 					<ShipmentPlatform
-						position={[9, 2, 20]}
+						position={[9, 4, 25]}
 						reference={addPlatform}
 						sceneProps={{ setSceneHook }}
 						buttonreference={addButtons}
+						addCollisionBox={addCollisionBox}
 					/>
 					<Stair startPosition={new Vector3(-7, 0, 6)} endPosition={new Vector3(-7, 4, 11)} reference={addStair} />
-					<EngineeringPlatform position={[-13, 4, 20]} reference={addPlatform} />
+					<EngineeringPlatform position={[-13, 4, 20]} reference={addPlatform} addCollisionBox={addCollisionBox} />
 					<Stair startPosition={new Vector3(-9.5, 0, 0)} endPosition={new Vector3(-16.2, 2, 0)} reference={addStair} />
-					<DesignPlatform position={[-25.2, 2, -2]} reference={addPlatform} />
+					<DesignPlatform position={[-25.2, 2, -2]} reference={addPlatform} addCollisionBox={addCollisionBox} />
 					<Stair startPosition={new Vector3(-7, 0, -6)} endPosition={new Vector3(-7, 3, -16)} reference={addStair} />
-					<ProductionPlatform position={[-10, 3, -22]} reference={addPlatform} />
+					<ProductionPlatform position={[-10, 3, -22]} reference={addPlatform} addCollisionBox={addCollisionBox} />
 					<Stair startPosition={new Vector3(6, 0, -6.5)} endPosition={new Vector3(6, 1, -11.5)} reference={addStair} />
-					<PartsPlatform position={[16, 1, -20]} reference={addPlatform} />
+					<PartsPlatform position={[16, 1, -20]} reference={addPlatform} addCollisionBox={addCollisionBox} />
 					<Stair startPosition={new Vector3(9.5, 0, 0)} endPosition={new Vector3(18, 4.5, 0)} reference={addStair} />
-					<MonitoringPlatform position={[25, 4.5, -3]} reference={addPlatform} />
+					<MonitoringPlatform position={[25, 4.5, -3]} reference={addPlatform} addCollisionBox={addCollisionBox} />
 					<Player
 						startPosition={new Vector3(0, -0.3, 0)}
 						platforms={platforms}
 						stairs={stairs}
 						buttons={buttons}
 						sceneProps={{ setSceneHook }}
+						collisionObjects={collisionBoxes}
 					/>
 				</Canvas>
 			</div>

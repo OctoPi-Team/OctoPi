@@ -13,8 +13,10 @@ import Sphere from './Sphere';
 export const TILE_SIZE = 3;
 export const SIZE_OF_GAME_MATRIX: [number, number] = [4, 4];
 export const SPACING = 0.2;
+import { useEffect } from 'react';
 
-export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
+
+export default function ShipMentMinigame({ setSceneHook, visible }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
 	// const [visible, setVisible] = useState(true);
 	// TODO add Loading Screen -> {visible && <LoadingScreen setVisible={setVisible} />}
@@ -27,24 +29,37 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 		new Vector3(-3.5, 2, INPUTTUBEPOSSITION),
 		new Vector3(-20, 1.5, INPUTTUBEPOSSITION),
 	];
+	useEffect(() => {
+		if (visible === true) {
+			setSceneHook(Scene.Overworld);
+		}
+	}, [visible, setSceneHook]);
 
 	// @ts-ignore
 	return (
 		<>
-			{/* TODO proper button implement */}
 			<NavigationButton
 				position="absolute"
 				right="75px"
 				top="50px"
 				text={'\u21BB'}
-				onClick={() => setSceneHook(Scene.Overworld)}
+				onClick={() => {
+					setSceneHook(Scene.Overworld);
+					setTimeout(() => {
+						setSceneHook(Scene.Shipment);
+					}, 50);
+				}}
 			/>
 			<NavigationButton
 				position="absolute"
 				right="30px"
 				top="50px"
 				text="i"
-				onClick={() => setSceneHook(Scene.Overworld)}
+				onClick={() => {
+					window.alert(
+						'Willkommen zu unserem Spiel Operation:Innovation! Das Spiel ist ganz simpel. Klicke auf eine der verschiedenen Grids und verändere somit die Position der verschiedenen Röhren. Sobald du eine Verbindung erfolgreich zum Trichter geschafft hast, hast du gewonnen! Viel Erfolg!'
+					);
+				}}
 			/>
 			<NavigationButton
 				position="absolute"
@@ -68,7 +83,13 @@ export default function ShipMentMinigame({ setSceneHook }: SceneProps) {
 							scale={[0.25, 0.25, 0.25]}
 							rotation={[0, 180, 0]}
 						/>
-						<Tube name="InputTubeInGame" position={[0, 2, 0]} color={GREEN} vectors={VECTORS_FOR_TUBE} />
+						<Tube
+							name="InputTubeInGame"
+							position={[0, 2, 0]}
+							color={GREEN}
+							vectors={VECTORS_FOR_TUBE}
+							detailed={true}
+						/>
 					</group>
 				</Canvas>
 			</div>

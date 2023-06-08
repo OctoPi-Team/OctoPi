@@ -108,6 +108,7 @@ export default function Tile({ gridPosition, tileClickHandler, Vector1, Vector2,
 					position={[0, 0.7, 0]}
 					color={GREEN}
 					vectors={[Vector1, cubicbenziercontrol1, cubicbenziercontrol2, Vector2]}
+					detailed={true}
 				/>
 				<boxGeometry args={[TILE_SIZE, 0.5, TILE_SIZE]} />
 				<meshStandardMaterial color={color} />

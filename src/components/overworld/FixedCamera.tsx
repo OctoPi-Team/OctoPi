@@ -4,9 +4,10 @@ import { OrthographicCamera } from 'three';
 
 type CameraProps = {
 	distanceFromPlayerToCamera: number;
+	visibility: boolean;
 };
 
-function FixedCamera({ distanceFromPlayerToCamera }: CameraProps) {
+function FixedCamera({ distanceFromPlayerToCamera, visibility }: CameraProps) {
 	const { scene, camera } = useThree();
 	const cameraRef = useRef<OrthographicCamera>(null);
 	useFrame(() => {
@@ -23,6 +24,13 @@ function FixedCamera({ distanceFromPlayerToCamera }: CameraProps) {
 			camera.lookAt(playerPosition);
 		}
 	});
+
+	if (!visibility && camera.zoom < 40) {
+		camera.zoom = 40;
+	} else if (visibility && camera.zoom > 4) {
+		camera.zoom = 4;
+	}
+
 	return <orthographicCamera ref={cameraRef} />;
 }
 
