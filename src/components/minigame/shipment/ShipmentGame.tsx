@@ -73,7 +73,7 @@ export default function ShipMentMinigame({ setSceneHook, visible }: SceneProps) 
 					<directionalLight intensity={0.5} color={WHITE} />
 					<ambientLight intensity={0.5} />
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
-					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} />}
+					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} visibility={visible} />}
 
 					<group position={[0, 4, 0]}>
 						<Grid size={SIZE_OF_GAME_MATRIX} />

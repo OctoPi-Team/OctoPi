@@ -4,7 +4,7 @@ import { OrthographicCamera } from 'three';
 
 type CameraProps = {
 	distanceFromPlayerToCamera: number;
-	visibility: boolean;
+	visibility?: boolean;
 };
 
 function FixedCamera({ distanceFromPlayerToCamera, visibility }: CameraProps) {
