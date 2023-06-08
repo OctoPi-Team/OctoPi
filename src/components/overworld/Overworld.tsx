@@ -1,13 +1,13 @@
 import { Vector3, BufferGeometry, Material, Mesh, Box3 } from 'three';
 
-import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp, checkForActivity } from './Player';
+import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp } from './Player';
 import Stair, { StairType } from './platforms/Stair';
 import FixedCamera from './FixedCamera';
 import { OrbitControls } from '@react-three/drei';
 import ShipmentPlatform from './platforms/ShipmentPlatform';
 
-import { Canvas, useFrame } from '@react-three/fiber';
-import { useEffect, useState } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { useState } from 'react';
 import { SceneProps } from '../../App';
 import { Joystick } from 'react-joystick-component';
 import DesignPlatform from './platforms/DesignPlatform';
@@ -16,7 +16,6 @@ import MonitoringPlatform from './platforms/MonitoringPlatform';
 import PartsPlatform from './platforms/PartsPlatform';
 import ProductionPlatform from './platforms/ProductionPlatform';
 import EngineeringPlatform from './platforms/EngineeringPlatform';
-import { LoadingScreen } from '../startscreen/LoadingScreen';
 
 type OverworldProps = {
 	sceneProps: SceneProps;

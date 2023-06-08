@@ -5,7 +5,6 @@ import { Box3, BufferGeometry, Material, MathUtils, Mesh, Raycaster, Vector2, Ve
 import { STAIR_WIDTH, StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
 import { IJoystickUpdateEvent } from 'react-joystick-component/build/lib/Joystick';
-import Overworld from './Overworld';
 
 const PLAYER_SIZE = 0.5;
 const CPU_FACTOR = 1; // Adjust this based on CPU performance

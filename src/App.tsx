@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import Overworld from './components/overworld/Overworld';
 import ShipmentGame from './components/minigame/shipment/ShipmentGame';
 import { LoadingScreen } from './components/startscreen/LoadingScreen';
-import { get } from 'http';
 
 export enum Scene {
 	Overworld,
