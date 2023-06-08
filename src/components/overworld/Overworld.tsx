@@ -1,13 +1,13 @@
 import { Vector3, BufferGeometry, Material, Mesh } from 'three';
 
-import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp } from './Player';
+import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp, checkForActivity } from './Player';
 import Stair, { StairType } from './platforms/Stair';
 import FixedCamera from './FixedCamera';
 import { OrbitControls } from '@react-three/drei';
 import ShipmentPlatform from './platforms/ShipmentPlatform';
 
-import { Canvas } from '@react-three/fiber';
-import { useState } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { useEffect, useState } from 'react';
 import { SceneProps } from '../../App';
 import { Joystick } from 'react-joystick-component';
 import DesignPlatform from './platforms/DesignPlatform';
@@ -16,13 +16,15 @@ import MonitoringPlatform from './platforms/MonitoringPlatform';
 import PartsPlatform from './platforms/PartsPlatform';
 import ProductionPlatform from './platforms/ProductionPlatform';
 import EngineeringPlatform from './platforms/EngineeringPlatform';
+import { LoadingScreen } from '../startscreen/LoadingScreen';
 
 type OverworldProps = {
 	sceneProps: SceneProps;
 	visible: boolean;
+	setLoadingScreenVisible: (visible: boolean) => void;
 };
 
-export default function Overworld({ sceneProps, visible }: OverworldProps) {
+export default function Overworld({ sceneProps, visible, setLoadingScreenVisible }: OverworldProps) {
 	const setSceneHook = sceneProps.setSceneHook;
 
 	const ORBITAL_CONTROLS_ACTIVE = false;
@@ -115,6 +117,8 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 						stairs={stairs}
 						buttons={buttons}
 						sceneProps={{ setSceneHook }}
+						LoadingScreenIsVisible={visible}
+						setLoadingScreenVisible={setLoadingScreenVisible}
 					/>
 				</Canvas>
 			</div>
