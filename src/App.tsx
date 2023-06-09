@@ -18,18 +18,18 @@ export type SceneProps = {
 export default function App() {
 	const [scene, setScene] = useState<Scene>(Scene.Overworld);
 	const [visible, setVisible] = useState(true);
-	useEffect(() => {
-		let timeoutId: NodeJS.Timeout;
+	const delay = 60000;
+	let timeoutId: NodeJS.Timeout;
 
+	useEffect(() => {
 		const resetTimer = () => {
 			clearTimeout(timeoutId);
-			timeoutId = setTimeout(() => setVisible(true), 1000000000); // Adjust the delay (in milliseconds) as per your requirement
+			timeoutId = setTimeout(() => setVisible(true), delay); // Adjust the delay (in milliseconds) as per your requirement
 		};
 
 		const handleActivity = () => {
 			resetTimer();
 		};
-
 		// Add event listeners to detect user activity
 		window.addEventListener('touchmove', handleActivity);
 		window.addEventListener('keydown', handleActivity);
@@ -44,6 +44,13 @@ export default function App() {
 			window.removeEventListener('keydown', handleActivity);
 		};
 	}, []);
+
+	useEffect(() => {
+		if (!visible) {
+			timeoutId = setTimeout(() => setVisible(true), delay);
+		}
+	}, [visible]);
+
 	return (
 		<>
 			{visible && <LoadingScreen setVisible={setVisible} />}
