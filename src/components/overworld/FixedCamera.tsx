@@ -11,7 +11,7 @@ function FixedCamera({ distanceFromPlayerToCamera, visibility }: CameraProps) {
 	const { scene, camera } = useThree();
 	const cameraRef = useRef<OrthographicCamera>(null);
 	const targetZoom = visibility ? 4 : 40;
-	const zoomSpeed = 0.01;
+	const zoomSpeed = 0.02;
 
 	useFrame(() => {
 		if (!scene || !cameraRef.current) return;
