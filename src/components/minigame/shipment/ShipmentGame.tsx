@@ -1,4 +1,4 @@
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber';
 import { Scene, SceneProps } from '../../../App';
 import Grid from './Grid';
 import { OrbitControls } from '@react-three/drei';
@@ -9,20 +9,19 @@ import { Vector3 } from 'three';
 import { GREEN, WHITE } from '../../../AllColorVariables';
 import NavigationButton from '../../overworld/objects/NavigationButton';
 import { resetKeys } from '../../overworld/Player';
-import Sphere from './Sphere';
-export const TILE_SIZE = 3;
-export const SIZE_OF_GAME_MATRIX: [number, number] = [4, 4];
-export const SPACING = 0.2;
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
+export const TILE_SIZE = 3;
+export const SIZE_OF_GAME_MATRIX: [number, number] = [3, 3];
+export const SPACING = 0.2;
 
 export default function ShipMentMinigame({ setSceneHook, visible }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
 	// const [visible, setVisible] = useState(true);
 	// TODO add Loading Screen -> {visible && <LoadingScreen setVisible={setVisible} />}
-
+	const [done, setDone] = useState(false);
 	//calculate random input tube position with relation to the grid
-	const INPUTTUBEPOSSITION = TILE_SIZE * TILE_SIZE + TILE_SIZE * SPACING;
+	const INPUTTUBEPOSSITION = TILE_SIZE * (SIZE_OF_GAME_MATRIX[1] - 1) + (SIZE_OF_GAME_MATRIX[1] - 1) * SPACING;
 	const VECTORS_FOR_TUBE = [
 		new Vector3(-1.9, -1.3, INPUTTUBEPOSSITION),
 		new Vector3(-3, -1.2, INPUTTUBEPOSSITION),
@@ -35,6 +34,12 @@ export default function ShipMentMinigame({ setSceneHook, visible }: SceneProps) 
 		}
 	}, [visible, setSceneHook]);
 
+	function changeview(done: boolean) {
+		if (done) {
+			setSceneHook(Scene.Overworld);
+		} else {
+		}
+	}
 	// @ts-ignore
 	return (
 		<>
@@ -68,15 +73,15 @@ export default function ShipMentMinigame({ setSceneHook, visible }: SceneProps) 
 				text="&larr;"
 				onClick={() => setSceneHook(Scene.Overworld)}
 			/>
-			<div style={{ width: '100vw', height: '100vh' }} tabIndex={0}>
+			<div style={{ width: '100vw', height: '100vh' }} onClick={() => changeview(done)} tabIndex={0}>
 				<Canvas orthographic camera={{ zoom: 50, position: [40, 40, 40] }}>
 					<directionalLight intensity={0.5} color={WHITE} />
 					<ambientLight intensity={0.5} />
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
-					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} visibility={visible} />}
+					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={30} visibility={visible} />}
 
 					<group position={[0, 4, 0]}>
-						<Grid size={SIZE_OF_GAME_MATRIX} />
+						<Grid size={SIZE_OF_GAME_MATRIX} stateChanger={setDone} />
 						<ObjectLoad
 							path="/Trichter/trichter.glb"
 							position={[(2.9 + 0.2) * SIZE_OF_GAME_MATRIX[0], -3.3, -0.5]}

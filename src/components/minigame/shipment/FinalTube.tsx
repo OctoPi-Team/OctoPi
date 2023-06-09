@@ -118,7 +118,7 @@ export function FinalTube(qwd: TileProps[]) {
 		}
 	}
 
-	let tubeGeometry = new TubeGeometry(fullcurve, 100, 0.4, 100, false);
+	let tubeGeometry = new TubeGeometry(fullcurve, 100, 0.41, 100, false);
 
 	return (
 		<>
