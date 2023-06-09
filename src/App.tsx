@@ -18,19 +18,22 @@ export type SceneProps = {
 export default function App() {
 	const [scene, setScene] = useState<Scene>(Scene.Overworld);
 	const [visible, setVisible] = useState(true);
-	const delay = 60000;
+	const delay = 6000;
 	let timeoutId: NodeJS.Timeout;
+	let hadMoved = false;
 
 	useEffect(() => {
-		if (!visible) {
+		if (!visible && !hadMoved) {
 			timeoutId = setTimeout(() => setVisible(true), delay);
 		}
 		const resetTimer = () => {
 			clearTimeout(timeoutId);
 			timeoutId = setTimeout(() => setVisible(true), delay); // Adjust the delay (in milliseconds) as per your requirement
+			hadMoved = false;
 		};
 
 		const handleActivity = () => {
+			hadMoved = true;
 			resetTimer();
 		};
 		// Add event listeners to detect user activity
