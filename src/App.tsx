@@ -22,6 +22,9 @@ export default function App() {
 	let timeoutId: NodeJS.Timeout;
 
 	useEffect(() => {
+		if (!visible) {
+			timeoutId = setTimeout(() => setVisible(true), delay);
+		}
 		const resetTimer = () => {
 			clearTimeout(timeoutId);
 			timeoutId = setTimeout(() => setVisible(true), delay); // Adjust the delay (in milliseconds) as per your requirement
@@ -43,12 +46,6 @@ export default function App() {
 			window.removeEventListener('touchmove', handleActivity);
 			window.removeEventListener('keydown', handleActivity);
 		};
-	}, []);
-
-	useEffect(() => {
-		if (!visible) {
-			timeoutId = setTimeout(() => setVisible(true), delay);
-		}
 	}, [visible]);
 
 	return (
