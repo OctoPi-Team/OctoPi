@@ -29,8 +29,8 @@ export default function EngineeringPlatform({
 			<ObjectLoad
 				path="/Zeichentisch/zeichentisch.glb"
 				position={[position[0] - 2, position[1], position[2] - 4]}
-				scale={[0.3, 0.3, 0.3]}
-				rotation={[0, 90, 0]}
+				scale={[0.25, 0.25, 0.25]}
+				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
