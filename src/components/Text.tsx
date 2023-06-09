@@ -1,4 +1,4 @@
-import { extend, Object3DNode } from '@react-three/fiber';
+import { Color, extend, Object3DNode } from '@react-three/fiber';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
 import OpenSans from './fonts/Open Sans_Regular.json';
@@ -17,9 +17,10 @@ type TextProps = {
 	text: string;
 	position: [number, number, number];
 	rotation: [number, number, number];
+	color: Color;
 };
 
-export default function Text({ text, position, rotation }: TextProps) {
+export default function Text({ text, position, rotation, color }: TextProps) {
 	// any font can be used, but they need to be converted using https://gero3.github.io/facetype.js/
 	const font = new FontLoader().parse(OpenSans);
 	return (
@@ -28,7 +29,7 @@ export default function Text({ text, position, rotation }: TextProps) {
 			rotation={[MathUtils.degToRad(rotation[0]), MathUtils.degToRad(rotation[1]), MathUtils.degToRad(rotation[2])]}
 			scale={[1.5, 1.5, 0.45]}>
 			<textGeometry args={[text, { font, size: 1, height: 1, curveSegments: 20 }]} />
-			<meshLambertMaterial attach="material" color={GREEN} />
+			<meshLambertMaterial attach="material" color={color} />
 		</mesh>
 	);
 }

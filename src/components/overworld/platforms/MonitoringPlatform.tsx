@@ -20,6 +20,7 @@ export default function MonitoringPlatform({
 			<SimplePlatform position={position} size={[14, 0.5, 21]} reference={reference} color={MONITORING} />
 			<Text
 				text={'MONITORING'}
+				color={MONITORING}
 				position={[position[0] + 3, position[1] + 5, position[2] - 15]}
 				rotation={[0, 270, 0]}
 			/>

@@ -18,7 +18,7 @@ export default function DesignPlatform({
 	return (
 		<>
 			<SimplePlatform position={position} size={[18, 0.5, 20]} reference={reference} color={DESIGN} />
-			<Text text={'DESIGN'} position={[position[0] + 8, position[1], position[2] + 11]} rotation={[0, 180, 0]} />
+			<Text text={'DESIGN'} color={DESIGN} position={[position[0] + 8, position[1], position[2] + 11]} rotation={[0, 180, 0]} />
 			<ObjectLoad
 				path="/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb"
 				position={[position[0] - 2, position[1], position[2] + 2]}
@@ -42,7 +42,7 @@ export default function DesignPlatform({
 			/>
 			<ObjectLoad
 				path="/Buecherregal/buecherregal.glb"
-				position={[position[0] + 5.5, position[1], position[2] + 9]}
+				position={[position[0] - 7, position[1], position[2] + 9]}
 				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
