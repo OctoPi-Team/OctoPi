@@ -18,7 +18,7 @@ export default function EngineeringPlatform({
 	return (
 		<>
 			<SimplePlatform name={''} position={position} size={[15, 0.5, 18]} reference={reference} color={ENGINEERING} />
-			<Text text={'Engineering'} position={[position[0] + 8.25, position[1], position[2] - 9]} rotation={[0, 270, 0]} />
+			<Text text={'ENGINEERING'} position={[position[0] + 8.5, position[1], position[2] - 8]} rotation={[0, 270, 0]} />
 			<ObjectLoad
 				path="/Wegweiser/wegweiser.glb"
 				position={[position[0], position[1], position[2]]}
