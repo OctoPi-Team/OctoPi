@@ -29,7 +29,7 @@ export default function EngineeringPlatform({
 			<ObjectLoad
 				path="/Zeichentisch/zeichentisch.glb"
 				position={[position[0] - 2, position[1], position[2] - 4]}
-				scale={[0.25, 0.25, 0.25]}
+				scale={[0.4, 0.4, 0.4]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
@@ -43,7 +43,7 @@ export default function EngineeringPlatform({
 			<ObjectLoad
 				path="/Monitor/monitor.glb"
 				position={[position[0] - 2.5, position[1] + 4, position[2] + 4.5]}
-				scale={[0.2, 0.2, 0.2]}
+				scale={[0.25, 0.25, 0.25]}
 				rotation={[0, 180, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>

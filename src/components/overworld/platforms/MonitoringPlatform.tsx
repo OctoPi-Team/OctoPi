@@ -29,7 +29,7 @@ export default function MonitoringPlatform({
 			<ObjectLoad
 				path="/TischMitTV/tischMitTV.glb"
 				position={[position[0] + 3.5, position[1], position[2] - 0.5]}
-				scale={[0.35, 0.35, 0.35]}
+				scale={[0.45, 0.45, 0.45]}
 				rotation={[0, 7, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
