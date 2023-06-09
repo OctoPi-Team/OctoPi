@@ -1,7 +1,4 @@
-import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
-import { DESIGN } from '../../../AllColorVariables';
-import Text from '../../Text';
 import { Box3 } from 'three';
 
 type FloorOptions = {

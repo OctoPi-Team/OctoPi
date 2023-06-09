@@ -40,8 +40,11 @@ export default function ObjectLoad({
 	}
 	const dracoLoader = new DRACOLoader();
 	dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
-	const obj = useLoader(GLTFLoader, path, loader => {
+	let obj = useLoader(GLTFLoader, path, loader => {
 		loader.setDRACOLoader(dracoLoader);
+	});
+	obj.scene.traverse(function (node) {
+		node.castShadow = true;
 	});
 
 	useEffect(() => {

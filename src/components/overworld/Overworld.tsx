@@ -105,7 +105,7 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
 					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} visibility={visible} />}
 					<MainPlatform position={[0, 0, 0]} reference={addPlatform} addCollisionBox={addCollisionBox} />
-					<Floor position={[0, -2.5, 0]} />
+					<Floor position={[0, -3, 0]} />
 					<Stair startPosition={new Vector3(8, 0, 6.5)} endPosition={new Vector3(8, 4, 16)} reference={addStair} />
 					<ShipmentPlatform
 						position={[9, 4, 25]}
