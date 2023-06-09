@@ -9,7 +9,7 @@ type SphereProps = {
 	curv: CurvePath<Vector3>;
 };
 export default function Sphere({ curv }: SphereProps) {
-	const name: string = 'sphere';
+	const name = 'sphere';
 	const color: any = RED;
 
 	const [pos, updatepos] = useState<Vector3>(new Vector3(0, 0, 9.6));
@@ -22,8 +22,8 @@ export default function Sphere({ curv }: SphereProps) {
 		new Vector3(-20, 1.5 + 2, INPUTTUBEPOSSITION),
 	];
 
-	let startingcurve = new CatmullRomCurve3(VECTORS_FOR_TUBE, false, 'centripetal', 20);
-	let points: Vector3[] = startingcurve.getSpacedPoints(1000);
+	const startingcurve = new CatmullRomCurve3(VECTORS_FOR_TUBE, false, 'centripetal', 20);
+	const points: Vector3[] = startingcurve.getSpacedPoints(1000);
 	points.reverse();
 	points.push(...curv.getSpacedPoints(1000));
 	const sphereGeometry = new SphereGeometry(0.3, 70, 20);

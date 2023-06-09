@@ -15,6 +15,8 @@ import MonitoringPlatform from './platforms/MonitoringPlatform';
 import PartsPlatform from './platforms/PartsPlatform';
 import ProductionPlatform from './platforms/ProductionPlatform';
 import EngineeringPlatform from './platforms/EngineeringPlatform';
+import FloorPlatform from './platforms/Floor';
+import Floor from './platforms/Floor';
 
 type OverworldProps = {
 	sceneProps: SceneProps;
@@ -30,6 +32,9 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 	const [stairs, setStairs] = useState<StairType[]>([]);
 	const [buttons, setButtons] = useState<Mesh<BufferGeometry, Material | Material[]>[]>([]);
 	const [collisionBoxes, setCollisionBoxes] = useState<Box3[]>([]);
+
+	const CAM_WIDTH = 70;
+	const CAM_HEIGHT = 70;
 
 	function addPlatform(newPlatform: Box3) {
 		if (!platforms.includes(newPlatform)) setPlatforms(platforms => [...platforms, newPlatform]);
@@ -74,27 +79,33 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 				<Canvas
 					orthographic
 					shadows
-					camera={{ zoom: 4, position: [0, 0, 0] }}
+					camera={{
+						zoom: 4,
+						position: [-100, 100, -100],
+						left: CAM_WIDTH / -2,
+						right: CAM_WIDTH / 2,
+						top: CAM_HEIGHT / 2,
+						bottom: CAM_HEIGHT / -2,
+						near: 0.1,
+						far: 500,
+					}}
 					style={{ visibility: visible ? 'hidden' : 'visible' }}>
 					{/*set zoom very low, to force preloading of all textures*/}
 					<color attach="background" args={['white']} />
-					<directionalLight
-						position={[-0.3, 1, -0.5]}
-						intensity={0.9}
-						shadow-mapSize-width={2048}
-						shadow-mapSize-height={2048}
-						shadow-camera-left={-500}
-						shadow-camera-right={500}
-						shadow-camera-near={1}
-						shadow-camera-far={1000}
-						shadow-camera-top={500}
-						shadow-camera-bottom={-500}
-						castShadow
-					/>
+					<directionalLight position={[-5, 20, -15]} shadow-mapSize={[1024, 1024]} intensity={0.7} castShadow>
+						<orthographicCamera
+							attach="shadow-camera"
+							position={[-5, 20, -15]}
+							args={[CAM_WIDTH / -2, CAM_WIDTH / 2, CAM_HEIGHT / 2, CAM_HEIGHT / -2]}
+							near={0.1}
+							far={1000}
+						/>
+					</directionalLight>
 					<ambientLight intensity={0.3}></ambientLight>
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
 					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} visibility={visible} />}
 					<MainPlatform position={[0, 0, 0]} reference={addPlatform} addCollisionBox={addCollisionBox} />
+					<Floor position={[0, -2.5, 0]} />
 					<Stair startPosition={new Vector3(8, 0, 6.5)} endPosition={new Vector3(8, 4, 16)} reference={addStair} />
 					<ShipmentPlatform
 						position={[9, 4, 25]}

@@ -15,7 +15,6 @@ export const SIZE_OF_GAME_MATRIX: [number, number] = [4, 4];
 export const SPACING = 0.2;
 import { useEffect } from 'react';
 
-
 export default function ShipMentMinigame({ setSceneHook, visible }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
 	// const [visible, setVisible] = useState(true);
