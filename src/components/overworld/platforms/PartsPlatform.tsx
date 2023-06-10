@@ -79,6 +79,18 @@ export default function PartsPlatform({
 				size={[0.5, 8, 1]}
 				vectors={[new Vector3(0, 0, 0), new Vector3(0, 3, 0), new Vector3(-5, 3, 0), new Vector3(-5, 0, 0)]}
 			/>
+			<Tube
+				name="Tube"
+				position={[position[0] - 6, position[1] - 1.9, position[2] - 7]}
+				size={[0.5, 8, 1]}
+				vectors={[
+					new Vector3(0, 0, 0),
+					new Vector3(0, 0, -3),
+					new Vector3(-6, 0, -3),
+					new Vector3(-6, 0, 2),
+					new Vector3(0, 0, 0),
+				]}
+			/>
 		</>
 	);
 }
