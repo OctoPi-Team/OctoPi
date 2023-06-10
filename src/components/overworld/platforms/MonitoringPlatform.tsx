@@ -42,14 +42,14 @@ export default function MonitoringPlatform({
 				collisionRefSetter={addCollisionBox}
 			/>
 			<Tube
-				position={[position[0] - 5, position[1] - 1.9, position[2] + 9]}
+				position={[position[0] - 5, position[1], position[2] + 9]}
 				size={[0.5, 8, 1]}
-				vectors={[new Vector3(0, 0, 0), new Vector3(0, 3, 0), new Vector3(6, 3, 0), new Vector3(6, 0, 0)]}
+				vectors={[new Vector3(0, 0, 0), new Vector3(0, 2, 0), new Vector3(6, 2, 0), new Vector3(6, 0, 0)]}
 			/>
 			<Tube
-				position={[position[0] - 5, position[1] - 1.9, position[2] - 8]}
+				position={[position[0] - 5, position[1], position[2] - 8]}
 				size={[0.5, 8, 1]}
-				vectors={[new Vector3(0, 0, 0), new Vector3(0, 4, 0), new Vector3(0, 4, 3), new Vector3(0, 0, 3)]}
+				vectors={[new Vector3(0, 0, 0), new Vector3(0, 1, 0), new Vector3(0, 1, 3), new Vector3(0, 0, 3)]}
 			/>
 		</>
 	);
