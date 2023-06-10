@@ -2,7 +2,8 @@ import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
 import { ENGINEERING } from '../../../AllColorVariables';
 import Text from '../../Text';
-import { Box3 } from 'three';
+import { Box3, Vector3 } from 'three';
+import Tube from '../objects/Tube';
 
 type EngineeringPlatformOptions = {
 	position?: [number, number, number];
@@ -39,6 +40,24 @@ export default function EngineeringPlatform({
 				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
+			/>
+			<Tube
+				name="Tube2"
+				position={[position[0] - 7, position[1], position[2] + 3]}
+				size={[0.5, 8, 1]}
+				vectors={[
+					new Vector3(0, 0, 0),
+					new Vector3(0, 1, 0),
+					new Vector3(-1.5, 1, 0),
+					new Vector3(-1.5, 0, 0),
+					new Vector3(-1.5, -1, 0),
+					new Vector3(-1.5, -1, 6.2),
+					new Vector3(8, -1, 6.2),
+					new Vector3(8, 1, 6.2),
+					new Vector3(8, 1, 5),
+					new Vector3(8, 1, 4),
+					new Vector3(8, 0, 4),
+				]}
 			/>
 		</>
 	);
