@@ -18,6 +18,9 @@ export type SceneProps = {
 export default function App() {
 	const [scene, setScene] = useState<Scene>(Scene.Overworld);
 	const [visible, setVisible] = useState(true);
+	function isMobileBrowser() {
+		return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+	}
 	useEffect(() => {
 		let timeoutId: NodeJS.Timeout;
 
@@ -47,7 +50,9 @@ export default function App() {
 	return (
 		<>
 			{visible && <LoadingScreen setVisible={setVisible} />}
-			{scene === Scene.Overworld && <Overworld sceneProps={{ setSceneHook: setScene }} visible={visible} />}
+			{scene === Scene.Overworld && (
+				<Overworld sceneProps={{ setSceneHook: setScene }} visible={visible} isMobileBrowser={isMobileBrowser()} />
+			)}
 			{scene === Scene.Shipment && <ShipmentGame setSceneHook={setScene} visible={visible} />}
 		</>
 	);
