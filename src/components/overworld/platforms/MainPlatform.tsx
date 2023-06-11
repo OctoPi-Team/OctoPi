@@ -1,6 +1,7 @@
 import SimplePlatform from './SimplePlatform';
-import { GREEN } from '../../../AllColorVariables';
+import { GREEN, PINK } from '../../../AllColorVariables';
 import { Box3 } from 'three';
+import ObjectLoad from '../../ObjectLoad';
 
 type MainPlatformOptions = {
 	position?: [number, number, number];
@@ -8,10 +9,49 @@ type MainPlatformOptions = {
 	addCollisionBox?: (newCollisionBox: Box3) => void;
 };
 
-export default function MainPlatform({ position = [0, 0, 0], reference }: MainPlatformOptions): JSX.Element {
+export default function MainPlatform({
+	position = [0, 0, 0],
+	reference,
+	addCollisionBox,
+}: MainPlatformOptions): JSX.Element {
 	return (
 		<>
-			<SimplePlatform position={position} size={[20, 0.5, 13]} reference={reference} color={GREEN} />
+			<SimplePlatform position={position} size={[20, 0.5, 13]} reference={reference} color={PINK} />
+			<ObjectLoad
+				path="/kleinerTisch/kleinerTisch.glb"
+				position={[position[0] + 5, position[1], position[2] - 1]}
+				scale={[0.45, 0.45, 0.45]}
+				rotation={[0, 0, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
+			<ObjectLoad
+				path="/Huetchen/huetchen.glb"
+				position={[position[0] + 3, position[1], position[2] + 3]}
+				scale={[0.15, 0.15, 0.15]}
+				rotation={[0, 270, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
+			<ObjectLoad
+				path="/kleinerTisch/kleinerTisch.glb"
+				position={[position[0] - 5, position[1], position[2]]}
+				scale={[0.45, 0.45, 0.45]}
+				rotation={[0, 270, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
+			<ObjectLoad
+				path="/kleinerTisch/kleinerTisch.glb"
+				position={[position[0] + 1, position[1], position[2] - 6]}
+				scale={[0.45, 0.45, 0.45]}
+				rotation={[0, 270, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
+			<ObjectLoad
+				path="/Kommode/kommode.glb"
+				position={[position[0] - 3, position[1], position[2] + 6]}
+				scale={[0.45, 0.45, 0.45]}
+				rotation={[0, 270, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
 		</>
 	);
 }

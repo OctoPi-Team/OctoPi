@@ -3,16 +3,19 @@ import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
 import Text from '../../Text';
 import { Box3 } from 'three';
+import Button from '../objects/Button';
 
 type PartsPlatformOptions = {
 	position?: [number, number, number];
 	reference?: (meshRef: Box3) => void;
+	buttonreference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
 };
 
 export default function PartsPlatform({
 	position = [0, 0, 0],
 	reference,
+	buttonreference,
 	addCollisionBox,
 }: PartsPlatformOptions): JSX.Element {
 	return (
@@ -33,6 +36,7 @@ export default function PartsPlatform({
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
+			<Button position={[position[0] - 9, position[1] + 6, position[2] - 6]} reference={buttonreference} />
 		</>
 	);
 }
