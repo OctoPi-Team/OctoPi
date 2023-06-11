@@ -69,13 +69,9 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 	function DirLight() {
 		const dirLight = useRef<DirectionalLight>(null);
 		let mutableDirLightRef = dirLight as React.MutableRefObject<DirectionalLight>;
+		/* Shows the position of the light source*/
+		//useHelper(mutableDirLightRef, DirectionalLightHelper, 3, 0xff0000);
 
-		const shadowCameraHelperRef = useRef<CameraHelper>(null);
-		let mutableShadowCameraHelperRef = shadowCameraHelperRef as React.MutableRefObject<CameraHelper>;
-
-		// Shows the position of the light source
-		useHelper(mutableDirLightRef, DirectionalLightHelper, 3, 0xff0000);
-		useHelper(mutableShadowCameraHelperRef, CameraHelper);
 		return (
 			<>
 				<directionalLight
