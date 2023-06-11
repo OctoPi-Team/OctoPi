@@ -28,7 +28,7 @@ export default function Text({ text, position, rotation, color }: TextProps) {
 			position={position}
 			rotation={[MathUtils.degToRad(rotation[0]), MathUtils.degToRad(rotation[1]), MathUtils.degToRad(rotation[2])]}
 			scale={[1.5, 1.5, 0.45]}>
-			<textGeometry args={[text, { font, size: 1, height: 1, curveSegments: 20 }]} />
+			<textGeometry args={[text, { font, size: 1.05, height: 1.2, curveSegments: 10 }]} />
 			<meshLambertMaterial attach="material" color={color} />
 		</mesh>
 	);
