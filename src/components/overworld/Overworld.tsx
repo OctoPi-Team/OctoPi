@@ -1,12 +1,22 @@
-import { Vector3, BufferGeometry, Material, Mesh, Box3 } from 'three';
+import {
+	Vector3,
+	BufferGeometry,
+	Material,
+	Mesh,
+	Box3,
+	DirectionalLight,
+	CameraHelper,
+	OrthographicCamera,
+	DirectionalLightHelper,
+} from 'three';
 
 import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp } from './Player';
 import Stair, { StairType } from './platforms/Stair';
 import FixedCamera from './FixedCamera';
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls, useHelper } from '@react-three/drei';
 import ShipmentPlatform from './platforms/ShipmentPlatform';
 import { Canvas } from '@react-three/fiber';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { SceneProps } from '../../App';
 import { Joystick } from 'react-joystick-component';
 import DesignPlatform from './platforms/DesignPlatform';
@@ -15,7 +25,6 @@ import MonitoringPlatform from './platforms/MonitoringPlatform';
 import PartsPlatform from './platforms/PartsPlatform';
 import ProductionPlatform from './platforms/ProductionPlatform';
 import EngineeringPlatform from './platforms/EngineeringPlatform';
-import FloorPlatform from './platforms/Floor';
 import Floor from './platforms/Floor';
 
 type OverworldProps = {
@@ -33,8 +42,8 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 	const [buttons, setButtons] = useState<Mesh<BufferGeometry, Material | Material[]>[]>([]);
 	const [collisionBoxes, setCollisionBoxes] = useState<Box3[]>([]);
 
-	const CAM_WIDTH = 70;
-	const CAM_HEIGHT = 70;
+	const CAM_WIDTH = 80;
+	const CAM_HEIGHT = 80;
 
 	function addPlatform(newPlatform: Box3) {
 		if (!platforms.includes(newPlatform)) setPlatforms(platforms => [...platforms, newPlatform]);
@@ -55,6 +64,37 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 
 	function addButtons(newButton: Mesh<BufferGeometry, Material | Material[]>) {
 		if (!buttons.includes(newButton)) setButtons(button => [...button, newButton]);
+	}
+
+	function DirLight() {
+		const dirLight = useRef<DirectionalLight>(null);
+		let mutableDirLightRef = dirLight as React.MutableRefObject<DirectionalLight>;
+
+		const shadowCameraHelperRef = useRef<CameraHelper>(null);
+		let mutableShadowCameraHelperRef = shadowCameraHelperRef as React.MutableRefObject<CameraHelper>;
+
+		// Shows the position of the light source
+		useHelper(mutableDirLightRef, DirectionalLightHelper, 3, 0xff0000);
+		useHelper(mutableShadowCameraHelperRef, CameraHelper);
+		return (
+			<>
+				<directionalLight
+					position={[-5, 20, -15]}
+					ref={dirLight}
+					shadow-mapSize={[1024, 1024]}
+					intensity={0.7}
+					castShadow>
+					<orthographicCamera
+						attach="shadow-camera"
+						position={[-8, 20, -15]}
+						args={[CAM_WIDTH / -2, CAM_WIDTH / 2, CAM_HEIGHT / 2, CAM_HEIGHT / -2]}
+						near={0.1}
+						far={300}
+					/>
+				</directionalLight>
+				{dirLight.current && <primitive object={dirLight.current.shadow.camera as OrthographicCamera} />}
+			</>
+		);
 	}
 
 	return (
@@ -87,20 +127,12 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 						top: CAM_HEIGHT / 2,
 						bottom: CAM_HEIGHT / -2,
 						near: 0.1,
-						far: 500,
+						far: 300,
 					}}
 					style={{ visibility: visible ? 'hidden' : 'visible' }}>
 					{/*set zoom very low, to force preloading of all textures*/}
 					<color attach="background" args={['white']} />
-					<directionalLight position={[-5, 20, -15]} shadow-mapSize={[1024, 1024]} intensity={0.7} castShadow>
-						<orthographicCamera
-							attach="shadow-camera"
-							position={[-5, 20, -15]}
-							args={[CAM_WIDTH / -2, CAM_WIDTH / 2, CAM_HEIGHT / 2, CAM_HEIGHT / -2]}
-							near={0.1}
-							far={1000}
-						/>
-					</directionalLight>
+					<DirLight />
 					<ambientLight intensity={0.3}></ambientLight>
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
 					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} visibility={visible} />}
