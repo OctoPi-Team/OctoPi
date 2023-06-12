@@ -58,8 +58,9 @@ export default function DesignPlatform({
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
+
 			<ObjectLoad
-				path="/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb"
+				path="/Whiteboard_neu/whiteboard_neu.glb"
 				position={[position[0] + 8, position[1], position[2] - 6.5]}
 				scale={[0.6, 0.6, 0.6]}
 				rotation={[0, 90, 0]}
