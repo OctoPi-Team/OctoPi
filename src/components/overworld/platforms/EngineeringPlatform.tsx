@@ -22,27 +22,7 @@ export default function EngineeringPlatform({
 		<>
 			<SimplePlatform name={''} position={position} size={[15, 0.5, 18]} reference={reference} color={ENGINEERING} />
 			<Text text={'Engineering'} position={[position[0] + 8.25, position[1], position[2] - 9]} rotation={[0, 270, 0]} />
-			<ObjectLoad
-				path="/Wegweiser/wegweiser.glb"
-				position={[position[0], position[1], position[2]]}
-				scale={[0.7, 0.7, 0.7]}
-				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
-			<ObjectLoad
-				path="/Wegweiser/wegweiser.glb"
-				position={[position[0], position[1], position[2]]}
-				scale={[0.7, 0.7, 0.7]}
-				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
-			<ObjectLoad
-				path="/Wegweiser/wegweiser.glb"
-				position={[position[0] + 6, position[1], position[2] - 3]}
-				scale={[0.7, 0.7, 0.7]}
-				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
+
 			<ObjectLoad
 				path="/Zeichentisch/zeichentisch.glb"
 				position={[position[0] - 6.5, position[1], position[2] - 3]}
