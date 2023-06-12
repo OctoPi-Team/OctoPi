@@ -19,7 +19,7 @@ type GridProps = {
 
 function getTilesFromProps(props: TileProps[][], tileClickHandler: (tileProps: TileProps) => void): Array<JSX.Element> {
 	const tileElements = [];
-	let onedimension = [];
+	const onedimension = [];
 	if (
 		props.every(function (a) {
 			return !a.length;
@@ -216,7 +216,7 @@ function generateFunctioningTable(size: [number, number]) {
 }
 
 function initialize2darray() {
-	let array = [];
+	const array = [];
 	for (let x = 0; x < SIZE_OF_GAME_MATRIX[0]; x++) {
 		array[x] = [];
 	}
@@ -228,13 +228,13 @@ export default function Grid({ size }: GridProps) {
 	const [emptyTile, setEmptyTile] = useState<[number, number]>([0, 0]);
 
 	function addTile(newTile: TileProps, x: number, z: number) {
-		let copy = tiles;
+		const copy = tiles;
 		copy[x][z] = newTile;
 		setTiles(copy);
 	}
 
 	function removeTile(gridPosition: [number, number]) {
-		let copy = tiles;
+		const copy = tiles;
 		copy[gridPosition[0]][gridPosition[1]].tileType = 6;
 		setTiles(copy);
 		//setTiles(tiles.filter(item => item.gridPosition != gridPosition));
@@ -250,7 +250,6 @@ export default function Grid({ size }: GridProps) {
 			addTile({ Vector1, Vector2, color, tileType, gridPosition }, gridPosition[0], gridPosition[1]);
 		}
 	}
-
 
 	function isNeighbourOfEmptyTile(gridPosition: [number, number]): boolean {
 		const xDistanceToEmpty = Math.abs(gridPosition[0] - emptyTile[0]);
@@ -286,9 +285,9 @@ export default function Grid({ size }: GridProps) {
 		// 	twoDimensionArray[x] = twoDimensionArray[x].concat(z);
 		// }
 		//starting position coordinates
-		let victorypath: TileProps[] = [];
-		let x: number = -1;
-		let y: number = 3;
+		const victorypath: TileProps[] = [];
+		let x = -1;
+		let y = 3;
 
 		let currentDirection: direction = direction.right;
 		for (let z = 0; z < size[0] * size[1]; z++) {
@@ -452,8 +451,7 @@ export default function Grid({ size }: GridProps) {
 			return [];
 		}
 		const TILES = generateFunctioningTable();
-		let counter: number = 0;
-
+		let counter = 0;
 
 		for (let x = 0; x < size[0]; x++) {
 			for (let y = 0; y < size[1]; y++) {
@@ -484,7 +482,7 @@ export default function Grid({ size }: GridProps) {
 				}
 			}
 		}
-	};
+	}
 
 	useEffect(() => {
 		onupdate();
@@ -492,7 +490,7 @@ export default function Grid({ size }: GridProps) {
 
 	onupdate();
 
-	let victorypath = checkVictory();
+	const victorypath = checkVictory();
 	return (
 		<>
 			{...getTilesFromProps(tiles, tileClickHandler)}

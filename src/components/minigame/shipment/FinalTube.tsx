@@ -26,12 +26,12 @@ export function FinalTube(qwd: TileProps[]) {
 	const color = GREEN;
 	const position = new Vector3(0, 0, 0);
 	const list = Array.from(Object.values(qwd));
-	let points: Vector3[] = [];
+	const points: Vector3[] = [];
 	let Vector1 = new Vector3(0, 0, 0);
 	let Vector2 = new Vector3(0, 0, 0);
 	let cubicbenziercontrol1 = new Vector3(0, 0, 0);
 	let cubicbenziercontrol2 = new Vector3(0, 0, 0);
-	let fullcurve: CurvePath<Vector3> = new CurvePath();
+	const fullcurve: CurvePath<Vector3> = new CurvePath();
 	// for (let i = 0; i < list.length; i++) {
 	// 	points.push(getRealCornerPositionFromGridPosition(list[i].gridPosition, list[i].Vector2));
 	// 	points.push(getRealCornerPositionFromGridPosition(list[i].gridPosition, list[i].Vector1));
@@ -50,7 +50,7 @@ export function FinalTube(qwd: TileProps[]) {
 					new Vector3(-TILE_SIZE / 12, 0, 0)
 				);
 				Vector2 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(-TILE_SIZE / 2, 0, 0));
-				let curve1 = new CubicBezierCurve3(Vector2, cubicbenziercontrol1, cubicbenziercontrol2, Vector1);
+				const curve1 = new CubicBezierCurve3(Vector2, cubicbenziercontrol1, cubicbenziercontrol2, Vector1);
 				fullcurve.add(curve1);
 				break;
 			case TileType.AngleLeft:
@@ -64,7 +64,7 @@ export function FinalTube(qwd: TileProps[]) {
 					new Vector3(-TILE_SIZE / 12, 0, 0)
 				);
 				Vector2 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(-TILE_SIZE / 2, 0, 0));
-				let curve2 = new CubicBezierCurve3(Vector2, cubicbenziercontrol1, cubicbenziercontrol2, Vector1);
+				const curve2 = new CubicBezierCurve3(Vector2, cubicbenziercontrol1, cubicbenziercontrol2, Vector1);
 				fullcurve.add(curve2);
 				break;
 			case TileType.StraightNormal:
@@ -72,7 +72,7 @@ export function FinalTube(qwd: TileProps[]) {
 				cubicbenziercontrol1 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(0, 0, 0));
 				cubicbenziercontrol2 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(0, 0, 0));
 				Vector2 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(TILE_SIZE / 2, 0, 0));
-				let curve3 = new CubicBezierCurve3(Vector1, cubicbenziercontrol1, cubicbenziercontrol2, Vector2);
+				const curve3 = new CubicBezierCurve3(Vector1, cubicbenziercontrol1, cubicbenziercontrol2, Vector2);
 				fullcurve.add(curve3);
 				break;
 			case TileType.StraightInverted:
@@ -80,7 +80,7 @@ export function FinalTube(qwd: TileProps[]) {
 				cubicbenziercontrol1 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(0, 0, 0));
 				cubicbenziercontrol2 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(0, 0, 0));
 				Vector2 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(0, 0, TILE_SIZE / 2));
-				let curve4 = new CubicBezierCurve3(Vector2, cubicbenziercontrol1, cubicbenziercontrol2, Vector1);
+				const curve4 = new CubicBezierCurve3(Vector2, cubicbenziercontrol1, cubicbenziercontrol2, Vector1);
 				fullcurve.add(curve4);
 				break;
 			case TileType.AngleRightInverted:
@@ -95,7 +95,7 @@ export function FinalTube(qwd: TileProps[]) {
 					new Vector3(0, 0, -TILE_SIZE / 12)
 				);
 				Vector2 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(0, 0, -TILE_SIZE / 2));
-				let curve5 = new CubicBezierCurve3(Vector2, cubicbenziercontrol1, cubicbenziercontrol2, Vector1);
+				const curve5 = new CubicBezierCurve3(Vector2, cubicbenziercontrol1, cubicbenziercontrol2, Vector1);
 				fullcurve.add(curve5);
 				break;
 			case TileType.AngleLeftInverted:
@@ -110,7 +110,7 @@ export function FinalTube(qwd: TileProps[]) {
 					new Vector3(0, 0, TILE_SIZE / 12)
 				);
 				Vector2 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(0, 0, TILE_SIZE / 2));
-				let curve6 = new CubicBezierCurve3(Vector2, cubicbenziercontrol1, cubicbenziercontrol2, Vector1);
+				const curve6 = new CubicBezierCurve3(Vector2, cubicbenziercontrol1, cubicbenziercontrol2, Vector1);
 				fullcurve.add(curve6);
 				break;
 			default:
@@ -118,7 +118,7 @@ export function FinalTube(qwd: TileProps[]) {
 		}
 	}
 
-	let tubeGeometry = new TubeGeometry(fullcurve, 100, 0.4, 100, false);
+	const tubeGeometry = new TubeGeometry(fullcurve, 100, 0.4, 100, false);
 
 	return (
 		<>

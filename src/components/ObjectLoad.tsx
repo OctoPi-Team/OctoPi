@@ -43,6 +43,10 @@ export default function ObjectLoad({
 	const obj = useLoader(GLTFLoader, path, loader => {
 		loader.setDRACOLoader(dracoLoader);
 	});
+	// 'castShadows' needs to be set to true for every node of complex 3D models, since they consist of more than one part;
+	obj.scene.traverse(function (node) {
+		node.castShadow = true;
+	});
 
 	useEffect(() => {
 		if (meshRef.current) {
