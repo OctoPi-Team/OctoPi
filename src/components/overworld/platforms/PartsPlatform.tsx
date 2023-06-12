@@ -57,14 +57,14 @@ export default function PartsPlatform({
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-				<ObjectLoad
+			<ObjectLoad
 				path="/kaputtesMetallregal/kaputtesMetallregal.glb"
 				position={[position[0] + 10, position[1], position[2]]}
 				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-				<ObjectLoad
+			<ObjectLoad
 				path="/kaputtesMetallregal/kaputtesMetallregal.glb"
 				position={[position[0] + 10, position[1], position[2] - 4]}
 				scale={[0.3, 0.3, 0.3]}
@@ -78,50 +78,50 @@ export default function PartsPlatform({
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-				<ObjectLoad
+			<ObjectLoad
 				path="/kaputtesMetallregal/kaputtesMetallregal.glb"
 				position={[position[0] + 6, position[1], position[2]]}
 				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-				<ObjectLoad
+			<ObjectLoad
 				path="/kaputtesMetallregal/kaputtesMetallregal.glb"
-				position={[position[0] + 4, position[1], position[2] - 2.5]}
+				position={[position[0] + 6, position[1], position[2] - 4]}
 				scale={[0.3, 0.3, 0.3]}
-				rotation={[0, 0, 0]}
+				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-				<ObjectLoad
+			<ObjectLoad
 				path="/Palette/palette.glb"
-				position={[position[0] + 10, position[1], position[2] +-7]}
+				position={[position[0] + 10, position[1], position[2] + -7]}
 				scale={[0.15, 0.15, 0.15]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<group>
-			<ObjectLoad
-				path="/Palette/palette.glb"
-				position={[position[0] + 10, position[1], position[2] + 7]}
-				scale={[0.15, 0.15, 0.15]}
-				rotation={[0, 90, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
-			<ObjectLoad
-				path="/Packet/packet.glb"
-				position={[position[0] + 8, position[1] + 2, position[2] + 5]}
-				scale={[0.1, 0.1, 0.1]}
-				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
-			<ObjectLoad
-				path="/Paket_2/paket_2.glb"
-				position={[position[0] + 8, position[1] + 2, position[2] + 6]}
-				scale={[0.1, 0.1, 0.1]}
-				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
-			<ObjectLoad
+				<ObjectLoad
+					path="/Palette/palette.glb"
+					position={[position[0] + 10, position[1], position[2] + 7]}
+					scale={[0.15, 0.15, 0.15]}
+					rotation={[0, 90, 0]}
+					collisionRefSetter={addCollisionBox}
+				/>
+				<ObjectLoad
+					path="/Packet/packet.glb"
+					position={[position[0] + 8, position[1] + 2, position[2] + 5]}
+					scale={[0.1, 0.1, 0.1]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+				/>
+				<ObjectLoad
+					path="/Paket_2/paket_2.glb"
+					position={[position[0] + 8, position[1] + 2, position[2] + 6]}
+					scale={[0.1, 0.1, 0.1]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+				/>
+				<ObjectLoad
 					path="/UmgeknicktesPaket/umgeknicktesPaket.glb"
 					position={[position[0] + 9, position[1] + 2, position[2] + 5.5]}
 					scale={[0.1, 0.1, 0.1]}
