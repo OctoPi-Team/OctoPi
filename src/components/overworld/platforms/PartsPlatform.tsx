@@ -20,11 +20,11 @@ export default function PartsPlatform({
 }: PartsPlatformOptions): JSX.Element {
 	return (
 		<>
-			<SimplePlatform position={position} size={[23, 0.5, 18]} reference={reference} color={PARTS} />
+			<SimplePlatform position={position} size={[24, 0.5, 18]} reference={reference} color={PARTS} />
 			<Text
 				text={'PARTS'}
 				color={PARTS}
-				position={[position[0] + 1, position[1] + 10, position[2] - 18]}
+				position={[position[0] + 13, position[1], position[2] - 9]}
 				rotation={[0, -90, 0]}
 			/>
 			<ObjectLoad
