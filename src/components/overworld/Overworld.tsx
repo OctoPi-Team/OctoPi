@@ -1,6 +1,6 @@
 import { Vector3, BufferGeometry, Material, Mesh, Box3, DirectionalLight, OrthographicCamera, Scene } from 'three';
 
-import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp } from './Player';
+import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp, resetKeys } from './Player';
 import Stair, { StairType } from './platforms/Stair';
 import FixedCamera from './FixedCamera';
 import { OrbitControls } from '@react-three/drei';
@@ -122,8 +122,10 @@ export default function Overworld({ sceneProps, visible, startingpos }: Overworl
 						top="50px"
 						text={'\u21BB'}
 						onClick={() => {
+								resetKeys()
 							location.reload()
 							setTimeout(() => {
+									resetKeys()
 								location.reload()
 							}, 50);
 						}}
