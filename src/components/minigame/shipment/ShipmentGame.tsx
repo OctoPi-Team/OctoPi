@@ -39,6 +39,10 @@ export default function ShipMentMinigame({ setSceneHook, visible, setplayerpos }
 				setplayerpos(new Vector3(9, 4, 25));
 			}
 			setSceneHook(Scene.Overworld);
+		} else {
+			if (setplayerpos) {
+				setplayerpos(new Vector3(9, 4, 25));
+			}
 		}
 	}
 	return (
