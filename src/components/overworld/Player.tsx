@@ -6,7 +6,7 @@ import { STAIR_WIDTH, StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
 import { IJoystickUpdateEvent } from 'react-joystick-component/build/lib/Joystick';
 
-const PLAYER_SIZE = 0.5;
+export const PLAYER_SIZE = 0.5;
 const SPEED = 0.1;
 const COLLISION_IS_ACTIVE = true;
 const ROTATION_SPEED = 0.1;
