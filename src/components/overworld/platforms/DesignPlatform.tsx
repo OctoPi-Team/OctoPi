@@ -36,13 +36,7 @@ export default function DesignPlatform({
 				rotation={[0, 100, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			<ObjectLoad
-				path="/TischMitHocker/tischMitHocker.glb"
-				position={[position[0] + 1, position[1], position[2] + 3]}
-				scale={[0.6, 0.6, 0.6]}
-				rotation={[0, 60, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
+
 			<ObjectLoad
 				path="/Buecherregal/buecherregal.glb"
 				position={[position[0] - 7, position[1], position[2] + 9]}
