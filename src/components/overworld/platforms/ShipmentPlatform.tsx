@@ -33,35 +33,35 @@ export default function ShipmentPlatform({
 			<ObjectLoad
 				path="/LaufbandUndTrichter.glb"
 				position={[position[0] - 3, position[1], position[2] + 4]}
-				scale={[0.1, 0.1, 0.1]}
+				scale={[0.12, 0.12, 0.12]}
 				rotation={[0, 180, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
 				path="/Packet/packet.glb"
-				position={[position[0] - 1.5, position[1], position[2] - 1]}
-				scale={[0.1, 0.1, 0.1]}
+				position={[position[0] - 1, position[1], position[2] - 1]}
+				scale={[0.2, 0.2, 0.2]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
 				path="/Packet/packet.glb"
-				position={[position[0] - 3.4, position[1], position[2] - 1]}
-				scale={[0.1, 0.1, 0.1]}
+				position={[position[0] - 4, position[1], position[2] - 1]}
+				scale={[0.15, 0.15, 0.15]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
 				path="/Hubwagen/hubwagen.glb"
 				position={[position[0] + 3, position[1], position[2] + 5]}
-				scale={[0.1, 0.1, 0.1]}
+				scale={[0.09, 0.09, 0.09]}
 				rotation={[0, -90, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
 				path="/LKW/lkw.glb"
-				position={[position[0], position[1], position[2] + 9.5]}
-				scale={[1, 1, 1]}
+				position={[position[0] + 3, position[1] - 3, position[2] + 11]}
+				scale={[0.8, 0.8, 0.8]}
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
@@ -75,7 +75,7 @@ export default function ShipmentPlatform({
 			<ObjectLoad
 				path="/PaketMitAugen/paketMitAugen.glb"
 				position={[position[0] + 5.8, position[1], position[2] - 7.25]}
-				scale={[0.25, 0.25, 0.25]}
+				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 8, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
@@ -83,21 +83,21 @@ export default function ShipmentPlatform({
 				<ObjectLoad
 					path="/Palette/palette.glb"
 					position={[position[0] - 0.5, position[1], position[2] + 3]}
-					scale={[0.15, 0.15, 0.15]}
+					scale={[0.1, 0.1, 0.1]}
 					rotation={[0, 0, 0]}
 					collisionRefSetter={addCollisionBox}
 				/>
 				<ObjectLoad
 					path="/UmgeknicktesPaket/umgeknicktesPaket.glb"
 					position={[position[0] - 0.7, position[1] + 0.5, position[2] + 3.7]}
-					scale={[0.13, 0.13, 0.13]}
+					scale={[0.1, 0.1, 0.1]}
 					rotation={[0, 8, 0]}
 					collisionRefSetter={addCollisionBox}
 				/>
 				<ObjectLoad
 					path="/UmgeknicktesPaket/umgeknicktesPaket.glb"
 					position={[position[0] - 0.7, position[1] + 0.5, position[2] + 2.4]}
-					scale={[0.13, 0.13, 0.13]}
+					scale={[0.1, 0.1, 0.1]}
 					rotation={[0, 8, 0]}
 					collisionRefSetter={addCollisionBox}
 				/>
@@ -105,7 +105,7 @@ export default function ShipmentPlatform({
 			<ObjectLoad
 				path="/Packet/packet.glb"
 				position={[position[0] + 5, position[1], position[2] - 5.5]}
-				scale={[0.2, 0.2, 0.2]}
+				scale={[0.15, 0.15, 0.15]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
