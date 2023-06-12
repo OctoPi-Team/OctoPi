@@ -1,18 +1,7 @@
 import { GREEN } from '../../../AllColorVariables';
 import { TileProps, TileType } from './Tile';
-import { TILE_SIZE, SPACING, SIZE_OF_GAME_MATRIX } from './ShipmentGame';
-import path from 'path';
-import {
-	CatmullRomCurve3,
-	CubicBezierCurve3,
-	DoubleSide,
-	TubeGeometry,
-	Vector3,
-	SphereGeometry,
-	CurvePath,
-	LineCurve,
-	LineCurve3,
-} from 'three';
+import { TILE_SIZE, SPACING } from './ShipmentGame';
+import { CubicBezierCurve3, DoubleSide, TubeGeometry, Vector3, CurvePath } from 'three';
 
 import Sphere from './Sphere';
 
@@ -26,15 +15,15 @@ function getRealCornerPositionFromGridPosition(gridPosition: [number, number], V
 
 export function FinalTube(qwd: TileProps[]) {
 	const name = 'Final Tube';
-	const color = GREEN;
-	const INPUTTUBEPOSSITION = TILE_SIZE * (SIZE_OF_GAME_MATRIX[1] - 1) + (SIZE_OF_GAME_MATRIX[1] - 1) * SPACING;
+	const color: string = GREEN;
+	// const INPUTTUBEPOSSITION = TILE_SIZE * (SIZE_OF_GAME_MATRIX[1] - 1) + (SIZE_OF_GAME_MATRIX[1] - 1) * SPACING;
 	const position = new Vector3(0, 0, 0);
 	const list = Array.from(Object.values(qwd));
 	let Vector1 = new Vector3(0, 0, 0);
 	let Vector2 = new Vector3(0, 0, 0);
 	let cubicbenziercontrol1 = new Vector3(0, 0, 0);
 	let cubicbenziercontrol2 = new Vector3(0, 0, 0);
-	let fullcurve: CurvePath<Vector3> = new CurvePath();
+	const fullCurve: CurvePath<Vector3> = new CurvePath();
 	for (let i = 0; i < list.length; i++) {
 		switch (list[i].tileType) {
 			case TileType.AngleRight: {
@@ -49,7 +38,7 @@ export function FinalTube(qwd: TileProps[]) {
 				);
 				Vector2 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(-TILE_SIZE / 2, 0, 0));
 				const curve1 = new CubicBezierCurve3(Vector2, cubicbenziercontrol1, cubicbenziercontrol2, Vector1);
-				fullcurve.add(curve1);
+				fullCurve.add(curve1);
 				break;
 			}
 			case TileType.AngleLeft: {
@@ -64,7 +53,7 @@ export function FinalTube(qwd: TileProps[]) {
 				);
 				Vector2 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(-TILE_SIZE / 2, 0, 0));
 				const curve2 = new CubicBezierCurve3(Vector2, cubicbenziercontrol1, cubicbenziercontrol2, Vector1);
-				fullcurve.add(curve2);
+				fullCurve.add(curve2);
 				break;
 			}
 			case TileType.StraightNormal: {
@@ -73,7 +62,7 @@ export function FinalTube(qwd: TileProps[]) {
 				cubicbenziercontrol2 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(0, 0, 0));
 				Vector2 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(TILE_SIZE / 2, 0, 0));
 				const curve3 = new CubicBezierCurve3(Vector1, cubicbenziercontrol1, cubicbenziercontrol2, Vector2);
-				fullcurve.add(curve3);
+				fullCurve.add(curve3);
 				break;
 			}
 			case TileType.StraightInverted: {
@@ -82,7 +71,7 @@ export function FinalTube(qwd: TileProps[]) {
 				cubicbenziercontrol2 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(0, 0, 0));
 				Vector2 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(0, 0, TILE_SIZE / 2));
 				const curve4 = new CubicBezierCurve3(Vector2, cubicbenziercontrol1, cubicbenziercontrol2, Vector1);
-				fullcurve.add(curve4);
+				fullCurve.add(curve4);
 				break;
 			}
 			case TileType.AngleRightInverted: {
@@ -98,7 +87,7 @@ export function FinalTube(qwd: TileProps[]) {
 				);
 				Vector2 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(0, 0, -TILE_SIZE / 2));
 				const curve5 = new CubicBezierCurve3(Vector2, cubicbenziercontrol1, cubicbenziercontrol2, Vector1);
-				fullcurve.add(curve5);
+				fullCurve.add(curve5);
 				break;
 			}
 			case TileType.AngleLeftInverted: {
@@ -114,7 +103,7 @@ export function FinalTube(qwd: TileProps[]) {
 				);
 				Vector2 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(0, 0, TILE_SIZE / 2));
 				const curve6 = new CubicBezierCurve3(Vector2, cubicbenziercontrol1, cubicbenziercontrol2, Vector1);
-				fullcurve.add(curve6);
+				fullCurve.add(curve6);
 				break;
 			}
 			default:
@@ -122,15 +111,14 @@ export function FinalTube(qwd: TileProps[]) {
 		}
 	}
 
-	let tubeGeometry = new TubeGeometry(fullcurve, 50, 0.41, 50, false);
-
+	const tubeGeometry = new TubeGeometry(fullCurve, 50, 0.41, 50, false);
 
 	return (
 		<>
 			<mesh name={name} position={position}>
 				<primitive object={tubeGeometry} />
 				<meshStandardMaterial color={color} transparent opacity={0.65} side={DoubleSide} />
-				<Sphere curv={fullcurve} />
+				<Sphere curv={fullCurve} />
 			</mesh>
 		</>
 	);

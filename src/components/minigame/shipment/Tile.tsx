@@ -105,8 +105,7 @@ export default function Tile({
 			<mesh
 				ref={ref}
 				onClick={() => {
-					if (!render) {
-					} else if (tileClickHandler)
+					if (tileClickHandler)
 						tileClickHandler({
 							gridPosition,
 							Vector1,

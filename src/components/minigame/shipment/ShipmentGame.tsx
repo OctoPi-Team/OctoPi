@@ -11,13 +11,11 @@ import NavigationButton from '../../overworld/objects/NavigationButton';
 import { resetKeys } from '../../overworld/Player';
 
 import { useEffect, useState } from 'react';
-import { log } from 'three/examples/jsm/nodes/shadernode/ShaderNodeBaseElements';
 
 export const TILE_SIZE = 3;
 export const SIZE_OF_GAME_MATRIX: [number, number] = [3, 3];
 export const SPACING = 0.2;
 export default function ShipMentMinigame({ setSceneHook, visible, setplayerpos }: SceneProps) {
-
 	const ORBITAL_CONTROLS_ACTIVE = false;
 	// TODO add Loading Screen -> {visible && <LoadingScreen setVisible={setVisible} />}
 	const [done, setDone] = useState(false);
@@ -41,10 +39,8 @@ export default function ShipMentMinigame({ setSceneHook, visible, setplayerpos }
 				setplayerpos(new Vector3(9, 4, 25));
 			}
 			setSceneHook(Scene.Overworld);
-		} else {
 		}
 	}
-	// @ts-ignore
 	return (
 		<>
 			<NavigationButton

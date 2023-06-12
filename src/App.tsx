@@ -19,7 +19,7 @@ export type SceneProps = {
 };
 
 export default function App() {
-	const [playerstartingpos, setplayerstartingpos] = useState<Vector3>(new Vector3(0, -0.3, 0));
+	const [playerstartingPos, setPlayerstartingPos] = useState<Vector3>(new Vector3(0, -0.3, 0));
 	const [scene, setScene] = useState<Scene>(Scene.Overworld);
 	const [visible, setVisible] = useState(true);
 	const delay = 10000;
@@ -60,10 +60,10 @@ export default function App() {
 		<>
 			{visible && <LoadingScreen setVisible={setVisible} />}
 			{scene === Scene.Overworld && (
-				<Overworld sceneProps={{ setSceneHook: setScene }} visible={visible} startingpos={playerstartingpos} />
+				<Overworld sceneProps={{ setSceneHook: setScene }} visible={visible} startingpos={playerstartingPos} />
 			)}
 			{scene === Scene.Shipment && (
-				<ShipmentGame setSceneHook={setScene} visible={visible} setplayerpos={setplayerstartingpos} />
+				<ShipmentGame setSceneHook={setScene} visible={visible} setplayerpos={setPlayerstartingPos} />
 			)}
 		</>
 	);

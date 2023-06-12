@@ -1,4 +1,4 @@
-import { Dispatch, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Tile, { TileProps, TileType } from './Tile';
 import { Vector3 } from 'three';
@@ -23,8 +23,8 @@ function getTilesFromProps(
 	Victorypath: TileProps[]
 ): Array<JSX.Element> {
 	const tileElements = [];
-	let oneDimension = [];
-	let render = Victorypath.length == 0 ? true : false;
+	const oneDimension = [];
+	const render = Victorypath.length == 0 ? true : false;
 	if (
 		props.every(function (a) {
 			return !a.length;
@@ -228,7 +228,6 @@ function initialize2DArray() {
 	return array;
 }
 
-
 export default function Grid({ size, stateChanger }: GridProps) {
 	const [done, setdone] = useState(true);
 	const [tiles, setTiles] = useState<TileProps[][]>(initialize2DArray());
@@ -267,8 +266,8 @@ export default function Grid({ size, stateChanger }: GridProps) {
 
 	function checkVictory(): TileProps[] {
 		//starting position coordinates
-		let victoryPath: TileProps[] = [];
-		let x: number = -1;
+		const victoryPath: TileProps[] = [];
+		let x = -1;
 		let y: number = SIZE_OF_GAME_MATRIX[1] - 1;
 
 		let currentDirection: direction = direction.right;
@@ -288,11 +287,9 @@ export default function Grid({ size, stateChanger }: GridProps) {
 					y++;
 					break;
 				default:
-					console.log('wtf are you doing here');
 					return [];
 			}
 			if (x == size[0] && y == 0 && currentDirection == direction.right) {
-				console.log('YOU WIN');
 				return victoryPath;
 			}
 			// Team outofbounds
@@ -403,7 +400,6 @@ export default function Grid({ size, stateChanger }: GridProps) {
 	}
 
 	function onUpdate() {
-
 		if (
 			!tiles.every(function (a) {
 				return !a.length;
@@ -412,7 +408,7 @@ export default function Grid({ size, stateChanger }: GridProps) {
 			return [];
 		}
 		const TILES = generateFunctioningTable();
-		let counter: number = 0;
+		let counter = 0;
 		for (let x = 0; x < size[0]; x++) {
 			for (let y = 0; y < size[1]; y++) {
 				if (!(x === 0 && y === 0)) {
@@ -450,8 +446,7 @@ export default function Grid({ size, stateChanger }: GridProps) {
 
 	onUpdate();
 
-
-	let victorypath = checkVictory();
+	const victorypath = checkVictory();
 	if (victorypath.length > 0 && done) {
 		setdone(false);
 		setTimeout(() => {
@@ -463,7 +458,6 @@ export default function Grid({ size, stateChanger }: GridProps) {
 		<>
 			{...getTilesFromProps(tiles, tileClickHandler, victorypath)}
 			{typeof victorypath !== 'undefined' && victorypath.length > 0 && <FinalTube {...victorypath} />}
-
 		</>
 	);
 }
