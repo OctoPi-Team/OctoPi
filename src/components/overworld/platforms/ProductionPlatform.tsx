@@ -23,13 +23,7 @@ export default function ProductionPlatform({
 			<SimplePlatform position={position} size={[19, 0.5, 12]} reference={reference} color={PRODUCTION} />
 			<Text text={'Production'} position={[position[0] + 2, position[1], position[2] + 7]} rotation={[0, 180, 0]} />
 			<gridHelper position={[position[0] - 6, position[1], position[2]]} args={[7, 7, 'black', 'white']} />
-			{/* <ObjectLoad
-				path="/Roboterarm_kaputt/roboterarm_kaputt.glb"
-				position={[position[0] - 8, position[1], position[2] + 3]}
-				scale={[0.09, 0.09, 0.09]}
-				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
-			/> */}
+
 			<ObjectLoad
 				path="/Roboterarm_kaputt/roboterarm_kaputt.glb"
 				position={[position[0] - 3, position[1], position[2] + 1]}
