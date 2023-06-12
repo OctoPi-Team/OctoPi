@@ -5,7 +5,7 @@ import Button from '../objects/Button';
 import { SHIPMENT } from '../../../AllColorVariables';
 import Tube from '../objects/Tube';
 import Text from '../../Text';
-import { Box3 } from 'three';
+import { Box3, Vector3 } from 'three';
 
 type ShipmentPlatformOptions = {
 	position?: [number, number, number];
@@ -13,6 +13,7 @@ type ShipmentPlatformOptions = {
 	sceneProps?: SceneProps;
 	buttonreference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
+	setplayerpos?: (setplayerpos: Vector3) => void;
 };
 
 export default function ShipmentPlatform({

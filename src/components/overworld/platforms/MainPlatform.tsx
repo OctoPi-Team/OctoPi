@@ -1,5 +1,5 @@
 import SimplePlatform from './SimplePlatform';
-import { GREEN, PINK } from '../../../AllColorVariables';
+import { PINK } from '../../../AllColorVariables';
 import { Box3 } from 'three';
 import ObjectLoad from '../../ObjectLoad';
 

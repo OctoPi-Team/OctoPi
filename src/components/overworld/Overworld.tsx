@@ -22,9 +22,10 @@ import { LoadingScreen } from '../startscreen/LoadingScreen';
 type OverworldProps = {
 	sceneProps: SceneProps;
 	visible: boolean;
+	startingpos: Vector3;
 };
 
-export default function Overworld({ sceneProps, visible }: OverworldProps) {
+export default function Overworld({ sceneProps, visible, startingpos }: OverworldProps) {
 	const setSceneHook = sceneProps.setSceneHook;
 
 	const ORBITAL_CONTROLS_ACTIVE = false;
@@ -172,7 +173,7 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 					<Stair startPosition={new Vector3(10, 0, 0)} endPosition={new Vector3(18, 4.5, 0)} reference={addStair} />
 					<MonitoringPlatform position={[25, 4.5, -3]} reference={addPlatform} addCollisionBox={addCollisionBox} />
 					<Player
-						startPosition={new Vector3(0, 0, 0)}
+						startPosition={startingpos}
 						platforms={platforms}
 						stairs={stairs}
 						buttons={buttons}

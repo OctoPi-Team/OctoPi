@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Overworld from './components/overworld/Overworld';
 import ShipmentGame from './components/minigame/shipment/ShipmentGame';
 import { LoadingScreen } from './components/startscreen/LoadingScreen';
+import { Vector3 } from 'three';
 
 export enum Scene {
 	Overworld,
@@ -13,9 +14,12 @@ export enum Scene {
 export type SceneProps = {
 	setSceneHook: (newActiveScene: Scene) => void;
 	visible?: boolean;
+	setplayerpos?: (setplayerpos: Vector3) => void;
+	playerpos?: Vector3;
 };
 
 export default function App() {
+	const [playerstartingPos, setPlayerstartingPos] = useState<Vector3>(new Vector3(0, -0.3, 0));
 	const [scene, setScene] = useState<Scene>(Scene.Overworld);
 	const [visible, setVisible] = useState(true);
 	const delay = 10000;
@@ -55,8 +59,12 @@ export default function App() {
 	return (
 		<>
 			{visible && <LoadingScreen setVisible={setVisible} />}
-			{scene === Scene.Overworld && <Overworld sceneProps={{ setSceneHook: setScene }} visible={visible} />}
-			{scene === Scene.Shipment && <ShipmentGame setSceneHook={setScene} visible={visible} />}
+			{scene === Scene.Overworld && (
+				<Overworld sceneProps={{ setSceneHook: setScene }} visible={visible} startingpos={playerstartingPos} />
+			)}
+			{scene === Scene.Shipment && (
+				<ShipmentGame setSceneHook={setScene} visible={visible} setplayerpos={setPlayerstartingPos} />
+			)}
 		</>
 	);
 }

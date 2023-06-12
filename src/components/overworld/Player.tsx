@@ -107,7 +107,7 @@ function getNewPlayerHeight(
 			// player is before endPosition
 			angleBetweenStairEndAndPlayer < 90 &&
 			// player is near enough to the stairs
-			sidewayDistanceFromPlayerToStair <= stairWidth / 2 * 1.5 // temporary fix for player collision missdetection that leads to the player moving off the stair
+			sidewayDistanceFromPlayerToStair <= (stairWidth / 2) * 1.5 // temporary fix for player collision missdetection that leads to the player moving off the stair
 		) {
 			// calculate player height
 			// D
@@ -186,8 +186,7 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisi
 		try {
 			// player height
 			ref.current.position.y = getNewPlayerHeight(stairs, playerPosition, STAIR_WIDTH, PLAYER_SIZE);
-		}
-		catch (Error) {
+		} catch (Error) {
 			// dont set a new height
 		}
 
@@ -294,4 +293,16 @@ export const handleJoystickStop = () => {
 
 export default Player;
 
-export const ExportedForTestingOnly = { keys, handleJoystickStop, handleJoystickMove, getPlayerRotationFromKeys, getHeight, getNewLerpedPlayerRoation, getNewPlayerHeight, getAngleFromThreePoints, flattenVector, checkIfPlayerCollidesWithPlatformOrBorderOrObject, getMovementVectorFromKeys };
+export const ExportedForTestingOnly = {
+	keys,
+	handleJoystickStop,
+	handleJoystickMove,
+	getPlayerRotationFromKeys,
+	getHeight,
+	getNewLerpedPlayerRoation,
+	getNewPlayerHeight,
+	getAngleFromThreePoints,
+	flattenVector,
+	checkIfPlayerCollidesWithPlatformOrBorderOrObject,
+	getMovementVectorFromKeys,
+};
