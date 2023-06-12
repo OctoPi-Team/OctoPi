@@ -18,22 +18,30 @@ export type SceneProps = {
 export default function App() {
 	const [scene, setScene] = useState<Scene>(Scene.Overworld);
 	const [visible, setVisible] = useState(true);
+	const delay = 10000;
+	let timeoutId: NodeJS.Timeout;
+	let hadMoved = false;
+	function isMobileBrowser() {
+		return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+	}
 	useEffect(() => {
-		let timeoutId: NodeJS.Timeout;
-
+		if (!visible && !hadMoved) {
+			timeoutId = setTimeout(() => setVisible(true), delay);
+		}
 		const resetTimer = () => {
 			clearTimeout(timeoutId);
-			timeoutId = setTimeout(() => setVisible(true), 1000000000); // Adjust the delay (in milliseconds) as per your requirement
+			timeoutId = setTimeout(() => setVisible(true), delay); // Adjust the delay (in milliseconds) as per your requirement
+			hadMoved = false;
 		};
 
 		const handleActivity = () => {
+			hadMoved = true;
 			resetTimer();
 		};
-
 		// Add event listeners to detect user activity
 		window.addEventListener('touchmove', handleActivity);
 		window.addEventListener('keydown', handleActivity);
-
+		window.addEventListener('click', handleActivity);
 		// Start the timer initially
 		resetTimer();
 
@@ -42,12 +50,16 @@ export default function App() {
 			clearTimeout(timeoutId);
 			window.removeEventListener('touchmove', handleActivity);
 			window.removeEventListener('keydown', handleActivity);
+			window.removeEventListener('click', handleActivity);
 		};
-	}, []);
+	}, [visible]);
+
 	return (
 		<>
 			{visible && <LoadingScreen setVisible={setVisible} />}
-			{scene === Scene.Overworld && <Overworld sceneProps={{ setSceneHook: setScene }} visible={visible} />}
+			{scene === Scene.Overworld && (
+				<Overworld sceneProps={{ setSceneHook: setScene }} visible={visible} isMobileBrowser={isMobileBrowser()} />
+			)}
 			{scene === Scene.Shipment && <ShipmentGame setSceneHook={setScene} visible={visible} />}
 		</>
 	);

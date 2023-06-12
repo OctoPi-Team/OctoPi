@@ -20,9 +20,16 @@ export default function ProductionPlatform({
 }: ProductionPlatformOptions): JSX.Element {
 	return (
 		<>
+
 			<SimplePlatform position={position} size={[19, 0.5, 12]} reference={reference} color={PRODUCTION} />
-			<Text text={'Production'} position={[position[0] + 2, position[1], position[2] + 7]} rotation={[0, 180, 0]} />
+			<Text
+				text={'PRODUCTION'}
+				color={PRODUCTION}
+				position={[position[0] + 2.5, position[1], position[2] + 8]}
+				rotation={[0, 180, 0]}
+			/>
 			<gridHelper position={[position[0] - 6, position[1], position[2]]} args={[7, 7, 'black', 'white']} />
+
 
 			<ObjectLoad
 				path="/Roboterarm_kaputt/roboterarm_kaputt.glb"
@@ -31,6 +38,7 @@ export default function ProductionPlatform({
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
+
 			<ObjectLoad
 				path="/Roboterarm_kaputt/roboterarm_kaputt.glb"
 				position={[position[0] - 8, position[1], position[2] - 3]}
@@ -102,6 +110,7 @@ export default function ProductionPlatform({
 				collisionRefSetter={addCollisionBox}
 			/>
 			<Button position={[position[0] - 7, position[1] + 6, position[2] - 9]} reference={buttonreference} />
+			
 		</>
 	);
 }
