@@ -37,18 +37,25 @@ export default function EngineeringPlatform({
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			<ObjectLoad
+			{/* <ObjectLoad
 				path="/MonitorMitSchreibtischUndStuhl/monitorMitSchreibtischUndStuhl.glb"
 				position={[position[0] - 2.5, position[1], position[2] + 8]}
 				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
-			/>
+			/> */}
 			<ObjectLoad
 				path="/MonitorMitSchreibtischUndStuhl/monitorMitSchreibtischUndStuhl.glb"
-				position={[position[0] - 5.5, position[1], position[2] + 8]}
+				position={[position[0] - 3, position[1], position[2] + 8]}
 				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 0, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
+			<ObjectLoad
+				path="/SchreibtischMitStuhl/schreibtischMitStuhl.glb"
+				position={[position[0] - 6, position[1], position[2] + 3]}
+				scale={[0.3, 0.3, 0.3]}
+				rotation={[0, 270, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
