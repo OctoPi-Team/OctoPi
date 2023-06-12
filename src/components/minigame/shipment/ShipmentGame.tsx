@@ -1,4 +1,4 @@
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber';
 import { Scene, SceneProps } from '../../../App';
 import Grid from './Grid';
 import { OrbitControls } from '@react-three/drei';
@@ -9,7 +9,6 @@ import { Vector3 } from 'three';
 import { GREEN, WHITE } from '../../../AllColorVariables';
 import NavigationButton from '../../overworld/objects/NavigationButton';
 import { resetKeys } from '../../overworld/Player';
-import Sphere from './Sphere';
 export const TILE_SIZE = 3;
 export const SIZE_OF_GAME_MATRIX: [number, number] = [4, 4];
 export const SPACING = 0.2;
@@ -34,7 +33,6 @@ export default function ShipMentMinigame({ setSceneHook, visible }: SceneProps) 
 		}
 	}, [visible, setSceneHook]);
 
-	// @ts-ignore
 	return (
 		<>
 			<NavigationButton
