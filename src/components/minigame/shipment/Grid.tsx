@@ -331,18 +331,18 @@ export default function Grid({ size, stateChanger }: GridProps) {
 					}
 					break;
 				case TileType.StraightNormal:
-					// if (currentDirection == direction.left) {
-					// } else if (currentDirection == direction.right) {
-					// } else {
-					// 	return [];
-					// }
+					if (currentDirection == direction.left) {
+					} else if (currentDirection == direction.right) {
+					} else {
+						return [];
+					}
 					break;
 				case TileType.StraightInverted:
-					// if (currentDirection == direction.up) {
-					// } else if (currentDirection == direction.down) {
-					// } else {
-					// 	return [];
-					// }
+					if (currentDirection == direction.up) {
+					} else if (currentDirection == direction.down) {
+					} else {
+						return [];
+					}
 					break;
 				case TileType.AngleLeftInverted:
 					if (currentDirection == direction.up) {
