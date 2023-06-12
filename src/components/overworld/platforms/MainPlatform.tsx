@@ -24,6 +24,7 @@ export default function MainPlatform({
 				rotation={[0, 270, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
+			<gridHelper position={[position[0], position[1], position[2] + 4]} args={[2, 2, 'black', 'black']} />
 
 			<ObjectLoad
 				path="/kleinerTisch/kleinerTisch.glb"
@@ -32,6 +33,7 @@ export default function MainPlatform({
 				rotation={[0, 270, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
+			<gridHelper position={[position[0], position[1], position[2] - 4]} args={[2, 2, 'black', 'black']} />
 		</>
 	);
 }
