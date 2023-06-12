@@ -118,7 +118,7 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 					<Stair startPosition={new Vector3(9.5, 0, 0)} endPosition={new Vector3(18, 4.5, 0)} reference={addStair} />
 					<MonitoringPlatform position={[25, 4.5, -3]} reference={addPlatform} addCollisionBox={addCollisionBox} />
 					<Player
-						startPosition={new Vector3(0, -0.3, 0)}
+						startPosition={new Vector3(0, 0, 0)}
 						platforms={platforms}
 						stairs={stairs}
 						buttons={buttons}

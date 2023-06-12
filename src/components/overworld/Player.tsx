@@ -138,7 +138,7 @@ function getNewPlayerHeight(
 			);
 		}
 	}
-	return 0;
+	throw new Error();
 }
 
 function getNewLerpedPlayerRoation(rotation: Vector3, targetRotation: Vector3, rotation_speed: number): Vector3 {
@@ -182,8 +182,14 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisi
 			ref.current.position.x -= movementVector.x;
 			ref.current.position.z -= movementVector.z;
 		}
-		// player height
-		ref.current.position.y = startPosition.y + getNewPlayerHeight(stairs, playerPosition, STAIR_WIDTH, PLAYER_SIZE);
+
+		try {
+			// player height
+			ref.current.position.y = getNewPlayerHeight(stairs, playerPosition, STAIR_WIDTH, PLAYER_SIZE);
+		}
+		catch (Error) {
+			// dont set a new height
+		}
 
 		// player rotation
 		setTargetRotation(getPlayerRotationFromKeys(targetRotation));
