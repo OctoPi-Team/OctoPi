@@ -230,6 +230,7 @@ function initialize2darray() {
 }
 
 export default function Grid({ size, stateChanger }: GridProps) {
+	const [done, setdone] = useState(true);
 	const [tiles, setTiles] = useState<TileProps[][]>(initialize2darray());
 	const [emptyTile, setEmptyTile] = useState<[number, number]>([0, 0]);
 	function addTile(newTile: TileProps, x: number, z: number) {
@@ -450,11 +451,13 @@ export default function Grid({ size, stateChanger }: GridProps) {
 	onupdate();
 
 	let victorypath = checkVictory();
-	// if(victorypath.length > 0){
-	// 	setTimeout(() => {
-	// 		stateChanger(true);
-	// 	}, 5000);
-	// }
+	if (victorypath.length > 0 && done) {
+		setdone(false);
+		setTimeout(() => {
+			window.alert('Hallo');
+			stateChanger(true);
+		}, 100);
+	}
 	return (
 		<>
 			{...getTilesFromProps(tiles, tileClickHandler, victorypath)}

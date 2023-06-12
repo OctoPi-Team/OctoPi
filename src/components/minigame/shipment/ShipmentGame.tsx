@@ -2,7 +2,7 @@ import { Canvas } from '@react-three/fiber';
 import { Scene, SceneProps } from '../../../App';
 import Grid from './Grid';
 import { OrbitControls } from '@react-three/drei';
-import Tube from '../../overworld/objects/Tube';
+import Tube from './Tube';
 import FixedCamera from '../../overworld/FixedCamera';
 import ObjectLoad from '../../ObjectLoad';
 import { Vector3 } from 'three';
@@ -10,23 +10,23 @@ import { GREEN, WHITE } from '../../../AllColorVariables';
 import NavigationButton from '../../overworld/objects/NavigationButton';
 import { resetKeys } from '../../overworld/Player';
 import { useEffect, useState } from 'react';
+import { log } from 'three/examples/jsm/nodes/shadernode/ShaderNodeBaseElements';
 
 export const TILE_SIZE = 3;
 export const SIZE_OF_GAME_MATRIX: [number, number] = [3, 3];
 export const SPACING = 0.2;
 
-export default function ShipMentMinigame({ setSceneHook, visible }: SceneProps) {
+export default function ShipMentMinigame({ setSceneHook, visible, setplayerpos }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
-	// const [visible, setVisible] = useState(true);
 	// TODO add Loading Screen -> {visible && <LoadingScreen setVisible={setVisible} />}
 	const [done, setDone] = useState(false);
 	//calculate random input tube position with relation to the grid
 	const INPUTTUBEPOSSITION = TILE_SIZE * (SIZE_OF_GAME_MATRIX[1] - 1) + (SIZE_OF_GAME_MATRIX[1] - 1) * SPACING;
 	const VECTORS_FOR_TUBE = [
-		new Vector3(-1.9, -1.3, INPUTTUBEPOSSITION),
-		new Vector3(-3, -1.2, INPUTTUBEPOSSITION),
-		new Vector3(-3.5, 2, INPUTTUBEPOSSITION),
-		new Vector3(-20, 1.5, INPUTTUBEPOSSITION),
+		new Vector3(-1.9 + 2 * SPACING, 0.7, INPUTTUBEPOSSITION),
+		new Vector3(-15, 0.7, INPUTTUBEPOSSITION),
+		new Vector3(-1.9 + SPACING, 5, INPUTTUBEPOSSITION),
+		new Vector3(-15, 5, INPUTTUBEPOSSITION),
 	];
 	useEffect(() => {
 		if (visible === true) {
@@ -36,6 +36,9 @@ export default function ShipMentMinigame({ setSceneHook, visible }: SceneProps) 
 
 	function changeview(done: boolean) {
 		if (done) {
+			if (setplayerpos) {
+				setplayerpos(new Vector3(9, 4, 25));
+			}
 			setSceneHook(Scene.Overworld);
 		} else {
 		}
@@ -88,13 +91,7 @@ export default function ShipMentMinigame({ setSceneHook, visible }: SceneProps) 
 							scale={[0.25, 0.25, 0.25]}
 							rotation={[0, 180, 0]}
 						/>
-						<Tube
-							name="InputTubeInGame"
-							position={[0, 2, 0]}
-							color={GREEN}
-							vectors={VECTORS_FOR_TUBE}
-							detailed={true}
-						/>
+						<Tube name="InputTubeInGame" position={[0, 0, 0]} color={GREEN} vectors={VECTORS_FOR_TUBE} />
 					</group>
 				</Canvas>
 			</div>

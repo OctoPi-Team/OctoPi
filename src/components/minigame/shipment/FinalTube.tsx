@@ -10,6 +10,8 @@ import {
 	Vector3,
 	SphereGeometry,
 	CurvePath,
+	LineCurve,
+	LineCurve3,
 } from 'three';
 import Sphere from './Sphere';
 
@@ -24,6 +26,7 @@ function getRealCornerPositionFromGridPosition(gridPosition: [number, number], V
 export function FinalTube(qwd: TileProps[]) {
 	const name = 'Final Tube';
 	const color = GREEN;
+	const INPUTTUBEPOSSITION = TILE_SIZE * (SIZE_OF_GAME_MATRIX[1] - 1) + (SIZE_OF_GAME_MATRIX[1] - 1) * SPACING;
 	const position = new Vector3(0, 0, 0);
 	const list = Array.from(Object.values(qwd));
 	let points: Vector3[] = [];
@@ -32,10 +35,6 @@ export function FinalTube(qwd: TileProps[]) {
 	let cubicbenziercontrol1 = new Vector3(0, 0, 0);
 	let cubicbenziercontrol2 = new Vector3(0, 0, 0);
 	let fullcurve: CurvePath<Vector3> = new CurvePath();
-	// for (let i = 0; i < list.length; i++) {
-	// 	points.push(getRealCornerPositionFromGridPosition(list[i].gridPosition, list[i].Vector2));
-	// 	points.push(getRealCornerPositionFromGridPosition(list[i].gridPosition, list[i].Vector1));
-	// }
 	for (let i = 0; i < list.length; i++) {
 		var curve;
 		switch (list[i].tileType) {
@@ -118,7 +117,7 @@ export function FinalTube(qwd: TileProps[]) {
 		}
 	}
 
-	let tubeGeometry = new TubeGeometry(fullcurve, 100, 0.41, 100, false);
+	let tubeGeometry = new TubeGeometry(fullcurve, 1000, 0.41, 1000, false);
 
 	return (
 		<>
