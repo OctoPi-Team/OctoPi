@@ -102,31 +102,31 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 					</div>
 				)}
 				{!visible &&
-				<NavigationButton
-					position="absolute"
-					right="30px"
-					top="50px"
-					text="i"
-					onClick={() => {
-						window.alert(
-							'Willkommen zu unserem Spiel Operation:Innovation! Schaue dich mal auf den verschiedenen Platformen um, siehst du einen Button auf dem Boden? Geh ruhig mal hin.'
-					);
-				}}
-			/>
-			}			
-			{!visible &&
-			<NavigationButton
-				position="absolute"
-				right="75px"
-				top="50px"
-				text={'\u21BB'}
-				onClick={() => {
-					location.reload()
-					setTimeout(() => {
-						location.reload()
-					}, 50);
-				}}
-			/>}
+					<NavigationButton
+						position="absolute"
+						right="30px"
+						top="50px"
+						text="i"
+						onClick={() => {
+							window.alert(
+								'Willkommen zu unserem Spiel Operation:Innovation! Schaue dich mal auf den verschiedenen Platformen um, siehst du einen Button auf dem Boden? Geh ruhig mal hin.'
+							);
+						}}
+					/>
+				}
+				{!visible &&
+					<NavigationButton
+						position="absolute"
+						right="75px"
+						top="50px"
+						text={'\u21BB'}
+						onClick={() => {
+							location.reload()
+							setTimeout(() => {
+								location.reload()
+							}, 50);
+						}}
+					/>}
 				<Canvas
 					orthographic
 					shadows
@@ -172,7 +172,7 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 					<Stair startPosition={new Vector3(10, 0, 0)} endPosition={new Vector3(18, 4.5, 0)} reference={addStair} />
 					<MonitoringPlatform position={[25, 4.5, -3]} reference={addPlatform} addCollisionBox={addCollisionBox} />
 					<Player
-						startPosition={new Vector3(0, -0.3, 0)}
+						startPosition={new Vector3(0, 0, 0)}
 						platforms={platforms}
 						stairs={stairs}
 						buttons={buttons}
