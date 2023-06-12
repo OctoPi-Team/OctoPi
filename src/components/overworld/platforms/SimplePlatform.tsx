@@ -1,8 +1,10 @@
 import { useRef, useEffect, useState } from 'react';
-import { useFrame, useThree} from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { Box3, Mesh, MeshStandardMaterial, Vector3, Color } from 'three';
 import { SimpleText } from './SimpleText';
-import {RoundedBoxGeometry} from 'three/examples/jsm/geometries/RoundedBoxGeometry';
+import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry';
+import { PLAYER_SIZE } from '../Player';
+import { RED } from '../../../AllColorVariables';
 
 // This interface is used to set the options of the ObjectLoad function.
 type SimplePlatformProps = {
@@ -17,11 +19,16 @@ type SimplePlatformProps = {
 export default function SimplePlatform({ name, position, size = [1, 0.1, 1], color, reference }: SimplePlatformProps) {
 	const ref = useRef<THREE.Mesh>(null);
 	const [collsionRefWasSet, collsionRefSet] = useState(false);
-	
+	const [meshBox, setMeshBox] = useState<Box3>();
 
+	const SHOW_COLLISION_BOX = false;
 	if (!collsionRefWasSet && reference && ref.current) {
 		collsionRefSet(true);
-		reference(new Box3().setFromObject(ref.current).expandByVector(new Vector3(1, 10, 1)));
+		console.log((size[0] - PLAYER_SIZE * 2) / size[0]);
+		let plattformPadding = 0.3;
+		let b = new Box3(new Vector3(position[0] - (size[0] / 2) - plattformPadding, position[1] - 1, position[2] - (size[2] / 2) - plattformPadding), new Vector3(position[0] + (size[0] / 2) + plattformPadding, position[1] + PLAYER_SIZE * 3, position[2] + (size[2] / 2) + plattformPadding))
+		setMeshBox(b);
+		reference(b);
 	}
 	useEffect(() => {
 		if (ref && ref.current) {
@@ -39,18 +46,24 @@ export default function SimplePlatform({ name, position, size = [1, 0.1, 1], col
 			textRef.current.lookAt(camera.position);
 		}
 	});
-	
+
 	const roundedBoxGeometry = new RoundedBoxGeometry(size[0], size[1], size[2], 4, 2);
-	const roundedBoxMaterial = new MeshStandardMaterial({color});
-	
+	const roundedBoxMaterial = new MeshStandardMaterial({ color });
+
 	const roundedBoxMesh = new Mesh(roundedBoxGeometry, roundedBoxMaterial);
-  	//roundedBoxMesh.position.set(0, 0, 0);
+	//roundedBoxMesh.position.set(0, 0, 0);
 
 	return (
 		<>
+			{SHOW_COLLISION_BOX && meshBox &&
+				<mesh position={meshBox.getCenter(new Vector3().fromArray(position))}>
+					<boxGeometry args={meshBox.getSize(new Vector3(0, 0, 0)).toArray()} />
+					<meshLambertMaterial color={RED} opacity={0.6} transparent={true} />
+				</mesh>
+			}
 			<SimpleText position={position} textValue={name} />
 			<mesh ref={ref} castShadow receiveShadow>
-				 <primitive object={roundedBoxMesh} />
+				<primitive object={roundedBoxMesh} />
 			</mesh>
 		</>
 	);
