@@ -152,8 +152,8 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 						reference={addStair}
 					/>
 					<ProductionPlatform position={[-10, 3, -22]} reference={addPlatform} addCollisionBox={addCollisionBox} />
-					<Stair startPosition={new Vector3(6, 0, -6.5)} endPosition={new Vector3(6, 1, -11.5)} reference={addStair} />
-					<PartsPlatform position={[16, 1, -20]} reference={addPlatform} addCollisionBox={addCollisionBox} />
+					<Stair startPosition={new Vector3(6, 0, -6.5)} endPosition={new Vector3(6, 1, -16)} reference={addStair} />
+					<PartsPlatform position={[16, 1, -25]} reference={addPlatform} addCollisionBox={addCollisionBox} />
 					<Stair startPosition={new Vector3(10, 0, 0)} endPosition={new Vector3(18, 4.5, 0)} reference={addStair} />
 					<MonitoringPlatform position={[25, 4.5, -3]} reference={addPlatform} addCollisionBox={addCollisionBox} />
 					<Player
