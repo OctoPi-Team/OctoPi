@@ -1,4 +1,4 @@
-import { Vector3, BufferGeometry, Material, Mesh, Box3, DirectionalLight, OrthographicCamera } from 'three';
+import { Vector3, BufferGeometry, Material, Mesh, Box3, DirectionalLight, OrthographicCamera, Scene } from 'three';
 
 import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp } from './Player';
 import Stair, { StairType } from './platforms/Stair';
@@ -6,7 +6,7 @@ import FixedCamera from './FixedCamera';
 import { OrbitControls } from '@react-three/drei';
 import ShipmentPlatform from './platforms/ShipmentPlatform';
 import { Canvas } from '@react-three/fiber';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { SceneProps } from '../../App';
 import { Joystick } from 'react-joystick-component';
 import DesignPlatform from './platforms/DesignPlatform';
@@ -16,6 +16,8 @@ import PartsPlatform from './platforms/PartsPlatform';
 import ProductionPlatform from './platforms/ProductionPlatform';
 import EngineeringPlatform from './platforms/EngineeringPlatform';
 import Floor from './platforms/Floor';
+import NavigationButton from './objects/NavigationButton';
+import { LoadingScreen } from '../startscreen/LoadingScreen';
 
 type OverworldProps = {
 	sceneProps: SceneProps;
@@ -99,6 +101,32 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 						/>
 					</div>
 				)}
+				{!visible &&
+				<NavigationButton
+					position="absolute"
+					right="30px"
+					top="50px"
+					text="i"
+					onClick={() => {
+						window.alert(
+							'Willkommen zu unserem Spiel Operation:Innovation! Schaue dich mal auf den verschiedenen Platformen um, siehst du einen Button auf dem Boden? Geh ruhig mal hin.'
+					);
+				}}
+			/>
+			}			
+			{!visible &&
+			<NavigationButton
+				position="absolute"
+				right="75px"
+				top="50px"
+				text={'\u21BB'}
+				onClick={() => {
+					location.reload()
+					setTimeout(() => {
+						location.reload()
+					}, 50);
+				}}
+			/>}
 				<Canvas
 					orthographic
 					shadows
