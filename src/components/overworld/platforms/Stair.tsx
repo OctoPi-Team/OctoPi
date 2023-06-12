@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Mesh, Vector3, MathUtils, Box3 } from 'three';
-import { WHITE } from '../../../AllColorVariables';
+import { RED, WHITE } from '../../../AllColorVariables';
+import { PLAYER_SIZE } from '../Player';
 
 export type StairType = {
 	mesh: Box3;
@@ -30,24 +31,36 @@ function Stair({ startPosition, endPosition, reference }: StairProps) {
 	const stairHeight = 0.25;
 	const [collsionRefWasSet, collsionRefSet] = useState(false);
 
+	const direction = new Vector3().subVectors(startPosition, endPosition);
+	const centerPosition = startPosition.clone().sub(
+		direction
+			.clone()
+			.normalize()
+			.multiplyScalar(length / 2)
+	);
 	if (!collsionRefWasSet && reference && ref.current) {
 		collsionRefSet(true);
+		// set collision box (only works great with right angle rotated stairs)
+		let boxScaler = new Vector3(
+			direction.x != 0 ? 1.4 : 1,
+			10,
+			direction.z != 0 ? 1.4 : 1
+		);
+		console.log(direction);
+		console.log(boxScaler);
+		// if (plattformSetter) {
+		// 	plattformSetter(new Box3().setFromCenterAndSize(startPosition, new Vector3(STAIR_WIDTH, STAIR_WIDTH * 2, STAIR_WIDTH)));
+		// 	plattformSetter(new Box3().setFromCenterAndSize(endPosition, new Vector3(STAIR_WIDTH, STAIR_WIDTH * 2, STAIR_WIDTH)));
+		// }
 		reference({
-			mesh: new Box3().setFromObject(ref.current).expandByVector(new Vector3(1, 10, 1)),
+			mesh: new Box3().setFromObject(ref.current).expandByVector(boxScaler),
 			startPosition: startPosition.clone(),
 			endPosition: endPosition.clone(),
 		});
 	}
 	useEffect(() => {
 		if (ref && ref.current) {
-			const direction = new Vector3().subVectors(startPosition, endPosition);
 			// move the stair to the middle between start and end point and look at (rotate to) the end point
-			const centerPosition = startPosition.clone().sub(
-				direction
-					.clone()
-					.normalize()
-					.multiplyScalar(length / 2)
-			);
 			const offset = getCorrectedStairOffset(centerPosition, direction, stairHeight);
 			ref.current.position.copy(centerPosition.clone().sub(offset));
 			ref.current.lookAt(endPosition.clone().sub(offset));
