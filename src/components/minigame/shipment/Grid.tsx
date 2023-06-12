@@ -23,7 +23,7 @@ function getTilesFromProps(
 	Victorypath: TileProps[]
 ): Array<JSX.Element> {
 	const tileElements = [];
-	let onedimension = [];
+	let oneDimension = [];
 	let render = Victorypath.length == 0 ? true : false;
 	if (
 		props.every(function (a) {
@@ -41,7 +41,7 @@ function getTilesFromProps(
 		}
 	}
 
-	for (const prop of onedimension) {
+	for (const prop of oneDimension) {
 		tileElements.push(<Tile tileClickHandler={tileClickHandler} {...prop} render={render} />);
 	}
 	return tileElements;
@@ -231,7 +231,7 @@ function initialize2DArray() {
 
 export default function Grid({ size, stateChanger }: GridProps) {
 	const [done, setdone] = useState(true);
-	const [tiles, setTiles] = useState<TileProps[][]>(initialize2darray());
+	const [tiles, setTiles] = useState<TileProps[][]>(initialize2DArray());
 	const [emptyTile, setEmptyTile] = useState<[number, number]>([0, 0]);
 	function addTile(newTile: TileProps, x: number, z: number) {
 		const copy = tiles;
@@ -267,7 +267,7 @@ export default function Grid({ size, stateChanger }: GridProps) {
 
 	function checkVictory(): TileProps[] {
 		//starting position coordinates
-		let victorypath: TileProps[] = [];
+		let victoryPath: TileProps[] = [];
 		let x: number = -1;
 		let y: number = SIZE_OF_GAME_MATRIX[1] - 1;
 
@@ -402,7 +402,7 @@ export default function Grid({ size, stateChanger }: GridProps) {
 		return possibleBoard;
 	}
 
-	function onupdate() {
+	function onUpdate() {
 
 		if (
 			!tiles.every(function (a) {
