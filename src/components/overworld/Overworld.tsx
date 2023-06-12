@@ -20,10 +20,9 @@ import Floor from './platforms/Floor';
 type OverworldProps = {
 	sceneProps: SceneProps;
 	visible: boolean;
-	isMobileBrowser: boolean;
 };
 
-export default function Overworld({ sceneProps, visible, isMobileBrowser }: OverworldProps) {
+export default function Overworld({ sceneProps, visible }: OverworldProps) {
 	const setSceneHook = sceneProps.setSceneHook;
 
 	const ORBITAL_CONTROLS_ACTIVE = false;
