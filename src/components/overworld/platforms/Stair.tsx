@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Mesh, Vector3, MathUtils, Box3 } from 'three';
-import { RED, WHITE } from '../../../AllColorVariables';
-import { PLAYER_SIZE } from '../Player';
+import { WHITE } from '../../../AllColorVariables';
 
 export type StairType = {
 	mesh: Box3;
@@ -40,18 +39,7 @@ function Stair({ startPosition, endPosition, reference }: StairProps) {
 	);
 	if (!collsionRefWasSet && reference && ref.current) {
 		collsionRefSet(true);
-		// set collision box (only works great with right angle rotated stairs)
-		let boxScaler = new Vector3(
-			direction.x != 0 ? 1.4 : 1,
-			10,
-			direction.z != 0 ? 1.4 : 1
-		);
-		console.log(direction);
-		console.log(boxScaler);
-		// if (plattformSetter) {
-		// 	plattformSetter(new Box3().setFromCenterAndSize(startPosition, new Vector3(STAIR_WIDTH, STAIR_WIDTH * 2, STAIR_WIDTH)));
-		// 	plattformSetter(new Box3().setFromCenterAndSize(endPosition, new Vector3(STAIR_WIDTH, STAIR_WIDTH * 2, STAIR_WIDTH)));
-		// }
+		const boxScaler = new Vector3(direction.x != 0 ? 1.4 : 1, 10, direction.z != 0 ? 1.4 : 1);
 		reference({
 			mesh: new Box3().setFromObject(ref.current).expandByVector(boxScaler),
 			startPosition: startPosition.clone(),

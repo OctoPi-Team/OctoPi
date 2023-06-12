@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { Box3, Mesh, MeshStandardMaterial, Vector3, Color } from 'three';
+import { Box3, Mesh, MeshStandardMaterial, Vector3 } from 'three';
 import { SimpleText } from './SimpleText';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry';
 import { PLAYER_SIZE } from '../Player';
@@ -24,11 +24,21 @@ export default function SimplePlatform({ name, position, size = [1, 0.1, 1], col
 	const SHOW_COLLISION_BOX = false;
 	if (!collsionRefWasSet && reference && ref.current) {
 		collsionRefSet(true);
-		console.log((size[0] - PLAYER_SIZE * 2) / size[0]);
-		let plattformPadding = 0.3;
-		let b = new Box3(new Vector3(position[0] - (size[0] / 2) - plattformPadding, position[1] - 1, position[2] - (size[2] / 2) - plattformPadding), new Vector3(position[0] + (size[0] / 2) + plattformPadding, position[1] + PLAYER_SIZE * 3, position[2] + (size[2] / 2) + plattformPadding))
-		setMeshBox(b);
-		reference(b);
+		const plattformPadding = 0.3;
+		const collisionBox = new Box3(
+			new Vector3(
+				position[0] - size[0] / 2 - plattformPadding,
+				position[1] - 1,
+				position[2] - size[2] / 2 - plattformPadding
+			),
+			new Vector3(
+				position[0] + size[0] / 2 + plattformPadding,
+				position[1] + PLAYER_SIZE * 3,
+				position[2] + size[2] / 2 + plattformPadding
+			)
+		);
+		setMeshBox(collisionBox);
+		reference(collisionBox);
 	}
 	useEffect(() => {
 		if (ref && ref.current) {
@@ -55,12 +65,12 @@ export default function SimplePlatform({ name, position, size = [1, 0.1, 1], col
 
 	return (
 		<>
-			{SHOW_COLLISION_BOX && meshBox &&
+			{SHOW_COLLISION_BOX && meshBox && (
 				<mesh position={meshBox.getCenter(new Vector3().fromArray(position))}>
 					<boxGeometry args={meshBox.getSize(new Vector3(0, 0, 0)).toArray()} />
 					<meshLambertMaterial color={RED} opacity={0.6} transparent={true} />
 				</mesh>
-			}
+			)}
 			<SimpleText position={position} textValue={name} />
 			<mesh ref={ref} castShadow receiveShadow>
 				<primitive object={roundedBoxMesh} />
@@ -68,4 +78,3 @@ export default function SimplePlatform({ name, position, size = [1, 0.1, 1], col
 		</>
 	);
 }
-
