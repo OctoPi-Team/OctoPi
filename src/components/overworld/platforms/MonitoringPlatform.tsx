@@ -32,7 +32,7 @@ export default function MonitoringPlatform({
 			<ObjectLoad
 				path="/Radarschuessel_kaputt_final/radarschuessel_kaputt_final.glb"
 				position={[position[0] - 2, position[1], position[2] - 7]}
-				scale={[0.8, 0.8, 0.8]}
+				scale={[0.7, 0.7, 0.7]}
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
@@ -43,13 +43,7 @@ export default function MonitoringPlatform({
 				rotation={[0, 7, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			<ObjectLoad
-				path="/kleinerTisch/kleinerTisch.glb"
-				position={[position[0] - 5, position[1], position[2] + 9]}
-				scale={[0.45, 0.45, 0.45]}
-				rotation={[0, 90, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
+
 			<Button position={[position[0] - 8, position[1] + 6, position[2] - 9]} reference={buttonreference} />
 		</>
 	);
