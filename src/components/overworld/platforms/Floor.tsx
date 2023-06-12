@@ -10,7 +10,7 @@ type FloorOptions = {
 export default function Floor({ position = [0, 0, 0], reference }: FloorOptions): JSX.Element {
 	return (
 		<>
-			<SimplePlatform position={position} size={[200, 0.1, 200]} reference={reference} color={'white'} />
+			<SimplePlatform position={position} size={[2500, 0.1, 2500]} reference={reference} color={'white'} />
 		</>
 	);
 }

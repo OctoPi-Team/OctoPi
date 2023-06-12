@@ -20,7 +20,7 @@ export default function PartsPlatform({
 }: PartsPlatformOptions): JSX.Element {
 	return (
 		<>
-			<SimplePlatform position={position} size={[20, 0.5, 18]} reference={reference} color={PARTS} />
+			<SimplePlatform position={position} size={[23, 0.5, 18]} reference={reference} color={PARTS} />
 			<Text
 				text={'PARTS'}
 				color={PARTS}

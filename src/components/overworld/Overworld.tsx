@@ -69,7 +69,9 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 					ref={dirLight}
 					shadow-mapSize={[1024, 1024]}
 					intensity={0.7}
-					castShadow>
+					castShadow
+				>
+
 					<orthographicCamera
 						attach="shadow-camera"
 						position={[-8, 20, -15]}
@@ -77,12 +79,12 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 						near={0.1}
 						far={300}
 					/>
+
 				</directionalLight>
 				{dirLight.current && <primitive object={dirLight.current.shadow.camera as OrthographicCamera} />}
 			</>
 		);
 	}
-
 	return (
 		<>
 			<div style={{ width: '100vw', height: '100vh' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
