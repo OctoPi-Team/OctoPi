@@ -19,35 +19,15 @@ export default function MainPlatform({
 			<SimplePlatform position={position} size={[20, 0.5, 13]} reference={reference} color={PINK} />
 			<ObjectLoad
 				path="/kleinerTisch/kleinerTisch.glb"
-				position={[position[0] + 5, position[1], position[2] - 1]}
+				position={[position[0], position[1], position[2] + 5.5]}
 				scale={[0.45, 0.45, 0.45]}
-				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
-			<ObjectLoad
-				path="/Huetchen/huetchen.glb"
-				position={[position[0] + 3, position[1], position[2] + 3]}
-				scale={[0.15, 0.15, 0.15]}
 				rotation={[0, 270, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
+
 			<ObjectLoad
 				path="/kleinerTisch/kleinerTisch.glb"
-				position={[position[0] - 5, position[1], position[2]]}
-				scale={[0.45, 0.45, 0.45]}
-				rotation={[0, 270, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
-			<ObjectLoad
-				path="/kleinerTisch/kleinerTisch.glb"
-				position={[position[0] + 1, position[1], position[2] - 6]}
-				scale={[0.45, 0.45, 0.45]}
-				rotation={[0, 270, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
-			<ObjectLoad
-				path="/Kommode/kommode.glb"
-				position={[position[0] - 3, position[1], position[2] + 6]}
+				position={[position[0], position[1], position[2] - 5.5]}
 				scale={[0.45, 0.45, 0.45]}
 				rotation={[0, 270, 0]}
 				collisionRefSetter={addCollisionBox}
