@@ -88,15 +88,17 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 	return (
 		<>
 			<div style={{ width: '100vw', height: '100vh' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
-				<div style={{ position: 'absolute', zIndex: '50', right: '200px', bottom: '200px' }}>
-					<Joystick
-						baseColor="lightgreen"
-						stickColor="darkgreen"
-						size={100}
-						move={handleJoystickMove}
-						stop={handleJoystickStop}
-					/>
-				</div>
+				{!visible && (
+					<div style={{ position: 'absolute', zIndex: '50', right: '200px', bottom: '200px' }}>
+						<Joystick
+							baseColor="lightgreen"
+							stickColor="darkgreen"
+							size={100}
+							move={handleJoystickMove}
+							stop={handleJoystickStop}
+						/>
+					</div>
+				)}
 				<Canvas
 					orthographic
 					shadows
@@ -142,7 +144,7 @@ export default function Overworld({ sceneProps, visible }: OverworldProps) {
 					<Stair startPosition={new Vector3(10, 0, 0)} endPosition={new Vector3(18, 4.5, 0)} reference={addStair} />
 					<MonitoringPlatform position={[25, 4.5, -3]} reference={addPlatform} addCollisionBox={addCollisionBox} />
 					<Player
-						startPosition={new Vector3(0, 0, 0)}
+						startPosition={new Vector3(0, -0.3, 0)}
 						platforms={platforms}
 						stairs={stairs}
 						buttons={buttons}
