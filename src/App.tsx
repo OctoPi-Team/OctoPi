@@ -21,9 +21,7 @@ export default function App() {
 	const delay = 10000;
 	let timeoutId: NodeJS.Timeout;
 	let hadMoved = false;
-	function isMobileBrowser() {
-		return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-	}
+
 	useEffect(() => {
 		if (!visible && !hadMoved) {
 			timeoutId = setTimeout(() => setVisible(true), delay);
@@ -57,9 +55,7 @@ export default function App() {
 	return (
 		<>
 			{visible && <LoadingScreen setVisible={setVisible} />}
-			{scene === Scene.Overworld && (
-				<Overworld sceneProps={{ setSceneHook: setScene }} visible={visible} isMobileBrowser={isMobileBrowser()} />
-			)}
+			{scene === Scene.Overworld && <Overworld sceneProps={{ setSceneHook: setScene }} visible={visible} />}
 			{scene === Scene.Shipment && <ShipmentGame setSceneHook={setScene} visible={visible} />}
 		</>
 	);
