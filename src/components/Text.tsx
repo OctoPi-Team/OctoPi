@@ -2,7 +2,6 @@ import { Color, extend, Object3DNode } from '@react-three/fiber';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
 import OpenSans from './fonts/Open Sans_Regular.json';
-import { GREEN } from '../AllColorVariables';
 import { MathUtils } from 'three';
 
 extend({ TextGeometry });

@@ -1,19 +1,9 @@
-import {
-	Vector3,
-	BufferGeometry,
-	Material,
-	Mesh,
-	Box3,
-	DirectionalLight,
-	CameraHelper,
-	OrthographicCamera,
-	DirectionalLightHelper,
-} from 'three';
+import { Vector3, BufferGeometry, Material, Mesh, Box3, DirectionalLight, OrthographicCamera } from 'three';
 
 import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp } from './Player';
 import Stair, { StairType } from './platforms/Stair';
 import FixedCamera from './FixedCamera';
-import { OrbitControls, useHelper } from '@react-three/drei';
+import { OrbitControls } from '@react-three/drei';
 import ShipmentPlatform from './platforms/ShipmentPlatform';
 import { Canvas } from '@react-three/fiber';
 import { useRef, useState } from 'react';
@@ -69,7 +59,7 @@ export default function Overworld({ sceneProps, visible, isMobileBrowser }: Over
 
 	function DirLight() {
 		const dirLight = useRef<DirectionalLight>(null);
-		let mutableDirLightRef = dirLight as React.MutableRefObject<DirectionalLight>;
+		// const mutableDirLightRef = dirLight as React.MutableRefObject<DirectionalLight>;
 		/* Shows the position of the light source*/
 		//useHelper(mutableDirLightRef, DirectionalLightHelper, 3, 0xff0000);
 
@@ -149,7 +139,7 @@ export default function Overworld({ sceneProps, visible, isMobileBrowser }: Over
 					/>
 					<ProductionPlatform position={[-10, 3, -22]} reference={addPlatform} addCollisionBox={addCollisionBox} />
 					<Stair startPosition={new Vector3(6, 0, -6.5)} endPosition={new Vector3(6, 1, -16)} reference={addStair} />
-					<PartsPlatform position={[16, 1, -25]} reference={addPlatform} addCollisionBox={addCollisionBox} />
+					<PartsPlatform position={[15, 1, -25]} reference={addPlatform} addCollisionBox={addCollisionBox} />
 					<Stair startPosition={new Vector3(10, 0, 0)} endPosition={new Vector3(18, 4.5, 0)} reference={addStair} />
 					<MonitoringPlatform position={[25, 4.5, -3]} reference={addPlatform} addCollisionBox={addCollisionBox} />
 					<Player

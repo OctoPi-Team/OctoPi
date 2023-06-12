@@ -7,7 +7,7 @@ type FloorOptions = {
 	addCollisionBox?: (newCollisionBox: Box3) => void;
 };
 
-export default function Floor({ position = [0, 0, 0], reference, addCollisionBox }: FloorOptions): JSX.Element {
+export default function Floor({ position = [0, 0, 0], reference }: FloorOptions): JSX.Element {
 	return (
 		<>
 			<SimplePlatform position={position} size={[200, 0.1, 200]} reference={reference} color={'white'} />

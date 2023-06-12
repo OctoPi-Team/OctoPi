@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import Tile, { TileProps, TileType } from './Tile';
 import { Vector3 } from 'three';
 import { FinalTube } from './FinalTube';
-import { BLUE, GREEN } from '../../../AllColorVariables';
 import { SIZE_OF_GAME_MATRIX } from './ShipmentGame';
 
 enum direction {
@@ -19,7 +18,7 @@ type GridProps = {
 
 function getTilesFromProps(props: TileProps[][], tileClickHandler: (tileProps: TileProps) => void): Array<JSX.Element> {
 	const tileElements = [];
-	const onedimension = [];
+	const oneDimension = [];
 	if (
 		props.every(function (a) {
 			return !a.length;
@@ -32,11 +31,11 @@ function getTilesFromProps(props: TileProps[][], tileClickHandler: (tileProps: T
 			if (props[i][j].tileType == 6) {
 				continue;
 			}
-			onedimension.push(props[i][j]);
+			oneDimension.push(props[i][j]);
 		}
 	}
 
-	for (const prop of onedimension) {
+	for (const prop of oneDimension) {
 		tileElements.push(<Tile tileClickHandler={tileClickHandler} {...prop} />);
 	}
 	return tileElements;
@@ -215,7 +214,7 @@ function generateFunctioningTable(size: [number, number]) {
 	return possibleBoard;
 }
 
-function initialize2darray() {
+function initialize2DArray() {
 	const array = [];
 	for (let x = 0; x < SIZE_OF_GAME_MATRIX[0]; x++) {
 		array[x] = [];
@@ -224,7 +223,7 @@ function initialize2darray() {
 }
 
 export default function Grid({ size }: GridProps) {
-	const [tiles, setTiles] = useState<TileProps[][]>(initialize2darray());
+	const [tiles, setTiles] = useState<TileProps[][]>(initialize2DArray());
 	const [emptyTile, setEmptyTile] = useState<[number, number]>([0, 0]);
 
 	function addTile(newTile: TileProps, x: number, z: number) {
@@ -285,7 +284,7 @@ export default function Grid({ size }: GridProps) {
 		// 	twoDimensionArray[x] = twoDimensionArray[x].concat(z);
 		// }
 		//starting position coordinates
-		const victorypath: TileProps[] = [];
+		const victoryPath: TileProps[] = [];
 		let x = -1;
 		let y = 3;
 
@@ -311,7 +310,7 @@ export default function Grid({ size }: GridProps) {
 			}
 			if (x == size[0] && y == 0 && currentDirection == direction.right) {
 				console.log('YOU WIN');
-				return victorypath;
+				return victoryPath;
 			}
 			// Team outofbounds
 			if (x < 0 || y < 0 || y > 3 || x > 3) {
@@ -320,7 +319,7 @@ export default function Grid({ size }: GridProps) {
 			if (tiles[x][y].tileType == 6) {
 				return [];
 			}
-			victorypath.push(tiles[x][y]);
+			victoryPath.push(tiles[x][y]);
 
 			//changing direction
 			switch (tiles[x][y].tileType) {
@@ -352,18 +351,18 @@ export default function Grid({ size }: GridProps) {
 					}
 					break;
 				case TileType.StraightNormal:
-					if (currentDirection == direction.left) {
-					} else if (currentDirection == direction.right) {
-					} else {
-						return [];
-					}
+					// if (currentDirection == direction.left) {
+					// } else if (currentDirection == direction.right) {
+					// } else {
+					// 	return [];
+					// }
 					break;
 				case TileType.StraightInverted:
-					if (currentDirection == direction.up) {
-					} else if (currentDirection == direction.down) {
-					} else {
-						return [];
-					}
+					// if (currentDirection == direction.up) {
+					// } else if (currentDirection == direction.down) {
+					// } else {
+					// 	return [];
+					// }
 					break;
 				case TileType.AngleLeftInverted:
 					if (currentDirection == direction.up) {
@@ -420,29 +419,29 @@ export default function Grid({ size }: GridProps) {
 		return possibleBoard;
 	}
 
-	function transformcordtotileindex(x: number, z: number): number {
-		let xorigin = 0;
-		let zorigin = 0;
-		let counter = 0;
-		if (x == emptyTile[0] && z == emptyTile[1]) return -1;
-		while (true) {
-			//console.log("z: " + zorigin + " x: " + xorigin);
-			counter++;
-			if (emptyTile[0] == xorigin && emptyTile[1] == zorigin) {
-				counter--;
-			}
-			zorigin++;
-			if (zorigin == SIZE_OF_GAME_MATRIX[1]) {
-				zorigin = 0;
-				xorigin++;
-			}
-			if (xorigin == x && zorigin == z) {
-				break;
-			}
-		}
-		return counter;
-	}
-	function onupdate() {
+	// function transformCordToTileIndex(x: number, z: number): number {
+	// 	let xorigin = 0;
+	// 	let zorigin = 0;
+	// 	let counter = 0;
+	// 	if (x == emptyTile[0] && z == emptyTile[1]) return -1;
+	// 	while (true) {
+	// 		//console.log("z: " + zorigin + " x: " + xorigin);
+	// 		counter++;
+	// 		if (emptyTile[0] == xorigin && emptyTile[1] == zorigin) {
+	// 			counter--;
+	// 		}
+	// 		zorigin++;
+	// 		if (zorigin == SIZE_OF_GAME_MATRIX[1]) {
+	// 			zorigin = 0;
+	// 			xorigin++;
+	// 		}
+	// 		if (xorigin == x && zorigin == z) {
+	// 			break;
+	// 		}
+	// 	}
+	// 	return counter;
+	// }
+	function onUpdate() {
 		if (
 			!tiles.every(function (a) {
 				return !a.length;
@@ -485,16 +484,16 @@ export default function Grid({ size }: GridProps) {
 	}
 
 	useEffect(() => {
-		onupdate();
+		onUpdate();
 	}, [size]);
 
-	onupdate();
+	onUpdate();
 
-	const victorypath = checkVictory();
+	const victoryPath = checkVictory();
 	return (
 		<>
 			{...getTilesFromProps(tiles, tileClickHandler)}
-			{typeof victorypath !== 'undefined' && victorypath.length > 0 && <FinalTube {...victorypath} />}
+			{typeof victoryPath !== 'undefined' && victoryPath.length > 0 && <FinalTube {...victoryPath} />}
 		</>
 	);
 }

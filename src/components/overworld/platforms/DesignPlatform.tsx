@@ -18,7 +18,12 @@ export default function DesignPlatform({
 	return (
 		<>
 			<SimplePlatform position={position} size={[18, 0.5, 20]} reference={reference} color={DESIGN} />
-			<Text text={'DESIGN'} color={DESIGN} position={[position[0] + 8, position[1], position[2] + 11]} rotation={[0, 180, 0]} />
+			<Text
+				text={'DESIGN'}
+				color={DESIGN}
+				position={[position[0] + 8, position[1], position[2] + 11]}
+				rotation={[0, 180, 0]}
+			/>
 			<ObjectLoad
 				path="/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb"
 				position={[position[0] - 2, position[1], position[2] + 2]}
