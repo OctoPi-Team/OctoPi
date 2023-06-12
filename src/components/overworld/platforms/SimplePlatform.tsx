@@ -62,7 +62,8 @@ export default function SimplePlatform({ name, position, size = [1, 0.1, 1], col
 
 	const roundedBoxMesh = new Mesh(roundedBoxGeometry, roundedBoxMaterial);
 	//roundedBoxMesh.position.set(0, 0, 0);
-
+	roundedBoxMesh.castShadow = true;
+	roundedBoxMesh.receiveShadow = true;
 	return (
 		<>
 			{SHOW_COLLISION_BOX && meshBox && (
