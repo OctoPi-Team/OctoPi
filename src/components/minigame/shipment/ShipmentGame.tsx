@@ -9,15 +9,15 @@ import { Vector3 } from 'three';
 import { GREEN, WHITE } from '../../../AllColorVariables';
 import NavigationButton from '../../overworld/objects/NavigationButton';
 import { resetKeys } from '../../overworld/Player';
+export const TILE_SIZE = 3;
+export const SIZE_OF_GAME_MATRIX: [number, number] = [4, 4];
+export const SPACING = 0.2;
 import { useEffect } from 'react';
 
 export default function ShipMentMinigame({ setSceneHook, visible }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
 	// const [visible, setVisible] = useState(true);
 	// TODO add Loading Screen -> {visible && <LoadingScreen setVisible={setVisible} />}
-	const SIZE_OF_GAME_MATRIX: [number, number] = [4, 4];
-	const SPACING = 0.2;
-	const TILE_SIZE = 3;
 
 	//calculate random input tube position with relation to the grid
 	const INPUTTUBEPOSSITION = TILE_SIZE * TILE_SIZE + TILE_SIZE * SPACING;
@@ -70,7 +70,7 @@ export default function ShipMentMinigame({ setSceneHook, visible }: SceneProps) 
 					<directionalLight intensity={0.5} color={WHITE} />
 					<ambientLight intensity={0.5} />
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
-					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} />}
+					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} visibility={visible} />}
 
 					<group position={[0, 4, 0]}>
 						<Grid size={SIZE_OF_GAME_MATRIX} />

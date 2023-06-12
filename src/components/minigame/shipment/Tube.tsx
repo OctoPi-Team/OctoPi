@@ -1,4 +1,4 @@
-import THREE, { Vector3, TubeGeometry, CatmullRomCurve3, DoubleSide } from 'three';
+import THREE, { Vector3, TubeGeometry, DoubleSide, CubicBezierCurve3 } from 'three';
 import { WHITE } from '../../../AllColorVariables';
 
 const standardVectors = [
@@ -23,7 +23,7 @@ function Tube({
 	color = WHITE,
 	vectors = standardVectors,
 }: TubeProps): JSX.Element {
-	const curve = new CatmullRomCurve3(vectors);
+	const curve = new CubicBezierCurve3(vectors[0], vectors[1], vectors[2], vectors[3]);
 
 	const tubeGeometry = new TubeGeometry(curve, 100, 0.4, 100, false);
 
@@ -31,7 +31,7 @@ function Tube({
 		<>
 			<mesh name={name} position={position}>
 				<primitive object={tubeGeometry} />
-				<meshStandardMaterial color={color} transparent opacity={0.5} side={DoubleSide} />
+				<meshStandardMaterial color={color} transparent opacity={0.65} side={DoubleSide} />
 			</mesh>
 		</>
 	);

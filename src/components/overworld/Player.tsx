@@ -107,7 +107,7 @@ function getNewPlayerHeight(
 			// player is before endPosition
 			angleBetweenStairEndAndPlayer < 90 &&
 			// player is near enough to the stairs
-			sidewayDistanceFromPlayerToStair <= stairWidth / 2
+			sidewayDistanceFromPlayerToStair <= stairWidth / 2 * 1.5 // temporary fix for player collision missdetection that leads to the player moving off the stair
 		) {
 			// calculate player height
 			// D

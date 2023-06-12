@@ -24,7 +24,12 @@ export default function ShipmentPlatform({
 	return (
 		<>
 			<SimplePlatform position={position} size={[18, 0.5, 18]} reference={reference} color={SHIPMENT} />
-			<Text text={'Shipment'} position={[position[0] + 10, position[1], position[2] - 9]} rotation={[0, 270, 0]} />
+			<Text
+				text={'SHIPMENT'}
+				color={SHIPMENT}
+				position={[position[0] + 10, position[1], position[2] - 8]}
+				rotation={[0, 270, 0]}
+			/>
 			<ObjectLoad
 				path="/LaufbandUndTrichter.glb"
 				position={[position[0] - 3, position[1], position[2] + 4]}
