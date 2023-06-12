@@ -20,10 +20,9 @@ import Floor from './platforms/Floor';
 type OverworldProps = {
 	sceneProps: SceneProps;
 	visible: boolean;
-	isMobileBrowser: boolean;
 };
 
-export default function Overworld({ sceneProps, visible, isMobileBrowser }: OverworldProps) {
+export default function Overworld({ sceneProps, visible }: OverworldProps) {
 	const setSceneHook = sceneProps.setSceneHook;
 
 	const ORBITAL_CONTROLS_ACTIVE = false;
@@ -87,17 +86,15 @@ export default function Overworld({ sceneProps, visible, isMobileBrowser }: Over
 	return (
 		<>
 			<div style={{ width: '100vw', height: '100vh' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
-				{isMobileBrowser && !visible && (
-					<div style={{ position: 'absolute', zIndex: '50', right: '200px', bottom: '200px' }}>
-						<Joystick
-							baseColor="lightgreen"
-							stickColor="darkgreen"
-							size={100}
-							move={handleJoystickMove}
-							stop={handleJoystickStop}
-						/>
-					</div>
-				)}
+				<div style={{ position: 'absolute', zIndex: '50', right: '200px', bottom: '200px' }}>
+					<Joystick
+						baseColor="lightgreen"
+						stickColor="darkgreen"
+						size={100}
+						move={handleJoystickMove}
+						stop={handleJoystickStop}
+					/>
+				</div>
 				<Canvas
 					orthographic
 					shadows
