@@ -1,4 +1,4 @@
-import { BLUE, GREEN, WHITE } from '../../../AllColorVariables';
+import { GREEN } from '../../../AllColorVariables';
 import { TileProps, TileType } from './Tile';
 import { TILE_SIZE, SPACING, SIZE_OF_GAME_MATRIX } from './ShipmentGame';
 import path from 'path';
@@ -13,6 +13,7 @@ import {
 	LineCurve,
 	LineCurve3,
 } from 'three';
+
 import Sphere from './Sphere';
 
 function getRealCornerPositionFromGridPosition(gridPosition: [number, number], Vector1: Vector3): Vector3 {
@@ -29,16 +30,14 @@ export function FinalTube(qwd: TileProps[]) {
 	const INPUTTUBEPOSSITION = TILE_SIZE * (SIZE_OF_GAME_MATRIX[1] - 1) + (SIZE_OF_GAME_MATRIX[1] - 1) * SPACING;
 	const position = new Vector3(0, 0, 0);
 	const list = Array.from(Object.values(qwd));
-	let points: Vector3[] = [];
 	let Vector1 = new Vector3(0, 0, 0);
 	let Vector2 = new Vector3(0, 0, 0);
 	let cubicbenziercontrol1 = new Vector3(0, 0, 0);
 	let cubicbenziercontrol2 = new Vector3(0, 0, 0);
 	let fullcurve: CurvePath<Vector3> = new CurvePath();
 	for (let i = 0; i < list.length; i++) {
-		var curve;
 		switch (list[i].tileType) {
-			case TileType.AngleRight:
+			case TileType.AngleRight: {
 				Vector1 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(0, 0, -TILE_SIZE / 2));
 				cubicbenziercontrol1 = getRealCornerPositionFromGridPosition(
 					list[i].gridPosition,
@@ -49,10 +48,11 @@ export function FinalTube(qwd: TileProps[]) {
 					new Vector3(-TILE_SIZE / 12, 0, 0)
 				);
 				Vector2 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(-TILE_SIZE / 2, 0, 0));
-				let curve1 = new CubicBezierCurve3(Vector2, cubicbenziercontrol1, cubicbenziercontrol2, Vector1);
+				const curve1 = new CubicBezierCurve3(Vector2, cubicbenziercontrol1, cubicbenziercontrol2, Vector1);
 				fullcurve.add(curve1);
 				break;
-			case TileType.AngleLeft:
+			}
+			case TileType.AngleLeft: {
 				Vector1 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(0, 0, TILE_SIZE / 2));
 				cubicbenziercontrol1 = getRealCornerPositionFromGridPosition(
 					list[i].gridPosition,
@@ -63,26 +63,29 @@ export function FinalTube(qwd: TileProps[]) {
 					new Vector3(-TILE_SIZE / 12, 0, 0)
 				);
 				Vector2 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(-TILE_SIZE / 2, 0, 0));
-				let curve2 = new CubicBezierCurve3(Vector2, cubicbenziercontrol1, cubicbenziercontrol2, Vector1);
+				const curve2 = new CubicBezierCurve3(Vector2, cubicbenziercontrol1, cubicbenziercontrol2, Vector1);
 				fullcurve.add(curve2);
 				break;
-			case TileType.StraightNormal:
+			}
+			case TileType.StraightNormal: {
 				Vector1 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(-TILE_SIZE / 2, 0, 0));
 				cubicbenziercontrol1 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(0, 0, 0));
 				cubicbenziercontrol2 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(0, 0, 0));
 				Vector2 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(TILE_SIZE / 2, 0, 0));
-				let curve3 = new CubicBezierCurve3(Vector1, cubicbenziercontrol1, cubicbenziercontrol2, Vector2);
+				const curve3 = new CubicBezierCurve3(Vector1, cubicbenziercontrol1, cubicbenziercontrol2, Vector2);
 				fullcurve.add(curve3);
 				break;
-			case TileType.StraightInverted:
+			}
+			case TileType.StraightInverted: {
 				Vector1 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(0, 0, -TILE_SIZE / 2));
 				cubicbenziercontrol1 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(0, 0, 0));
 				cubicbenziercontrol2 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(0, 0, 0));
 				Vector2 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(0, 0, TILE_SIZE / 2));
-				let curve4 = new CubicBezierCurve3(Vector2, cubicbenziercontrol1, cubicbenziercontrol2, Vector1);
+				const curve4 = new CubicBezierCurve3(Vector2, cubicbenziercontrol1, cubicbenziercontrol2, Vector1);
 				fullcurve.add(curve4);
 				break;
-			case TileType.AngleRightInverted:
+			}
+			case TileType.AngleRightInverted: {
 				// Handle AngleRightInverson case
 				Vector1 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(TILE_SIZE / 2, 0, 0));
 				cubicbenziercontrol1 = getRealCornerPositionFromGridPosition(
@@ -94,10 +97,11 @@ export function FinalTube(qwd: TileProps[]) {
 					new Vector3(0, 0, -TILE_SIZE / 12)
 				);
 				Vector2 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(0, 0, -TILE_SIZE / 2));
-				let curve5 = new CubicBezierCurve3(Vector2, cubicbenziercontrol1, cubicbenziercontrol2, Vector1);
+				const curve5 = new CubicBezierCurve3(Vector2, cubicbenziercontrol1, cubicbenziercontrol2, Vector1);
 				fullcurve.add(curve5);
 				break;
-			case TileType.AngleLeftInverted:
+			}
+			case TileType.AngleLeftInverted: {
 				// Handle AngleLeftInverted case
 				Vector1 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(TILE_SIZE / 2, 0, 0));
 				cubicbenziercontrol1 = getRealCornerPositionFromGridPosition(
@@ -109,15 +113,17 @@ export function FinalTube(qwd: TileProps[]) {
 					new Vector3(0, 0, TILE_SIZE / 12)
 				);
 				Vector2 = getRealCornerPositionFromGridPosition(list[i].gridPosition, new Vector3(0, 0, TILE_SIZE / 2));
-				let curve6 = new CubicBezierCurve3(Vector2, cubicbenziercontrol1, cubicbenziercontrol2, Vector1);
+				const curve6 = new CubicBezierCurve3(Vector2, cubicbenziercontrol1, cubicbenziercontrol2, Vector1);
 				fullcurve.add(curve6);
 				break;
+			}
 			default:
 				break;
 		}
 	}
 
-	let tubeGeometry = new TubeGeometry(fullcurve, 1000, 0.41, 1000, false);
+	let tubeGeometry = new TubeGeometry(fullcurve, 50, 0.41, 50, false);
+
 
 	return (
 		<>

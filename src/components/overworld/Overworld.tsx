@@ -1,4 +1,4 @@
-import { Vector3, BufferGeometry, Material, Mesh, Box3 } from 'three';
+import { Vector3, BufferGeometry, Material, Mesh, Box3, DirectionalLight, OrthographicCamera } from 'three';
 
 import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp } from './Player';
 import Stair, { StairType } from './platforms/Stair';
@@ -6,7 +6,7 @@ import FixedCamera from './FixedCamera';
 import { OrbitControls } from '@react-three/drei';
 import ShipmentPlatform from './platforms/ShipmentPlatform';
 import { Canvas } from '@react-three/fiber';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { SceneProps } from '../../App';
 import { Joystick } from 'react-joystick-component';
 import DesignPlatform from './platforms/DesignPlatform';
@@ -15,6 +15,7 @@ import MonitoringPlatform from './platforms/MonitoringPlatform';
 import PartsPlatform from './platforms/PartsPlatform';
 import ProductionPlatform from './platforms/ProductionPlatform';
 import EngineeringPlatform from './platforms/EngineeringPlatform';
+import Floor from './platforms/Floor';
 
 type OverworldProps = {
 	sceneProps: SceneProps;
@@ -31,6 +32,9 @@ export default function Overworld({ sceneProps, visible, startingpos }: Overworl
 	const [stairs, setStairs] = useState<StairType[]>([]);
 	const [buttons, setButtons] = useState<Mesh<BufferGeometry, Material | Material[]>[]>([]);
 	const [collisionBoxes, setCollisionBoxes] = useState<Box3[]>([]);
+
+	const CAM_WIDTH = 80;
+	const CAM_HEIGHT = 80;
 
 	function addPlatform(newPlatform: Box3) {
 		if (!platforms.includes(newPlatform)) setPlatforms(platforms => [...platforms, newPlatform]);
@@ -53,17 +57,37 @@ export default function Overworld({ sceneProps, visible, startingpos }: Overworl
 		if (!buttons.includes(newButton)) setButtons(button => [...button, newButton]);
 	}
 
+	function DirLight() {
+		const dirLight = useRef<DirectionalLight>(null);
+		// const mutableDirLightRef = dirLight as React.MutableRefObject<DirectionalLight>;
+		/* Shows the position of the light source*/
+		//useHelper(mutableDirLightRef, DirectionalLightHelper, 3, 0xff0000);
+
+		return (
+			<>
+				<directionalLight
+					position={[-5, 20, -15]}
+					ref={dirLight}
+					shadow-mapSize={[1024, 1024]}
+					intensity={0.7}
+					castShadow>
+					<orthographicCamera
+						attach="shadow-camera"
+						position={[-8, 20, -15]}
+						args={[CAM_WIDTH / -2, CAM_WIDTH / 2, CAM_HEIGHT / 2, CAM_HEIGHT / -2]}
+						near={0.1}
+						far={300}
+					/>
+				</directionalLight>
+				{dirLight.current && <primitive object={dirLight.current.shadow.camera as OrthographicCamera} />}
+			</>
+		);
+	}
+
 	return (
 		<>
 			<div style={{ width: '100vw', height: '100vh' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
-				<div
-					style={{
-						position: 'absolute',
-						zIndex: '50',
-						right: '200px',
-						bottom: '200px',
-						visibility: visible ? 'hidden' : 'visible',
-					}}>
+				<div style={{ position: 'absolute', zIndex: '50', right: '200px', bottom: '200px' }}>
 					<Joystick
 						baseColor="lightgreen"
 						stickColor="darkgreen"
@@ -75,27 +99,25 @@ export default function Overworld({ sceneProps, visible, startingpos }: Overworl
 				<Canvas
 					orthographic
 					shadows
-					camera={{ zoom: 4, position: [0, 0, 0] }}
+					camera={{
+						zoom: 4,
+						position: [-100, 100, -100],
+						left: CAM_WIDTH / -2,
+						right: CAM_WIDTH / 2,
+						top: CAM_HEIGHT / 2,
+						bottom: CAM_HEIGHT / -2,
+						near: 0.1,
+						far: 300,
+					}}
 					style={{ visibility: visible ? 'hidden' : 'visible' }}>
 					{/*set zoom very low, to force preloading of all textures*/}
 					<color attach="background" args={['white']} />
-					<directionalLight
-						position={[-0.3, 1, -0.5]}
-						intensity={0.9}
-						shadow-mapSize-width={2048}
-						shadow-mapSize-height={2048}
-						shadow-camera-left={-500}
-						shadow-camera-right={500}
-						shadow-camera-near={1}
-						shadow-camera-far={1000}
-						shadow-camera-top={500}
-						shadow-camera-bottom={-500}
-						castShadow
-					/>
+					<DirLight />
 					<ambientLight intensity={0.3}></ambientLight>
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
 					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} visibility={visible} />}
 					<MainPlatform position={[0, 0, 0]} reference={addPlatform} addCollisionBox={addCollisionBox} />
+					<Floor position={[0, -3, 0]} />
 					<Stair startPosition={new Vector3(8, 0, 6.5)} endPosition={new Vector3(8, 4, 16)} reference={addStair} />
 					<ShipmentPlatform
 						position={[9, 4, 25]}
@@ -114,8 +136,8 @@ export default function Overworld({ sceneProps, visible, startingpos }: Overworl
 						reference={addStair}
 					/>
 					<ProductionPlatform position={[-10, 3, -22]} reference={addPlatform} addCollisionBox={addCollisionBox} />
-					<Stair startPosition={new Vector3(6, 0, -6.5)} endPosition={new Vector3(6, 1, -11.5)} reference={addStair} />
-					<PartsPlatform position={[16, 1, -20]} reference={addPlatform} addCollisionBox={addCollisionBox} />
+					<Stair startPosition={new Vector3(6, 0, -6.5)} endPosition={new Vector3(6, 1, -16)} reference={addStair} />
+					<PartsPlatform position={[15, 1, -25]} reference={addPlatform} addCollisionBox={addCollisionBox} />
 					<Stair startPosition={new Vector3(10, 0, 0)} endPosition={new Vector3(18, 4.5, 0)} reference={addStair} />
 					<MonitoringPlatform position={[25, 4.5, -3]} reference={addPlatform} addCollisionBox={addCollisionBox} />
 					<Player

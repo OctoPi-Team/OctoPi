@@ -1,11 +1,4 @@
-import THREE, {
-	Vector3,
-	TubeGeometry,
-	CatmullRomCurve3,
-	DoubleSide,
-	QuadraticBezierCurve3,
-	CubicBezierCurve3,
-} from 'three';
+import THREE, { Vector3, TubeGeometry, DoubleSide, CubicBezierCurve3 } from 'three';
 import { WHITE } from '../../../AllColorVariables';
 
 const standardVectors = [

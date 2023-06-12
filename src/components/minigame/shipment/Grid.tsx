@@ -3,7 +3,6 @@ import { Dispatch, useEffect, useState } from 'react';
 import Tile, { TileProps, TileType } from './Tile';
 import { Vector3 } from 'three';
 import { FinalTube } from './FinalTube';
-import { BLUE, GREEN } from '../../../AllColorVariables';
 import { SIZE_OF_GAME_MATRIX } from './ShipmentGame';
 
 enum direction {
@@ -38,7 +37,7 @@ function getTilesFromProps(
 			if (props[i][j].tileType == 6) {
 				continue;
 			}
-			onedimension.push(props[i][j]);
+			oneDimension.push(props[i][j]);
 		}
 	}
 
@@ -221,26 +220,27 @@ function generateFunctioningTable(size: [number, number]) {
 	return possibleBoard;
 }
 
-function initialize2darray() {
-	let array = [];
+function initialize2DArray() {
+	const array = [];
 	for (let x = 0; x < SIZE_OF_GAME_MATRIX[0]; x++) {
 		array[x] = [];
 	}
 	return array;
 }
 
+
 export default function Grid({ size, stateChanger }: GridProps) {
 	const [done, setdone] = useState(true);
 	const [tiles, setTiles] = useState<TileProps[][]>(initialize2darray());
 	const [emptyTile, setEmptyTile] = useState<[number, number]>([0, 0]);
 	function addTile(newTile: TileProps, x: number, z: number) {
-		let copy = tiles;
+		const copy = tiles;
 		copy[x][z] = newTile;
 		setTiles(copy);
 	}
 
 	function removeTile(gridPosition: [number, number]) {
-		let copy = tiles;
+		const copy = tiles;
 		copy[gridPosition[0]][gridPosition[1]].tileType = 6;
 		setTiles(copy);
 		//setTiles(tiles.filter(item => item.gridPosition != gridPosition));
@@ -293,7 +293,7 @@ export default function Grid({ size, stateChanger }: GridProps) {
 			}
 			if (x == size[0] && y == 0 && currentDirection == direction.right) {
 				console.log('YOU WIN');
-				return victorypath;
+				return victoryPath;
 			}
 			// Team outofbounds
 			if (x < 0 || y < 0 || y > SIZE_OF_GAME_MATRIX[1] - 1 || x > SIZE_OF_GAME_MATRIX[0] - 1) {
@@ -302,7 +302,7 @@ export default function Grid({ size, stateChanger }: GridProps) {
 			if (tiles[x][y].tileType == 6) {
 				return [];
 			}
-			victorypath.push(tiles[x][y]);
+			victoryPath.push(tiles[x][y]);
 
 			//changing direction
 			switch (tiles[x][y].tileType) {
@@ -334,18 +334,18 @@ export default function Grid({ size, stateChanger }: GridProps) {
 					}
 					break;
 				case TileType.StraightNormal:
-					if (currentDirection == direction.left) {
-					} else if (currentDirection == direction.right) {
-					} else {
-						return [];
-					}
+					// if (currentDirection == direction.left) {
+					// } else if (currentDirection == direction.right) {
+					// } else {
+					// 	return [];
+					// }
 					break;
 				case TileType.StraightInverted:
-					if (currentDirection == direction.up) {
-					} else if (currentDirection == direction.down) {
-					} else {
-						return [];
-					}
+					// if (currentDirection == direction.up) {
+					// } else if (currentDirection == direction.down) {
+					// } else {
+					// 	return [];
+					// }
 					break;
 				case TileType.AngleLeftInverted:
 					if (currentDirection == direction.up) {
@@ -403,6 +403,7 @@ export default function Grid({ size, stateChanger }: GridProps) {
 	}
 
 	function onupdate() {
+
 		if (
 			!tiles.every(function (a) {
 				return !a.length;
@@ -412,7 +413,6 @@ export default function Grid({ size, stateChanger }: GridProps) {
 		}
 		const TILES = generateFunctioningTable();
 		let counter: number = 0;
-
 		for (let x = 0; x < size[0]; x++) {
 			for (let y = 0; y < size[1]; y++) {
 				if (!(x === 0 && y === 0)) {
@@ -445,10 +445,11 @@ export default function Grid({ size, stateChanger }: GridProps) {
 	}
 
 	useEffect(() => {
-		onupdate();
+		onUpdate();
 	}, [size]);
 
-	onupdate();
+	onUpdate();
+
 
 	let victorypath = checkVictory();
 	if (victorypath.length > 0 && done) {
@@ -462,6 +463,7 @@ export default function Grid({ size, stateChanger }: GridProps) {
 		<>
 			{...getTilesFromProps(tiles, tileClickHandler, victorypath)}
 			{typeof victorypath !== 'undefined' && victorypath.length > 0 && <FinalTube {...victorypath} />}
+
 		</>
 	);
 }

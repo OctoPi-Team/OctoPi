@@ -1,3 +1,4 @@
+
 import { BLACK, RED, WHITE } from '../../../AllColorVariables';
 import { CatmullRomCurve3, Clock, CubicBezierCurve3, CurvePath, Points, SphereGeometry, Vector3 } from 'three';
 import { getRootState, useFrame } from '@react-three/fiber';
@@ -29,6 +30,7 @@ export default function Sphere({ curv }: SphereProps) {
 		VECTORS_FOR_TUBE[3]
 	);
 	let points: Vector3[] = startingcurve.getSpacedPoints(1000);
+
 	points.reverse();
 	points.push(...curv.getSpacedPoints(600));
 	const sphereGeometry = new SphereGeometry(0.3, 70, 20);

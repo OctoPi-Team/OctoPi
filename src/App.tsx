@@ -22,22 +22,28 @@ export default function App() {
 	const [playerstartingpos, setplayerstartingpos] = useState<Vector3>(new Vector3(0, -0.3, 0));
 	const [scene, setScene] = useState<Scene>(Scene.Overworld);
 	const [visible, setVisible] = useState(true);
-	useEffect(() => {
-		let timeoutId: NodeJS.Timeout;
+	const delay = 10000;
+	let timeoutId: NodeJS.Timeout;
+	let hadMoved = false;
 
+	useEffect(() => {
+		if (!visible && !hadMoved) {
+			timeoutId = setTimeout(() => setVisible(true), delay);
+		}
 		const resetTimer = () => {
 			clearTimeout(timeoutId);
-			timeoutId = setTimeout(() => setVisible(true), 1000000000); // Adjust the delay (in milliseconds) as per your requirement
+			timeoutId = setTimeout(() => setVisible(true), delay); // Adjust the delay (in milliseconds) as per your requirement
+			hadMoved = false;
 		};
 
 		const handleActivity = () => {
+			hadMoved = true;
 			resetTimer();
 		};
-
 		// Add event listeners to detect user activity
 		window.addEventListener('touchmove', handleActivity);
 		window.addEventListener('keydown', handleActivity);
-
+		window.addEventListener('click', handleActivity);
 		// Start the timer initially
 		resetTimer();
 
@@ -46,8 +52,10 @@ export default function App() {
 			clearTimeout(timeoutId);
 			window.removeEventListener('touchmove', handleActivity);
 			window.removeEventListener('keydown', handleActivity);
+			window.removeEventListener('click', handleActivity);
 		};
-	}, []);
+	}, [visible]);
+
 	return (
 		<>
 			{visible && <LoadingScreen setVisible={setVisible} />}
