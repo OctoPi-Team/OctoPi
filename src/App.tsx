@@ -18,7 +18,7 @@ export type SceneProps = {
 export default function App() {
 	const [scene, setScene] = useState<Scene>(Scene.Overworld);
 	const [visible, setVisible] = useState(true);
-	const delay = 6000;
+	const delay = 10000;
 	let timeoutId: NodeJS.Timeout;
 	let hadMoved = false;
 	function isMobileBrowser() {
@@ -41,7 +41,7 @@ export default function App() {
 		// Add event listeners to detect user activity
 		window.addEventListener('touchmove', handleActivity);
 		window.addEventListener('keydown', handleActivity);
-
+		window.addEventListener('click', handleActivity);
 		// Start the timer initially
 		resetTimer();
 
@@ -50,6 +50,7 @@ export default function App() {
 			clearTimeout(timeoutId);
 			window.removeEventListener('touchmove', handleActivity);
 			window.removeEventListener('keydown', handleActivity);
+			window.removeEventListener('click', handleActivity);
 		};
 	}, [visible]);
 
