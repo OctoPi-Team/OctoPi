@@ -46,8 +46,8 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 		<>
 			<NavigationButton
 				position="absolute"
-				right="75px"
-				top="50px"
+				right="100px"
+				top="40px"
 				text={'\u21BB'}
 				onClick={() => {
 					setSceneHook(Scene.Overworld);
@@ -59,7 +59,7 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 			<NavigationButton
 				position="absolute"
 				right="30px"
-				top="50px"
+				top="40px"
 				text="i"
 				onClick={() => {
 					window.alert(
@@ -69,8 +69,8 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 			/>
 			<NavigationButton
 				position="absolute"
-				left="20px"
-				bottom="20px"
+				left="30px"
+				bottom="30px"
 				text="&larr;"
 				onClick={() => setSceneHook(Scene.Overworld)}
 			/>
