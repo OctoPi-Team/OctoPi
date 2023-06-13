@@ -72,9 +72,7 @@ export default function Overworld({ sceneProps, visible, startingpos }: Overworl
 					ref={dirLight}
 					shadow-mapSize={[1024, 1024]}
 					intensity={0.7}
-					castShadow
-				>
-
+					castShadow>
 					<orthographicCamera
 						attach="shadow-camera"
 						position={[-8, 20, -15]}
@@ -82,7 +80,6 @@ export default function Overworld({ sceneProps, visible, startingpos }: Overworl
 						near={0.1}
 						far={300}
 					/>
-
 				</directionalLight>
 				{dirLight.current && <primitive object={dirLight.current.shadow.camera as OrthographicCamera} />}
 			</>
@@ -102,7 +99,7 @@ export default function Overworld({ sceneProps, visible, startingpos }: Overworl
 						/>
 					</div>
 				)}
-				{!visible &&
+				{!visible && (
 					<NavigationButton
 						position="absolute"
 						right="30px"
@@ -114,20 +111,21 @@ export default function Overworld({ sceneProps, visible, startingpos }: Overworl
 							);
 						}}
 					/>
-				}
-				{!visible &&
+				)}
+				{!visible && (
 					<NavigationButton
 						position="absolute"
 						right="75px"
 						top="50px"
 						text={'\u21BB'}
 						onClick={() => {
-							location.reload()
+							location.reload();
 							setTimeout(() => {
-								location.reload()
+								location.reload();
 							}, 50);
 						}}
-					/>}
+					/>
+				)}
 				<Canvas
 					orthographic
 					shadows
@@ -167,7 +165,7 @@ export default function Overworld({ sceneProps, visible, startingpos }: Overworl
 						endPosition={new Vector3(-7, 3, -16)}
 						reference={addStair}
 					/>
-					<ProductionPlatform position={[-10, 3, -22]} reference={addPlatform} addCollisionBox={addCollisionBox} />
+					<ProductionPlatform position={[-11, 3, -22]} reference={addPlatform} addCollisionBox={addCollisionBox} />
 					<Stair startPosition={new Vector3(6, 0, -6.5)} endPosition={new Vector3(6, 1, -16)} reference={addStair} />
 					<PartsPlatform position={[15, 1, -25]} reference={addPlatform} addCollisionBox={addCollisionBox} />
 					<Stair startPosition={new Vector3(10, 0, 0)} endPosition={new Vector3(18, 4.5, 0)} reference={addStair} />

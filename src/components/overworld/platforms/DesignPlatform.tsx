@@ -24,8 +24,8 @@ export default function DesignPlatform({
 			<Text
 				text={'DESIGN'}
 				color={DESIGN}
-				position={[position[0] + 8, position[1], position[2] + 11]}
-				rotation={[0, 180, 0]}
+				position={[position[0] + 10, position[1], position[2] + 3]}
+				rotation={[0, 270, 0]}
 			/>
 			<ObjectLoad
 				path="/TischMitHocker/tischMitHocker.glb"
