@@ -14,7 +14,7 @@ export enum Scene {
 export type SceneProps = {
 	setSceneHook: (newActiveScene: Scene) => void;
 	visible?: boolean;
-	setplayerpos?: (setplayerpos: Vector3) => void;
+	setPlayerPos?: (setplayerpos: Vector3) => void;
 	playerpos?: Vector3;
 };
 
@@ -63,7 +63,7 @@ export default function App() {
 				<Overworld sceneProps={{ setSceneHook: setScene }} visible={visible} startingpos={playerstartingPos} />
 			)}
 			{scene === Scene.Shipment && (
-				<ShipmentGame setSceneHook={setScene} visible={visible} setplayerpos={setPlayerstartingPos} />
+				<ShipmentGame setSceneHook={setScene} visible={visible} setPlayerPos={setPlayerstartingPos} />
 			)}
 		</>
 	);

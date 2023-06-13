@@ -9,14 +9,16 @@ import { Vector3 } from 'three';
 import { GREEN, WHITE } from '../../../AllColorVariables';
 import NavigationButton from '../../overworld/objects/NavigationButton';
 import { resetKeys } from '../../overworld/Player';
+import './victoryScreen.css';
 
 import { useEffect, useState } from 'react';
 
 export const TILE_SIZE = 3;
 export const SIZE_OF_GAME_MATRIX: [number, number] = [3, 3];
 export const SPACING = 0.2;
-export default function ShipMentMinigame({ setSceneHook, visible, setplayerpos }: SceneProps) {
+export default function ShipMentMinigame({ setSceneHook, visible, setPlayerPos }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
+	const [finished, setFinished] = useState(false);
 	// TODO add Loading Screen -> {visible && <LoadingScreen setVisible={setVisible} />}
 	const [done, setDone] = useState(false);
 	//calculate random input tube position with relation to the grid
@@ -35,8 +37,8 @@ export default function ShipMentMinigame({ setSceneHook, visible, setplayerpos }
 
 	function changeview(done: boolean) {
 		if (done) {
-			if (setplayerpos) {
-				setplayerpos(new Vector3(9, 4, 25));
+			if (setPlayerPos) {
+				setPlayerPos(new Vector3(9, 4, 25));
 			}
 			setSceneHook(Scene.Overworld);
 		}
@@ -81,7 +83,7 @@ export default function ShipMentMinigame({ setSceneHook, visible, setplayerpos }
 					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={30} visibility={visible} />}
 
 					<group position={[0, 4, 0]}>
-						<Grid size={SIZE_OF_GAME_MATRIX} stateChanger={setDone} />
+						<Grid size={SIZE_OF_GAME_MATRIX} stateChanger={setDone} setFinished={setFinished} />
 						<ObjectLoad
 							path="/Trichter/trichter.glb"
 							position={[(2.9 + 0.2) * SIZE_OF_GAME_MATRIX[0], -3.3, -0.5]}
@@ -91,6 +93,7 @@ export default function ShipMentMinigame({ setSceneHook, visible, setplayerpos }
 						<Tube name="InputTubeInGame" position={[0, 0, 0]} color={GREEN} vectors={VECTORS_FOR_TUBE} />
 					</group>
 				</Canvas>
+				{finished ? <div className={'win'}>Du hast Gewonnen!</div> : <div></div>}
 			</div>
 			{resetKeys()}
 		</>
