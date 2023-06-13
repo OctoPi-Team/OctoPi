@@ -15,7 +15,7 @@ type ObjectLoadOptions = {
 	reference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 	onClick?: ((val: Scene.Shipment) => void) | null;
 	collisionRefSetter?: (meshRef: Box3) => void;
-	customCollisionBox?: { positionOffset: Vector3; size: Vector3 };
+	customCollisionBoxes?: { positionOffset: Vector3; size: Vector3 }[];
 };
 
 // This function is to load an object from a .obj file and a .mtl file. To use it no knowlage of the ObjectLoad function is needed.
@@ -27,29 +27,37 @@ export default function ObjectLoad({
 	rotation = [0, 0, 0], // Default rotation is 0, 0, 0, the rotation is in degrees.
 	onClick,
 	collisionRefSetter,
-	customCollisionBox,
+	customCollisionBoxes,
 }: ObjectLoadOptions): JSX.Element {
 	const SHOW_COLLISION_BOX = false;
 	const meshRef = useRef<Mesh<BufferGeometry, Material | Material[]>>(null);
 	const [collsionRefWasSet, collsionRefSet] = useState(false);
-	const [collisionBox, setCollisionBox] = useState<Box3>();
+	const [collisionBoxes, setCollisionBoxes] = useState<Box3[]>([]);
 
+	function addCollisionBox(newBox: Box3) {
+		setCollisionBoxes(boxes => [...boxes, newBox]);
+	}
 	if (reference && meshRef.current) {
 		reference(meshRef.current);
 	}
 	if (!collsionRefWasSet && collisionRefSetter && meshRef.current) {
 		collsionRefSet(true);
-		let box;
-		if (customCollisionBox)
-			box = new Box3().setFromCenterAndSize(
-				customCollisionBox.positionOffset
-					.clone()
-					.add(new Vector3(position[0], position[1] + customCollisionBox.size.y / 2, position[2])),
-				customCollisionBox.size
-			);
-		else box = new Box3().setFromObject(meshRef.current.clone());
-		setCollisionBox(box);
-		collisionRefSetter(box);
+		let boxes: Box3[] = [];
+		if (customCollisionBoxes && customCollisionBoxes.length > 0) {
+			for (const box of customCollisionBoxes)
+				boxes.push(
+					new Box3().setFromCenterAndSize(
+						box.positionOffset.clone().add(new Vector3(position[0], position[1] + box.size.y / 2, position[2])),
+						box.size
+					)
+				);
+		} else {
+			boxes.push(new Box3().setFromObject(meshRef.current.clone()));
+		}
+		for (const box of boxes) {
+			addCollisionBox(box);
+			collisionRefSetter(box);
+		}
 	}
 	const dracoLoader = new DRACOLoader();
 	dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
@@ -73,14 +81,22 @@ export default function ObjectLoad({
 		}
 	}, position);
 
+	collisionBoxes.map(box => (
+		<mesh position={box.getCenter(new Vector3().fromArray(position))}>
+			<boxGeometry args={box.getSize(new Vector3(0, 0, 0)).toArray()} />
+			<meshLambertMaterial color={RED} opacity={0.6} transparent={true} />
+		</mesh>
+	));
 	return (
 		<>
-			{SHOW_COLLISION_BOX && collisionBox && (
-				<mesh position={collisionBox.getCenter(new Vector3().fromArray(position))}>
-					<boxGeometry args={collisionBox.getSize(new Vector3(0, 0, 0)).toArray()} />
-					<meshLambertMaterial color={RED} opacity={0.6} transparent={true} />
-				</mesh>
-			)}
+			{SHOW_COLLISION_BOX &&
+				collisionBoxes &&
+				collisionBoxes.map(box => (
+					<mesh position={box.getCenter(new Vector3().fromArray(position))}>
+						<boxGeometry args={box.getSize(new Vector3(0, 0, 0)).toArray()} />
+						<meshLambertMaterial color={RED} opacity={0.6} transparent={true} />
+					</mesh>
+				))}
 			<mesh
 				castShadow
 				receiveShadow

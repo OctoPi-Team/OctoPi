@@ -37,6 +37,9 @@ export default function ShipmentPlatform({
 				scale={[0.12, 0.12, 0.12]}
 				rotation={[0, 180, 0]}
 				collisionRefSetter={addCollisionBox}
+				customCollisionBoxes={[
+					{ positionOffset: new Vector3(0.6, 0, -2.2), size: new Vector3(1.6, 5, 8.2) },
+				]}
 			/>
 			<ObjectLoad
 				path="/Packet/packet.glb"
@@ -65,6 +68,9 @@ export default function ShipmentPlatform({
 				scale={[0.8, 0.8, 0.8]}
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
+				customCollisionBoxes={[
+					{ positionOffset: new Vector3(), size: new Vector3(5, 10, 4) },
+				]}
 			/>
 			<ObjectLoad
 				path="/Palette/palette.glb"
