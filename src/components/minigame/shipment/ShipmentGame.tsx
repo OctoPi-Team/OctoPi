@@ -9,23 +9,24 @@ import { Vector3 } from 'three';
 import { GREEN, WHITE } from '../../../AllColorVariables';
 import NavigationButton from '../../overworld/objects/NavigationButton';
 import { resetKeys } from '../../overworld/Player';
-
+import './victoryScreen.css';
 import { useEffect, useState } from 'react';
 
 export const TILE_SIZE = 3;
 export const SIZE_OF_GAME_MATRIX: [number, number] = [3, 3];
 export const SPACING = 0.2;
-export default function ShipMentMinigame({ setSceneHook, visible, setplayerpos }: SceneProps) {
+export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
+	const [finished, setFinished] = useState(false);
 	// TODO add Loading Screen -> {visible && <LoadingScreen setVisible={setVisible} />}
 	const [done, setDone] = useState(false);
 	//calculate random input tube position with relation to the grid
-	const INPUTTUBEPOSSITION = TILE_SIZE * (SIZE_OF_GAME_MATRIX[1] - 1) + (SIZE_OF_GAME_MATRIX[1] - 1) * SPACING;
+	const INPUT_TUBE_POSITION = TILE_SIZE * (SIZE_OF_GAME_MATRIX[1] - 1) + (SIZE_OF_GAME_MATRIX[1] - 1) * SPACING;
 	const VECTORS_FOR_TUBE = [
-		new Vector3(-1.9 + 2 * SPACING, 0.7, INPUTTUBEPOSSITION),
-		new Vector3(-15, 0.7, INPUTTUBEPOSSITION),
-		new Vector3(-1.9 + SPACING, 5, INPUTTUBEPOSSITION),
-		new Vector3(-15, 5, INPUTTUBEPOSSITION),
+		new Vector3(-1.9 + 2 * SPACING, 0.7, INPUT_TUBE_POSITION),
+		new Vector3(-15, 0.7, INPUT_TUBE_POSITION),
+		new Vector3(-1.9 + SPACING, 5, INPUT_TUBE_POSITION),
+		new Vector3(-15, 5, INPUT_TUBE_POSITION),
 	];
 	useEffect(() => {
 		if (visible === true) {
@@ -33,10 +34,10 @@ export default function ShipMentMinigame({ setSceneHook, visible, setplayerpos }
 		}
 	}, [visible, setSceneHook]);
 
-	function changeview(done: boolean) {
+	function changeView(done: boolean) {
 		if (done) {
-			if (setplayerpos) {
-				setplayerpos(new Vector3(9, 4, 25));
+			if (setPlayerPos) {
+				setPlayerPos(new Vector3(9, 4, 25));
 			}
 			setSceneHook(Scene.Overworld);
 		} else {
@@ -49,8 +50,8 @@ export default function ShipMentMinigame({ setSceneHook, visible, setplayerpos }
 		<>
 			<NavigationButton
 				position="absolute"
-				right="75px"
-				top="50px"
+				right="100px"
+				top="40px"
 				text={'\u21BB'}
 				onClick={() => {
 					setSceneHook(Scene.Overworld);
@@ -62,7 +63,7 @@ export default function ShipMentMinigame({ setSceneHook, visible, setplayerpos }
 			<NavigationButton
 				position="absolute"
 				right="30px"
-				top="50px"
+				top="40px"
 				text="i"
 				onClick={() => {
 					window.alert(
@@ -72,15 +73,15 @@ export default function ShipMentMinigame({ setSceneHook, visible, setplayerpos }
 			/>
 			<NavigationButton
 				position="absolute"
-				left="20px"
-				bottom="20px"
+				left="30px"
+				bottom="30px"
 				text="&larr;"
 				onClick={() => {
 					changeview(done);
 					setSceneHook(Scene.Overworld);
 				}}
 			/>
-			<div style={{ width: '100vw', height: '100vh' }} onClick={() => changeview(done)} tabIndex={0}>
+			<div style={{ width: '100vw', height: '100vh' }} onClick={() => changeView(done)} tabIndex={0}>
 				<Canvas orthographic camera={{ zoom: 50, position: [40, 40, 40] }}>
 					<directionalLight intensity={0.5} color={WHITE} />
 					<ambientLight intensity={0.5} />
@@ -88,7 +89,7 @@ export default function ShipMentMinigame({ setSceneHook, visible, setplayerpos }
 					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={30} visibility={visible} />}
 
 					<group position={[0, 4, 0]}>
-						<Grid size={SIZE_OF_GAME_MATRIX} stateChanger={setDone} />
+						<Grid size={SIZE_OF_GAME_MATRIX} stateChanger={setDone} isFinished={setFinished} />
 						<ObjectLoad
 							path="/Trichter/trichter.glb"
 							position={[(2.9 + 0.2) * SIZE_OF_GAME_MATRIX[0], -3.3, -0.5]}
@@ -98,6 +99,30 @@ export default function ShipMentMinigame({ setSceneHook, visible, setplayerpos }
 						<Tube name="InputTubeInGame" position={[0, 0, 0]} color={GREEN} vectors={VECTORS_FOR_TUBE} />
 					</group>
 				</Canvas>
+				{finished ? (
+					<div className={'win'}>
+						Du hast gewonnen!
+						<div className={'buttons'}>
+							<button
+								onClick={() => {
+									setSceneHook(Scene.Overworld);
+									setTimeout(() => {
+										setSceneHook(Scene.Shipment);
+									}, 50);
+								}}>
+								Starte neues Spiel
+							</button>{' '}
+							<button
+								onClick={() => {
+									setSceneHook(Scene.Overworld);
+								}}>
+								Zurück zur Plattform
+							</button>
+						</div>
+					</div>
+				) : (
+					<div></div>
+				)}
 			</div>
 			{resetKeys()}
 		</>
