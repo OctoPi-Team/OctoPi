@@ -24,7 +24,7 @@ export default function PartsPlatform({
 			<Text
 				text={'PARTS'}
 				color={PARTS}
-				position={[position[0] + 13, position[1], position[2] - 9]}
+				position={[position[0] + 13.5, position[1], position[2] - 9]}
 				rotation={[0, -90, 0]}
 			/>
 			<ObjectLoad

@@ -1,4 +1,4 @@
-import { Box3 } from 'three';
+import { Box3, Vector3 } from 'three';
 import { PRODUCTION } from '../../../AllColorVariables';
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
@@ -20,11 +20,11 @@ export default function ProductionPlatform({
 }: ProductionPlatformOptions): JSX.Element {
 	return (
 		<>
-			<SimplePlatform position={position} size={[19, 0.5, 12]} reference={reference} color={PRODUCTION} />
+			<SimplePlatform position={position} size={[21, 0.5, 12]} reference={reference} color={PRODUCTION} />
 			<Text
 				text={'PRODUCTION'}
 				color={PRODUCTION}
-				position={[position[0] + 2.5, position[1], position[2] + 8]}
+				position={[position[0] + 2, position[1], position[2] + 7]}
 				rotation={[0, 180, 0]}
 			/>
 			<gridHelper position={[position[0] - 6, position[1], position[2]]} args={[7, 7, 'black', 'white']} />
@@ -35,14 +35,17 @@ export default function ProductionPlatform({
 				scale={[0.09, 0.09, 0.09]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
+				customCollisionBox={{ positionOffset: new Vector3(), size: new Vector3(1, 4, 1) }}
 			/>
 
 			<ObjectLoad
 				path="/Roboterarm_kaputt/roboterarm_kaputt.glb"
-				position={[position[0] - 8, position[1], position[2] - 3]}
-				scale={[0.09, 0.09, 0.09]}
-				rotation={[0, 0, 0]}
+				position={[position[0] - 6, position[1], position[2]]}
+				scale={[0.11, 0.11, 0.11]}
+				rotation={[0, 7, 0]}
+
 				collisionRefSetter={addCollisionBox}
+				customCollisionBox={{ positionOffset: new Vector3(), size: new Vector3(1, 4, 1) }}
 			/>
 			<ObjectLoad
 				path="/SchreibtischMitStuhl/schreibtischMitStuhl.glb"
@@ -107,7 +110,7 @@ export default function ProductionPlatform({
 				rotation={[0, 270, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			<Button position={[position[0] - 7, position[1] + 6, position[2] - 9]} reference={buttonreference} />
+			<Button position={[position[0] - 11, position[1] + 6, position[2] - 9]} reference={buttonreference} />
 		</>
 	);
 }

@@ -28,7 +28,7 @@ export default function ShipmentPlatform({
 			<Text
 				text={'SHIPMENT'}
 				color={SHIPMENT}
-				position={[position[0] + 10, position[1], position[2] - 8]}
+				position={[position[0] + 10, position[1], position[2] - 9]}
 				rotation={[0, 270, 0]}
 			/>
 			<ObjectLoad

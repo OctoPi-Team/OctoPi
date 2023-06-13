@@ -1,5 +1,5 @@
 applications:
-  - name: prod-frontend-octopi
+  - name: frontend-octopi
     path: build/
     instances: 1
     buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
