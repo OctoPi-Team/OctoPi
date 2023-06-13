@@ -15,7 +15,7 @@ enum direction {
 type GridProps = {
 	size: [number, number];
 	stateChanger: (value: boolean) => void;
-	setFinished: Dispatch<SetStateAction<boolean>>;
+	isFinished: Dispatch<SetStateAction<boolean>>;
 };
 
 function getTilesFromProps(
@@ -204,7 +204,7 @@ function initialize2DArray() {
 	return array;
 }
 
-export default function Grid({ size, stateChanger, setFinished }: GridProps) {
+export default function Grid({ size, stateChanger, isFinished }: GridProps) {
 	const [done, setDone] = useState(true);
 	const [tiles, setTiles] = useState<TileProps[][]>(initialize2DArray());
 	const [emptyTile, setEmptyTile] = useState<[number, number]>([0, 0]);
@@ -410,7 +410,7 @@ export default function Grid({ size, stateChanger, setFinished }: GridProps) {
 		setDone(false);
 		setTimeout(() => {
 			stateChanger(true);
-			setFinished(true);
+			isFinished(true);
 		}, 1500);
 	}
 	return (
