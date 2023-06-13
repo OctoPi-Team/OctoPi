@@ -34,6 +34,10 @@ export default function DesignPlatform({
 				scale={[0.6, 0.6, 0.6]}
 				rotation={[0, 30, 0]}
 				collisionRefSetter={addCollisionBox}
+				customCollisionBoxes={[
+					{ positionOffset: new Vector3(), size: new Vector3(2.5, 2, 1.5) },
+					{ positionOffset: new Vector3(1, 0, 1.5), size: new Vector3(0.6, 1.5, 0.6) }
+				]}
 			/>
 			<ObjectLoad
 				path="/TischMitHocker/tischMitHocker.glb"
@@ -41,6 +45,10 @@ export default function DesignPlatform({
 				scale={[0.6, 0.6, 0.6]}
 				rotation={[0, 100, 0]}
 				collisionRefSetter={addCollisionBox}
+				customCollisionBoxes={[
+					{ positionOffset: new Vector3(), size: new Vector3(1.5, 2, 2.5) },
+					{ positionOffset: new Vector3(1.7, 0, -0.5), size: new Vector3(0.6, 1.5, 0.6) }
+				]}
 			/>
 
 			<ObjectLoad
@@ -56,6 +64,10 @@ export default function DesignPlatform({
 				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
+				customCollisionBoxes={[
+					{ positionOffset: new Vector3(), size: new Vector3(2.5, 2, 1.5) },
+					{ positionOffset: new Vector3(0, 0, -1.5), size: new Vector3(1, 2, 1) }
+				]}
 			/>
 			<ObjectLoad
 				path="/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb"
