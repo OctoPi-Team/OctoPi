@@ -49,7 +49,9 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisi
 		ref.current.position.x += movementVector.x;
 		ref.current.position.z += movementVector.z;
 		// player collision detection
-		if (
+		let counter = 0; // 0 - x, 1 - z, 2 - both
+		while (
+			counter < 3 &&
 			checkIfPlayerCollidesWithPlatformBorderOrObject(
 				new Box3().setFromCenterAndSize(ref.current.position, new Vector3(0.8, 0.8, 0.8)),
 				platforms,
@@ -57,8 +59,22 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisi
 			)
 		) {
 			// if he collides with anything move him back again
-			ref.current.position.x -= movementVector.x;
-			ref.current.position.z -= movementVector.z;
+			switch (counter) {
+				case 0:
+					// only x changes
+					ref.current.position.x -= movementVector.x;
+					break;
+				case 1:
+					// only z changes (reset x again)
+					ref.current.position.x += movementVector.x;
+					ref.current.position.z -= movementVector.z;
+					break;
+				case 2:
+					// both change (z is still changed from counter=1)
+					ref.current.position.x -= movementVector.x;
+					break;
+			}
+			counter++;
 		}
 		try {
 			// player height
