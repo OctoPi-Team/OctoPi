@@ -1,4 +1,4 @@
-import { Box3 } from 'three';
+import { Box3, Vector3 } from 'three';
 import { PRODUCTION } from '../../../AllColorVariables';
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
@@ -35,6 +35,7 @@ export default function ProductionPlatform({
 				scale={[0.09, 0.09, 0.09]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
+				customCollisionBox={{ positionOffset: new Vector3(), size: new Vector3(1, 4, 1) }}
 			/>
 
 			<ObjectLoad
@@ -43,6 +44,7 @@ export default function ProductionPlatform({
 				scale={[0.09, 0.09, 0.09]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
+				customCollisionBox={{ positionOffset: new Vector3(), size: new Vector3(1, 4, 1) }}
 			/>
 			<ObjectLoad
 				path="/SchreibtischMitStuhl/schreibtischMitStuhl.glb"
