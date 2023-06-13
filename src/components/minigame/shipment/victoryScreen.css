@@ -3,8 +3,10 @@
     position: absolute;
     margin-left: auto;
     margin-right: auto;
-    left: 500px;
-    right: 500px;
+    left: 0;
+    right: 0;
+    height: 135px;
+    width: 500px;
     top: 50px;
     bottom: 590px;
     text-align: center;
@@ -33,6 +35,16 @@
     border-style: none;
     cursor: pointer;
 }
+
+@media (max-width: 820px) {
+    .win {
+        top: 150px;
+        width: 400px;
+        height: 100px;
+        font-size: 30px;
+    }
+}
+
 
 @keyframes fadeIn {
     0% {
