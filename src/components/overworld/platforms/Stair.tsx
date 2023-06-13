@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Mesh, Vector3, MathUtils, Box3 } from 'three';
-import { WHITE } from '../../../AllColorVariables';
+import { RED, WHITE } from '../../../AllColorVariables';
 
 export type StairType = {
 	mesh: Box3;
@@ -29,6 +29,8 @@ function Stair({ startPosition, endPosition, reference }: StairProps) {
 	const length = startPosition.distanceTo(endPosition);
 	const stairHeight = 0.25;
 	const [collsionRefWasSet, collsionRefSet] = useState(false);
+	const [collisionBox, setCollisionBox] = useState<Box3>();
+	const SHOW_COLLISION_BOX = false;
 
 	const direction = new Vector3().subVectors(startPosition, endPosition);
 	const centerPosition = startPosition.clone().sub(
@@ -39,12 +41,14 @@ function Stair({ startPosition, endPosition, reference }: StairProps) {
 	);
 	if (!collsionRefWasSet && reference && ref.current) {
 		collsionRefSet(true);
-		const boxScaler = new Vector3(direction.x != 0 ? 1.4 : 1, 10, direction.z != 0 ? 1.4 : 1);
+		const boxScaler = new Vector3(direction.x != 0 ? 1.4 : 0, 10, direction.z != 0 ? 1.4 : 0);
+		const box = new Box3().setFromObject(ref.current).expandByVector(boxScaler);
 		reference({
-			mesh: new Box3().setFromObject(ref.current).expandByVector(boxScaler),
+			mesh: box,
 			startPosition: startPosition.clone(),
 			endPosition: endPosition.clone(),
 		});
+		setCollisionBox(box);
 	}
 	useEffect(() => {
 		if (ref && ref.current) {
@@ -56,10 +60,17 @@ function Stair({ startPosition, endPosition, reference }: StairProps) {
 	});
 
 	return (
-		<mesh ref={ref} castShadow receiveShadow>
-			<boxGeometry args={[STAIR_WIDTH, stairHeight, length]} />
-			<meshStandardMaterial color={WHITE} />
-		</mesh>
+		<> {SHOW_COLLISION_BOX && collisionBox &&
+			<mesh position={collisionBox.getCenter(centerPosition)}>
+				<boxGeometry args={collisionBox.getSize(new Vector3(0, 0, 0)).toArray()} />
+				<meshLambertMaterial color={RED} opacity={0.6} transparent={true} />
+			</mesh>
+		}
+			<mesh ref={ref} castShadow receiveShadow>
+				<boxGeometry args={[STAIR_WIDTH, stairHeight, length]} />
+				<meshStandardMaterial color={WHITE} />
+			</mesh>
+		</>
 	);
 }
 
