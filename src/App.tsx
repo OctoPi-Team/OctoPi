@@ -23,7 +23,7 @@ export default function App() {
 	const [scene, setScene] = useState<Scene>(Scene.Overworld);
 	const [visible, setVisible] = useState(true);
 
-	const delay = 60000;
+	const delay = 90000000;
 	let timeoutId: NodeJS.Timeout;
 	let hasMoved = false;
 
