@@ -10,7 +10,7 @@ type CameraProps = {
 function FixedCamera({ distanceFromPlayerToCamera, visibility }: CameraProps) {
 	const { scene, camera } = useThree();
 	const cameraRef = useRef<OrthographicCamera>(null);
-	const targetZoom = visibility ? 4 : 40;
+	const targetZoom = visibility ? 7 : 63;
 	const zoomSpeed = 0.02;
 
 	useFrame(() => {

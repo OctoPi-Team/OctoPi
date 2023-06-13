@@ -128,7 +128,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 							top="40px"
 							text={'\u21BB'}
 							onClick={() => {
-                resetKeys()
+								resetKeys()
 								location.reload()
 								setTimeout(() => {
 									location.reload()
