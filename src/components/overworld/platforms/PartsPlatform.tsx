@@ -26,7 +26,12 @@ export default function PartsPlatform({
 				name="Tube"
 				position={[position[0] + 11, position[1], position[2] - 7]}
 				size={[0.5, 8, 1]}
-				vectors={[new Vector3(0, 0, 0), new Vector3(0, 2, 0), new Vector3(-5, 2, 0), new Vector3(-5, 0, 0)]}
+				vectors={[
+					new Vector3(0.5, 0, 0),
+					new Vector3(0.5, 2, 0),
+					new Vector3(-5, 2, 0),
+					new Vector3(-5, 0, 0)
+				]}
 			/>
 			<Tube
 				name="Tube"
@@ -39,6 +44,7 @@ export default function PartsPlatform({
 					new Vector3(-6, -1, 2),
 					new Vector3(0, -1, 0),
 				]}
+			/>
 			<Text
 				text={'PARTS'}
 				color={PARTS}

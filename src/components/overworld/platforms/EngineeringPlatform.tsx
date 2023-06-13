@@ -76,17 +76,17 @@ export default function EngineeringPlatform({
 				position={[position[0] - 7, position[1], position[2] + 3]}
 				size={[0.5, 8, 1]}
 				vectors={[
-					new Vector3(0, 0, 0),
-					new Vector3(0, 1, 0),
-					new Vector3(-1.5, 1, 0),
-					new Vector3(-1.5, 0, 0),
-					new Vector3(-1.5, -1, 0),
+					new Vector3(0, 0, 3),
+					new Vector3(0, 1, 3),
+					new Vector3(-1.5, 1, 3),
+					new Vector3(-1.5, 0, 3),
+					new Vector3(-1.5, -1, 3),
 					new Vector3(-1.5, -1, 6.2),
-					new Vector3(8, -1, 6.2),
-					new Vector3(8, 1, 6.2),
-					new Vector3(8, 1, 5),
-					new Vector3(8, 1, 4),
-					new Vector3(8, 0, 4),
+					new Vector3(6, -1, 6.2),
+					new Vector3(6, 1, 6.2),
+					new Vector3(6, 1, 5),
+					new Vector3(6, 1, 4),
+					new Vector3(6, 0, 4),
 				]}
 			/>
 			<ObjectLoad

@@ -41,8 +41,8 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 			}
 			setSceneHook(Scene.Overworld);
 		} else {
-			if (setplayerpos) {
-				setplayerpos(new Vector3(9, 4, 25));
+			if (setPlayerPos) {
+				setPlayerPos(new Vector3(9, 4, 25));
 			}
 		}
 	}
@@ -77,7 +77,7 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 				bottom="30px"
 				text="&larr;"
 				onClick={() => {
-					changeview(done);
+					changeView(done);
 					setSceneHook(Scene.Overworld);
 				}}
 			/>

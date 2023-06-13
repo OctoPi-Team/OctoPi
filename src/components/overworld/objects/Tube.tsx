@@ -18,7 +18,7 @@ function Tube({
 	detailed = false,
 }: TubeProps): JSX.Element {
 	const curve = new CatmullRomCurve3(vectors);
-	const tubeGeometry = new TubeGeometry(curve, 100, 0.4, detailed ? 50 : 5, false);
+	const tubeGeometry = new TubeGeometry(curve, 100, 0.4, detailed ? 50 : 10, false);
 	return (
 		<>
 			<mesh name={name} position={position}>
