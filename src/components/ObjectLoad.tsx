@@ -27,9 +27,9 @@ export default function ObjectLoad({
 	rotation = [0, 0, 0], // Default rotation is 0, 0, 0, the rotation is in degrees.
 	onClick,
 	collisionRefSetter,
-	customCollisionBoxes
+	customCollisionBoxes,
 }: ObjectLoadOptions): JSX.Element {
-	const SHOW_COLLISION_BOX = true;
+	const SHOW_COLLISION_BOX = false;
 	const meshRef = useRef<Mesh<BufferGeometry, Material | Material[]>>(null);
 	const [collsionRefWasSet, collsionRefSet] = useState(false);
 	const [collisionBoxes, setCollisionBoxes] = useState<Box3[]>([]);
@@ -45,11 +45,13 @@ export default function ObjectLoad({
 		let boxes: Box3[] = [];
 		if (customCollisionBoxes && customCollisionBoxes.length > 0) {
 			for (const box of customCollisionBoxes)
-				boxes.push(new Box3().setFromCenterAndSize(box.positionOffset.clone()
-					.add(new Vector3(position[0], position[1] + box.size.y / 2, position[2])), box.size)
+				boxes.push(
+					new Box3().setFromCenterAndSize(
+						box.positionOffset.clone().add(new Vector3(position[0], position[1] + box.size.y / 2, position[2])),
+						box.size
+					)
 				);
-		}
-		else {
+		} else {
 			boxes.push(new Box3().setFromObject(meshRef.current.clone()));
 		}
 		for (const box of boxes) {
@@ -84,17 +86,17 @@ export default function ObjectLoad({
 			<boxGeometry args={box.getSize(new Vector3(0, 0, 0)).toArray()} />
 			<meshLambertMaterial color={RED} opacity={0.6} transparent={true} />
 		</mesh>
-	))
+	));
 	return (
 		<>
-			{SHOW_COLLISION_BOX && collisionBoxes && (
+			{SHOW_COLLISION_BOX &&
+				collisionBoxes &&
 				collisionBoxes.map(box => (
 					<mesh position={box.getCenter(new Vector3().fromArray(position))}>
 						<boxGeometry args={box.getSize(new Vector3(0, 0, 0)).toArray()} />
 						<meshLambertMaterial color={RED} opacity={0.6} transparent={true} />
 					</mesh>
-				))
-			)}
+				))}
 			<mesh
 				castShadow
 				receiveShadow
