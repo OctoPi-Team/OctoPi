@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import Tile, { TileProps, TileType } from './Tile';
 import { Vector3 } from 'three';
@@ -15,16 +15,17 @@ enum direction {
 type GridProps = {
 	size: [number, number];
 	stateChanger: (value: boolean) => void;
+	setFinished: Dispatch<SetStateAction<boolean>>;
 };
 
 function getTilesFromProps(
 	props: TileProps[][],
 	tileClickHandler: (tileProps: TileProps) => void,
-	Victorypath: TileProps[]
+	victoryPath: TileProps[]
 ): Array<JSX.Element> {
 	const tileElements = [];
 	const oneDimension = [];
-	const render = Victorypath.length == 0 ? true : false;
+	const render = victoryPath.length == 0 ? true : false;
 	if (
 		props.every(function (a) {
 			return !a.length;
@@ -195,31 +196,6 @@ function shuffle<T>(array: T[]): T[] {
 	return array;
 }
 
-function generateFunctioningTable(size: [number, number]) {
-	//in order to keep the game simple,these are the minimum required tiles
-	let possibleBoard = [0, 5, 2];
-	//three different arrangements that will make the game solvable
-	const RAND = Math.ceil(Math.random() * 3);
-	if (RAND == 1) {
-		const OPTION1 = [2, 3];
-		possibleBoard.push(...OPTION1);
-	}
-	if (RAND == 2) {
-		const OPTION2 = [0, 5];
-		possibleBoard.push(...OPTION2);
-	}
-	if (RAND == 3) {
-		const OPTION3 = [0, 5];
-		possibleBoard.push(...OPTION3);
-	}
-	// at this pont the board is solvable and we can fill it with random tiles
-	for (let x = 0; x < size[0] * size[1] - 6; x++) {
-		possibleBoard.push(getRandomTileType());
-	}
-	possibleBoard = shuffle(possibleBoard);
-	return possibleBoard;
-}
-
 function initialize2DArray() {
 	const array = [];
 	for (let x = 0; x < SIZE_OF_GAME_MATRIX[0]; x++) {
@@ -228,10 +204,11 @@ function initialize2DArray() {
 	return array;
 }
 
-export default function Grid({ size, stateChanger }: GridProps) {
-	const [done, setdone] = useState(true);
+export default function Grid({ size, stateChanger, setFinished }: GridProps) {
+	const [done, setDone] = useState(true);
 	const [tiles, setTiles] = useState<TileProps[][]>(initialize2DArray());
 	const [emptyTile, setEmptyTile] = useState<[number, number]>([0, 0]);
+
 	function addTile(newTile: TileProps, x: number, z: number) {
 		const copy = tiles;
 		copy[x][z] = newTile;
@@ -331,19 +308,17 @@ export default function Grid({ size, stateChanger }: GridProps) {
 					}
 					break;
 				case TileType.StraightNormal:
-					// if (currentDirection == direction.left) {
-					// } else if (currentDirection == direction.right) {
-					// } else {
-					// 	return [];
-					// }
-					break;
+					if (currentDirection == direction.left || currentDirection == direction.right) {
+						break;
+					} else {
+						return [];
+					}
 				case TileType.StraightInverted:
-					// if (currentDirection == direction.up) {
-					// } else if (currentDirection == direction.down) {
-					// } else {
-					// 	return [];
-					// }
-					break;
+					if (currentDirection == direction.up || currentDirection == direction.down) {
+						break;
+					} else {
+						return [];
+					}
 				case TileType.AngleLeftInverted:
 					if (currentDirection == direction.up) {
 						currentDirection = direction.right;
@@ -356,22 +331,6 @@ export default function Grid({ size, stateChanger }: GridProps) {
 			}
 		}
 		return [];
-	}
-	function shuffle<T>(array: T[]): T[] {
-		let currentIndex = array.length,
-			randomIndex;
-
-		// While there remain elements to shuffle.
-		while (currentIndex != 0) {
-			// Pick a remaining element.
-			randomIndex = Math.floor(Math.random() * currentIndex);
-			currentIndex--;
-
-			// And swap it with the current element.
-			[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-		}
-
-		return array;
 	}
 
 	function generateFunctioningTable() {
@@ -446,18 +405,18 @@ export default function Grid({ size, stateChanger }: GridProps) {
 
 	onUpdate();
 
-	const victorypath = checkVictory();
-	if (victorypath.length > 0 && done) {
-		setdone(false);
+	const victoryCondition = checkVictory();
+	if (victoryCondition.length > 0 && done) {
+		setDone(false);
 		setTimeout(() => {
-			window.alert('Herzlichen Glückwunsch, du hast das Rohrsystem repariert!');
 			stateChanger(true);
-		}, 100);
+			setFinished(true);
+		}, 1500);
 	}
 	return (
 		<>
-			{...getTilesFromProps(tiles, tileClickHandler, victorypath)}
-			{typeof victorypath !== 'undefined' && victorypath.length > 0 && <FinalTube {...victorypath} />}
+			{...getTilesFromProps(tiles, tileClickHandler, victoryCondition)}
+			{typeof victoryCondition !== 'undefined' && victoryCondition.length > 0 && <FinalTube {...victoryCondition} />}
 		</>
 	);
 }
@@ -465,7 +424,6 @@ export default function Grid({ size, stateChanger }: GridProps) {
 export const ExportedForTestingOnly = {
 	getTilesFromProps,
 	shuffle,
-	generateFunctioningTable,
 	checkVictory,
 	isNeighbourOfEmptyTile,
 	getRandomTileType,
