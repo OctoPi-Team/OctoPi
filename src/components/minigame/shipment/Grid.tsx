@@ -331,19 +331,17 @@ export default function Grid({ size, stateChanger }: GridProps) {
 					}
 					break;
 				case TileType.StraightNormal:
-					if (currentDirection == direction.left) {
-					} else if (currentDirection == direction.right) {
-					} else {
+					if (!(currentDirection === direction.left || !(currentDirection === direction.right))) {
 						return [];
+					} else {
+						break;
 					}
-					break;
 				case TileType.StraightInverted:
-					if (currentDirection == direction.up) {
-					} else if (currentDirection == direction.down) {
-					} else {
+					if (!(currentDirection === direction.up || !(currentDirection === direction.down))) {
 						return [];
+					} else {
+						break;
 					}
-					break;
 				case TileType.AngleLeftInverted:
 					if (currentDirection == direction.up) {
 						currentDirection = direction.right;
@@ -452,7 +450,7 @@ export default function Grid({ size, stateChanger }: GridProps) {
 		setTimeout(() => {
 			window.alert('Herzlichen Glückwunsch, du hast das Rohrsystem repariert!');
 			stateChanger(true);
-		}, 100);
+		}, 2500);
 	}
 	return (
 		<>
