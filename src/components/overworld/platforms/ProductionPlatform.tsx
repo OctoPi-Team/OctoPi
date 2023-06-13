@@ -44,7 +44,6 @@ export default function ProductionPlatform({
 				position={[position[0] - 6, position[1], position[2]]}
 				scale={[0.11, 0.11, 0.11]}
 				rotation={[0, 7, 0]}
-
 				collisionRefSetter={addCollisionBox}
 				customCollisionBox={{ positionOffset: new Vector3(), size: new Vector3(1, 4, 1) }}
 			/>
@@ -115,8 +114,8 @@ export default function ProductionPlatform({
 				position={[position[0] - 9, position[1], position[2] - 1]}
 				size={[0.5, 8, 1]}
 				vectors={[
-					new Vector3(0, 0, 0),
-					new Vector3(0, 1, 0),
+					new Vector3(0, 0, -4),
+					new Vector3(0, 1, -4),
 					new Vector3(0, 1, -7),
 					new Vector3(0, -1, -7),
 					new Vector3(6, -1, -7),
