@@ -15,7 +15,7 @@ export type SceneProps = {
 	setSceneHook: (newActiveScene: Scene) => void;
 	visible?: boolean;
 	setPlayerPos?: (setplayerpos: Vector3) => void;
-	playerpos?: Vector3;
+	playerPos?: Vector3;
 };
 
 export default function App() {

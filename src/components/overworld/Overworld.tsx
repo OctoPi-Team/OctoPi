@@ -164,7 +164,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 							endPosition={new Vector3(-7, 3, -16)}
 							reference={addStair}
 						/>
-						<ProductionPlatform position={[-10, 3, -22]} reference={addPlatform} addCollisionBox={addCollisionBox} />
+						<ProductionPlatform position={[-11, 3, -22]} reference={addPlatform} addCollisionBox={addCollisionBox} />
 						<Stair startPosition={new Vector3(6, 0, -6.5)} endPosition={new Vector3(6, 1, -16)} reference={addStair} />
 						<PartsPlatform position={[15, 1, -25]} reference={addPlatform} addCollisionBox={addCollisionBox} />
 						<Stair startPosition={new Vector3(10, 0, 0)} endPosition={new Vector3(18, 4.5, 0)} reference={addStair} />
