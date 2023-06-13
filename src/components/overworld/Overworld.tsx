@@ -100,7 +100,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 	return (
 		<>
 			<div style={{ width: '100vw', height: '100vh' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
-				{!visible && (
+				{!visible &&
 					<>
 						<div style={{ position: 'absolute', zIndex: '50', right: '200px', bottom: '200px' }}>
 							<Joystick
@@ -112,29 +112,30 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 							/>
 						</div>
 						<NavigationButton
-						position="absolute"
-						right="30px"
-						top="40px"
-						text="i"
-						onClick={() => {
-							window.alert(
-								'Willkommen zu unserem Spiel Operation:Innovation! Schaue dich mal auf den verschiedenen Platformen um, siehst du einen Button auf dem Boden? Geh ruhig mal hin.'
-							);
-						}}
-					/>
-					<NavigationButton
-						position="absolute"
-						right="100px"
-						top="40px"
-						text={'\u21BB'}
-						onClick={() => {
-							location.reload()
-							setTimeout(() => {
+							position="absolute"
+							right="30px"
+							top="40px"
+							text="i"
+							onClick={() => {
+								window.alert(
+									'Willkommen zu unserem Spiel Operation:Innovation! Schaue dich mal auf den verschiedenen Platformen um, siehst du einen Button auf dem Boden? Geh ruhig mal hin.'
+								);
+							}}
+						/>
+						<NavigationButton
+							position="absolute"
+							right="100px"
+							top="40px"
+							text={'\u21BB'}
+							onClick={() => {
 								location.reload()
-							}, 50);
-						}}
-					/>
-				)}
+								setTimeout(() => {
+									location.reload()
+								}, 50);
+							}}
+						/>
+					</>
+				}
 				<Canvas orthographic shadows style={{ visibility: visible ? 'hidden' : 'visible' }}>
 					<group name="lighting-and-camera">
 						<color attach="background" args={['white']} />
