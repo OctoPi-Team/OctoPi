@@ -29,7 +29,7 @@ export default function ObjectLoad({
 	collisionRefSetter,
 	customCollisionBox,
 }: ObjectLoadOptions): JSX.Element {
-	const SHOW_COLLISION_BOX = true;
+	const SHOW_COLLISION_BOX = false;
 	const meshRef = useRef<Mesh<BufferGeometry, Material | Material[]>>(null);
 	const [collsionRefWasSet, collsionRefSet] = useState(false);
 	const [collisionBox, setCollisionBox] = useState<Box3>();
