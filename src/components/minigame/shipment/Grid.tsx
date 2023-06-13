@@ -448,7 +448,7 @@ export default function Grid({ size, stateChanger }: GridProps) {
 	if (victorypath.length > 0 && done) {
 		setdone(false);
 		setTimeout(() => {
-			window.alert('Herzlichen Glückwunsch, du hast das Rohrsystem repariert!');
+			window.alert('Victory!');
 			stateChanger(true);
 		}, 2500);
 	}
