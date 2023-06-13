@@ -8,7 +8,7 @@ export type StairType = {
 	endPosition: Vector3;
 };
 
-export const STAIR_WIDTH = 2;
+export const STAIR_WIDTH = 2.5;
 
 interface StairProps {
 	startPosition: Vector3;
