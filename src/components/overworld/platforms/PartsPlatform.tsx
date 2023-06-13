@@ -2,7 +2,8 @@ import { PARTS } from '../../../AllColorVariables';
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
 import Text from '../../Text';
-import { Box3 } from 'three';
+import { Box3, Vector3 } from 'three';
+import Tube from '../objects/Tube';
 import Button from '../objects/Button';
 
 type PartsPlatformOptions = {
@@ -21,6 +22,29 @@ export default function PartsPlatform({
 	return (
 		<>
 			<SimplePlatform position={position} size={[24, 0.5, 18]} reference={reference} color={PARTS} />
+			<Tube
+				name="Tube"
+				position={[position[0] + 11, position[1], position[2] - 7]}
+				size={[0.5, 8, 1]}
+				vectors={[
+					new Vector3(0.5, 0, 0),
+					new Vector3(0.5, 2, 0),
+					new Vector3(-5, 2, 0),
+					new Vector3(-5, 0, 0)
+				]}
+			/>
+			<Tube
+				name="Tube"
+				position={[position[0] - 6, position[1], position[2] - 7]}
+				size={[0.5, 8, 1]}
+				vectors={[
+					new Vector3(0, -1, 0),
+					new Vector3(0, -1, -3),
+					new Vector3(-6, -1, -3),
+					new Vector3(-6, -1, 2),
+					new Vector3(0, -1, 0),
+				]}
+			/>
 			<Text
 				text={'PARTS'}
 				color={PARTS}

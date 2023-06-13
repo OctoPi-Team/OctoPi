@@ -124,7 +124,13 @@ export default function ShipmentPlatform({
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			<Tube name="Tube" position={[position[0] + 7.6, position[1] - 1.9, position[2] + 0.5]} size={[0.5, 8, 1]} />
+			<Tube name="Tube" position={[position[0] + 7.6, position[1], position[2] + 0.5]} size={[0.5, 8, 1]} />
+			<Tube
+				name="Tube2"
+				position={[position[0] - 7, position[1], position[2] - 7]}
+				size={[0.5, 8, 1]}
+				vectors={[new Vector3(0, 0, 0), new Vector3(0, 1, 0), new Vector3(0, 1, 7), new Vector3(0, 0, 7)]}
+			/>
 			<Button position={[position[0] - 6, position[1] + 6, position[2] - 9]} reference={buttonreference} />
 		</>
 	);

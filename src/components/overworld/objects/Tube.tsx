@@ -14,11 +14,11 @@ function Tube({
 	name = 'Tube',
 	position = [0, 0, 0],
 	color = WHITE,
-	vectors = [new Vector3(0, 0, 0), new Vector3(0, 7, 0), new Vector3(-10.5, 7, 5), new Vector3(-10.6, 5.5, 5)],
+	vectors = [new Vector3(0, 0, 0), new Vector3(0, 6, 0), new Vector3(-10.5, 6, 5), new Vector3(-10.6, 4.5, 5)],
 	detailed = false,
 }: TubeProps): JSX.Element {
 	const curve = new CatmullRomCurve3(vectors);
-	const tubeGeometry = new TubeGeometry(curve, 100, 0.4, detailed ? 50 : 5, false);
+	const tubeGeometry = new TubeGeometry(curve, 100, 0.4, detailed ? 50 : 10, false);
 	return (
 		<>
 			<mesh name={name} position={position}>

@@ -2,7 +2,8 @@ import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
 import { MONITORING } from '../../../AllColorVariables';
 import Text from '../../Text';
-import { Box3 } from 'three';
+import { Box3, Vector3 } from 'three';
+import Tube from '../objects/Tube';
 import Button from '../objects/Button';
 
 type MonitoringPlatformOptions = {
@@ -48,7 +49,23 @@ export default function MonitoringPlatform({
 				rotation={[0, 7, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-
+			<ObjectLoad
+				path="/TischMitTV/tischMitTV.glb"
+				position={[position[0] + 2.5, position[1], position[2] - 4.5]}
+				scale={[0.45, 0.45, 0.45]}
+				rotation={[0, 30, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
+			<Tube
+				position={[position[0] - 5, position[1], position[2] + 9]}
+				size={[0.5, 8, 1]}
+				vectors={[new Vector3(0, 0, 0), new Vector3(0, 2, 0), new Vector3(6, 2, 0), new Vector3(6, 0, 0)]}
+			/>
+			<Tube
+				position={[position[0] - 5, position[1], position[2] - 8]}
+				size={[0.5, 8, 1]}
+				vectors={[new Vector3(0, 0, 0), new Vector3(0, 1, 0), new Vector3(0, 1, 3), new Vector3(0, 0, 3)]}
+			/>
 			<Button position={[position[0] - 8, position[1] + 6, position[2] - 9]} reference={buttonreference} />
 		</>
 	);
