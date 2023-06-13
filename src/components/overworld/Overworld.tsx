@@ -9,7 +9,7 @@ import {
 	DirectionalLightHelper,
 } from 'three';
 
-import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp } from './Player';
+import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp, resetKeys } from './Player';
 import Stair, { StairType } from './platforms/Stair';
 import FixedCamera from './FixedCamera';
 import { OrbitControls, useHelper } from '@react-three/drei';
@@ -128,6 +128,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 							top="40px"
 							text={'\u21BB'}
 							onClick={() => {
+                resetKeys()
 								location.reload()
 								setTimeout(() => {
 									location.reload()

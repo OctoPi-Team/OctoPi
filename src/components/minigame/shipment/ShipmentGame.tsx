@@ -40,6 +40,10 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 				setPlayerPos(new Vector3(9, 4, 25));
 			}
 			setSceneHook(Scene.Overworld);
+		} else {
+			if (setplayerpos) {
+				setplayerpos(new Vector3(9, 4, 25));
+			}
 		}
 	}
 	return (
@@ -72,7 +76,10 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 				left="30px"
 				bottom="30px"
 				text="&larr;"
-				onClick={() => setSceneHook(Scene.Overworld)}
+				onClick={() => {
+					changeview(done);
+					setSceneHook(Scene.Overworld);
+				}}
 			/>
 			<div style={{ width: '100vw', height: '100vh' }} onClick={() => changeView(done)} tabIndex={0}>
 				<Canvas orthographic camera={{ zoom: 50, position: [40, 40, 40] }}>
