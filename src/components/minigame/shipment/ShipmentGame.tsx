@@ -1,33 +1,32 @@
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber';
 import { Scene, SceneProps } from '../../../App';
 import Grid from './Grid';
 import { OrbitControls } from '@react-three/drei';
-import Tube from '../../overworld/objects/Tube';
+import Tube from './Tube';
 import FixedCamera from '../../overworld/FixedCamera';
 import ObjectLoad from '../../ObjectLoad';
 import { Vector3 } from 'three';
 import { GREEN, WHITE } from '../../../AllColorVariables';
 import NavigationButton from '../../overworld/objects/NavigationButton';
 import { resetKeys } from '../../overworld/Player';
-import Sphere from './Sphere';
+import './victoryScreen.css';
+import { useEffect, useState } from 'react';
+
 export const TILE_SIZE = 3;
-export const SIZE_OF_GAME_MATRIX: [number, number] = [4, 4];
+export const SIZE_OF_GAME_MATRIX: [number, number] = [3, 3];
 export const SPACING = 0.2;
-import { useEffect } from 'react';
-
-
-export default function ShipMentMinigame({ setSceneHook, visible }: SceneProps) {
+export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
-	// const [visible, setVisible] = useState(true);
+	const [finished, setFinished] = useState(false);
 	// TODO add Loading Screen -> {visible && <LoadingScreen setVisible={setVisible} />}
-
+	const [done, setDone] = useState(false);
 	//calculate random input tube position with relation to the grid
-	const INPUTTUBEPOSSITION = TILE_SIZE * TILE_SIZE + TILE_SIZE * SPACING;
+	const INPUT_TUBE_POSITION = TILE_SIZE * (SIZE_OF_GAME_MATRIX[1] - 1) + (SIZE_OF_GAME_MATRIX[1] - 1) * SPACING;
 	const VECTORS_FOR_TUBE = [
-		new Vector3(-1.9, -1.3, INPUTTUBEPOSSITION),
-		new Vector3(-3, -1.2, INPUTTUBEPOSSITION),
-		new Vector3(-3.5, 2, INPUTTUBEPOSSITION),
-		new Vector3(-20, 1.5, INPUTTUBEPOSSITION),
+		new Vector3(-1.9 + 2 * SPACING, 0.7, INPUT_TUBE_POSITION),
+		new Vector3(-15, 0.7, INPUT_TUBE_POSITION),
+		new Vector3(-1.9 + SPACING, 5, INPUT_TUBE_POSITION),
+		new Vector3(-15, 5, INPUT_TUBE_POSITION),
 	];
 	useEffect(() => {
 		if (visible === true) {
@@ -35,13 +34,24 @@ export default function ShipMentMinigame({ setSceneHook, visible }: SceneProps) 
 		}
 	}, [visible, setSceneHook]);
 
-	// @ts-ignore
+	function changeView(done: boolean) {
+		if (done) {
+			if (setPlayerPos) {
+				setPlayerPos(new Vector3(9, 4, 25));
+			}
+			setSceneHook(Scene.Overworld);
+		} else {
+			if (setplayerpos) {
+				setplayerpos(new Vector3(9, 4, 25));
+			}
+		}
+	}
 	return (
 		<>
 			<NavigationButton
 				position="absolute"
-				right="75px"
-				top="50px"
+				right="100px"
+				top="40px"
 				text={'\u21BB'}
 				onClick={() => {
 					setSceneHook(Scene.Overworld);
@@ -53,7 +63,7 @@ export default function ShipMentMinigame({ setSceneHook, visible }: SceneProps) 
 			<NavigationButton
 				position="absolute"
 				right="30px"
-				top="50px"
+				top="40px"
 				text="i"
 				onClick={() => {
 					window.alert(
@@ -63,35 +73,56 @@ export default function ShipMentMinigame({ setSceneHook, visible }: SceneProps) 
 			/>
 			<NavigationButton
 				position="absolute"
-				left="20px"
-				bottom="20px"
+				left="30px"
+				bottom="30px"
 				text="&larr;"
-				onClick={() => setSceneHook(Scene.Overworld)}
+				onClick={() => {
+					changeview(done);
+					setSceneHook(Scene.Overworld);
+				}}
 			/>
-			<div style={{ width: '100vw', height: '100vh' }} tabIndex={0}>
+			<div style={{ width: '100vw', height: '100vh' }} onClick={() => changeView(done)} tabIndex={0}>
 				<Canvas orthographic camera={{ zoom: 50, position: [40, 40, 40] }}>
 					<directionalLight intensity={0.5} color={WHITE} />
 					<ambientLight intensity={0.5} />
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
-					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} visibility={visible} />}
+					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={30} visibility={visible} />}
 
 					<group position={[0, 4, 0]}>
-						<Grid size={SIZE_OF_GAME_MATRIX} />
+						<Grid size={SIZE_OF_GAME_MATRIX} stateChanger={setDone} isFinished={setFinished} />
 						<ObjectLoad
 							path="/Trichter/trichter.glb"
 							position={[(2.9 + 0.2) * SIZE_OF_GAME_MATRIX[0], -3.3, -0.5]}
 							scale={[0.25, 0.25, 0.25]}
 							rotation={[0, 180, 0]}
 						/>
-						<Tube
-							name="InputTubeInGame"
-							position={[0, 2, 0]}
-							color={GREEN}
-							vectors={VECTORS_FOR_TUBE}
-							detailed={true}
-						/>
+						<Tube name="InputTubeInGame" position={[0, 0, 0]} color={GREEN} vectors={VECTORS_FOR_TUBE} />
 					</group>
 				</Canvas>
+				{finished ? (
+					<div className={'win'}>
+						Du hast gewonnen!
+						<div className={'buttons'}>
+							<button
+								onClick={() => {
+									setSceneHook(Scene.Overworld);
+									setTimeout(() => {
+										setSceneHook(Scene.Shipment);
+									}, 50);
+								}}>
+								Starte neues Spiel
+							</button>{' '}
+							<button
+								onClick={() => {
+									setSceneHook(Scene.Overworld);
+								}}>
+								Zurück zur Plattform
+							</button>
+						</div>
+					</div>
+				) : (
+					<div></div>
+				)}
 			</div>
 			{resetKeys()}
 		</>

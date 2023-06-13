@@ -21,6 +21,7 @@ export type TileProps = {
 	Vector2: Vector3;
 	tileType: TileType;
 	color?: string;
+	render?: boolean;
 };
 
 const GRID_SPACING = 0.2;
@@ -34,7 +35,15 @@ function getRealPositionFromGridPosition(gridPosition: [number, number]): Vector
 	);
 }
 
-export default function Tile({ gridPosition, tileClickHandler, Vector1, Vector2, tileType, color = BLUE }: TileProps) {
+export default function Tile({
+	gridPosition,
+	tileClickHandler,
+	Vector1,
+	Vector2,
+	tileType,
+	color = BLUE,
+	render = true,
+}: TileProps) {
 	const ref = useRef<Mesh>(null);
 
 	useEffect(() => {
@@ -109,6 +118,7 @@ export default function Tile({ gridPosition, tileClickHandler, Vector1, Vector2,
 					color={GREEN}
 					vectors={[Vector1, cubicbenziercontrol1, cubicbenziercontrol2, Vector2]}
 					detailed={true}
+					render={render}
 				/>
 				<boxGeometry args={[TILE_SIZE, 0.5, TILE_SIZE]} />
 				<meshStandardMaterial color={color} />

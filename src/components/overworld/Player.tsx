@@ -1,12 +1,12 @@
 import { useFrame } from '@react-three/fiber';
 import { Scene, SceneProps } from '../../App';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Box3, BufferGeometry, Material, MathUtils, Mesh, Vector2, Vector3 } from 'three';
 import { STAIR_WIDTH, StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
 import { IJoystickUpdateEvent } from 'react-joystick-component/build/lib/Joystick';
 
-const PLAYER_SIZE = 0.5;
+export const PLAYER_SIZE = 0.5;
 const SPEED = 0.1;
 const COLLISION_IS_ACTIVE = true;
 const ROTATION_SPEED = 0.1;
@@ -28,12 +28,6 @@ interface PlayerArgs {
 	collisionObjects: Box3[];
 }
 
-function getHeight(stairLength: number, stairHeight: number, currentProgression: number, lowerHeight: number) {
-	// get height of the player based on position on the staircase
-	// uses trigonometry
-	return lowerHeight + currentProgression / (stairLength / stairHeight);
-}
-
 function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisionObjects }: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
 	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
@@ -46,114 +40,36 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisi
 		const buttonPositions = buttons.map(button => button.position.clone());
 		for (const buttonPosition of buttonPositions) {
 			if (playerPosition.distanceTo(buttonPosition) < 1) {
+				// TODO add button ability for other platforms
 				if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
 			}
 		}
-		// get movement vector from keypresses
-		let movementVector = new Vector3();
-		if (keys.right) {
-			movementVector.z += 1;
-			movementVector.x -= 1;
-		}
-		if (keys.down) {
-			movementVector.x -= 1;
-			movementVector.z -= 1;
-		}
-		if (keys.left) {
-			movementVector.z -= 1;
-			movementVector.x += 1;
-		}
-		if (keys.up) {
-			movementVector.x += 1;
-			movementVector.z += 1;
-		}
-
-		// normalize Vector to avoid diagonal speedUp
-		movementVector = movementVector.normalize().multiplyScalar(SPEED);
-
+		const movementVector = getMovementVectorFromKeys(SPEED, keys);
 		// move player forward
 		ref.current.position.x += movementVector.x;
 		ref.current.position.z += movementVector.z;
-		// check if he collides with any objects or is outside any plattform collision box
-		const playerCollisionBox = new Box3().setFromObject(ref.current);
+		// player collision detection
 		if (
-			// collision with border
-			(!platforms.some(x => x.containsBox(playerCollisionBox)) && COLLISION_IS_ACTIVE) ||
-			// collision with objects
-			(collisionObjects && playerCollisionBox && collisionObjects.some(x => x.intersectsBox(playerCollisionBox)))
+			checkIfPlayerCollidesWithPlatformBorderOrObject(
+				new Box3().setFromCenterAndSize(ref.current.position, new Vector3(0.8, 0.8, 0.8)),
+				platforms,
+				collisionObjects
+			)
 		) {
 			// if he collides with anything move him back again
 			ref.current.position.x -= movementVector.x;
 			ref.current.position.z -= movementVector.z;
 		}
+		try {
+			// player height
+			ref.current.position.y = getNewPlayerHeight(stairs, playerPosition, STAIR_WIDTH, PLAYER_SIZE);
+		} catch (Error) {
+			// dont set a new height because he isnt on a stair anymore
+		}
 
-		function flattenVector(v: Vector3, planeTransformer: Vector3 = new Vector3(1, 0, 1)) {
-			return v.clone().multiply(planeTransformer);
-		}
-		function getAngleFromThreePoints(start: Vector3, middle: Vector3, end: Vector3) {
-			const dir1 = new Vector3().subVectors(middle, start);
-			const dir2 = new Vector3().subVectors(middle, end);
-			return MathUtils.radToDeg(dir2.angleTo(dir1));
-		}
-		for (const stair of stairs) {
-			const flattenedStart = flattenVector(stair.startPosition);
-			const flattenedEnd = flattenVector(stair.endPosition);
-			const flattenedPlayer = flattenVector(playerPosition);
-
-			const angleBetweenStairStartAndPlayer = getAngleFromThreePoints(flattenedPlayer, flattenedStart, flattenedEnd);
-			const angleBetweenStairEndAndPlayer = getAngleFromThreePoints(flattenedPlayer, flattenedEnd, flattenedStart);
-			const flatStairLength = flattenedStart.distanceTo(flattenedEnd);
-			const sidewayDistanceFromPlayerToStair =
-				Math.sin(MathUtils.degToRad(angleBetweenStairStartAndPlayer)) * flattenedStart.distanceTo(flattenedPlayer);
-			if (
-				// player is after startPosition
-				angleBetweenStairStartAndPlayer < 90 &&
-				// player is before endPosition
-				angleBetweenStairEndAndPlayer < 90 &&
-				// player is near enough to the stairs
-				sidewayDistanceFromPlayerToStair <= STAIR_WIDTH / 2 * 1.5//quickfix *1.5 to make detection range bigger
-			) {
-				// calculate player height
-				// D
-				// |
-				// A---C
-				// |  /
-				// | /
-				// |/<-- alpha
-				// B
-				//
-				// A - Current Progression Point on stair
-				// B - Stair Start
-				// C - Player Position
-				// D - Stair End
-				// progression == |AB| == cos(alpha)*|BC|
-				let progression =
-					Math.cos(MathUtils.degToRad(angleBetweenStairStartAndPlayer)) * flattenedStart.distanceTo(flattenedPlayer);
-				if (progression < 0.07) {
-					progression = 0;
-				} else if (flatStairLength - progression < 0.07) {
-					progression = flatStairLength;
-				}
-				ref.current.position.y = getHeight(
-					flatStairLength,
-					stair.endPosition.y - stair.startPosition.y,
-					progression,
-					stair.startPosition.y + PLAYER_SIZE / 2 + startPosition.y
-				);
-			}
-		}
+		// player rotation
 		setTargetRotation(getPlayerRotationFromKeys(targetRotation));
-
-		// Smoothly rotate the player towards the target rotation
-		const diffRotation = new Vector3().subVectors(targetRotation, rotation);
-
-		// Ensure the rotation difference is within -Math.PI to Math.PI range
-		diffRotation.y = ((diffRotation.y + Math.PI) % (Math.PI * 2)) - Math.PI;
-
-		const rotationStep = new Vector3().copy(diffRotation).multiplyScalar(ROTATION_SPEED);
-		const newPlayerRotation = new Vector3().addVectors(rotation, rotationStep);
-
-		setRotation(newPlayerRotation);
+		setRotation(getNewLerpedPlayerRoation(rotation, targetRotation, ROTATION_SPEED));
 	});
 
 	return (
@@ -161,11 +77,142 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisi
 			name="player"
 			ref={ref}
 			position={[startPosition.x, startPosition.y + PLAYER_SIZE / 2, startPosition.z]}
-			rotation={rotation.toArray()} // Set rotation based on state
-		>
+			rotation={rotation.toArray()}>
 			<ObjectLoad path="/Player/player.glb" position={[0, 0, 0]} scale={[0.2, 0.2, 0.2]} rotation={[0, 90, 0]} />
 		</mesh>
 	);
+}
+
+function getHeight(stairLength: number, stairHeight: number, currentProgression: number, lowerHeight: number) {
+	// get height of the player based on position on the staircase
+	// uses trigonometry
+	return lowerHeight + currentProgression / (stairLength / stairHeight);
+}
+
+function getMovementVectorFromKeys(
+	speed: number,
+	keys: {
+		left: boolean;
+		right: boolean;
+		up: boolean;
+		down: boolean;
+	}
+): Vector3 {
+	let movementVector = new Vector3();
+	if (keys.right) {
+		movementVector.z += 1;
+		movementVector.x -= 1;
+	}
+	if (keys.down) {
+		movementVector.x -= 1;
+		movementVector.z -= 1;
+	}
+	if (keys.left) {
+		movementVector.z -= 1;
+		movementVector.x += 1;
+	}
+	if (keys.up) {
+		movementVector.x += 1;
+		movementVector.z += 1;
+	}
+	// normalize Vector to avoid diagonal speedUp
+	movementVector = movementVector.normalize().multiplyScalar(speed);
+	return movementVector;
+}
+
+function checkIfPlayerCollidesWithPlatformBorderOrObject(
+	playerBox: Box3,
+	platforms: Box3[],
+	collisionObjects: Box3[]
+): boolean {
+	// the collision with the platform is done by checking if the Box3 (placed above the platform or stair) contains the player completely
+	// the collision with the objects checks for intesection of the player with the Box3 of any objects
+	return (
+		(!platforms.some(x => x.containsBox(playerBox)) && COLLISION_IS_ACTIVE) || // collision with platform or stair border
+		(collisionObjects && playerBox && collisionObjects.some(x => x.intersectsBox(playerBox))) // collision with objects
+	);
+}
+
+function flattenVector(v: Vector3, planeTransformer: Vector3 = new Vector3(1, 0, 1)) {
+	return v.clone().multiply(planeTransformer);
+}
+
+function getAngleFromThreePoints(start: Vector3, middle: Vector3, end: Vector3) {
+	// start       end
+	//      \     /
+	//       \---/
+	//        \a/
+	//       middle
+	const dir1 = new Vector3().subVectors(middle, start);
+	const dir2 = new Vector3().subVectors(middle, end);
+	return MathUtils.radToDeg(dir2.angleTo(dir1));
+}
+
+function getNewPlayerHeight(
+	stairs: StairType[],
+	playerPosition: Vector3,
+	stairWidth: number,
+	playerSize: number
+): number {
+	for (const stair of stairs) {
+		const flattenedStart = flattenVector(stair.startPosition);
+		const flattenedEnd = flattenVector(stair.endPosition);
+		const flattenedPlayer = flattenVector(playerPosition);
+
+		const angleBetweenStairStartAndPlayer = getAngleFromThreePoints(flattenedPlayer, flattenedStart, flattenedEnd);
+		const angleBetweenStairEndAndPlayer = getAngleFromThreePoints(flattenedPlayer, flattenedEnd, flattenedStart);
+		const flatStairLength = flattenedStart.distanceTo(flattenedEnd);
+		const sidewayDistanceFromPlayerToStair =
+			Math.sin(MathUtils.degToRad(angleBetweenStairStartAndPlayer)) * flattenedStart.distanceTo(flattenedPlayer);
+		if (
+			// player is after startPosition
+			angleBetweenStairStartAndPlayer < 90 &&
+			// player is before endPosition
+			angleBetweenStairEndAndPlayer < 90 &&
+			// player is near enough to the stairs
+			sidewayDistanceFromPlayerToStair <= (stairWidth / 2) * 1.5 // temporary fix for player collision missdetection that leads to the player moving off the stair
+		) {
+			// calculate player height
+			// D
+			// |
+			// A---C
+			// |  /
+			// | /
+			// |/<-- alpha
+			// B
+			//
+			// A - Current Progression Point on stair
+			// B - Stair Start
+			// C - Player Position
+			// D - Stair End
+			// progression == |AB| == cos(alpha)*|BC|
+			let progression =
+				Math.cos(MathUtils.degToRad(angleBetweenStairStartAndPlayer)) * flattenedStart.distanceTo(flattenedPlayer);
+			if (progression < 0.07) {
+				progression = 0;
+			} else if (flatStairLength - progression < 0.07) {
+				progression = flatStairLength;
+			}
+			return getHeight(
+				flatStairLength,
+				stair.endPosition.y - stair.startPosition.y,
+				progression,
+				stair.startPosition.y + playerSize / 2
+			);
+		}
+	}
+	throw new Error();
+}
+
+function getNewLerpedPlayerRoation(rotation: Vector3, targetRotation: Vector3, rotation_speed: number): Vector3 {
+	// Smoothly rotate the player towards the target rotation
+	const diffRotation = new Vector3().subVectors(targetRotation, rotation);
+
+	// Ensure the rotation difference is within -Math.PI to Math.PI range
+	diffRotation.y = ((diffRotation.y + Math.PI) % (Math.PI * 2)) - Math.PI;
+
+	const rotationStep = new Vector3().copy(diffRotation).multiplyScalar(rotation_speed);
+	return new Vector3().addVectors(rotation, rotationStep);
 }
 
 function getPlayerRotationFromKeys(currentRotation: Vector3): Vector3 {
@@ -254,4 +301,16 @@ export const handleJoystickStop = () => {
 
 export default Player;
 
-export const ExportedForTestingOnly = { keys, handleJoystickStop, handleJoystickMove, getPlayerRotationFromKeys };
+export const ExportedForTestingOnly = {
+	keys,
+	handleJoystickStop,
+	handleJoystickMove,
+	getPlayerRotationFromKeys,
+	getHeight,
+	getNewLerpedPlayerRoation,
+	getNewPlayerHeight,
+	getAngleFromThreePoints,
+	flattenVector,
+	checkIfPlayerCollidesWithPlatformBorderOrObject,
+	getMovementVectorFromKeys,
+};
