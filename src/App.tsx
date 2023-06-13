@@ -15,7 +15,7 @@ export type SceneProps = {
 	setSceneHook: (newActiveScene: Scene) => void;
 	visible?: boolean;
 	setPlayerPos?: (setplayerpos: Vector3) => void;
-	playerpos?: Vector3;
+	playerPos?: Vector3;
 };
 
 export default function App() {
@@ -24,20 +24,20 @@ export default function App() {
 	const [visible, setVisible] = useState(true);
 	const delay = 60000;
 	let timeoutId: NodeJS.Timeout;
-	let hadMoved = false;
+	let hasMoved = false;
 
 	useEffect(() => {
-		if (!visible && !hadMoved) {
+		if (!visible && !hasMoved) {
 			timeoutId = setTimeout(() => setVisible(true), delay);
 		}
 		const resetTimer = () => {
 			clearTimeout(timeoutId);
 			timeoutId = setTimeout(() => setVisible(true), delay); // Adjust the delay (in milliseconds) as per your requirement
-			hadMoved = false;
+			hasMoved = false;
 		};
 
 		const handleActivity = () => {
-			hadMoved = true;
+			hasMoved = true;
 			resetTimer();
 		};
 		// Add event listeners to detect user activity
@@ -60,7 +60,7 @@ export default function App() {
 		<>
 			{visible && <LoadingScreen setVisible={setVisible} />}
 			{scene === Scene.Overworld && (
-				<Overworld sceneProps={{ setSceneHook: setScene }} visible={visible} startingpos={playerstartingPos} />
+				<Overworld setSceneHook={setScene} visible={visible} playerPos={playerstartingPos} />
 			)}
 			{scene === Scene.Shipment && (
 				<ShipmentGame setSceneHook={setScene} visible={visible} setPlayerPos={setPlayerstartingPos} />

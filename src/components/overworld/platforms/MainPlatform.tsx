@@ -37,18 +37,3 @@ export default function MainPlatform({
 		</>
 	);
 }
-
-/*
-<ObjectLoad
-				path="/Kommode/kommode.glb"
-				position={[position[0], position[1], position[2]]}
-				scale={[0.15, 0.15, 0.15]}
-				rotation={[0, 270, 0]}
-			/>
-			<ObjectLoad
-				path="/Kaffeemaschine/kaffeemaschine.glb"
-				position={[position[0] - 2, position[1] + 2.2, position[2] + 4.5]}
-				scale={[0.05, 0.05, 0.05]}
-				rotation={[0, 0, 0]}
-			/>
-*/

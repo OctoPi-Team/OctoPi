@@ -28,6 +28,61 @@ interface PlayerArgs {
 	collisionObjects: Box3[];
 }
 
+function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisionObjects }: PlayerArgs) {
+	const ref = useRef<Mesh>(null);
+	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
+	const [targetRotation, setTargetRotation] = useState<Vector3>(new Vector3(0, 0, 0));
+
+	// player movement
+	useFrame(() => {
+		if (!ref.current) return;
+		const playerPosition = ref.current.position.clone();
+		const buttonPositions = buttons.map(button => button.position.clone());
+		for (const buttonPosition of buttonPositions) {
+			if (playerPosition.distanceTo(buttonPosition) < 1) {
+				// TODO add button ability for other platforms
+				if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
+			}
+		}
+		const movementVector = getMovementVectorFromKeys(SPEED, keys);
+		// move player forward
+		ref.current.position.x += movementVector.x;
+		ref.current.position.z += movementVector.z;
+		// player collision detection
+		if (
+			checkIfPlayerCollidesWithPlatformBorderOrObject(
+				new Box3().setFromCenterAndSize(ref.current.position, new Vector3(0.8, 0.8, 0.8)),
+				platforms,
+				collisionObjects
+			)
+		) {
+			// if he collides with anything move him back again
+			ref.current.position.x -= movementVector.x;
+			ref.current.position.z -= movementVector.z;
+		}
+		try {
+			// player height
+			ref.current.position.y = getNewPlayerHeight(stairs, playerPosition, STAIR_WIDTH, PLAYER_SIZE);
+		} catch (Error) {
+			// dont set a new height because he isnt on a stair anymore
+		}
+
+		// player rotation
+		setTargetRotation(getPlayerRotationFromKeys(targetRotation));
+		setRotation(getNewLerpedPlayerRoation(rotation, targetRotation, ROTATION_SPEED));
+	});
+
+	return (
+		<mesh
+			name="player"
+			ref={ref}
+			position={[startPosition.x, startPosition.y + PLAYER_SIZE / 2, startPosition.z]}
+			rotation={rotation.toArray()}>
+			<ObjectLoad path="/Player/player.glb" position={[0, 0, 0]} scale={[0.2, 0.2, 0.2]} rotation={[0, 90, 0]} />
+		</mesh>
+	);
+}
+
 function getHeight(stairLength: number, stairHeight: number, currentProgression: number, lowerHeight: number) {
 	// get height of the player based on position on the staircase
 	// uses trigonometry
@@ -65,21 +120,29 @@ function getMovementVectorFromKeys(
 	return movementVector;
 }
 
-function checkIfPlayerCollidesWithPlatformOrBorderOrObject(
+function checkIfPlayerCollidesWithPlatformBorderOrObject(
 	playerBox: Box3,
 	platforms: Box3[],
 	collisionObjects: Box3[]
 ): boolean {
+	// the collision with the platform is done by checking if the Box3 (placed above the platform or stair) contains the player completely
+	// the collision with the objects checks for intesection of the player with the Box3 of any objects
 	return (
-		(!platforms.some(x => x.containsBox(playerBox)) && COLLISION_IS_ACTIVE) || // collision with border
-		(collisionObjects && playerBox && collisionObjects.some(x => x.intersectsBox(playerBox)))
-	); // collision with objects
+		(!platforms.some(x => x.containsBox(playerBox)) && COLLISION_IS_ACTIVE) || // collision with platform or stair border
+		(collisionObjects && playerBox && collisionObjects.some(x => x.intersectsBox(playerBox))) // collision with objects
+	);
 }
 
 function flattenVector(v: Vector3, planeTransformer: Vector3 = new Vector3(1, 0, 1)) {
 	return v.clone().multiply(planeTransformer);
 }
+
 function getAngleFromThreePoints(start: Vector3, middle: Vector3, end: Vector3) {
+	// start       end
+	//      \     /
+	//       \---/
+	//        \a/
+	//       middle
 	const dir1 = new Vector3().subVectors(middle, start);
 	const dir2 = new Vector3().subVectors(middle, end);
 	return MathUtils.radToDeg(dir2.angleTo(dir1));
@@ -150,61 +213,6 @@ function getNewLerpedPlayerRoation(rotation: Vector3, targetRotation: Vector3, r
 
 	const rotationStep = new Vector3().copy(diffRotation).multiplyScalar(rotation_speed);
 	return new Vector3().addVectors(rotation, rotationStep);
-}
-
-function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisionObjects }: PlayerArgs) {
-	const ref = useRef<Mesh>(null);
-	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
-	const [targetRotation, setTargetRotation] = useState<Vector3>(new Vector3(0, 0, 0));
-
-	// player movement
-	useFrame(() => {
-		if (!ref.current) return;
-		const playerPosition = ref.current.position.clone();
-		const buttonPositions = buttons.map(button => button.position.clone());
-		for (const buttonPosition of buttonPositions) {
-			if (playerPosition.distanceTo(buttonPosition) < 1) {
-				if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
-			}
-		}
-		const movementVector = getMovementVectorFromKeys(SPEED, keys);
-		// move player forward
-		ref.current.position.x += movementVector.x;
-		ref.current.position.z += movementVector.z;
-		if (
-			checkIfPlayerCollidesWithPlatformOrBorderOrObject(
-				new Box3().setFromObject(ref.current),
-				platforms,
-				collisionObjects
-			)
-		) {
-			// if he collides with anything move him back again
-			ref.current.position.x -= movementVector.x;
-			ref.current.position.z -= movementVector.z;
-		}
-
-		try {
-			// player height
-			ref.current.position.y = getNewPlayerHeight(stairs, playerPosition, STAIR_WIDTH, PLAYER_SIZE);
-		} catch (Error) {
-			// dont set a new height
-		}
-
-		// player rotation
-		setTargetRotation(getPlayerRotationFromKeys(targetRotation));
-		setRotation(getNewLerpedPlayerRoation(rotation, targetRotation, ROTATION_SPEED));
-	});
-
-	return (
-		<mesh
-			name="player"
-			ref={ref}
-			position={[startPosition.x, startPosition.y + PLAYER_SIZE / 2, startPosition.z]}
-			rotation={rotation.toArray()} // Set rotation based on state
-		>
-			<ObjectLoad path="/Player/player.glb" position={[0, 0, 0]} scale={[0.2, 0.2, 0.2]} rotation={[0, 90, 0]} />
-		</mesh>
-	);
 }
 
 function getPlayerRotationFromKeys(currentRotation: Vector3): Vector3 {
@@ -303,6 +311,6 @@ export const ExportedForTestingOnly = {
 	getNewPlayerHeight,
 	getAngleFromThreePoints,
 	flattenVector,
-	checkIfPlayerCollidesWithPlatformOrBorderOrObject,
+	checkIfPlayerCollidesWithPlatformBorderOrObject,
 	getMovementVectorFromKeys,
 };

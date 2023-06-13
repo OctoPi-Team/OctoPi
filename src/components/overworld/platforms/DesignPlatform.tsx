@@ -24,7 +24,7 @@ export default function DesignPlatform({
 			<Text
 				text={'DESIGN'}
 				color={DESIGN}
-				position={[position[0] + 10, position[1], position[2] + 3]}
+				position={[position[0] + 10, position[1], position[2] + 4]}
 				rotation={[0, 270, 0]}
 			/>
 			<ObjectLoad
