@@ -115,8 +115,8 @@ export default function ProductionPlatform({
 				position={[position[0] - 9, position[1], position[2] - 1]}
 				size={[0.5, 8, 1]}
 				vectors={[
-					new Vector3(0, 0, 0),
-					new Vector3(0, 1, 0),
+					new Vector3(0, 0, -4),
+					new Vector3(0, 1, -4),
 					new Vector3(0, 1, -7),
 					new Vector3(0, -1, -7),
 					new Vector3(6, -1, -7),
