@@ -75,7 +75,10 @@ export default function ShipMentMinigame({ setSceneHook, visible, setplayerpos }
 				left="20px"
 				bottom="20px"
 				text="&larr;"
-				onClick={() => setSceneHook(Scene.Overworld)}
+				onClick={() => {
+					changeview(done);
+					setSceneHook(Scene.Overworld);
+				}}
 			/>
 			<div style={{ width: '100vw', height: '100vh' }} onClick={() => changeview(done)} tabIndex={0}>
 				<Canvas orthographic camera={{ zoom: 50, position: [40, 40, 40] }}>
