@@ -106,7 +106,7 @@ export default function Overworld({ sceneProps, visible, startingpos }: Overworl
 					<NavigationButton
 						position="absolute"
 						right="30px"
-						top="50px"
+						top="40px"
 						text="i"
 						onClick={() => {
 							window.alert(
@@ -118,8 +118,8 @@ export default function Overworld({ sceneProps, visible, startingpos }: Overworl
 				{!visible &&
 					<NavigationButton
 						position="absolute"
-						right="75px"
-						top="50px"
+						right="100px"
+						top="40px"
 						text={'\u21BB'}
 						onClick={() => {
 							location.reload()
