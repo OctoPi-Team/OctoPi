@@ -30,7 +30,7 @@ import Tube from './objects/Tube';
 import { RED } from '../../AllColorVariables';
 
 export default function Overworld({ setSceneHook, visible, playerPos = new Vector3() }: SceneProps) {
-	const ORBITAL_CONTROLS_ACTIVE = false;
+	const ORBITAL_CONTROLS_ACTIVE = true;
 
 	const [platforms, setPlatforms] = useState<Box3[]>([]);
 	const [stairs, setStairs] = useState<StairType[]>([]);
@@ -102,7 +102,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 	return (
 		<>
 			<div style={{ width: '100vw', height: '100vh' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
-				{!visible &&
+				{!visible && (
 					<>
 						<div style={{ position: 'absolute', zIndex: '50', right: '200px', bottom: '200px' }}>
 							<Joystick
@@ -130,15 +130,15 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 							top="40px"
 							text={'\u21BB'}
 							onClick={() => {
-								resetKeys()
-								location.reload()
+								resetKeys();
+								location.reload();
 								setTimeout(() => {
-									location.reload()
+									location.reload();
 								}, 50);
 							}}
 						/>
 					</>
-				}
+				)}
 				<Canvas orthographic shadows style={{ visibility: visible ? 'hidden' : 'visible' }}>
 					<group name="lighting-and-camera">
 						<color attach="background" args={['white']} />
@@ -184,65 +184,113 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 					{/*tubes between parts and shipment*/}
 					{/*tube above the stairs */}
 					<Tube
-				position={[12, 0, -16]}
-				color={RED}
-				size={[0.5, 8, 1]}
-				vectors={[new Vector3(1, -2, -10),new Vector3(1, 0, 8), new Vector3(1, 4, 8), new Vector3(1, 4, 10), new Vector3(1, 4, 20), new Vector3(1, 0, 20), new Vector3(1, 0, 40)]}
-				/>
-				<Tube
-				position={[12, 0, -16]}
-				color={RED}
-				size={[0.5, 8, 1]}
-				vectors={[new Vector3(8, 4, 22), new Vector3(8, 0, 22), new Vector3(3, 0, 22), new Vector3(3, 0, 28), new Vector3(3, 0, 42), new Vector3(3, 4, 42)]}
-				/>
-				<Tube
-				position={[12, 0, -16]}
-				color={RED}
-				size={[0.5, 8, 1]}
-				vectors={[new Vector3(-1, -2, -10), new Vector3(-1, 0, 40)]}
-				/>
-				{/*behind the table on main platform */}
-				<Tube
-				name="tubeToProduction"
-				position={[0, 0, 0]}
-				color={RED}
-				size={[0.5, 8, 1]}
-				vectors={[new Vector3(-1, -1, 3), new Vector3(-1, -1, 10.5), new Vector3(-1, 1, 10.5), new Vector3(-13, 1, 10.5), new Vector3(-13, 1, 5), 
-				new Vector3(-13, 0, 5),new Vector3(-13, 0, -14), new Vector3(-13, 4, -14), 
-				new Vector3(-22.5, 4, -14), new Vector3(-22.5, 3.5, -14),new Vector3(-22.5, 3.5, -17), 
-				new Vector3(-20, 3.5, -17), new Vector3(-20, 3.5, -25)]}
-				/>
-				<Tube
-				position={[0, 0, 0]}
-				color={RED}
-				size={[0.5, 8, 1]}
-				vectors={[new Vector3(0, -1, 3), new Vector3(0, -1, 8), new Vector3(0, 5, 8)]}
-				/>
-				<Tube
-				position={[0, 0, 0]}
-				color={RED}
-				size={[0.5, 8, 1]}
-				vectors={[new Vector3(1, -1, 3), new Vector3(1, -1, 8), new Vector3(1, 5, 8)]}
-				/>
-				<Tube
-				position={[0, 0, 0]}
-				color={RED}
-				size={[0.5, 8, 1]}
-				vectors={[new Vector3(2, -1, 3), new Vector3(2, -1, 8), new Vector3(2, 5, 8)]}
-				/>
-				<Tube
-				position={[0, 0, 0]}
-				color={RED}
-				size={[0.5, 8, 1]}
-				vectors={[new Vector3(3, -1, 3), new Vector3(3, -1, 8), new Vector3(3, 5, 8)]}
-				/>
-				<Tube
-				name="tubeToDesign"
-				position={[0, 0, 0]}
-				color={RED}
-				size={[0.5, 8, 1]}
-				vectors={[new Vector3(-2, -1, 3), new Vector3(-2, -1, 12), new Vector3(-2, 1, 12), new Vector3(-33,1,12), new Vector3(-33,1,4), new Vector3(-33,7,4), new Vector3(-33,7,-11), new Vector3(-28,7,-11), new Vector3(-28,3,-11), new Vector3(-25,3,-11), new Vector3(-25,0,-11)]}
-				/>
+						position={[12, 0, -16]}
+						color={RED}
+						size={[0.5, 8, 1]}
+						vectors={[
+							new Vector3(1, -2, -10),
+							new Vector3(1, 0, 8),
+							new Vector3(1, 4, 8),
+							new Vector3(1, 4, 10),
+							new Vector3(1, 4, 20),
+							new Vector3(1, 0, 20),
+							new Vector3(1, 0, 40),
+						]}
+					/>
+					<Tube
+						position={[12, 0, -16]}
+						color={RED}
+						size={[0.5, 8, 1]}
+						vectors={[
+							new Vector3(8, 4, 22),
+							new Vector3(8, 0, 22),
+							new Vector3(3, 0, 22),
+							new Vector3(3, 0, 28),
+							new Vector3(3, 0, 42),
+							new Vector3(3, 4, 42),
+						]}
+					/>
+					<Tube
+						position={[12, 0, -16]}
+						color={RED}
+						size={[0.5, 8, 1]}
+						vectors={[new Vector3(-1, -2, -10), new Vector3(-1, 0, 40)]}
+					/>
+					{/*behind the table on main platform */}
+					<Tube
+						name="tubeToProduction"
+						position={[0, 0, 0]}
+						color={RED}
+						size={[0.5, 8, 1]}
+						vectors={[
+							new Vector3(-1, -1, 3),
+							new Vector3(-1, -1, 10.5),
+							new Vector3(-1, 1, 10.5),
+							new Vector3(-13, 1, 10.5),
+							new Vector3(-13, 1, 5),
+							new Vector3(-13, 0, 5),
+							new Vector3(-13, 0, -14),
+							new Vector3(-13, 4, -14),
+							new Vector3(-22.5, 4, -14),
+							new Vector3(-22.5, 3.5, -14),
+							new Vector3(-22.5, 3.5, -17),
+							new Vector3(-21, 3.5, -17),
+							new Vector3(-21, 3.5, -25),
+						]}
+					/>
+					<Tube
+						name="tubeToEngineering"
+						position={[0, 0, 0]}
+						color={RED}
+						size={[0.5, 8, 1]}
+						vectors={[
+							new Vector3(0, -1, 3),
+							new Vector3(0, -1, 8),
+							new Vector3(0, 5, 8),
+							new Vector3(0, 5, 14),
+							new Vector3(-3, 5, 14),
+							new Vector3(-3, 5, 29),
+							new Vector3(-6, 5, 29),
+							new Vector3(-6, 0, 29),
+						]}
+					/>
+					<Tube
+						position={[0, 0, 0]}
+						color={RED}
+						size={[0.5, 8, 1]}
+						vectors={[new Vector3(1, -1, 3), new Vector3(1, -1, 8), new Vector3(1, 5, 8)]}
+					/>
+					<Tube
+						position={[0, 0, 0]}
+						color={RED}
+						size={[0.5, 8, 1]}
+						vectors={[new Vector3(2, -1, 3), new Vector3(2, -1, 8), new Vector3(2, 5, 8)]}
+					/>
+					<Tube
+						position={[0, 0, 0]}
+						color={RED}
+						size={[0.5, 8, 1]}
+						vectors={[new Vector3(3, -1, 3), new Vector3(3, -1, 8), new Vector3(3, 5, 8)]}
+					/>
+					<Tube
+						name="tubeToDesign"
+						position={[0, 0, 0]}
+						color={RED}
+						size={[0.5, 8, 1]}
+						vectors={[
+							new Vector3(-2, -1, 3),
+							new Vector3(-2, -1, 12),
+							new Vector3(-2, 1, 12),
+							new Vector3(-33, 1, 12),
+							new Vector3(-33, 1, 4),
+							new Vector3(-33, 7, 4),
+							new Vector3(-33, 7, -11),
+							new Vector3(-28, 7, -11),
+							new Vector3(-28, 3, -11),
+							new Vector3(-25, 3, -11),
+							new Vector3(-25, 0, -11),
+						]}
+					/>
 				</Canvas>
 			</div>
 		</>
