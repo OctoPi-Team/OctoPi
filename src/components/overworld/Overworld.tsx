@@ -30,7 +30,7 @@ import Tube from './objects/Tube';
 import { RED } from '../../AllColorVariables';
 
 export default function Overworld({ setSceneHook, visible, playerPos = new Vector3() }: SceneProps) {
-	const ORBITAL_CONTROLS_ACTIVE = true;
+	const ORBITAL_CONTROLS_ACTIVE = false;
 
 	const [platforms, setPlatforms] = useState<Box3[]>([]);
 	const [stairs, setStairs] = useState<StairType[]>([]);
@@ -203,10 +203,14 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 				/>
 				{/*behind the table on main platform */}
 				<Tube
+				name="tubeToProduction"
 				position={[0, 0, 0]}
 				color={RED}
 				size={[0.5, 8, 1]}
-				vectors={[new Vector3(-1, -1, 3), new Vector3(-1, -1, 8), new Vector3(-1, 5, 8)]}
+				vectors={[new Vector3(-1, -1, 3), new Vector3(-1, -1, 10.5), new Vector3(-1, 1, 10.5), new Vector3(-13, 1, 10.5), new Vector3(-13, 1, 5), 
+				new Vector3(-13, 0, 5),new Vector3(-13, 0, -14), new Vector3(-13, 4, -14), 
+				new Vector3(-22.5, 4, -14), new Vector3(-22.5, 3.5, -14),new Vector3(-22.5, 3.5, -17), 
+				new Vector3(-20, 3.5, -17), new Vector3(-20, 3.5, -25)]}
 				/>
 				<Tube
 				position={[0, 0, 0]}
@@ -232,12 +236,12 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 				size={[0.5, 8, 1]}
 				vectors={[new Vector3(3, -1, 3), new Vector3(3, -1, 8), new Vector3(3, 5, 8)]}
 				/>
-				{/*Design tube*/}
 				<Tube
+				name="tubeToDesign"
 				position={[0, 0, 0]}
 				color={RED}
 				size={[0.5, 8, 1]}
-				vectors={[new Vector3(-2, -1, 3), new Vector3(-2, -1, 11), new Vector3(-2, 1, 11), new Vector3(-33,1,11), new Vector3(-33,1,4), new Vector3(-33,7,4), new Vector3(-33,7,-11), new Vector3(-28,7,-11), new Vector3(-28,3,-11), new Vector3(-25,3,-11), new Vector3(-25,0,-11)]}
+				vectors={[new Vector3(-2, -1, 3), new Vector3(-2, -1, 12), new Vector3(-2, 1, 12), new Vector3(-33,1,12), new Vector3(-33,1,4), new Vector3(-33,7,4), new Vector3(-33,7,-11), new Vector3(-28,7,-11), new Vector3(-28,3,-11), new Vector3(-25,3,-11), new Vector3(-25,0,-11)]}
 				/>
 				</Canvas>
 			</div>
