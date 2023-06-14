@@ -247,18 +247,19 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 							new Vector3(0, -1, 3),
 							new Vector3(0, -1, 8),
 							new Vector3(0, 5, 8),
-							new Vector3(0, 5, 14),
-							new Vector3(-3, 5, 14),
+							new Vector3(0, 5, 12),
+							new Vector3(-3, 5, 12),
 							new Vector3(-3, 5, 29),
 							new Vector3(-6, 5, 29),
 							new Vector3(-6, 0, 29),
 						]}
 					/>
 					<Tube
+					name=""
 						position={[0, 0, 0]}
 						color={RED}
 						size={[0.5, 8, 1]}
-						vectors={[new Vector3(1, -1, 3), new Vector3(1, -1, 8), new Vector3(1, 5, 8)]}
+						vectors={[new Vector3(1, -1, 3), new Vector3(1, -1, 8), new Vector3(1, 3.5, 8)]}
 					/>
 					<Tube
 						position={[0, 0, 0]}
