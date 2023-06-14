@@ -323,7 +323,6 @@ export const ExportedForTestingOnly = {
 	keys,
 	handleJoystickStop,
 	handleJoystickMove,
-	getPlayerRotationFromKeys,
 	getHeight,
 	getNewLerpedPlayerRoation,
 	getNewPlayerHeight,
