@@ -26,9 +26,11 @@ import ProductionPlatform from './platforms/ProductionPlatform';
 import EngineeringPlatform from './platforms/EngineeringPlatform';
 import Floor from './platforms/Floor';
 import NavigationButton from './objects/NavigationButton';
+import Tube from './objects/Tube';
+import { RED } from '../../AllColorVariables';
 
 export default function Overworld({ setSceneHook, visible, playerPos = new Vector3() }: SceneProps) {
-	const ORBITAL_CONTROLS_ACTIVE = false;
+	const ORBITAL_CONTROLS_ACTIVE = true;
 
 	const [platforms, setPlatforms] = useState<Box3[]>([]);
 	const [stairs, setStairs] = useState<StairType[]>([]);
@@ -179,7 +181,22 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						sceneProps={{ setSceneHook }}
 						collisionObjects={collisionBoxes}
 					/>
+					{/*tubes between parts and shipment*/}
+					{/*tube above the stairs */}
+					<Tube
+				position={[12, 0, -16]}
+				color={RED}
+				size={[0.5, 8, 1]}
+				vectors={[new Vector3(1, -2, -10),new Vector3(1, 0, 8), new Vector3(1, 4, 8), new Vector3(1, 4, 10), new Vector3(1, 4, 20), new Vector3(1, 0, 20), new Vector3(1, 0, 40)]}
+				/>
+					<Tube
+				position={[12, 0, -16]}
+				color={RED}
+				size={[0.5, 8, 1]}
+				vectors={[new Vector3(8, 4, 22), new Vector3(8, 0, 22), new Vector3(3, 0, 22), new Vector3(3, 0, 28), new Vector3(3, 0, 42), new Vector3(3, 4, 42)]}
+				/>
 				</Canvas>
+				
 			</div>
 		</>
 	);
