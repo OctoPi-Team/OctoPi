@@ -215,13 +215,12 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						vectors={[new Vector3(-1, -2, -10), new Vector3(-1, 0, 40)]}
 					/>
 					*/}
-					{/*behind the table on main platform */}
 					<Tube
 						name="tubeToProduction"
 						position={[0, 0, 0]}
 						size={[0.5, 8, 1]}
 						vectors={[
-							new Vector3(-1, -1, 3),
+							new Vector3(-1, -1, -15),
 							new Vector3(-1, -1, 10.5),
 							new Vector3(-1, 1, 10.5),
 							new Vector3(-13, 1, 10.5),
@@ -230,10 +229,10 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 							new Vector3(-13, 0, -14),
 							new Vector3(-13, 4, -14),
 							new Vector3(-22.5, 4, -14),
-							new Vector3(-22.5, 3.5, -14),
-							new Vector3(-22.5, 3.5, -17),
-							new Vector3(-21, 3.5, -17),
-							new Vector3(-21, 3.5, -25),
+							new Vector3(-22.5, 3, -14),
+							new Vector3(-22.5, 3, -17),
+							new Vector3(-21, 3, -17),
+							new Vector3(-21, 3, -25),
 						]}
 					/>
 					<Tube
@@ -241,7 +240,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						position={[0, 0, 0]}
 						size={[0.5, 8, 1]}
 						vectors={[
-							new Vector3(0, -1, 3),
+							new Vector3(0, -1, -15),
 							new Vector3(0, -1, 8),
 							new Vector3(0, 5, 8),
 							new Vector3(0, 5, 12),
@@ -256,7 +255,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						position={[0, 0, 0]}
 						size={[0.5, 8, 1]}
 						vectors={[
-							new Vector3(1, -1, 3),
+							new Vector3(1, -1, -15),
 							new Vector3(1, -1, 8),
 							new Vector3(1, 3.5, 8),
 							new Vector3(1, 3.5, 15),
@@ -270,7 +269,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						position={[0, 0, 0]}
 						size={[0.5, 8, 1]}
 						vectors={[
-							new Vector3(2, -1, 3),
+							new Vector3(2, -1, -15),
 							new Vector3(2, -1, 11),
 							new Vector3(2, 0, 11),
 							new Vector3(15, 0, 11),
@@ -295,7 +294,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						position={[0, 0, 0]}
 						size={[0.5, 8, 1]}
 						vectors={[
-							new Vector3(3, -1, 3),
+							new Vector3(3, -1, -15),
 							new Vector3(3, -1, 8),
 							new Vector3(3, 5, 8),
 							new Vector3(12, 5, 8),
@@ -311,7 +310,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						position={[0, 0, 0]}
 						size={[0.5, 8, 1]}
 						vectors={[
-							new Vector3(-2, -1, 3),
+							new Vector3(-2, -1, -15),
 							new Vector3(-2, -1, 12),
 							new Vector3(-2, 1, 12),
 							new Vector3(-33, 1, 12),
@@ -322,6 +321,23 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 							new Vector3(-28, 3, -11),
 							new Vector3(-25, 3, -11),
 							new Vector3(-25, 0, -11),
+						]}
+					/>
+					<Tube
+						name="tubeToAllPlatfroms"
+						position={[0, 0, 0]}
+						size={[0.5, 8, 1]}
+						vectors={[
+							new Vector3(22, 2, -15),
+							new Vector3(22, 2, 19),
+	
+							new Vector3(-4, 2, 19),
+							new Vector3(-4, 0, 19),
+							new Vector3(-25, 0, 19),
+							new Vector3(-25, 0, -19),
+							new Vector3(22, 0, -19),
+							new Vector3(22, 0, -15),
+							new Vector3(22, 2, -15)
 						]}
 					/>
 				</Canvas>
