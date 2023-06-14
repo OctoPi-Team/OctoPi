@@ -11,6 +11,8 @@ import NavigationButton from '../../overworld/objects/NavigationButton';
 import { resetKeys } from '../../overworld/Player';
 import './victoryScreen.css';
 import { useEffect, useState } from 'react';
+import WinScreen from './WinScreen';
+import InfoButton from '../../InfoButton';
 
 export const TILE_SIZE = 3;
 export const SIZE_OF_GAME_MATRIX: [number, number] = [3, 3];
@@ -22,6 +24,7 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 	const [done, setDone] = useState(false);
 	//calculate random input tube position with relation to the grid
 	const INPUT_TUBE_POSITION = TILE_SIZE * (SIZE_OF_GAME_MATRIX[1] - 1) + (SIZE_OF_GAME_MATRIX[1] - 1) * SPACING;
+	const [info, setInfo] = useState(false);
 	const VECTORS_FOR_TUBE = [
 		new Vector3(-1.9 + 2 * SPACING, 0.7, INPUT_TUBE_POSITION),
 		new Vector3(-15, 0.7, INPUT_TUBE_POSITION),
@@ -46,6 +49,7 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 			}
 		}
 	}
+
 	return (
 		<>
 			<NavigationButton
@@ -66,9 +70,10 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 				top="40px"
 				text="i"
 				onClick={() => {
-					window.alert(
-						'Willkommen zu unserem Spiel Operation:Innovation! Das Spiel ist ganz simpel. Klicke auf eine der verschiedenen Grids und verändere somit die Position der verschiedenen Röhren. Sobald du eine Verbindung erfolgreich zum Trichter geschafft hast, hast du gewonnen! Viel Erfolg!'
-					);
+					setInfo(true);
+					if (info) {
+						setInfo(false);
+					}
 				}}
 			/>
 			<NavigationButton
@@ -99,30 +104,8 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 						<Tube name="InputTubeInGame" position={[0, 0, 0]} color={GREEN} vectors={VECTORS_FOR_TUBE} />
 					</group>
 				</Canvas>
-				{finished ? (
-					<div className={'win'}>
-						Du hast gewonnen!
-						<div className={'buttons'}>
-							<button
-								onClick={() => {
-									setSceneHook(Scene.Overworld);
-									setTimeout(() => {
-										setSceneHook(Scene.Shipment);
-									}, 50);
-								}}>
-								Starte neues Spiel
-							</button>{' '}
-							<button
-								onClick={() => {
-									setSceneHook(Scene.Overworld);
-								}}>
-								Zurück zur Plattform
-							</button>
-						</div>
-					</div>
-				) : (
-					<div></div>
-				)}
+				{finished ? <WinScreen setSceneHook={setSceneHook} /> : <div></div>}
+				{info ? <InfoButton /> : <div></div>}
 			</div>
 			{resetKeys()}
 		</>
