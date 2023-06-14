@@ -195,8 +195,51 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 				size={[0.5, 8, 1]}
 				vectors={[new Vector3(8, 4, 22), new Vector3(8, 0, 22), new Vector3(3, 0, 22), new Vector3(3, 0, 28), new Vector3(3, 0, 42), new Vector3(3, 4, 42)]}
 				/>
+				<Tube
+				position={[12, 0, -16]}
+				color={RED}
+				size={[0.5, 8, 1]}
+				vectors={[new Vector3(-1, -2, -10), new Vector3(-1, 0, 40)]}
+				/>
+				{/*behind the table on main platform */}
+				<Tube
+				position={[0, 0, 0]}
+				color={RED}
+				size={[0.5, 8, 1]}
+				vectors={[new Vector3(-1, -1, 3), new Vector3(-1, -1, 8), new Vector3(-1, 5, 8)]}
+				/>
+				<Tube
+				position={[0, 0, 0]}
+				color={RED}
+				size={[0.5, 8, 1]}
+				vectors={[new Vector3(0, -1, 3), new Vector3(0, -1, 8), new Vector3(0, 5, 8)]}
+				/>
+				<Tube
+				position={[0, 0, 0]}
+				color={RED}
+				size={[0.5, 8, 1]}
+				vectors={[new Vector3(1, -1, 3), new Vector3(1, -1, 8), new Vector3(1, 5, 8)]}
+				/>
+				<Tube
+				position={[0, 0, 0]}
+				color={RED}
+				size={[0.5, 8, 1]}
+				vectors={[new Vector3(2, -1, 3), new Vector3(2, -1, 8), new Vector3(2, 5, 8)]}
+				/>
+				<Tube
+				position={[0, 0, 0]}
+				color={RED}
+				size={[0.5, 8, 1]}
+				vectors={[new Vector3(3, -1, 3), new Vector3(3, -1, 8), new Vector3(3, 5, 8)]}
+				/>
+				{/*Design tube*/}
+				<Tube
+				position={[0, 0, 0]}
+				color={RED}
+				size={[0.5, 8, 1]}
+				vectors={[new Vector3(-2, -1, 3), new Vector3(-2, -1, 11), new Vector3(-2, 1, 11), new Vector3(-33,1,11), new Vector3(-33,1,4), new Vector3(-33,7,4), new Vector3(-33,7,-11), new Vector3(-28,7,-11), new Vector3(-28,3,-11), new Vector3(-25,3,-11), new Vector3(-25,0,-11)]}
+				/>
 				</Canvas>
-				
 			</div>
 		</>
 	);
