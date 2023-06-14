@@ -185,7 +185,6 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 					{/*tube above the stairs */}
 					<Tube
 						position={[12, 0, -16]}
-						color={RED}
 						size={[0.5, 8, 1]}
 						vectors={[
 							new Vector3(1, -2, -10),
@@ -199,7 +198,6 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 					/>
 					<Tube
 						position={[12, 0, -16]}
-						color={RED}
 						size={[0.5, 8, 1]}
 						vectors={[
 							new Vector3(8, 4, 22),
@@ -212,7 +210,6 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 					/>
 					<Tube
 						position={[12, 0, -16]}
-						color={RED}
 						size={[0.5, 8, 1]}
 						vectors={[new Vector3(-1, -2, -10), new Vector3(-1, 0, 40)]}
 					/>
@@ -220,7 +217,6 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 					<Tube
 						name="tubeToProduction"
 						position={[0, 0, 0]}
-						color={RED}
 						size={[0.5, 8, 1]}
 						vectors={[
 							new Vector3(-1, -1, 3),
@@ -241,7 +237,6 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 					<Tube
 						name="tubeToEngineering"
 						position={[0, 0, 0]}
-						color={RED}
 						size={[0.5, 8, 1]}
 						vectors={[
 							new Vector3(0, -1, 3),
@@ -255,28 +250,32 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						]}
 					/>
 					<Tube
-					name=""
+						name="tubeToShipment"
 						position={[0, 0, 0]}
-						color={RED}
 						size={[0.5, 8, 1]}
-						vectors={[new Vector3(1, -1, 3), new Vector3(1, -1, 8), new Vector3(1, 3.5, 8)]}
+						vectors={[
+							new Vector3(1, -1, 3),
+							new Vector3(1, -1, 8),
+							new Vector3(1, 3.5, 8),
+							new Vector3(1, 3.5, 15),
+							new Vector3(1, 2.5, 15),
+							new Vector3(2, 2.5, 15),
+							new Vector3(2, 2.5, 18),
+						]}
 					/>
 					<Tube
 						position={[0, 0, 0]}
-						color={RED}
 						size={[0.5, 8, 1]}
 						vectors={[new Vector3(2, -1, 3), new Vector3(2, -1, 8), new Vector3(2, 5, 8)]}
 					/>
 					<Tube
 						position={[0, 0, 0]}
-						color={RED}
 						size={[0.5, 8, 1]}
 						vectors={[new Vector3(3, -1, 3), new Vector3(3, -1, 8), new Vector3(3, 5, 8)]}
 					/>
 					<Tube
 						name="tubeToDesign"
 						position={[0, 0, 0]}
-						color={RED}
 						size={[0.5, 8, 1]}
 						vectors={[
 							new Vector3(-2, -1, 3),
