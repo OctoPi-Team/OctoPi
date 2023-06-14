@@ -183,6 +183,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 					/>
 					{/*tubes between parts and shipment*/}
 					{/*tube above the stairs */}
+					{/*
 					<Tube
 						position={[12, 0, -16]}
 						size={[0.5, 8, 1]}
@@ -213,6 +214,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						size={[0.5, 8, 1]}
 						vectors={[new Vector3(-1, -2, -10), new Vector3(-1, 0, 40)]}
 					/>
+					*/}
 					{/*behind the table on main platform */}
 					<Tube
 						name="tubeToProduction"
@@ -264,9 +266,29 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						]}
 					/>
 					<Tube
+						name="tubeToMonitoring"
 						position={[0, 0, 0]}
 						size={[0.5, 8, 1]}
-						vectors={[new Vector3(2, -1, 3), new Vector3(2, -1, 8), new Vector3(2, 5, 8)]}
+						vectors={[
+							new Vector3(2, -1, 3),
+							new Vector3(2, -1, 11),
+							new Vector3(2, 0, 11),
+							new Vector3(15, 0, 11),
+							new Vector3(15, 4, 11),
+							new Vector3(15, 4, 6),
+							new Vector3(15, 0, 6),
+							new Vector3(20, 0, 6),
+							new Vector3(20, 6, 6),
+							new Vector3(26, 6, 6),
+							new Vector3(26, 3, 6),
+							new Vector3(33, 3, 6),
+							new Vector3(33, 8, 6),
+							new Vector3(33, 8, -15),
+							new Vector3(33, 5, -15),
+							new Vector3(19.5, 5, -15),
+							new Vector3(19.5, 0, -15),
+							new Vector3(19.5, 0, -10),
+						]}
 					/>
 					<Tube
 						position={[0, 0, 0]}
