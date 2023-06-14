@@ -221,6 +221,10 @@ function getNewPlayerHeight(
 }
 
 function getNewLerpedPlayerRoation(rotation: Vector3, targetRotation: Vector3, rotation_speed: number): Vector3 {
+	const fullCirclesOfDiffBetweenRotationAndTargetRotation = rotation.y - ((rotation.y + Math.PI) % (Math.PI * 2) - Math.PI);
+
+	console.log(fullCirclesOfDiffBetweenRotationAndTargetRotation);
+	targetRotation.y += fullCirclesOfDiffBetweenRotationAndTargetRotation;
 	// Smoothly rotate the player towards the target rotation
 	const diffRotation = new Vector3().subVectors(targetRotation, rotation);
 
@@ -238,7 +242,7 @@ function getPlayerRotationFromKeys(currentRotation: Vector3): Vector3 {
 	} else if (keys.down && keys.left) {
 		rotationDegree = 0;
 	} else if (keys.left && keys.up) {
-		rotationDegree = -90;
+		rotationDegree = 270;
 	} else if (keys.up && keys.right) {
 		rotationDegree = 180;
 	} else if (keys.right) {
@@ -246,9 +250,9 @@ function getPlayerRotationFromKeys(currentRotation: Vector3): Vector3 {
 	} else if (keys.down) {
 		rotationDegree = 45;
 	} else if (keys.left) {
-		rotationDegree = -45;
+		rotationDegree = 315;
 	} else if (keys.up) {
-		rotationDegree = -135;
+		rotationDegree = 225;
 	}
 	return new Vector3(currentRotation.x, MathUtils.degToRad(rotationDegree), currentRotation.z);
 }
