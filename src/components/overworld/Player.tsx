@@ -222,8 +222,6 @@ function getNewPlayerHeight(
 
 function getNewLerpedPlayerRoation(rotation: Vector3, targetRotation: Vector3, rotation_speed: number): Vector3 {
 	const fullCirclesOfDiffBetweenRotationAndTargetRotation = rotation.y - ((rotation.y + Math.PI) % (Math.PI * 2) - Math.PI);
-
-	console.log(fullCirclesOfDiffBetweenRotationAndTargetRotation);
 	targetRotation.y += fullCirclesOfDiffBetweenRotationAndTargetRotation;
 	// Smoothly rotate the player towards the target rotation
 	const diffRotation = new Vector3().subVectors(targetRotation, rotation);
