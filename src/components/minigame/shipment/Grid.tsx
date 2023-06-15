@@ -404,7 +404,7 @@ export default function Grid({ size, stateChanger, isFinished }: GridProps) {
 			return [];
 		}
 		const TILES = generateFunctioningTable();
-		let counter = 0;
+		const counter = 0;
 		for (let x = 0; x < size[0]; x++) {
 			for (let y = 0; y < size[1]; y++) {
 				// exclude default empty tile

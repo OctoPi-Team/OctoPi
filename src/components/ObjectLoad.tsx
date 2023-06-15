@@ -42,7 +42,7 @@ export default function ObjectLoad({
 	}
 	if (!collsionRefWasSet && collisionRefSetter && meshRef.current) {
 		collsionRefSet(true);
-		let boxes: Box3[] = [];
+		const boxes: Box3[] = [];
 		if (customCollisionBoxes && customCollisionBoxes.length > 0) {
 			for (const box of customCollisionBoxes)
 				boxes.push(
