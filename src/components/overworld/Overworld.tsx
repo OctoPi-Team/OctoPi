@@ -40,14 +40,8 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 	const CAM_WIDTH = 80;
 	const CAM_HEIGHT = 80;
 
-	const {
-		handleMouseDown,
-		handleMouseMove,
-		handleMouseUp,
-		handleTouchStart,
-		handleTouchMove,
-		handleTouchEnd
-	} = DragVector(new Vector2(window.innerWidth / 2, window.innerHeight / 2), handleJoystickMove, handleJoystickStop);
+	const { handleMouseDown, handleMouseMove, handleMouseUp, handleTouchStart, handleTouchMove, handleTouchEnd } =
+		DragVector(new Vector2(window.innerWidth / 2, window.innerHeight / 2), handleJoystickMove, handleJoystickStop);
 
 	function addPlatform(newPlatform: Box3) {
 		// these platforms are used to detect player collsion iwth the edge of the platform
@@ -148,14 +142,16 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						/>
 					</>
 				)}
-				<Canvas orthographic shadows style={{ visibility: visible ? 'hidden' : 'visible' }}
+				<Canvas
+					orthographic
+					shadows
+					style={{ visibility: visible ? 'hidden' : 'visible' }}
 					onMouseDown={handleMouseDown}
 					onMouseMove={handleMouseMove}
 					onMouseUp={handleMouseUp}
 					onTouchStart={handleTouchStart}
 					onTouchMove={handleTouchMove}
-					onTouchEnd={handleTouchEnd}
-				>
+					onTouchEnd={handleTouchEnd}>
 					<group name="lighting-and-camera">
 						<color attach="background" args={['white']} />
 						<DirLight />

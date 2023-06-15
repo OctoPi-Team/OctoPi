@@ -38,7 +38,6 @@ export default function ObjectLoad({
 	const [collsionRefWasSet, collsionRefSet] = useState(false);
 	const [collisionBoxes, setCollisionBoxes] = useState<Box3[]>([]);
 
-
 	function addCollisionBox(newBox: Box3) {
 		setCollisionBoxes(boxes => [...boxes, newBox]);
 	}
