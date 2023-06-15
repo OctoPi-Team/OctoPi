@@ -5,6 +5,7 @@ import Overworld from './components/overworld/Overworld';
 import ShipmentGame from './components/minigame/shipment/ShipmentGame';
 import { LoadingScreen } from './components/startscreen/LoadingScreen';
 import { Vector3 } from 'three';
+import { resetKeys } from './components/overworld/Player';
 
 export enum Scene {
 	Overworld,
@@ -20,8 +21,8 @@ export type SceneProps = {
 
 export default function App() {
 	const [playerstartingPos, setPlayerstartingPos] = useState<Vector3>(new Vector3(0, 0, 0));
-	const [scene, setScene] = useState<Scene>(Scene.Shipment);
-	const [visible, setVisible] = useState(false);
+	const [scene, setScene] = useState<Scene>(Scene.Overworld);
+	const [visible, setVisible] = useState(true);
 
 	const delay = 90000000;
 	let timeoutId: NodeJS.Timeout;
@@ -64,7 +65,14 @@ export default function App() {
 				<Overworld setSceneHook={setScene} visible={visible} playerPos={playerstartingPos} />
 			)}
 			{scene === Scene.Shipment && (
-				<ShipmentGame setSceneHook={setScene} visible={visible} setPlayerPos={setPlayerstartingPos} />
+				<ShipmentGame
+					setSceneHook={setScene}
+					visible={visible}
+					setPlayerPos={playerPos => {
+						setPlayerstartingPos(playerPos);
+						resetKeys();
+					}}
+				/>
 			)}
 		</>
 	);
