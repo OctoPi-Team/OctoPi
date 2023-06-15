@@ -18,6 +18,9 @@ export const LoadingScreen = ({ setVisible }: LoadingScreenProps) => {
 			window.addEventListener('touchstart', () => {
 				setVisible(false);
 			});
+			window.addEventListener('click', () => {
+				setVisible(false);
+			});
 		}
 	}
 	return (
