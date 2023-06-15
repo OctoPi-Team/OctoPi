@@ -22,6 +22,7 @@ export default function PartsPlatform({
 	return (
 		<>
 			<SimplePlatform position={position} size={[24, 0.5, 18]} reference={reference} color={PARTS} />
+			{/*
 			<Tube
 				name="Tube"
 				position={[position[0] + 11, position[1], position[2] - 7]}
@@ -45,6 +46,7 @@ export default function PartsPlatform({
 					new Vector3(0, -1, 0),
 				]}
 			/>
+			*/}
 			<Text
 				text={'PARTS'}
 				color={PARTS}

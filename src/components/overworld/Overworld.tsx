@@ -30,7 +30,7 @@ import Tube from './objects/Tube';
 import { RED } from '../../AllColorVariables';
 
 export default function Overworld({ setSceneHook, visible, playerPos = new Vector3() }: SceneProps) {
-	const ORBITAL_CONTROLS_ACTIVE = false;
+	const ORBITAL_CONTROLS_ACTIVE = true;
 
 	const [platforms, setPlatforms] = useState<Box3[]>([]);
 	const [stairs, setStairs] = useState<StairType[]>([]);
@@ -294,15 +294,23 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						position={[0, 0, 0]}
 						size={[0.5, 8, 1]}
 						vectors={[
-							new Vector3(3, -1, -15),
-							new Vector3(3, -1, 8),
-							new Vector3(3, 5, 8),
-							new Vector3(12, 5, 8),
-							new Vector3(12, -1, 8),
-							new Vector3(12, -1, -4),
-							new Vector3(12, 4, -4),
+							new Vector3(3, -1, -5),
+							new Vector3(3, -1, -10),
+						
+							new Vector3(12, -1, -10),
+							new Vector3(12, 4, -10),
 							new Vector3(12, 4, -20),
-							new Vector3(12, 0, -20),
+							new Vector3(12, -2, -20),
+							new Vector3(12, -2, -35),
+							new Vector3(12, 1, -35),
+							new Vector3(2, 1, -35),
+							new Vector3(2, 1, -30),
+							new Vector3(2, 0, -30),
+							new Vector3(21, 0, -30),
+							new Vector3(21, 0, -32),
+							new Vector3(21, 3, -32),
+							new Vector3(26, 3, -32),
+							new Vector3(26, 0, -32),
 						]}
 					/>
 					<Tube
