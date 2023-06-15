@@ -84,11 +84,13 @@ export default function DesignPlatform({
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
+			{/*
 			<Tube
 				position={[position[0] + 2, position[1], position[2] - 9]}
 				size={[0.5, 8, 1]}
 				vectors={[new Vector3(0, 0, 0), new Vector3(0, 1, 0), new Vector3(3, 1, 0), new Vector3(3, 0, 0)]}
 			/>
+			*/}
 			<ObjectLoad
 				path="/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb"
 				position={[position[0] - 7.5, position[1], position[2] + 2]}
