@@ -6,6 +6,7 @@ import { SHIPMENT } from '../../../AllColorVariables';
 import Tube from '../objects/Tube';
 import Text from '../../Text';
 import { Box3, Vector3 } from 'three';
+import Cylinder from '../objects/Cylinder';
 
 type ShipmentPlatformOptions = {
 	position?: [number, number, number];
@@ -139,6 +140,9 @@ export default function ShipmentPlatform({
 				vectors={[new Vector3(0, 0, 0), new Vector3(0, 1, 0), new Vector3(0, 1, 7), new Vector3(0, 0, 7)]}
 			/>
 			*/}
+			<Cylinder position={[position[0] - 7, position[1], position[2] - 7]} color={SHIPMENT}/>
+			<Cylinder position={[position[0] - 7.1, position[1], position[2] + 0.2]} color={SHIPMENT}/>
+			<Cylinder position={[position[0] + 7.5, position[1], position[2] + 0.5]} color={SHIPMENT}/>
 			<Button position={[position[0] - 6, position[1] + 6, position[2] - 9]} reference={buttonreference} />
 		</>
 	);

@@ -5,6 +5,7 @@ import Text from '../../Text';
 import { Box3, Vector3 } from 'three';
 import Tube from '../objects/Tube';
 import Button from '../objects/Button';
+import Cylinder from '../objects/Cylinder';
 
 type DesignPlatformOptions = {
 	position?: [number, number, number];
@@ -98,6 +99,10 @@ export default function DesignPlatform({
 				rotation={[0, 60, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
+			<Cylinder position={[position[0] + 2, position[1], position[2] - 9]} color={DESIGN}/>
+			<Cylinder position={[position[0] + 5, position[1], position[2] - 9]} color={DESIGN}/>
+			<Cylinder position={[position[0], position[1], position[2] - 9 ]} color={DESIGN}/>
+			<Cylinder position={[position[0] - 7.5, position[1], position[2] + 6]} color={DESIGN}/>
 			<Button position={[position[0] - 7, position[1] + 6, position[2] - 9]} reference={buttonreference} />
 		</>
 	);
