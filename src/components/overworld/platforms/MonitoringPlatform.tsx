@@ -68,6 +68,7 @@ export default function MonitoringPlatform({
 					{ positionOffset: new Vector3(), size: new Vector3(1, 2, 2) },
 				]}
 			/>
+			{/*
 			<Tube
 				position={[position[0] - 5, position[1], position[2] + 9]}
 				size={[0.5, 8, 1]}
@@ -78,6 +79,7 @@ export default function MonitoringPlatform({
 				size={[0.5, 8, 1]}
 				vectors={[new Vector3(0, 0, 0), new Vector3(0, 1, 0), new Vector3(0, 1, 3), new Vector3(0, 0, 3)]}
 			/>
+			*/}
 			<Button position={[position[0] - 8, position[1] + 6, position[2] - 9]} reference={buttonreference} />
 		</>
 	);
