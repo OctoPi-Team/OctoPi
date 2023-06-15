@@ -5,9 +5,9 @@ import { useState } from 'react';
 import { SIZE_OF_GAME_MATRIX, SPACING, TILE_SIZE } from './ShipmentGame';
 
 type SphereProps = {
-	// curv: CatmullRomCurve3;
 	curv: CurvePath<Vector3>;
 };
+
 export default function Sphere({ curv }: SphereProps) {
 	const name = 'sphere';
 	const color: string = RED;
@@ -22,27 +22,21 @@ export default function Sphere({ curv }: SphereProps) {
 		new Vector3(-1.9 + SPACING, 5, INPUTTUBEPOSSITION),
 		new Vector3(-15, 5, INPUTTUBEPOSSITION),
 	];
-	const startingcurve = new CubicBezierCurve3(
-		VECTORS_FOR_TUBE[0],
-		VECTORS_FOR_TUBE[1],
-		VECTORS_FOR_TUBE[2],
-		VECTORS_FOR_TUBE[3]
-	);
+	const startingcurve = new CubicBezierCurve3(...VECTORS_FOR_TUBE);
 	const points: Vector3[] = startingcurve.getSpacedPoints(1000);
 
 	points.reverse();
 	points.push(...curv.getSpacedPoints(600));
 	const sphereGeometry = new SphereGeometry(0.3, 70, 20);
 	useFrame(({ clock }) => {
-		let a = clock.getElapsedTime();
-		a = Math.round(a * 1000);
-		if (a > time) {
-			ticktime(time => a);
+		const deltaTime = Math.round(clock.getElapsedTime() * 1000);
+		if (deltaTime > time) {
+			ticktime(() => deltaTime);
 			movepointr(pointer => pointer + 7);
 		}
-		updatepos(pos => points[pointer]);
+		updatepos(() => points[pointer]);
 		if (pointer >= points.length) {
-			movepointr(pointer => 0);
+			movepointr(() => 0);
 		}
 	});
 
