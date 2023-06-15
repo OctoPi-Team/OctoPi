@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { Mesh, Vector3 } from 'three';
 
-import Tube from '../../overworld/objects/Tube';
 import { BLUE, GREEN } from '../../../AllColorVariables';
+import Tube from './Tube';
 
 export enum TileType {
 	AngleRight,
@@ -11,15 +11,17 @@ export enum TileType {
 	StraightInverted,
 	AngleRightInverted,
 	AngleLeftInverted,
+	empty,
 }
 
 export type TileProps = {
 	gridPosition: [number, number];
 	tileClickHandler?: (tileProps: TileProps) => void;
-	Vector1: Vector3;
-	Vector2: Vector3;
+	startVector: Vector3;
+	endVector: Vector3;
 	tileType: TileType;
 	color?: string;
+	render?: boolean;
 };
 
 const GRID_SPACING = 0.2;
@@ -33,7 +35,15 @@ function getRealPositionFromGridPosition(gridPosition: [number, number]): Vector
 	);
 }
 
-export default function Tile({ gridPosition, tileClickHandler, Vector1, Vector2, tileType, color = BLUE }: TileProps) {
+export default function Tile({
+	gridPosition,
+	tileClickHandler,
+	startVector,
+	endVector,
+	tileType,
+	color = BLUE,
+	render = true,
+}: TileProps) {
 	const ref = useRef<Mesh>(null);
 
 	useEffect(() => {
@@ -43,34 +53,48 @@ export default function Tile({ gridPosition, tileClickHandler, Vector1, Vector2,
 		}
 	}, [gridPosition]);
 
-	let rightAngleVector: Vector3 | null = null;
+	let cubicbenziercontrol1: Vector3 = new Vector3(0, 0, 0);
+	let cubicbenziercontrol2: Vector3 = new Vector3(0, 0, 0);
 
 	switch (tileType) {
 		case TileType.AngleRight:
-			rightAngleVector = new Vector3(0, 0, -TILE_SIZE / 2);
-			Vector2 = new Vector3(0, Vector2.y, 0);
+			startVector = new Vector3(0, 0, -TILE_SIZE / 2);
+			cubicbenziercontrol1 = new Vector3(0, 0, -TILE_SIZE / 12);
+			cubicbenziercontrol2 = new Vector3(-TILE_SIZE / 12, 0, 0);
+			endVector = new Vector3(-TILE_SIZE / 2, 0, 0);
 			break;
 		case TileType.AngleLeft:
-			rightAngleVector = new Vector3(0, 0, TILE_SIZE / 2);
-			Vector2 = new Vector3(0, Vector2.y, 0);
+			startVector = new Vector3(0, 0, TILE_SIZE / 2);
+			cubicbenziercontrol1 = new Vector3(0, 0, TILE_SIZE / 12);
+			cubicbenziercontrol2 = new Vector3(-TILE_SIZE / 12, 0, 0);
+			endVector = new Vector3(-TILE_SIZE / 2, 0, 0);
 			break;
 		case TileType.StraightNormal:
+			startVector = new Vector3(-TILE_SIZE / 2, 0, 0);
+			cubicbenziercontrol1 = new Vector3(0, 0, 0);
+			cubicbenziercontrol2 = new Vector3(0, 0, 0);
+			endVector = new Vector3(TILE_SIZE / 2, 0, 0);
 			break;
 		case TileType.StraightInverted:
-			Vector1 = new Vector3(0, Vector1.y, -TILE_SIZE / 2);
-			Vector2 = new Vector3(0, Vector2.y, TILE_SIZE / 2);
+			startVector = new Vector3(0, 0, -TILE_SIZE / 2);
+			cubicbenziercontrol1 = new Vector3(0, 0, 0);
+			cubicbenziercontrol2 = new Vector3(0, 0, 0);
+			endVector = new Vector3(0, 0, TILE_SIZE / 2);
 			break;
 		case TileType.AngleRightInverted:
 			// Handle AngleRightInverson case
-			Vector1 = new Vector3(TILE_SIZE / 2, Vector1.y, 0);
-			rightAngleVector = new Vector3(0, 0, -TILE_SIZE / 2);
-			Vector2 = new Vector3(0, Vector2.y, 0);
+			startVector = new Vector3(TILE_SIZE / 2, 0, 0);
+			cubicbenziercontrol1 = new Vector3(TILE_SIZE / 12, 0, 0);
+			cubicbenziercontrol2 = new Vector3(0, 0, -TILE_SIZE / 12);
+			endVector = new Vector3(0, 0, -TILE_SIZE / 2);
+
 			break;
 		case TileType.AngleLeftInverted:
 			// Handle AngleLeftInverted case
-			Vector1 = new Vector3(TILE_SIZE / 2, Vector1.y, 0);
-			rightAngleVector = new Vector3(0, 0, TILE_SIZE / 2);
-			Vector2 = new Vector3(0, Vector2.y, 0);
+			startVector = new Vector3(TILE_SIZE / 2, 0, 0);
+			cubicbenziercontrol1 = new Vector3(TILE_SIZE / 12, 0, 0);
+			cubicbenziercontrol2 = new Vector3(0, 0, TILE_SIZE / 12);
+			endVector = new Vector3(0, 0, TILE_SIZE / 2);
 			break;
 		default:
 			break;
@@ -83,16 +107,17 @@ export default function Tile({ gridPosition, tileClickHandler, Vector1, Vector2,
 				onClick={() => {
 					if (tileClickHandler)
 						tileClickHandler({
-							gridPosition,
-							Vector1,
-							Vector2,
-							tileType,
+							gridPosition: gridPosition,
+							startVector: startVector,
+							endVector: endVector,
+							tileType: tileType,
 						});
 				}}>
 				<Tube
 					position={[0, 0.7, 0]}
 					color={GREEN}
-					vectors={[Vector1, Vector2, rightAngleVector].filter(vector => vector != null) as Vector3[]}
+					vectors={[startVector, cubicbenziercontrol1, cubicbenziercontrol2, endVector]}
+					render={render}
 				/>
 				<boxGeometry args={[TILE_SIZE, 0.5, TILE_SIZE]} />
 				<meshStandardMaterial color={color} />

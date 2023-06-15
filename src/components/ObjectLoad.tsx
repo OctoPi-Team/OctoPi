@@ -1,9 +1,14 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three-stdlib';
-import { Mesh, Vector3, BufferGeometry, Material, MathUtils } from 'three';
+import { Vector3, BufferGeometry, Material, MathUtils, Box3, InstancedMesh } from 'three';
 import { Scene } from '../App';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
+import { RED } from '../AllColorVariables';
+import { clone } from 'three/examples/jsm/utils/SkeletonUtils';
+
+const dracoLoader = new DRACOLoader();
+dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
 
 // This interface is used to set the options of the ObjectLoad function.
 type ObjectLoadOptions = {
@@ -13,8 +18,11 @@ type ObjectLoadOptions = {
 	scale?: [number, number, number];
 	reference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 	onClick?: ((val: Scene.Shipment) => void) | null;
+	collisionRefSetter?: (meshRef: Box3) => void;
+	customCollisionBoxes?: { positionOffset: Vector3; size: Vector3 }[];
 };
-// This function is to load an object from a .obj file and a .mtl file. To use it no knowlage of the ObjextLoad function is needed.
+
+// This function is to load an object from a .obj file and a .mtl file. To use it no knowlage of the ObjectLoad function is needed.
 export default function ObjectLoad({
 	path,
 	position,
@@ -22,17 +30,45 @@ export default function ObjectLoad({
 	reference,
 	rotation = [0, 0, 0], // Default rotation is 0, 0, 0, the rotation is in degrees.
 	onClick,
+	collisionRefSetter,
+	customCollisionBoxes,
 }: ObjectLoadOptions): JSX.Element {
-	const meshRef = useRef<Mesh<BufferGeometry, Material | Material[]>>(null);
+	const SHOW_COLLISION_BOX = false;
+	const meshRef = useRef<InstancedMesh<BufferGeometry, Material | Material[]>>(null);
+	const [collsionRefWasSet, collsionRefSet] = useState(false);
+	const [collisionBoxes, setCollisionBoxes] = useState<Box3[]>([]);
 
+	function addCollisionBox(newBox: Box3) {
+		setCollisionBoxes(boxes => [...boxes, newBox]);
+	}
 	if (reference && meshRef.current) {
 		reference(meshRef.current);
 	}
-
-	const dracoLoader = new DRACOLoader();
-	dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+	if (!collsionRefWasSet && collisionRefSetter && meshRef.current) {
+		collsionRefSet(true);
+		const boxes: Box3[] = [];
+		if (customCollisionBoxes && customCollisionBoxes.length > 0) {
+			for (const box of customCollisionBoxes)
+				boxes.push(
+					new Box3().setFromCenterAndSize(
+						box.positionOffset.clone().add(new Vector3(position[0], position[1] + box.size.y / 2, position[2])),
+						box.size
+					)
+				);
+		} else {
+			boxes.push(new Box3().setFromObject(meshRef.current.clone()));
+		}
+		for (const box of boxes) {
+			addCollisionBox(box);
+			collisionRefSetter(box);
+		}
+	}
 	const obj = useLoader(GLTFLoader, path, loader => {
 		loader.setDRACOLoader(dracoLoader);
+	});
+	// 'castShadows' needs to be set to true for every node of complex 3D models, since they consist of more than one part;
+	obj.scene.traverse(function (node) {
+		node.castShadow = true;
 	});
 
 	useEffect(() => {
@@ -47,18 +83,34 @@ export default function ObjectLoad({
 		}
 	}, position);
 
-	return (
-		<mesh
-			castShadow
-			receiveShadow
-			ref={meshRef}
-			position={position}
-			scale={new Vector3(scale[0], scale[1], scale[2])}
-			rotation={rotation}
-			onClick={() => {
-				if (onClick) onClick(Scene.Shipment);
-			}}>
-			<primitive object={obj.scene.clone(true)} />
+	collisionBoxes.map((box, index) => (
+		<mesh key={index} position={box.getCenter(new Vector3(...position))}>
+			<boxGeometry args={box.getSize(new Vector3(0, 0, 0)).toArray()} />
+			<meshLambertMaterial color={RED} opacity={0.6} transparent={true} />
 		</mesh>
+	));
+	return (
+		<>
+			{SHOW_COLLISION_BOX &&
+				collisionBoxes &&
+				collisionBoxes.map((box, index) => (
+					<mesh key={index} position={box.getCenter(new Vector3(...position))}>
+						<boxGeometry args={box.getSize(new Vector3(0, 0, 0)).toArray()} />
+						<meshLambertMaterial color={RED} opacity={0.6} transparent={true} />
+					</mesh>
+				))}
+			<mesh
+				castShadow
+				receiveShadow
+				ref={meshRef}
+				position={position}
+				scale={new Vector3(scale[0], scale[1], scale[2])}
+				rotation={rotation}
+				onClick={() => {
+					if (onClick) onClick(Scene.Shipment);
+				}}>
+				<primitive object={clone(obj.scene)} />
+			</mesh>
+		</>
 	);
 }

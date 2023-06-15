@@ -1,14 +1,23 @@
 import { useThree, useFrame } from '@react-three/fiber';
-import { useRef } from 'react';
-import { OrthographicCamera } from 'three';
+import { useEffect, useRef } from 'react';
+import { MathUtils, OrthographicCamera, WebGLRenderer } from 'three';
 
 type CameraProps = {
 	distanceFromPlayerToCamera: number;
+	visibility?: boolean;
 };
 
-function FixedCamera({ distanceFromPlayerToCamera }: CameraProps) {
-	const { scene, camera } = useThree();
+function FixedCamera({ distanceFromPlayerToCamera, visibility }: CameraProps) {
+	const { scene, camera, gl } = useThree();
 	const cameraRef = useRef<OrthographicCamera>(null);
+	const targetZoom = visibility ? 7 : 63;
+	const zoomSpeed = 0.02;
+	const renderer = gl as WebGLRenderer;
+	useEffect(() => {
+		return () => {
+			renderer.dispose();
+		};
+	}, [renderer]);
 	useFrame(() => {
 		if (!scene || !cameraRef.current) return;
 		const player = scene.getObjectByName('player');
@@ -22,7 +31,13 @@ function FixedCamera({ distanceFromPlayerToCamera }: CameraProps) {
 			);
 			camera.lookAt(playerPosition);
 		}
+
+		const currentZoom = camera.zoom;
+		const newZoom = MathUtils.lerp(currentZoom, targetZoom, zoomSpeed);
+		camera.zoom = newZoom;
+		camera.updateProjectionMatrix();
 	});
+
 	return <orthographicCamera ref={cameraRef} />;
 }
 
