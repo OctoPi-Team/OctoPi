@@ -83,6 +83,7 @@ export default function EngineeringPlatform({
 					{ positionOffset: new Vector3(0, 0, -1.5), size: new Vector3(1.3, 2, 1.3) }
 				]}
 			/>
+			{/*
 			<Tube
 				name="Tube2"
 				position={[position[0] - 7, position[1], position[2] + 3]}
@@ -101,6 +102,7 @@ export default function EngineeringPlatform({
 					new Vector3(6, 0, 4),
 				]}
 			/>
+			*/}
 			<ObjectLoad
 				path="/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb"
 				position={[position[0] - 0.5, position[1], position[2] - 7.5]}
