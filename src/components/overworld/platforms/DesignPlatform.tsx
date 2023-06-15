@@ -36,7 +36,7 @@ export default function DesignPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[
 					{ positionOffset: new Vector3(), size: new Vector3(2.5, 2, 1.5) },
-					{ positionOffset: new Vector3(1, 0, 1.5), size: new Vector3(0.6, 1.5, 0.6) }
+					{ positionOffset: new Vector3(1, 0, 1.5), size: new Vector3(0.6, 1.5, 0.6) },
 				]}
 			/>
 			<ObjectLoad
@@ -47,7 +47,7 @@ export default function DesignPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[
 					{ positionOffset: new Vector3(), size: new Vector3(1.5, 2, 2.5) },
-					{ positionOffset: new Vector3(1.7, 0, -0.5), size: new Vector3(0.6, 1.5, 0.6) }
+					{ positionOffset: new Vector3(1.7, 0, -0.5), size: new Vector3(0.6, 1.5, 0.6) },
 				]}
 			/>
 
@@ -66,7 +66,7 @@ export default function DesignPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[
 					{ positionOffset: new Vector3(), size: new Vector3(2.5, 2, 1.5) },
-					{ positionOffset: new Vector3(0, 0, -1.5), size: new Vector3(1, 2, 1) }
+					{ positionOffset: new Vector3(0, 0, -1.5), size: new Vector3(1, 2, 1) },
 				]}
 			/>
 			<ObjectLoad
@@ -96,7 +96,11 @@ export default function DesignPlatform({
 				rotation={[0, 60, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			<Button position={[position[0] - 7, position[1] + 6, position[2] - 9]} reference={buttonreference} />
+			<Button
+				customName="design"
+				position={[position[0] - 7, position[1] + 6, position[2] - 9]}
+				reference={buttonreference}
+			/>
 		</>
 	);
 }
