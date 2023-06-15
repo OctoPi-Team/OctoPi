@@ -250,6 +250,7 @@ export default function Grid({ size, isFinished, currentVariation }: GridProps) 
 					startVector: startVector,
 					endVector: endVector,
 					tileType: tileType,
+					color: color,
 				},
 				gridPosition[0],
 				gridPosition[1]

@@ -107,10 +107,10 @@ export default function Tile({
 				onClick={() => {
 					if (tileClickHandler)
 						tileClickHandler({
-							gridPosition,
-							startVector,
-							endVector,
-							tileType,
+							gridPosition: gridPosition,
+							startVector: startVector,
+							endVector: endVector,
+							tileType: tileType,
 						});
 				}}>
 				<Tube
