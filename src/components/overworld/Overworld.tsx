@@ -270,13 +270,18 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						position={[0, 0, 0]}
 						size={[0.5, 8, 1]}
 						vectors={[
-							new Vector3(1, -1, -5),
-							new Vector3(1, -1, 8),
-							new Vector3(1, 3.5, 8),
-							new Vector3(1, 3.5, 15),
+							new Vector3(1.5, -1, -5),
+							new Vector3(1.5, -1, 8),
+							new Vector3(1.5, 3.5, 8),
+							new Vector3(1.5, 3.5, 15),
 							new Vector3(1, 2.5, 15),
 							new Vector3(2, 2.5, 15),
 							new Vector3(2, 2.5, 18),
+							new Vector3(2, 5, 18),
+							new Vector3(2, 5, 25),
+							new Vector3(2, 2, 25),
+							new Vector3(16, 2, 25),
+							new Vector3(16, 3, 25)
 						]}
 					/>
 					<Tube
