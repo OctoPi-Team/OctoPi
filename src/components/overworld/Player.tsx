@@ -271,7 +271,7 @@ export const handleKeyUp: React.KeyboardEventHandler<HTMLDivElement> = event => 
 	if (event.key === 'ArrowDown') keys.down = false;
 };
 
-export const handleJoystickMove = (stick: IJoystickUpdateEvent) => {
+export const handleJoystickMove = (stick: IJoystickUpdateEvent | Vector2) => {
 	// reset all keys
 	handleJoystickStop();
 	if (stick.x && stick.y) {
