@@ -111,7 +111,7 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 									}, 50);
 								}}>
 								Starte neues Spiel
-							</button>{' '}
+							</button>
 							<button
 								onClick={() => {
 									setSceneHook(Scene.Overworld);

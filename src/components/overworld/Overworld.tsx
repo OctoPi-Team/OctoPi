@@ -100,7 +100,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 	return (
 		<>
 			<div style={{ width: '100vw', height: '100vh' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
-				{!visible &&
+				{!visible && (
 					<>
 						<div style={{ position: 'absolute', zIndex: '50', right: '200px', bottom: '200px' }}>
 							<Joystick
@@ -128,15 +128,15 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 							top="40px"
 							text={'\u21BB'}
 							onClick={() => {
-								resetKeys()
-								location.reload()
+								resetKeys();
+								location.reload();
 								setTimeout(() => {
-									location.reload()
+									location.reload();
 								}, 50);
 							}}
 						/>
 					</>
-				}
+				)}
 				<Canvas orthographic shadows style={{ visibility: visible ? 'hidden' : 'visible' }}>
 					<group name="lighting-and-camera">
 						<color attach="background" args={['white']} />

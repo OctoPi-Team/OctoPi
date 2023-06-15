@@ -34,9 +34,7 @@ export default function MonitoringPlatform({
 				scale={[0.8, 0.8, 0.8]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
-				customCollisionBoxes={[
-					{ positionOffset: new Vector3(), size: new Vector3(2, 2, 2) },
-				]}
+				customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(2, 2, 2) }]}
 			/>
 			<ObjectLoad
 				path="/Radarschuessel_kaputt_final/radarschuessel_kaputt_final.glb"
@@ -44,9 +42,7 @@ export default function MonitoringPlatform({
 				scale={[0.7, 0.7, 0.7]}
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
-				customCollisionBoxes={[
-					{ positionOffset: new Vector3(), size: new Vector3(2, 2, 2) },
-				]}
+				customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(2, 2, 2) }]}
 			/>
 			<ObjectLoad
 				path="/TischMitTV/tischMitTV.glb"
@@ -54,9 +50,7 @@ export default function MonitoringPlatform({
 				scale={[0.45, 0.45, 0.45]}
 				rotation={[0, 7, 0]}
 				collisionRefSetter={addCollisionBox}
-				customCollisionBoxes={[
-					{ positionOffset: new Vector3(), size: new Vector3(1, 2, 2) },
-				]}
+				customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(1, 2, 2) }]}
 			/>
 			<ObjectLoad
 				path="/TischMitTV/tischMitTV.glb"
@@ -64,9 +58,7 @@ export default function MonitoringPlatform({
 				scale={[0.45, 0.45, 0.45]}
 				rotation={[0, 7, 0]}
 				collisionRefSetter={addCollisionBox}
-				customCollisionBoxes={[
-					{ positionOffset: new Vector3(), size: new Vector3(1, 2, 2) },
-				]}
+				customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(1, 2, 2) }]}
 			/>
 			<Tube
 				position={[position[0] - 5, position[1], position[2] + 9]}
