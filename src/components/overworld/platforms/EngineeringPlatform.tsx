@@ -38,7 +38,7 @@ export default function EngineeringPlatform({
 				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
-				path="/ZeichentischKaputt/zeichentischKaputt.glb"
+				path="/ZeichentischKaputt/zeichentischKaputtMitPapier.glb"
 				position={[position[0] + 5, position[1], position[2] + 8]}
 				scale={[0.4, 0.4, 0.4]}
 				rotation={[0, 90, 0]}
@@ -109,6 +109,13 @@ export default function EngineeringPlatform({
 				position={[position[0] - 0.5, position[1], position[2] - 7.5]}
 				scale={[0.6, 0.6, 0.6]}
 				rotation={[0, 0, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
+				<ObjectLoad
+				path="/Teleskop/teleskop.glb"
+				position={[position[0] - 5.3, position[1], position[2] - 7.5]}
+				scale={[1.5, 1.5, 1.5]}
+				rotation={[0, 210, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<Cylinder position={[position[0] - 1, position[1], position[2] + 7 ]} color={ENGINEERING}/>

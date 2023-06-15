@@ -60,6 +60,37 @@ export default function MonitoringPlatform({
 				]}
 			/>
 			<ObjectLoad
+				path="/kleinerTisch/kleinerTisch.glb"
+				position={[position[0] + 2.5, position[1], position[2] - 4.5]}
+				scale={[0.45, 0.45, 0.45]}
+				rotation={[0, 7, 0]}
+				collisionRefSetter={addCollisionBox}
+				customCollisionBoxes={[
+					{ positionOffset: new Vector3(), size: new Vector3(1, 2, 2) },
+				]}
+			/>
+			<ObjectLoad
+				path="/Fernglas/fernglas.glb"
+				position={[position[0] + 2.5, position[1] + 0.9, position[2] - 4]}
+				scale={[0.07, 0.07, 0.07]}
+				rotation={[0, 90, 0]}
+				collisionRefSetter={addCollisionBox}
+				customCollisionBoxes={[
+					{ positionOffset: new Vector3(), size: new Vector3(1, 2, 2) },
+				]}
+			/>
+			<ObjectLoad
+				path="/Taschenlampe/taschenlampe.glb"
+				position={[position[0] + 2.3, position[1] + 1, position[2] - 5.3]}
+				scale={[0.15, 0.15, 0.15]}
+				rotation={[0, 180, 0]}
+				collisionRefSetter={addCollisionBox}
+				customCollisionBoxes={[
+					{ positionOffset: new Vector3(), size: new Vector3(1, 2, 2) },
+				]}
+			/>
+			{/*
+			<ObjectLoad
 				path="/TischMitTV/tischMitTV.glb"
 				position={[position[0] + 2.5, position[1], position[2] - 4.5]}
 				scale={[0.45, 0.45, 0.45]}
@@ -69,6 +100,7 @@ export default function MonitoringPlatform({
 					{ positionOffset: new Vector3(), size: new Vector3(1, 2, 2) },
 				]}
 			/>
+			*/}
 			{/*
 			<Tube
 				position={[position[0] - 5, position[1], position[2] + 9]}
