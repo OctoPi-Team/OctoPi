@@ -27,7 +27,7 @@ import EngineeringPlatform from './platforms/EngineeringPlatform';
 import Floor from './platforms/Floor';
 import NavigationButton from './objects/NavigationButton';
 import Tube from './objects/Tube';
-import { RED } from '../../AllColorVariables';
+import { GREEN, RED } from '../../AllColorVariables';
 
 export default function Overworld({ setSceneHook, visible, playerPos = new Vector3() }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
@@ -239,6 +239,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 							new Vector3(-14, 2, -30),
 							new Vector3(-14, 2, -25),
 						]}
+						ballAnimation
 					/>
 					<Tube
 						name="tubeToEngineering"
@@ -283,6 +284,8 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 							new Vector3(16, 2, 25),
 							new Vector3(16, 3, 25)
 						]}
+						ballAnimation
+						color={GREEN}
 					/>
 					<Tube
 						name="tubeToMonitoring"
