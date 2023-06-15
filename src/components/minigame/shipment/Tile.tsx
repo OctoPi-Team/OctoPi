@@ -117,7 +117,6 @@ export default function Tile({
 					position={[0, 0.7, 0]}
 					color={GREEN}
 					vectors={[Vector1, cubicbenziercontrol1, cubicbenziercontrol2, Vector2]}
-					detailed={true}
 					render={render}
 				/>
 				<boxGeometry args={[TILE_SIZE, 0.5, TILE_SIZE]} />
