@@ -20,8 +20,8 @@ export type SceneProps = {
 
 export default function App() {
 	const [playerstartingPos, setPlayerstartingPos] = useState<Vector3>(new Vector3(0, 0, 0));
-	const [scene, setScene] = useState<Scene>(Scene.Overworld);
-	const [visible, setVisible] = useState(true);
+	const [scene, setScene] = useState<Scene>(Scene.Shipment);
+	const [visible, setVisible] = useState(false);
 
 	const delay = 90000000;
 	let timeoutId: NodeJS.Timeout;

@@ -208,6 +208,7 @@ export default function Grid({ size, stateChanger, isFinished }: GridProps) {
 	const [done, setDone] = useState(true);
 	const [tiles, setTiles] = useState<TileProps[][]>(initialize2DArray());
 	const [emptyTile, setEmptyTile] = useState<[number, number]>([0, 0]);
+	const [oldvariation, setvariation] = useState<number>();
 
 	function addTile(newTile: TileProps, x: number, z: number) {
 		const copy = tiles;
@@ -334,27 +335,63 @@ export default function Grid({ size, stateChanger, isFinished }: GridProps) {
 	}
 
 	function generateFunctioningTable() {
-		//in order to keep the game simple,these are the minimum required tiles
-		let possibleBoard = [0, 5, 2];
-		//three different arrangements that will make the game solvable
-		const RAND = Math.ceil(Math.random() * 3);
-		if (RAND == 1) {
-			const OPTION1 = [2, 3];
-			possibleBoard.push(...OPTION1);
+		let possibleBoard: number[][] = [];
+		let rand = Math.floor(Math.random() * 6);
+		setvariation(rand);
+		console.log(rand + ' 32r4tr  ' + oldvariation);
+		if (rand === oldvariation) {
+			rand = Math.floor(Math.random() * 6);
 		}
-		if (RAND == 2) {
-			const OPTION2 = [0, 5];
-			possibleBoard.push(...OPTION2);
+
+		if (rand == 0) {
+			possibleBoard = [
+				[5, 6, 5],
+				[5, 3, 0],
+				[2, 0, 0],
+			];
+			setEmptyTile([0, 1]);
 		}
-		if (RAND == 3) {
-			const OPTION3 = [0, 5];
-			possibleBoard.push(...OPTION3);
+		if (rand == 1) {
+			possibleBoard = [
+				[5, 2, 0],
+				[3, 5, 3],
+				[0, 2, 6],
+			];
+			setEmptyTile([2, 2]);
 		}
-		// at this pont the board is solvable and we can fill it with random tiles
-		for (let x = 0; x < size[0] * size[1] - 6; x++) {
-			possibleBoard.push(getRandomTileType());
+
+		if (rand == 2) {
+			possibleBoard = [
+				[3, 5, 0],
+				[0, 2, 0],
+				[5, 6, 5],
+			];
+			setEmptyTile([2, 1]);
 		}
-		possibleBoard = shuffle(possibleBoard);
+		if (rand == 3) {
+			possibleBoard = [
+				[3, 0, 2],
+				[3, 5, 6],
+				[5, 0, 2],
+			];
+			setEmptyTile([1, 2]);
+		}
+		if (rand == 4) {
+			possibleBoard = [
+				[6, 5, 2],
+				[2, 0, 3],
+				[0, 0, 5],
+			];
+			setEmptyTile([0, 0]);
+		}
+		if (rand == 5) {
+			possibleBoard = [
+				[3, 2, 5],
+				[2, 6, 5],
+				[3, 0, 0],
+			];
+			setEmptyTile([1, 1]);
+		}
 		return possibleBoard;
 	}
 
@@ -370,31 +407,17 @@ export default function Grid({ size, stateChanger, isFinished }: GridProps) {
 		let counter = 0;
 		for (let x = 0; x < size[0]; x++) {
 			for (let y = 0; y < size[1]; y++) {
-				if (!(x === 0 && y === 0)) {
-					// exclude default empty tile
-					addTile(
-						{
-							gridPosition: [x, y],
-							Vector1: new Vector3(-3 / 2, 0, 0),
-							Vector2: new Vector3(3 / 2, 0, 0),
-							tileType: TILES[counter],
-						},
-						x,
-						y
-					);
-					counter++;
-				} else {
-					addTile(
-						{
-							gridPosition: [x, y],
-							Vector1: new Vector3(-3 / 2, 0, 0),
-							Vector2: new Vector3(3 / 2, 0, 0),
-							tileType: 6,
-						},
-						x,
-						y
-					);
-				}
+				// exclude default empty tile
+				addTile(
+					{
+						gridPosition: [x, y],
+						Vector1: new Vector3(-3 / 2, 0, 0),
+						Vector2: new Vector3(3 / 2, 0, 0),
+						tileType: TILES[x][y],
+					},
+					x,
+					y
+				);
 			}
 		}
 	}
