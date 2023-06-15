@@ -220,19 +220,24 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						position={[0, 0, 0]}
 						size={[0.5, 8, 1]}
 						vectors={[
-							new Vector3(-1, -1, -15),
-							new Vector3(-1, -1, 10.5),
-							new Vector3(-1, 1, 10.5),
-							new Vector3(-13, 1, 10.5),
-							new Vector3(-13, 1, 5),
-							new Vector3(-13, 0, 5),
+							new Vector3(-1, -1, -3),
+							new Vector3(-1, -1, -8),
+							new Vector3(-1, 0, -10),
+							new Vector3(-13, 0, -10),
 							new Vector3(-13, 0, -14),
 							new Vector3(-13, 4, -14),
 							new Vector3(-22.5, 4, -14),
-							new Vector3(-22.5, 3, -14),
-							new Vector3(-22.5, 3, -17),
-							new Vector3(-21, 3, -17),
-							new Vector3(-21, 3, -25),
+							new Vector3(-22.5, 3.5, -14),
+							new Vector3(-22.5, 3.5, -17),
+							new Vector3(-21, 3.5, -17),
+							new Vector3(-21, 3.5, -22),
+							new Vector3(-21, 2, -22),
+							new Vector3(-21, 2, -27),
+							new Vector3(-21, 4, -27),
+							new Vector3(-21, 4, -30),
+							new Vector3(-21, 2, -30),
+							new Vector3(-14, 2, -30),
+							new Vector3(-14, 2, -25),
 						]}
 					/>
 					<Tube
@@ -240,7 +245,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						position={[0, 0, 0]}
 						size={[0.5, 8, 1]}
 						vectors={[
-							new Vector3(0, -1, -15),
+							new Vector3(0, -1, -5),
 							new Vector3(0, -1, 8),
 							new Vector3(0, 5, 8),
 							new Vector3(0, 5, 12),
@@ -255,7 +260,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						position={[0, 0, 0]}
 						size={[0.5, 8, 1]}
 						vectors={[
-							new Vector3(1, -1, -15),
+							new Vector3(1, -1, -5),
 							new Vector3(1, -1, 8),
 							new Vector3(1, 3.5, 8),
 							new Vector3(1, 3.5, 15),
@@ -296,7 +301,6 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						vectors={[
 							new Vector3(3, -1, -5),
 							new Vector3(3, -1, -10),
-						
 							new Vector3(12, -1, -10),
 							new Vector3(12, 4, -10),
 							new Vector3(12, 4, -20),

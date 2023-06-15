@@ -121,6 +121,7 @@ export default function ProductionPlatform({
 					{ positionOffset: new Vector3(1.3, 0, 0), size: new Vector3(1, 2, 1) }
 				]}
 			/>
+			{/*
 			<Tube
 				position={[position[0] - 9, position[1], position[2] - 1]}
 				size={[0.5, 8, 1]}
@@ -133,6 +134,7 @@ export default function ProductionPlatform({
 					new Vector3(6, -1, -1),
 				]}
 			/>
+			*/}
 			<Button position={[position[0] - 11, position[1] + 6, position[2] - 9]} reference={buttonreference} />
 		</>
 	);
