@@ -15,6 +15,12 @@ export const LoadingScreen = ({ setVisible }: LoadingScreenProps) => {
 		}
 		if (progress === 100) {
 			button.style.backgroundColor = 'rgba(0, 149, 7, 0.729)';
+			window.addEventListener('touchstart', () => {
+				setVisible(false);
+			});
+			window.addEventListener('click', () => {
+				setVisible(false);
+			});
 		}
 	}
 	return (

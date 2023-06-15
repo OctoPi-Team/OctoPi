@@ -118,7 +118,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 							text="i"
 							onClick={() => {
 								window.alert(
-									'Willkommen zu unserem Spiel Operation:Innovation! Schaue dich mal auf den verschiedenen Platformen um, siehst du einen Button auf dem Boden? Geh ruhig mal hin.'
+									'Willkommen zu unserem Spiel Operation:Innovation! Schaue dich mal auf den verschiedenen Plattformen um, siehst du einen Button auf dem Boden? Geh ruhig mal hin.'
 								);
 							}}
 						/>
