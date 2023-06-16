@@ -1,10 +1,11 @@
 import { useFrame } from '@react-three/fiber';
-import { Scene, SceneProps } from '../../App';
+import { IJoystickUpdateEvent } from 'react-joystick-component/build/lib/Joystick';
 import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { Box3, BufferGeometry, Material, MathUtils, Mesh, Vector2, Vector3 } from 'three';
+
+import { Scene, SceneProps } from '../../App';
 import { STAIR_WIDTH, StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
-import { IJoystickUpdateEvent } from 'react-joystick-component/build/lib/Joystick';
 
 export const PLAYER_SIZE = 0.5;
 const SPEED = 0.1;
@@ -57,6 +58,7 @@ function Player({
 		// executed in the switch case construct
 		for (const button of buttonPositionAndName) {
 			if (playerPosition.distanceTo(button.position) < 1) {
+				const BUTTON_TIMEOUT = 3000;
 				switch (button.name) {
 					case 'shipment':
 						if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
@@ -66,35 +68,35 @@ function Player({
 						isButton(true);
 						setTimeout(() => {
 							isButton(false);
-						}, 3000);
+						}, BUTTON_TIMEOUT);
 						break;
 					case 'engineering':
 						setButton('Engineering');
 						isButton(true);
 						setTimeout(() => {
 							isButton(false);
-						}, 3000);
+						}, BUTTON_TIMEOUT);
 						break;
 					case 'parts':
 						setButton('Parts');
 						isButton(true);
 						setTimeout(() => {
 							isButton(false);
-						}, 3000);
+						}, BUTTON_TIMEOUT);
 						break;
 					case 'design':
 						setButton('Design');
 						isButton(true);
 						setTimeout(() => {
 							isButton(false);
-						}, 3000);
+						}, BUTTON_TIMEOUT);
 						break;
 					case 'monitoring':
 						setButton('Monitoring');
 						isButton(true);
 						setTimeout(() => {
 							isButton(false);
-						}, 3000);
+						}, BUTTON_TIMEOUT);
 						break;
 				}
 			}

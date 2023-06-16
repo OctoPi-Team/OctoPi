@@ -7,12 +7,12 @@ import './victoryScreen.css';
 
 import { GREEN, WHITE } from '../../../AllColorVariables';
 import { Scene, SceneProps } from '../../../App';
-import FixedCamera from '../../overworld/FixedCamera';
+import FixedCamera from '../../FixedCamera';
 import ObjectLoad from '../../ObjectLoad';
-import NavigationButton from '../../overworld/objects/NavigationButton';
+import NavigationButton from '../../ui/NavigationButton';
 import './victoryScreen.css';
 import WinScreen from './WinScreen';
-import InfoButton from '../../InfoButton';
+import InfoButton from '../../ui/InfoButton';
 
 import Tube from './Tube';
 import Grid from './Grid';

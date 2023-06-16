@@ -8,16 +8,16 @@ import {
 	OrthographicCamera,
 	DirectionalLightHelper,
 } from 'three';
+import { Canvas } from '@react-three/fiber';
+import { useRef, useState } from 'react';
+import { Joystick } from 'react-joystick-component';
+import { OrbitControls, useHelper } from '@react-three/drei';
 
 import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp, resetKeys } from './Player';
 import Stair, { StairType } from './platforms/Stair';
-import FixedCamera from './FixedCamera';
-import { OrbitControls, useHelper } from '@react-three/drei';
+import FixedCamera from '../FixedCamera';
 import ShipmentPlatform from './platforms/ShipmentPlatform';
-import { Canvas } from '@react-three/fiber';
-import { useRef, useState } from 'react';
 import { SceneProps } from '../../App';
-import { Joystick } from 'react-joystick-component';
 import DesignPlatform from './platforms/DesignPlatform';
 import MainPlatform from './platforms/MainPlatform';
 import MonitoringPlatform from './platforms/MonitoringPlatform';
@@ -25,9 +25,9 @@ import PartsPlatform from './platforms/PartsPlatform';
 import ProductionPlatform from './platforms/ProductionPlatform';
 import EngineeringPlatform from './platforms/EngineeringPlatform';
 import Floor from './platforms/Floor';
-import NavigationButton from './objects/NavigationButton';
-import InfoButton from '../InfoButton';
-import './buttonstyle.css';
+import NavigationButton from '../ui/NavigationButton';
+import InfoButton from '../ui/InfoButton';
+import '../ui/buttonstyle.css';
 
 export default function Overworld({ setSceneHook, visible, playerPos = new Vector3() }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
@@ -89,7 +89,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 					ref={dirLight}
 					shadow-mapSize={[1024, 1024]}
 					intensity={0.7}
-					castShadow>
+					castShadow={true}>
 					<orthographicCamera
 						attach="shadow-camera"
 						position={[-8, 20, -15]}
