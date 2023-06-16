@@ -61,7 +61,6 @@ function Stair({ startPosition, endPosition, reference }: StairProps) {
 
 	return (
 		<>
-			{' '}
 			{SHOW_COLLISION_BOX && collisionBox && (
 				<mesh position={collisionBox.getCenter(centerPosition)}>
 					<boxGeometry args={collisionBox.getSize(new Vector3(0, 0, 0)).toArray()} />

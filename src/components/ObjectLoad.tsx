@@ -94,8 +94,8 @@ export default function ObjectLoad({
 		}
 	}, [position, customName]);
 
-	collisionBoxes.map(box => (
-		<mesh position={box.getCenter(new Vector3().fromArray(position))}>
+	collisionBoxes.map((box, index) => (
+		<mesh key={index} position={box.getCenter(new Vector3(...position))}>
 			<boxGeometry args={box.getSize(new Vector3(0, 0, 0)).toArray()} />
 			<meshLambertMaterial color={RED} opacity={0.6} transparent={true} />
 		</mesh>
@@ -105,8 +105,8 @@ export default function ObjectLoad({
 		<>
 			{SHOW_COLLISION_BOX &&
 				collisionBoxes &&
-				collisionBoxes.map(box => (
-					<mesh position={box.getCenter(new Vector3().fromArray(position))}>
+				collisionBoxes.map((box, index) => (
+					<mesh key={index} position={box.getCenter(new Vector3(...position))}>
 						<boxGeometry args={box.getSize(new Vector3(0, 0, 0)).toArray()} />
 						<meshLambertMaterial color={RED} opacity={0.6} transparent={true} />
 					</mesh>

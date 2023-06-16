@@ -22,7 +22,6 @@ export default function EngineeringPlatform({
 	return (
 		<>
 			<SimplePlatform name={''} position={position} size={[15, 0.5, 18]} reference={reference} color={ENGINEERING} />
-
 			<Text
 				text={'ENGINEERING'}
 				color={ENGINEERING}
@@ -43,13 +42,13 @@ export default function EngineeringPlatform({
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			{/* <ObjectLoad
+			{/*<ObjectLoad
 				path="/MonitorMitSchreibtischUndStuhl/monitorMitSchreibtischUndStuhl.glb"
 				position={[position[0] - 2.5, position[1], position[2] + 8]}
 				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
-			/> */}
+			/>*/}
 			<ObjectLoad
 				path="/MonitorMitSchreibtischUndStuhl/monitorMitSchreibtischUndStuhl.glb"
 				position={[position[0] - 3, position[1], position[2] + 8]}
