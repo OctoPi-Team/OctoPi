@@ -23,7 +23,7 @@ export default function Video({ setVisible }: VideoArgs) {
 				autoPlay
 				muted
 				data-setup="{}">
-				<source data-testid="start-animation-source" src="StartAnimation.mp4" type="video/mp4"></source>
+				<source data-testid="start-animation-source" src="Startanimation.mov" type="video/mp4"></source>
 			</video>
 		</React.Fragment>
 	);

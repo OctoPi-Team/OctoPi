@@ -14,6 +14,6 @@ describe('VideoTest', function () {
 		render(React.createElement(Video));
 
 		const sourceElement = screen.getByTestId('start-animation-source');
-		expect(sourceElement.getAttribute('src')).toBe('StartAnimation.mp4');
+		expect(sourceElement.getAttribute('src')).toBe('Startanimation.mov');
 	});
 });
