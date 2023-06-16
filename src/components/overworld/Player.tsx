@@ -28,8 +28,11 @@ interface PlayerArgs {
 	collisionObjects: Box3[];
 	setButton: Dispatch<SetStateAction<string>>;
 	isButton: Dispatch<SetStateAction<boolean>>;
-	isPlatformFixed: boolean;
-	setIsPlatformFixed: Dispatch<SetStateAction<boolean>>;
+	setIsPartsPlatformFixed: Dispatch<SetStateAction<boolean>>;
+	setIsDesignPlatformFixed: Dispatch<SetStateAction<boolean>>;
+	setIsEngineeringPlatformFixed: Dispatch<SetStateAction<boolean>>;
+	setIsProductionPlatformFixed: Dispatch<SetStateAction<boolean>>;
+	setIsMonitoringPlatformFixed: Dispatch<SetStateAction<boolean>>;
 }
 
 function Player({
@@ -41,8 +44,11 @@ function Player({
 	collisionObjects,
 	setButton,
 	isButton,
-	isPlatformFixed,
-	setIsPlatformFixed,
+	setIsPartsPlatformFixed,
+	setIsProductionPlatformFixed,
+	setIsEngineeringPlatformFixed,
+	setIsDesignPlatformFixed,
+	setIsMonitoringPlatformFixed,
 }: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
 	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
@@ -68,11 +74,9 @@ function Player({
 					case 'production':
 						setButton('Production');
 						isButton(true);
-						console.log(isPlatformFixed);
 						setTimeout(() => {
 							isButton(false);
-							setIsPlatformFixed(true);
-							console.log(isPlatformFixed);
+							setIsProductionPlatformFixed(true);
 						}, 3000);
 						break;
 					case 'engineering':
@@ -80,16 +84,15 @@ function Player({
 						isButton(true);
 						setTimeout(() => {
 							isButton(false);
+							setIsEngineeringPlatformFixed(true);
 						}, 3000);
 						break;
 					case 'parts':
 						setButton('Parts');
 						isButton(true);
-						console.log(isPlatformFixed);
 						setTimeout(() => {
 							isButton(false);
-							setIsPlatformFixed(true);
-							console.log(isPlatformFixed);
+							setIsPartsPlatformFixed(true);
 						}, 3000);
 						break;
 					case 'design':
@@ -97,6 +100,7 @@ function Player({
 						isButton(true);
 						setTimeout(() => {
 							isButton(false);
+							setIsDesignPlatformFixed(true);
 						}, 3000);
 						break;
 					case 'monitoring':
@@ -104,6 +108,7 @@ function Player({
 						isButton(true);
 						setTimeout(() => {
 							isButton(false);
+							setIsMonitoringPlatformFixed(true);
 						}, 3000);
 						break;
 				}

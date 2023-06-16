@@ -11,6 +11,7 @@ type DesignPlatformOptions = {
 	reference?: (meshRef: Box3) => void;
 	buttonReference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
+	isDesignPlatformFixed: boolean;
 };
 
 export default function DesignPlatform({
@@ -18,6 +19,7 @@ export default function DesignPlatform({
 	reference,
 	buttonReference,
 	addCollisionBox,
+	isDesignPlatformFixed,
 }: DesignPlatformOptions): JSX.Element {
 	return (
 		<>
@@ -70,7 +72,11 @@ export default function DesignPlatform({
 				]}
 			/>
 			<ObjectLoad
-				path="/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb"
+				path={
+					isDesignPlatformFixed
+						? '/Whiteboard_neu/whiteboard_neu.glb'
+						: '/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb'
+				}
 				position={[position[0], position[1], position[2] + 8.5]}
 				scale={[0.6, 0.6, 0.6]}
 				rotation={[0, 0, 0]}
@@ -90,7 +96,11 @@ export default function DesignPlatform({
 				vectors={[new Vector3(0, 0, 0), new Vector3(0, 1, 0), new Vector3(3, 1, 0), new Vector3(3, 0, 0)]}
 			/>
 			<ObjectLoad
-				path="/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb"
+				path={
+					isDesignPlatformFixed
+						? '/Whiteboard_neu/whiteboard_neu.glb'
+						: '/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb'
+				}
 				position={[position[0] - 7.5, position[1], position[2] + 2]}
 				scale={[0.6, 0.6, 0.6]}
 				rotation={[0, 60, 0]}

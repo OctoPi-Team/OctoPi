@@ -11,6 +11,7 @@ type EngineeringPlatformOptions = {
 	reference?: (meshRef: Box3) => void;
 	buttonreference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
+	isEngineeringPlatformFixed: boolean;
 };
 
 export default function EngineeringPlatform({
@@ -18,6 +19,7 @@ export default function EngineeringPlatform({
 	reference,
 	buttonreference,
 	addCollisionBox,
+	isEngineeringPlatformFixed,
 }: EngineeringPlatformOptions): JSX.Element {
 	return (
 		<>
@@ -101,7 +103,11 @@ export default function EngineeringPlatform({
 				]}
 			/>
 			<ObjectLoad
-				path="/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb"
+				path={
+					isEngineeringPlatformFixed
+						? '/Whiteboard_neu/whiteboard_neu.glb'
+						: '/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb'
+				}
 				position={[position[0] - 0.5, position[1], position[2] - 7.5]}
 				scale={[0.6, 0.6, 0.6]}
 				rotation={[0, 0, 0]}

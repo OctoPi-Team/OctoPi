@@ -11,6 +11,7 @@ type MonitoringPlatformOptions = {
 	reference?: (meshRef: Box3) => void;
 	buttonreference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
+	isMonitoringPlatformFixed: boolean;
 };
 
 export default function MonitoringPlatform({
@@ -18,6 +19,7 @@ export default function MonitoringPlatform({
 	reference,
 	buttonreference,
 	addCollisionBox,
+	isMonitoringPlatformFixed,
 }: MonitoringPlatformOptions): JSX.Element {
 	return (
 		<>
@@ -29,7 +31,11 @@ export default function MonitoringPlatform({
 				rotation={[0, 270, 0]}
 			/>
 			<ObjectLoad
-				path="/Radarschuessel_kaputt_final/radarschuessel_kaputt_final.glb"
+				path={
+					isMonitoringPlatformFixed
+						? '/Radarschuessel/radarschuessel.glb'
+						: '/Radarschuessel_kaputt_final/radarschuessel_kaputt_final.glb'
+				}
 				position={[position[0], position[1], position[2] + 5]}
 				scale={[0.8, 0.8, 0.8]}
 				rotation={[0, 0, 0]}
@@ -37,7 +43,11 @@ export default function MonitoringPlatform({
 				customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(2, 2, 2) }]}
 			/>
 			<ObjectLoad
-				path="/Radarschuessel_kaputt_final/radarschuessel_kaputt_final.glb"
+				path={
+					isMonitoringPlatformFixed
+						? '/Radarschuessel/radarschuessel.glb'
+						: '/Radarschuessel_kaputt_final/radarschuessel_kaputt_final.glb'
+				}
 				position={[position[0] - 2, position[1], position[2] - 7]}
 				scale={[0.7, 0.7, 0.7]}
 				rotation={[0, 90, 0]}
