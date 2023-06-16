@@ -5,6 +5,7 @@ import Overworld from './components/overworld/Overworld';
 import ShipmentGame from './components/minigame/shipment/ShipmentGame';
 import { LoadingScreen } from './components/startscreen/LoadingScreen';
 import { Vector3 } from 'three';
+import { resetKeys } from './components/overworld/Player';
 
 export enum Scene {
 	Overworld,
@@ -64,7 +65,14 @@ export default function App() {
 				<Overworld setSceneHook={setScene} visible={visible} playerPos={playerstartingPos} />
 			)}
 			{scene === Scene.Shipment && (
-				<ShipmentGame setSceneHook={setScene} visible={visible} setPlayerPos={setPlayerstartingPos} />
+				<ShipmentGame
+					setSceneHook={setScene}
+					visible={visible}
+					setPlayerPos={playerPos => {
+						setPlayerstartingPos(playerPos);
+						resetKeys();
+					}}
+				/>
 			)}
 		</>
 	);

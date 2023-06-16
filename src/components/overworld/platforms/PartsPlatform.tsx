@@ -160,7 +160,11 @@ export default function PartsPlatform({
 				rotation={[0, 180, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			<Button position={[position[0] - 9, position[1] + 6, position[2] - 6]} reference={buttonreference} />
+			<Button
+				customName="parts"
+				position={[position[0] - 9, position[1] + 6, position[2] - 6]}
+				reference={buttonreference}
+			/>
 		</>
 	);
 }

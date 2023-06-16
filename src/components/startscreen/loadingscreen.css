@@ -32,6 +32,8 @@ video {
 
 .loadingScreen__button {
 	padding: 8px 32px;
+	width: 15em;
+	height: 3em;
 	background-color: rgba(0, 149, 7, 0.729);
 	color: white;
 	border: none;

@@ -9,14 +9,14 @@ import Button from '../objects/Button';
 type DesignPlatformOptions = {
 	position?: [number, number, number];
 	reference?: (meshRef: Box3) => void;
-	buttonreference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	buttonReference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
 };
 
 export default function DesignPlatform({
 	position = [0, 0, 0],
 	reference,
-	buttonreference,
+	buttonReference,
 	addCollisionBox,
 }: DesignPlatformOptions): JSX.Element {
 	return (
@@ -96,7 +96,11 @@ export default function DesignPlatform({
 				rotation={[0, 60, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			<Button position={[position[0] - 7, position[1] + 6, position[2] - 9]} reference={buttonreference} />
+			<Button
+				customName="design"
+				position={[position[0] - 7, position[1] + 6, position[2] - 9]}
+				reference={buttonReference}
+			/>
 		</>
 	);
 }

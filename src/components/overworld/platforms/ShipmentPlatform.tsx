@@ -133,7 +133,11 @@ export default function ShipmentPlatform({
 				size={[0.5, 8, 1]}
 				vectors={[new Vector3(0, 0, 0), new Vector3(0, 1, 0), new Vector3(0, 1, 7), new Vector3(0, 0, 7)]}
 			/>
-			<Button position={[position[0] - 6, position[1] + 6, position[2] - 9]} reference={buttonreference} />
+			<Button
+				customName="shipment"
+				position={[position[0] - 6, position[1] + 6, position[2] - 9]}
+				reference={buttonreference}
+			/>
 		</>
 	);
 }
