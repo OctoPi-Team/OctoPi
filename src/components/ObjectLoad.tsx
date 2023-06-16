@@ -101,13 +101,6 @@ export default function ObjectLoad({
 		</mesh>
 	));
 
-	// useEffect(() => {
-	// 	// Log objects with custom names (custom names are used to identify each button)
-	// 	if (meshRef.current) {
-	// 		if (meshRef.current.name != '') console.log(`Custom Name: ${meshRef.current.name}`);
-	// 	}
-	// }, []);
-
 	return (
 		<>
 			{SHOW_COLLISION_BOX &&

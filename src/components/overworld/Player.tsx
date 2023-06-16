@@ -32,7 +32,6 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisi
 	const ref = useRef<Mesh>(null);
 	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
 	const [targetRotation, setTargetRotation] = useState<Vector3>(new Vector3(0, 0, 0));
-	const [alertShown, setAlertShown] = useState(false);
 
 	// player movement
 	useFrame(() => {
@@ -46,7 +45,7 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisi
 		// Each button must have a 'customName'; based on this string a certain action for the button can be
 		// executed in the switch case construct
 		for (const button of buttonPositionAndName) {
-			if (playerPosition.distanceTo(button.position) < 1 && !alertShown) {
+			if (playerPosition.distanceTo(button.position) < 1) {
 				switch (button.name) {
 					case 'shipment':
 						if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
@@ -65,8 +64,6 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisi
 						break;
 					case 'monitoring':
 						console.log('Walked on button on monitoring platform');
-						break;
-					default:
 						break;
 				}
 			}
