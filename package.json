@@ -18,8 +18,8 @@
 		"serve": "vite preview",
 		"lint": "eslint --fix --ext .ts,.tsx ./src",
 		"format": "prettier --write src/*.{js,jsx,ts,tsx,css,md,json,scss} --config ./.prettierrc",
-		"test": "react-scripts test --reporters='jest-html-reporters' --watchAll",
-		"coverage": "react-scripts test --reporters='jest-html-reporters' --coverage --watchAll"
+		"test": "react-scripts test --reporters='jest-html-reporters' --watchAll=false",
+		"coverage": "react-scripts test --reporters='jest-html-reporters' --coverage --watchAll=false"
 	},
 	"eslintConfig": {
 		"extends": [
