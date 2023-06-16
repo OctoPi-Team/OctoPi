@@ -26,6 +26,7 @@ import ProductionPlatform from './platforms/ProductionPlatform';
 import EngineeringPlatform from './platforms/EngineeringPlatform';
 import Floor from './platforms/Floor';
 import NavigationButton from './objects/NavigationButton';
+import InfoButton from '../InfoButton';
 import './buttonstyle.css';
 
 export default function Overworld({ setSceneHook, visible, playerPos = new Vector3() }: SceneProps) {
@@ -35,6 +36,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 	const [stairs, setStairs] = useState<StairType[]>([]);
 	const [buttons, setButtons] = useState<Mesh<BufferGeometry, Material | Material[]>[]>([]);
 	const [collisionBoxes, setCollisionBoxes] = useState<Box3[]>([]);
+	const [info, setInfo] = useState(false);
 	const [buttonName, setButtonName] = useState('');
 	const [isOnButton, setIsOnButton] = useState(false);
 
@@ -100,6 +102,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 			</>
 		);
 	}
+
 	return (
 		<>
 			<div style={{ width: '100vw', height: '100vh' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
@@ -120,9 +123,10 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 							top="40px"
 							text="i"
 							onClick={() => {
-								window.alert(
-									'Willkommen zu unserem Spiel Operation:Innovation! Schaue dich mal auf den verschiedenen Plattformen um, siehst du einen Button auf dem Boden? Geh ruhig mal hin.'
-								);
+								setInfo(true);
+								if (info) {
+									setInfo(false);
+								}
 							}}
 						/>
 						<NavigationButton
@@ -210,6 +214,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						isButton={setIsOnButton}
 					/>
 				</Canvas>
+				{info ? <InfoButton /> : <div></div>}
 			</div>
 			{isOnButton ? <div className={'button'}>Du bist nun auf der Plattform: {buttonName}</div> : <div></div>}
 		</>
