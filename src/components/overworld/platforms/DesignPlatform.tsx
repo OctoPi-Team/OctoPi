@@ -5,13 +5,14 @@ import Text from '../../Text';
 import { Box3, Vector3 } from 'three';
 import Tube from '../objects/Tube';
 import Button from '../objects/Button';
+import { PlatformFixProps } from '../../../App';
 
 type DesignPlatformOptions = {
 	position?: [number, number, number];
 	reference?: (meshRef: Box3) => void;
 	buttonReference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
-	isDesignPlatformFixed: boolean;
+	isPlatformFixed: PlatformFixProps | undefined;
 };
 
 export default function DesignPlatform({
@@ -19,7 +20,7 @@ export default function DesignPlatform({
 	reference,
 	buttonReference,
 	addCollisionBox,
-	isDesignPlatformFixed,
+	isPlatformFixed,
 }: DesignPlatformOptions): JSX.Element {
 	return (
 		<>
@@ -73,7 +74,7 @@ export default function DesignPlatform({
 			/>
 			<ObjectLoad
 				path={
-					isDesignPlatformFixed
+					isPlatformFixed?.design
 						? '/Whiteboard_neu/whiteboard_neu.glb'
 						: '/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb'
 				}
@@ -97,7 +98,7 @@ export default function DesignPlatform({
 			/>
 			<ObjectLoad
 				path={
-					isDesignPlatformFixed
+					isPlatformFixed?.design
 						? '/Whiteboard_neu/whiteboard_neu.glb'
 						: '/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb'
 				}

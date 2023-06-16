@@ -1,6 +1,6 @@
 import './index.css';
 
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import Overworld from './components/overworld/Overworld';
 import ShipmentGame from './components/minigame/shipment/ShipmentGame';
 import { LoadingScreen } from './components/startscreen/LoadingScreen';
@@ -17,6 +17,17 @@ export type SceneProps = {
 	visible?: boolean;
 	setPlayerPos?: (setplayerpos: Vector3) => void;
 	playerPos?: Vector3;
+	isPlatformFixed?: PlatformFixProps;
+	setIsPlatformFixed?: (newProps: Partial<PlatformFixProps>) => void;
+};
+
+export type PlatformFixProps = {
+	shipment: boolean;
+	design: boolean;
+	parts: boolean;
+	engineering: boolean;
+	monitoring: boolean;
+	production: boolean;
 };
 
 export default function App() {
@@ -24,9 +35,25 @@ export default function App() {
 	const [scene, setScene] = useState<Scene>(Scene.Overworld);
 	const [visible, setVisible] = useState(true);
 
+	const [isPlatformFixed, setIsPlatformFixed] = useState<PlatformFixProps>({
+		shipment: false,
+		design: false,
+		parts: false,
+		engineering: false,
+		monitoring: false,
+		production: false,
+	});
+
 	const delay = 90000000;
 	let timeoutId: NodeJS.Timeout;
 	let hasMoved = false;
+
+	function setPlatformFixed(newProps: Partial<PlatformFixProps>) {
+		setIsPlatformFixed(prevProps => ({
+			...prevProps,
+			...newProps,
+		}));
+	}
 
 	useEffect(() => {
 		if (!visible && !hasMoved) {
@@ -62,7 +89,13 @@ export default function App() {
 		<>
 			{visible && <LoadingScreen setVisible={setVisible} />}
 			{scene === Scene.Overworld && (
-				<Overworld setSceneHook={setScene} visible={visible} playerPos={playerstartingPos} />
+				<Overworld
+					setSceneHook={setScene}
+					visible={visible}
+					playerPos={playerstartingPos}
+					setIsPlatformFixed={setPlatformFixed}
+					isPlatformFixed={isPlatformFixed}
+				/>
 			)}
 			{scene === Scene.Shipment && (
 				<ShipmentGame

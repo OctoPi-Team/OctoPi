@@ -5,21 +5,22 @@ import Text from '../../Text';
 import { Box3, Vector3 } from 'three';
 import Tube from '../objects/Tube';
 import Button from '../objects/Button';
+import { PlatformFixProps } from '../../../App';
 
 type MonitoringPlatformOptions = {
 	position?: [number, number, number];
 	reference?: (meshRef: Box3) => void;
-	buttonreference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	buttonReference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
-	isMonitoringPlatformFixed: boolean;
+	isPlatformFixed: PlatformFixProps | undefined;
 };
 
 export default function MonitoringPlatform({
 	position = [0, 0, 0],
 	reference,
-	buttonreference,
+	buttonReference,
 	addCollisionBox,
-	isMonitoringPlatformFixed,
+	isPlatformFixed,
 }: MonitoringPlatformOptions): JSX.Element {
 	return (
 		<>
@@ -32,7 +33,7 @@ export default function MonitoringPlatform({
 			/>
 			<ObjectLoad
 				path={
-					isMonitoringPlatformFixed
+					isPlatformFixed?.monitoring
 						? '/Radarschuessel/radarschuessel.glb'
 						: '/Radarschuessel_kaputt_final/radarschuessel_kaputt_final.glb'
 				}
@@ -44,7 +45,7 @@ export default function MonitoringPlatform({
 			/>
 			<ObjectLoad
 				path={
-					isMonitoringPlatformFixed
+					isPlatformFixed?.monitoring
 						? '/Radarschuessel/radarschuessel.glb'
 						: '/Radarschuessel_kaputt_final/radarschuessel_kaputt_final.glb'
 				}
@@ -83,7 +84,7 @@ export default function MonitoringPlatform({
 			<Button
 				customName="monitoring"
 				position={[position[0] - 8, position[1] + 6, position[2] - 9]}
-				reference={buttonreference}
+				reference={buttonReference}
 			/>
 		</>
 	);

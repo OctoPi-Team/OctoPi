@@ -1,5 +1,5 @@
 import { useFrame } from '@react-three/fiber';
-import { Scene, SceneProps } from '../../App';
+import { PlatformFixProps, Scene, SceneProps } from '../../App';
 import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { Box3, BufferGeometry, Material, MathUtils, Mesh, Vector2, Vector3 } from 'three';
 import { STAIR_WIDTH, StairType } from './platforms/Stair';
@@ -28,11 +28,7 @@ interface PlayerArgs {
 	collisionObjects: Box3[];
 	setButton: Dispatch<SetStateAction<string>>;
 	isButton: Dispatch<SetStateAction<boolean>>;
-	setIsPartsPlatformFixed: Dispatch<SetStateAction<boolean>>;
-	setIsDesignPlatformFixed: Dispatch<SetStateAction<boolean>>;
-	setIsEngineeringPlatformFixed: Dispatch<SetStateAction<boolean>>;
-	setIsProductionPlatformFixed: Dispatch<SetStateAction<boolean>>;
-	setIsMonitoringPlatformFixed: Dispatch<SetStateAction<boolean>>;
+	setIsPlatformFixed: ((newProps: Partial<PlatformFixProps>) => void) | undefined;
 }
 
 function Player({
@@ -44,11 +40,7 @@ function Player({
 	collisionObjects,
 	setButton,
 	isButton,
-	setIsPartsPlatformFixed,
-	setIsProductionPlatformFixed,
-	setIsEngineeringPlatformFixed,
-	setIsDesignPlatformFixed,
-	setIsMonitoringPlatformFixed,
+	setIsPlatformFixed,
 }: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
 	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
@@ -70,13 +62,18 @@ function Player({
 				switch (button.name) {
 					case 'shipment':
 						if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
+						if (setIsPlatformFixed) {
+							setIsPlatformFixed({ shipment: true });
+						}
 						break;
 					case 'production':
 						setButton('Production');
 						isButton(true);
 						setTimeout(() => {
 							isButton(false);
-							setIsProductionPlatformFixed(true);
+							if (setIsPlatformFixed) {
+								setIsPlatformFixed({ production: true });
+							}
 						}, 3000);
 						break;
 					case 'engineering':
@@ -84,7 +81,9 @@ function Player({
 						isButton(true);
 						setTimeout(() => {
 							isButton(false);
-							setIsEngineeringPlatformFixed(true);
+							if (setIsPlatformFixed) {
+								setIsPlatformFixed({ engineering: true });
+							}
 						}, 3000);
 						break;
 					case 'parts':
@@ -92,7 +91,9 @@ function Player({
 						isButton(true);
 						setTimeout(() => {
 							isButton(false);
-							setIsPartsPlatformFixed(true);
+							if (setIsPlatformFixed) {
+								setIsPlatformFixed({ parts: true });
+							}
 						}, 3000);
 						break;
 					case 'design':
@@ -100,7 +101,9 @@ function Player({
 						isButton(true);
 						setTimeout(() => {
 							isButton(false);
-							setIsDesignPlatformFixed(true);
+							if (setIsPlatformFixed) {
+								setIsPlatformFixed({ design: true });
+							}
 						}, 3000);
 						break;
 					case 'monitoring':
@@ -108,7 +111,9 @@ function Player({
 						isButton(true);
 						setTimeout(() => {
 							isButton(false);
-							setIsMonitoringPlatformFixed(true);
+							if (setIsPlatformFixed) {
+								setIsPlatformFixed({ monitoring: true });
+							}
 						}, 3000);
 						break;
 				}
