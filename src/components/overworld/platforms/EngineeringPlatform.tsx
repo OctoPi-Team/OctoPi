@@ -22,7 +22,6 @@ export default function EngineeringPlatform({
 	return (
 		<>
 			<SimplePlatform name={''} position={position} size={[15, 0.5, 18]} reference={reference} color={ENGINEERING} />
-
 			<Text
 				text={'ENGINEERING'}
 				color={ENGINEERING}
@@ -43,13 +42,13 @@ export default function EngineeringPlatform({
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			{/* <ObjectLoad
+			{/*<ObjectLoad
 				path="/MonitorMitSchreibtischUndStuhl/monitorMitSchreibtischUndStuhl.glb"
 				position={[position[0] - 2.5, position[1], position[2] + 8]}
 				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
-			/> */}
+			/>*/}
 			<ObjectLoad
 				path="/MonitorMitSchreibtischUndStuhl/monitorMitSchreibtischUndStuhl.glb"
 				position={[position[0] - 3, position[1], position[2] + 8]}
@@ -58,7 +57,7 @@ export default function EngineeringPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[
 					{ positionOffset: new Vector3(), size: new Vector3(2.5, 2, 1.5) },
-					{ positionOffset: new Vector3(0, 0, -1.5), size: new Vector3(1.3, 2, 1.3) }
+					{ positionOffset: new Vector3(0, 0, -1.5), size: new Vector3(1.3, 2, 1.3) },
 				]}
 			/>
 			<ObjectLoad
@@ -69,7 +68,7 @@ export default function EngineeringPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[
 					{ positionOffset: new Vector3(), size: new Vector3(1.5, 2, 2.5) },
-					{ positionOffset: new Vector3(1.5, 0, 0), size: new Vector3(1, 2, 1) }
+					{ positionOffset: new Vector3(1.5, 0, 0), size: new Vector3(1, 2, 1) },
 				]}
 			/>
 			<ObjectLoad
@@ -80,7 +79,7 @@ export default function EngineeringPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[
 					{ positionOffset: new Vector3(), size: new Vector3(2.5, 2, 1.5) },
-					{ positionOffset: new Vector3(0, 0, -1.5), size: new Vector3(1.3, 2, 1.3) }
+					{ positionOffset: new Vector3(0, 0, -1.5), size: new Vector3(1.3, 2, 1.3) },
 				]}
 			/>
 			<Tube
@@ -108,7 +107,11 @@ export default function EngineeringPlatform({
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			<Button position={[position[0] - 7, position[1] + 6, position[2] - 9]} reference={buttonreference} />
+			<Button
+				customName="engineering"
+				position={[position[0] - 7, position[1] + 6, position[2] - 9]}
+				reference={buttonreference}
+			/>
 		</>
 	);
 }

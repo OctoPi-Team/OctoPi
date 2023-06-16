@@ -1,6 +1,6 @@
 import { useFrame } from '@react-three/fiber';
 import { Scene, SceneProps } from '../../App';
-import React, { useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { Box3, BufferGeometry, Material, MathUtils, Mesh, Vector2, Vector3 } from 'three';
 import { STAIR_WIDTH, StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
@@ -26,9 +26,20 @@ interface PlayerArgs {
 	sceneProps?: SceneProps;
 	buttons: Mesh<BufferGeometry, Material | Material[]>[];
 	collisionObjects: Box3[];
+	setButton: Dispatch<SetStateAction<string>>;
+	isButton: Dispatch<SetStateAction<boolean>>;
 }
 
-function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisionObjects }: PlayerArgs) {
+function Player({
+	startPosition,
+	platforms,
+	stairs,
+	buttons,
+	sceneProps,
+	collisionObjects,
+	setButton,
+	isButton,
+}: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
 	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
 	const [targetRotation, setTargetRotation] = useState<Vector3>(new Vector3(0, 0, 0));
@@ -37,11 +48,55 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisi
 	useFrame(() => {
 		if (!ref.current) return;
 		const playerPosition = ref.current.position.clone();
-		const buttonPositions = buttons.map(button => button.position.clone());
-		for (const buttonPosition of buttonPositions) {
-			if (playerPosition.distanceTo(buttonPosition) < 1) {
-				// TODO add button ability for other platforms
-				if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
+		const buttonPositionAndName = buttons.map(button => ({
+			name: button.name,
+			position: button.position.clone(),
+		}));
+
+		// Each button must have a 'customName'; based on this string a certain action for the button can be
+		// executed in the switch case construct
+		for (const button of buttonPositionAndName) {
+			if (playerPosition.distanceTo(button.position) < 1) {
+				switch (button.name) {
+					case 'shipment':
+						if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
+						break;
+					case 'production':
+						setButton('Production');
+						isButton(true);
+						setTimeout(() => {
+							isButton(false);
+						}, 3000);
+						break;
+					case 'engineering':
+						setButton('Engineering');
+						isButton(true);
+						setTimeout(() => {
+							isButton(false);
+						}, 3000);
+						break;
+					case 'parts':
+						setButton('Parts');
+						isButton(true);
+						setTimeout(() => {
+							isButton(false);
+						}, 3000);
+						break;
+					case 'design':
+						setButton('Design');
+						isButton(true);
+						setTimeout(() => {
+							isButton(false);
+						}, 3000);
+						break;
+					case 'monitoring':
+						setButton('Monitoring');
+						isButton(true);
+						setTimeout(() => {
+							isButton(false);
+						}, 3000);
+						break;
+				}
 			}
 		}
 		const movementVector = getMovementVectorFromKeys(SPEED, keys);
@@ -221,6 +276,9 @@ function getNewPlayerHeight(
 }
 
 function getNewLerpedPlayerRoation(rotation: Vector3, targetRotation: Vector3, rotation_speed: number): Vector3 {
+	const fullCirclesOfDiffBetweenRotationAndTargetRotation =
+		rotation.y - (((rotation.y + Math.PI) % (Math.PI * 2)) - Math.PI);
+	targetRotation.y += fullCirclesOfDiffBetweenRotationAndTargetRotation;
 	// Smoothly rotate the player towards the target rotation
 	const diffRotation = new Vector3().subVectors(targetRotation, rotation);
 
@@ -238,7 +296,7 @@ function getPlayerRotationFromKeys(currentRotation: Vector3): Vector3 {
 	} else if (keys.down && keys.left) {
 		rotationDegree = 0;
 	} else if (keys.left && keys.up) {
-		rotationDegree = -90;
+		rotationDegree = 270;
 	} else if (keys.up && keys.right) {
 		rotationDegree = 180;
 	} else if (keys.right) {
@@ -246,9 +304,9 @@ function getPlayerRotationFromKeys(currentRotation: Vector3): Vector3 {
 	} else if (keys.down) {
 		rotationDegree = 45;
 	} else if (keys.left) {
-		rotationDegree = -45;
+		rotationDegree = 315;
 	} else if (keys.up) {
-		rotationDegree = -135;
+		rotationDegree = 225;
 	}
 	return new Vector3(currentRotation.x, MathUtils.degToRad(rotationDegree), currentRotation.z);
 }
@@ -321,7 +379,6 @@ export const ExportedForTestingOnly = {
 	keys,
 	handleJoystickStop,
 	handleJoystickMove,
-	getPlayerRotationFromKeys,
 	getHeight,
 	getNewLerpedPlayerRoation,
 	getNewPlayerHeight,
