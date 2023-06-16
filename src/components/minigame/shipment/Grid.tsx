@@ -24,7 +24,7 @@ type GridProps = {
 function getTilesFromProps(
 	props: TileProps[][],
 	tileClickHandler: (tileProps: TileProps) => void,
-	victoryPath: TileProps[]
+	renderTubes: boolean
 ): Array<JSX.Element> {
 	if (props.every(a => !a.length)) {
 		return [];
@@ -38,9 +38,8 @@ function getTilesFromProps(
 			oneDimension.push(props[i][j]);
 		}
 	}
-	const render = victoryPath.length == 0;
 	return oneDimension.map((prop, index) => (
-		<Tile key={index} tileClickHandler={tileClickHandler} {...prop} render={render} />
+		<Tile key={index} tileClickHandler={tileClickHandler} render={renderTubes} {...prop} />
 	));
 }
 
@@ -303,7 +302,7 @@ export default function Grid({ size, isFinished, currentVariation }: GridProps) 
 	}
 	return (
 		<>
-			{getTilesFromProps(tiles, tileClickHandler, victoryCondition)}
+			{getTilesFromProps(tiles, tileClickHandler, victoryCondition.length == 0)}
 			{typeof victoryCondition !== 'undefined' && victoryCondition.length > 0 && <FinalTube {...victoryCondition} />}
 		</>
 	);
