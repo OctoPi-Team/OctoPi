@@ -37,7 +37,7 @@ export default function DesignPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[
 					{ positionOffset: new Vector3(), size: new Vector3(2.5, 2, 1.5) },
-					{ positionOffset: new Vector3(1, 0, 1.5), size: new Vector3(0.6, 1.5, 0.6) }
+					{ positionOffset: new Vector3(1, 0, 1.5), size: new Vector3(0.6, 1.5, 0.6) },
 				]}
 			/>
 			<ObjectLoad
@@ -48,7 +48,7 @@ export default function DesignPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[
 					{ positionOffset: new Vector3(), size: new Vector3(1.5, 2, 2.5) },
-					{ positionOffset: new Vector3(1.7, 0, -0.5), size: new Vector3(0.6, 1.5, 0.6) }
+					{ positionOffset: new Vector3(1.7, 0, -0.5), size: new Vector3(0.6, 1.5, 0.6) },
 				]}
 			/>
 
@@ -67,7 +67,7 @@ export default function DesignPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[
 					{ positionOffset: new Vector3(), size: new Vector3(2.5, 2, 1.5) },
-					{ positionOffset: new Vector3(0, 0, -1.5), size: new Vector3(1, 2, 1) }
+					{ positionOffset: new Vector3(0, 0, -1.5), size: new Vector3(1, 2, 1) },
 				]}
 			/>
 			<ObjectLoad
@@ -85,13 +85,6 @@ export default function DesignPlatform({
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			{/*
-			<Tube
-				position={[position[0] + 2, position[1], position[2] - 9]}
-				size={[0.5, 8, 1]}
-				vectors={[new Vector3(0, 0, 0), new Vector3(0, 1, 0), new Vector3(3, 1, 0), new Vector3(3, 0, 0)]}
-			/>
-			*/}
 			<ObjectLoad
 				path="/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb"
 				position={[position[0] - 7.5, position[1], position[2] + 2]}
@@ -99,10 +92,10 @@ export default function DesignPlatform({
 				rotation={[0, 60, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			<Cylinder position={[position[0] + 2, position[1], position[2] - 9]} color={DESIGN}/>
-			<Cylinder position={[position[0] + 5, position[1], position[2] - 9]} color={DESIGN}/>
-			<Cylinder position={[position[0], position[1], position[2] - 9 ]} color={DESIGN}/>
-			<Cylinder position={[position[0] - 7.5, position[1], position[2] + 6]} color={DESIGN}/>
+			<Cylinder position={[position[0] + 2, position[1], position[2] - 9]} color={DESIGN} />
+			<Cylinder position={[position[0] + 5, position[1], position[2] - 9]} color={DESIGN} />
+			<Cylinder position={[position[0], position[1], position[2] - 9]} color={DESIGN} />
+			<Cylinder position={[position[0] - 7.5, position[1], position[2] + 6]} color={DESIGN} />
 			<Button position={[position[0] - 7, position[1] + 6, position[2] - 9]} reference={buttonreference} />
 		</>
 	);

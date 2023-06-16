@@ -59,7 +59,7 @@ export default function EngineeringPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[
 					{ positionOffset: new Vector3(), size: new Vector3(2.5, 2, 1.5) },
-					{ positionOffset: new Vector3(0, 0, -1.5), size: new Vector3(1.3, 2, 1.3) }
+					{ positionOffset: new Vector3(0, 0, -1.5), size: new Vector3(1.3, 2, 1.3) },
 				]}
 			/>
 			<ObjectLoad
@@ -70,7 +70,7 @@ export default function EngineeringPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[
 					{ positionOffset: new Vector3(), size: new Vector3(1.5, 2, 2.5) },
-					{ positionOffset: new Vector3(1.5, 0, 0), size: new Vector3(1, 2, 1) }
+					{ positionOffset: new Vector3(1.5, 0, 0), size: new Vector3(1, 2, 1) },
 				]}
 			/>
 			<ObjectLoad
@@ -81,29 +81,9 @@ export default function EngineeringPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[
 					{ positionOffset: new Vector3(), size: new Vector3(2.5, 2, 1.5) },
-					{ positionOffset: new Vector3(0, 0, -1.5), size: new Vector3(1.3, 2, 1.3) }
+					{ positionOffset: new Vector3(0, 0, -1.5), size: new Vector3(1.3, 2, 1.3) },
 				]}
 			/>
-			{/*
-			<Tube
-				name="Tube2"
-				position={[position[0] - 7, position[1], position[2] + 3]}
-				size={[0.5, 8, 1]}
-				vectors={[
-					new Vector3(0, 0, 3),
-					new Vector3(0, 1, 3),
-					new Vector3(-1.5, 1, 3),
-					new Vector3(-1.5, 0, 3),
-					new Vector3(-1.5, -1, 3),
-					new Vector3(-1.5, -1, 6.2),
-					new Vector3(6, -1, 6.2),
-					new Vector3(6, 1, 6.2),
-					new Vector3(6, 1, 5),
-					new Vector3(6, 1, 4),
-					new Vector3(6, 0, 4),
-				]}
-			/>
-			*/}
 			<ObjectLoad
 				path="/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb"
 				position={[position[0] - 0.5, position[1], position[2] - 7.5]}
@@ -111,16 +91,16 @@ export default function EngineeringPlatform({
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-				<ObjectLoad
+			<ObjectLoad
 				path="/Teleskop/teleskop.glb"
 				position={[position[0] - 5.3, position[1], position[2] - 7.5]}
 				scale={[1.5, 1.5, 1.5]}
 				rotation={[0, 210, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			<Cylinder position={[position[0] - 1, position[1], position[2] + 7 ]} color={ENGINEERING}/>
-			<Cylinder position={[position[0] + 6.8, position[1], position[2] + 7]} color={ENGINEERING}/>
-			<Cylinder position={[position[0] - 6, position[1], position[2] + 6]} color={ENGINEERING}/>
+			<Cylinder position={[position[0] - 1, position[1], position[2] + 7]} color={ENGINEERING} />
+			<Cylinder position={[position[0] + 6.8, position[1], position[2] + 7]} color={ENGINEERING} />
+			<Cylinder position={[position[0] - 6, position[1], position[2] + 6]} color={ENGINEERING} />
 			<Button position={[position[0] - 7, position[1] + 6, position[2] - 9]} reference={buttonreference} />
 		</>
 	);

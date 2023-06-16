@@ -38,9 +38,7 @@ export default function ShipmentPlatform({
 				scale={[0.12, 0.12, 0.12]}
 				rotation={[0, 180, 0]}
 				collisionRefSetter={addCollisionBox}
-				customCollisionBoxes={[
-					{ positionOffset: new Vector3(0.6, 0, -2.2), size: new Vector3(1.6, 5, 8.2) },
-				]}
+				customCollisionBoxes={[{ positionOffset: new Vector3(0.6, 0, -2.2), size: new Vector3(1.6, 5, 8.2) }]}
 			/>
 			<ObjectLoad
 				path="/Packet/packet.glb"
@@ -69,9 +67,7 @@ export default function ShipmentPlatform({
 				scale={[0.8, 0.8, 0.8]}
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
-				customCollisionBoxes={[
-					{ positionOffset: new Vector3(), size: new Vector3(5, 10, 4) },
-				]}
+				customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(5, 10, 4) }]}
 			/>
 			<ObjectLoad
 				path="/Palette/palette.glb"
@@ -132,7 +128,7 @@ export default function ShipmentPlatform({
 				collisionRefSetter={addCollisionBox}
 			/>
 			<Tube name="Tube" position={[position[0] + 7.6, position[1], position[2] + 0.5]} size={[0.5, 8, 1]} />
-			
+
 			{/*<Tube
 				name="Tube2"
 				position={[position[0] - 7, position[1], position[2] - 7]}
@@ -140,9 +136,9 @@ export default function ShipmentPlatform({
 				vectors={[new Vector3(0, 0, 0), new Vector3(0, 1, 0), new Vector3(0, 1, 7), new Vector3(0, 0, 7)]}
 			/>
 			*/}
-			<Cylinder position={[position[0] - 7, position[1], position[2] - 7]} color={SHIPMENT}/>
-			<Cylinder position={[position[0] - 7.1, position[1], position[2] + 0.2]} color={SHIPMENT}/>
-			<Cylinder position={[position[0] + 7.5, position[1], position[2] + 0.5]} color={SHIPMENT}/>
+			<Cylinder position={[position[0] - 7, position[1], position[2] - 7]} color={SHIPMENT} />
+			<Cylinder position={[position[0] - 7.1, position[1], position[2] + 0.2]} color={SHIPMENT} />
+			<Cylinder position={[position[0] + 7.5, position[1], position[2] + 0.5]} color={SHIPMENT} />
 			<Button position={[position[0] - 6, position[1] + 6, position[2] - 9]} reference={buttonreference} />
 		</>
 	);

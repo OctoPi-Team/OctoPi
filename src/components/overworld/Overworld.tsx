@@ -263,7 +263,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 							new Vector3(-21, 3, 28),
 							new Vector3(-21, 5, 28),
 							new Vector3(-19, 5, 28),
-							new Vector3(-19, 4, 28)
+							new Vector3(-19, 4, 28),
 						]}
 					/>
 					<Tube
@@ -282,7 +282,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 							new Vector3(2, 5, 25),
 							new Vector3(2, 2, 25),
 							new Vector3(16, 2, 25),
-							new Vector3(16, 3, 25)
+							new Vector3(16, 3, 25),
 						]}
 						ballAnimation
 						color={GREEN}
@@ -366,14 +366,14 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						vectors={[
 							new Vector3(22, 2, -15),
 							new Vector3(22, 2, 19),
-	
+
 							new Vector3(-4, 2, 19),
 							new Vector3(-4, 0, 19),
 							new Vector3(-25, 0, 19),
 							new Vector3(-25, 0, -19),
 							new Vector3(22, 0, -19),
 							new Vector3(22, 0, -15),
-							new Vector3(22, 2, -15)
+							new Vector3(22, 2, -15),
 						]}
 					/>
 				</Canvas>
