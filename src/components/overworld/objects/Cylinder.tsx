@@ -11,12 +11,12 @@ type CylinderProps = {
 
 function Cylinder({ name = 'cylinder', position = [0, 0, 0], color }: CylinderProps) {
 	// create cylinder
-	const cylinderGeometry = new CylinderGeometry(1, 1, 2, 32);
+	const cylinderGeometry = new CylinderGeometry(1, 1, 1, 32);
 	const cylinderMaterial = new MeshBasicMaterial({ color: GREEN });
 	const cylinderMesh = new Mesh(cylinderGeometry, cylinderMaterial);
 
 	// create hole
-	const holeGeometry = new CylinderGeometry(0.5, 0.5, 2, 32);
+	const holeGeometry = new CylinderGeometry(0.5, 0.5, 1, 32);
 	const holeMaterial = new MeshBasicMaterial({ color: color });
 	const holeMesh = new Mesh(holeGeometry, holeMaterial);
 

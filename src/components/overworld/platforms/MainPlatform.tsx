@@ -75,6 +75,13 @@ export default function MainPlatform({
 				rotation={[0, 180, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
+			<ObjectLoad
+				path="/Sitzhocker/sitzhocker.glb"
+				position={[position[0] + 8, position[1], position[2] - 6]}
+				scale={[0.15, 0.15, 0.15]}
+				rotation={[0, 180, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
 			<gridHelper position={[position[0], position[1], position[2] - 4]} args={[2, 2, 'black', 'black']} />
 		</>
 	);
