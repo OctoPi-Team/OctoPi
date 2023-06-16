@@ -107,7 +107,11 @@ export default function EngineeringPlatform({
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			<Button position={[position[0] - 7, position[1] + 6, position[2] - 9]} reference={buttonreference} />
+			<Button
+				customName="engineering"
+				position={[position[0] - 7, position[1] + 6, position[2] - 9]}
+				reference={buttonreference}
+			/>
 		</>
 	);
 }

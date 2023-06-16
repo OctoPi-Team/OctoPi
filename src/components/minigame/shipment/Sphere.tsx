@@ -5,10 +5,10 @@ import { useState } from 'react';
 import { SIZE_OF_GAME_MATRIX, SPACING, TILE_SIZE } from './ShipmentGame';
 
 type SphereProps = {
-	curv: CurvePath<Vector3>;
+	// curve: CatmullRomCurve3;
+	curve: CurvePath<Vector3>;
 };
-
-export default function Sphere({ curv }: SphereProps) {
+export default function Sphere({ curve }: SphereProps) {
 	const name = 'sphere';
 	const color: string = RED;
 	const INPUTTUBEPOSSITION = TILE_SIZE * (SIZE_OF_GAME_MATRIX[1] - 1) + (SIZE_OF_GAME_MATRIX[1] - 1) * SPACING;
@@ -26,7 +26,7 @@ export default function Sphere({ curv }: SphereProps) {
 	const points: Vector3[] = startingcurve.getSpacedPoints(1000);
 
 	points.reverse();
-	points.push(...curv.getSpacedPoints(600));
+	points.push(...curve.getSpacedPoints(600));
 	const sphereGeometry = new SphereGeometry(0.3, 70, 20);
 	useFrame(({ clock }) => {
 		const deltaTime = Math.round(clock.getElapsedTime() * 1000);
