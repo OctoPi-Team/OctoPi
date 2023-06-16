@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Mesh, Vector3 } from 'three';
+import THREE, { Mesh } from 'three';
 import ObjectLoad from '../../ObjectLoad';
 
 type ButtonProps = {

@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three-stdlib';
-import { Vector3, BufferGeometry, Material, MathUtils, Box3, InstancedMesh } from 'three';
+import THREE, { Vector3, BufferGeometry, Material, MathUtils, Box3, InstancedMesh } from 'three';
 import { Scene } from '../App';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { RED } from '../AllColorVariables';
@@ -37,7 +37,7 @@ export default function ObjectLoad({
 }: ObjectLoadOptions): JSX.Element {
 	const SHOW_COLLISION_BOX = false;
 	const meshRef = useRef<InstancedMesh<BufferGeometry, Material | Material[]>>(null);
-	const [collsionRefWasSet, collsionRefSet] = useState(false);
+	const [collisionRefWasSet, setCollisionRefWasSet] = useState(false);
 	const [collisionBoxes, setCollisionBoxes] = useState<Box3[]>([]);
 
 	function addCollisionBox(newBox: Box3) {
@@ -48,9 +48,9 @@ export default function ObjectLoad({
 		reference(meshRef.current);
 	}
 
-	if (!collsionRefWasSet && collisionRefSetter && meshRef.current) {
-		collsionRefSet(true);
-		let boxes: Box3[] = [];
+	if (!collisionRefWasSet && collisionRefSetter && meshRef.current) {
+		setCollisionRefWasSet(true);
+		const boxes: Box3[] = [];
 		if (customCollisionBoxes && customCollisionBoxes.length > 0) {
 			for (const box of customCollisionBoxes) {
 				boxes.push(

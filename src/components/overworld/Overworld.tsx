@@ -26,6 +26,7 @@ import ProductionPlatform from './platforms/ProductionPlatform';
 import EngineeringPlatform from './platforms/EngineeringPlatform';
 import Floor from './platforms/Floor';
 import NavigationButton from './objects/NavigationButton';
+import './buttonstyle.css';
 
 export default function Overworld({ setSceneHook, visible, playerPos = new Vector3() }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
@@ -34,6 +35,8 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 	const [stairs, setStairs] = useState<StairType[]>([]);
 	const [buttons, setButtons] = useState<Mesh<BufferGeometry, Material | Material[]>[]>([]);
 	const [collisionBoxes, setCollisionBoxes] = useState<Box3[]>([]);
+	const [button, setButton] = useState('');
+	const [isButton, setIsButton] = useState(false);
 
 	const CAM_WIDTH = 80;
 	const CAM_HEIGHT = 80;
@@ -167,7 +170,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						<DesignPlatform
 							position={[-25.2, 2, -2]}
 							reference={addPlatform}
-							buttonreference={addButtons}
+							buttonReference={addButtons}
 							addCollisionBox={addCollisionBox}
 						/>
 						<Stair
@@ -203,9 +206,12 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						buttons={buttons}
 						sceneProps={{ setSceneHook }}
 						collisionObjects={collisionBoxes}
+						setButton={setButton}
+						isButton={setIsButton}
 					/>
 				</Canvas>
 			</div>
+			{isButton ? <div className={'button'}>Du bist nun auf der Plattform: {button}</div> : <div></div>}
 		</>
 	);
 }

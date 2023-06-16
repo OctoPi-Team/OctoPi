@@ -60,12 +60,14 @@ function Stair({ startPosition, endPosition, reference }: StairProps) {
 	});
 
 	return (
-		<> {SHOW_COLLISION_BOX && collisionBox &&
-			<mesh position={collisionBox.getCenter(centerPosition)}>
-				<boxGeometry args={collisionBox.getSize(new Vector3(0, 0, 0)).toArray()} />
-				<meshLambertMaterial color={RED} opacity={0.6} transparent={true} />
-			</mesh>
-		}
+		<>
+			{' '}
+			{SHOW_COLLISION_BOX && collisionBox && (
+				<mesh position={collisionBox.getCenter(centerPosition)}>
+					<boxGeometry args={collisionBox.getSize(new Vector3(0, 0, 0)).toArray()} />
+					<meshLambertMaterial color={RED} opacity={0.6} transparent={true} />
+				</mesh>
+			)}
 			<mesh ref={ref} castShadow receiveShadow>
 				<boxGeometry args={[STAIR_WIDTH, stairHeight, length]} />
 				<meshStandardMaterial color={WHITE} />

@@ -1,6 +1,6 @@
 import { useFrame } from '@react-three/fiber';
 import { Scene, SceneProps } from '../../App';
-import React, { useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { Box3, BufferGeometry, Material, MathUtils, Mesh, Vector2, Vector3 } from 'three';
 import { STAIR_WIDTH, StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
@@ -26,9 +26,20 @@ interface PlayerArgs {
 	sceneProps?: SceneProps;
 	buttons: Mesh<BufferGeometry, Material | Material[]>[];
 	collisionObjects: Box3[];
+	setButton: Dispatch<SetStateAction<string>>;
+	isButton: Dispatch<SetStateAction<boolean>>;
 }
 
-function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisionObjects }: PlayerArgs) {
+function Player({
+	startPosition,
+	platforms,
+	stairs,
+	buttons,
+	sceneProps,
+	collisionObjects,
+	setButton,
+	isButton,
+}: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
 	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
 	const [targetRotation, setTargetRotation] = useState<Vector3>(new Vector3(0, 0, 0));
@@ -52,18 +63,43 @@ function Player({ startPosition, platforms, stairs, buttons, sceneProps, collisi
 						break;
 					case 'production':
 						console.log('Walked on button on production platform');
+						setButton('Production');
+						isButton(true);
+						setTimeout(() => {
+							isButton(false);
+						}, 3000);
 						break;
 					case 'engineering':
 						console.log('Walked on button on engineering platform');
+						setButton('Engineering');
+						isButton(true);
+						setTimeout(() => {
+							isButton(false);
+						}, 3000);
 						break;
 					case 'parts':
 						console.log('Walked on button on parts platform');
+						setButton('Parts');
+						isButton(true);
+						setTimeout(() => {
+							isButton(false);
+						}, 3000);
 						break;
 					case 'design':
 						console.log('Walked on button on design platform');
+						setButton('Design');
+						isButton(true);
+						setTimeout(() => {
+							isButton(false);
+						}, 3000);
 						break;
 					case 'monitoring':
 						console.log('Walked on button on monitoring platform');
+						setButton('Monitoring');
+						isButton(true);
+						setTimeout(() => {
+							isButton(false);
+						}, 3000);
 						break;
 				}
 			}

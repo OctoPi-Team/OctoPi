@@ -118,7 +118,7 @@ export function FinalTube(qwd: TileProps[]) {
 			<mesh name={name} position={position}>
 				<primitive object={tubeGeometry} />
 				<meshStandardMaterial color={color} transparent opacity={0.65} side={DoubleSide} />
-				<Sphere curv={fullCurve} />
+				<Sphere curve={fullCurve} />
 			</mesh>
 		</>
 	);
