@@ -27,8 +27,8 @@ import ProductionPlatform from './platforms/ProductionPlatform';
 import EngineeringPlatform from './platforms/EngineeringPlatform';
 import Floor from './platforms/Floor';
 import NavigationButton from '../ui/NavigationButton';
+import InfoButton from '../ui/InfoButton';
 import DragVector from './DragVector';
-import InfoButton from '../InfoButton';
 import '../ui/buttonstyle.css';
 
 export default function Overworld({

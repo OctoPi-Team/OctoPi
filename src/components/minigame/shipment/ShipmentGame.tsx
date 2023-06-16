@@ -12,7 +12,7 @@ import ObjectLoad from '../../ObjectLoad';
 import NavigationButton from '../../ui/NavigationButton';
 import './victoryScreen.css';
 import WinScreen from './WinScreen';
-import InfoButton from '../../InfoButton';
+import InfoButton from '../../ui/InfoButton';
 
 import Tube from './Tube';
 import Grid from './Grid';
