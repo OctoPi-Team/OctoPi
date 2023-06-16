@@ -35,8 +35,8 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 	const [stairs, setStairs] = useState<StairType[]>([]);
 	const [buttons, setButtons] = useState<Mesh<BufferGeometry, Material | Material[]>[]>([]);
 	const [collisionBoxes, setCollisionBoxes] = useState<Box3[]>([]);
-	const [button, setButton] = useState('');
-	const [isButton, setIsButton] = useState(false);
+	const [buttonName, setButtonName] = useState('');
+	const [isOnButton, setIsOnButton] = useState(false);
 
 	const CAM_WIDTH = 80;
 	const CAM_HEIGHT = 80;
@@ -206,12 +206,12 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						buttons={buttons}
 						sceneProps={{ setSceneHook }}
 						collisionObjects={collisionBoxes}
-						setButton={setButton}
-						isButton={setIsButton}
+						setButton={setButtonName}
+						isButton={setIsOnButton}
 					/>
 				</Canvas>
 			</div>
-			{isButton ? <div className={'button'}>Du bist nun auf der Plattform: {button}</div> : <div></div>}
+			{isOnButton ? <div className={'button'}>Du bist nun auf der Plattform: {buttonName}</div> : <div></div>}
 		</>
 	);
 }
