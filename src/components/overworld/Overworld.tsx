@@ -7,6 +7,7 @@ import {
 	DirectionalLight,
 	OrthographicCamera,
 	DirectionalLightHelper,
+	Vector2,
 } from 'three';
 import { Canvas } from '@react-three/fiber';
 import { useRef, useState } from 'react';
@@ -27,9 +28,16 @@ import EngineeringPlatform from './platforms/EngineeringPlatform';
 import Floor from './platforms/Floor';
 import NavigationButton from '../ui/NavigationButton';
 import InfoButton from '../ui/InfoButton';
+import DragVector from './DragVector';
 import '../ui/buttonstyle.css';
 
-export default function Overworld({ setSceneHook, visible, playerPos = new Vector3() }: SceneProps) {
+export default function Overworld({
+	setSceneHook,
+	visible,
+	playerPos = new Vector3(),
+	setIsPlatformFixed,
+	isPlatformFixed,
+}: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
 
 	const [platforms, setPlatforms] = useState<Box3[]>([]);
@@ -42,6 +50,9 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 
 	const CAM_WIDTH = 80;
 	const CAM_HEIGHT = 80;
+
+	const { handleMouseDown, handleMouseMove, handleMouseUp, handleTouchStart, handleTouchMove, handleTouchEnd } =
+		DragVector(new Vector2(window.innerWidth / 2, window.innerHeight / 2), handleJoystickMove, handleJoystickStop);
 
 	function addPlatform(newPlatform: Box3) {
 		// these platforms are used to detect player collsion iwth the edge of the platform
@@ -112,7 +123,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 							<Joystick
 								baseColor="lightgreen"
 								stickColor="darkgreen"
-								size={100}
+								size={150}
 								move={handleJoystickMove}
 								stop={handleJoystickStop}
 							/>
@@ -144,7 +155,16 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						/>
 					</>
 				)}
-				<Canvas orthographic shadows style={{ visibility: visible ? 'hidden' : 'visible' }}>
+				<Canvas
+					orthographic
+					shadows
+					style={{ visibility: visible ? 'hidden' : 'visible' }}
+					onMouseDown={handleMouseDown}
+					onMouseMove={handleMouseMove}
+					onMouseUp={handleMouseUp}
+					onTouchStart={handleTouchStart}
+					onTouchMove={handleTouchMove}
+					onTouchEnd={handleTouchEnd}>
 					<group name="lighting-and-camera">
 						<color attach="background" args={['white']} />
 						<DirLight />
@@ -160,15 +180,17 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 							position={[9, 4, 25]}
 							reference={addPlatform}
 							sceneProps={{ setSceneHook }}
-							buttonreference={addButtons}
+							buttonReference={addButtons}
 							addCollisionBox={addCollisionBox}
+							isPlatformFixed={isPlatformFixed}
 						/>
 						<Stair startPosition={new Vector3(-7, 0, 6.5)} endPosition={new Vector3(-7, 4, 13)} reference={addStair} />
 						<EngineeringPlatform
 							position={[-13, 4, 22]}
 							reference={addPlatform}
-							buttonreference={addButtons}
+							buttonReference={addButtons}
 							addCollisionBox={addCollisionBox}
+							isPlatformFixed={isPlatformFixed}
 						/>
 						<Stair startPosition={new Vector3(-10, 0, 0)} endPosition={new Vector3(-16.2, 2, 0)} reference={addStair} />
 						<DesignPlatform
@@ -176,6 +198,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 							reference={addPlatform}
 							buttonReference={addButtons}
 							addCollisionBox={addCollisionBox}
+							isPlatformFixed={isPlatformFixed}
 						/>
 						<Stair
 							startPosition={new Vector3(-7, 0, -6.5)}
@@ -185,22 +208,25 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						<ProductionPlatform
 							position={[-11, 3, -22]}
 							reference={addPlatform}
-							buttonreference={addButtons}
+							buttonReference={addButtons}
 							addCollisionBox={addCollisionBox}
+							isPlatformFixed={isPlatformFixed}
 						/>
 						<Stair startPosition={new Vector3(6, 0, -6.5)} endPosition={new Vector3(6, 1, -16)} reference={addStair} />
 						<PartsPlatform
 							position={[15, 1, -25]}
 							reference={addPlatform}
-							buttonreference={addButtons}
+							buttonReference={addButtons}
 							addCollisionBox={addCollisionBox}
+							isPlatformFixed={isPlatformFixed}
 						/>
 						<Stair startPosition={new Vector3(10, 0, 0)} endPosition={new Vector3(18, 4.5, 0)} reference={addStair} />
 						<MonitoringPlatform
 							position={[25, 4.5, -3]}
 							reference={addPlatform}
-							buttonreference={addButtons}
+							buttonReference={addButtons}
 							addCollisionBox={addCollisionBox}
+							isPlatformFixed={isPlatformFixed}
 						/>
 					</group>
 					<Player
@@ -212,6 +238,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						collisionObjects={collisionBoxes}
 						setButton={setButtonName}
 						isButton={setIsOnButton}
+						setIsPlatformFixed={setIsPlatformFixed}
 					/>
 				</Canvas>
 				{info ? <InfoButton /> : <div></div>}

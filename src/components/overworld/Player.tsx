@@ -1,4 +1,5 @@
 import { useFrame } from '@react-three/fiber';
+import { PlatformFixProps, Scene, SceneProps } from '../../App';
 import { IJoystickUpdateEvent } from 'react-joystick-component/build/lib/Joystick';
 import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { Box3, BufferGeometry, Material, MathUtils, Mesh, Vector2, Vector3 } from 'three';
@@ -12,13 +13,7 @@ const SPEED = 0.1;
 const COLLISION_IS_ACTIVE = true;
 const ROTATION_SPEED = 0.1;
 
-// keys stores the current state of keyboard presses
-export const keys = {
-	left: false,
-	right: false,
-	up: false,
-	down: false,
-};
+let movementVector = new Vector3();
 
 interface PlayerArgs {
 	startPosition: Vector3;
@@ -29,6 +24,7 @@ interface PlayerArgs {
 	collisionObjects: Box3[];
 	setButton: Dispatch<SetStateAction<string>>;
 	isButton: Dispatch<SetStateAction<boolean>>;
+	setIsPlatformFixed: ((newProps: Partial<PlatformFixProps>) => void) | undefined;
 }
 
 function Player({
@@ -40,6 +36,7 @@ function Player({
 	collisionObjects,
 	setButton,
 	isButton,
+	setIsPlatformFixed,
 }: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
 	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
@@ -62,12 +59,18 @@ function Player({
 				switch (button.name) {
 					case 'shipment':
 						if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
+						if (setIsPlatformFixed) {
+							setIsPlatformFixed({ shipment: true });
+						}
 						break;
 					case 'production':
 						setButton('Production');
 						isButton(true);
 						setTimeout(() => {
 							isButton(false);
+							if (setIsPlatformFixed) {
+								setIsPlatformFixed({ production: true });
+							}
 						}, BUTTON_TIMEOUT);
 						break;
 					case 'engineering':
@@ -75,6 +78,9 @@ function Player({
 						isButton(true);
 						setTimeout(() => {
 							isButton(false);
+							if (setIsPlatformFixed) {
+								setIsPlatformFixed({ engineering: true });
+							}
 						}, BUTTON_TIMEOUT);
 						break;
 					case 'parts':
@@ -82,6 +88,10 @@ function Player({
 						isButton(true);
 						setTimeout(() => {
 							isButton(false);
+
+							if (setIsPlatformFixed) {
+								setIsPlatformFixed({ parts: true });
+							}
 						}, BUTTON_TIMEOUT);
 						break;
 					case 'design':
@@ -89,6 +99,9 @@ function Player({
 						isButton(true);
 						setTimeout(() => {
 							isButton(false);
+              if (setIsPlatformFixed) {
+								setIsPlatformFixed({ design: true });
+							}
 						}, BUTTON_TIMEOUT);
 						break;
 					case 'monitoring':
@@ -96,12 +109,15 @@ function Player({
 						isButton(true);
 						setTimeout(() => {
 							isButton(false);
+							if (setIsPlatformFixed) {
+								setIsPlatformFixed({ monitoring: true });
+							}
 						}, BUTTON_TIMEOUT);
 						break;
 				}
 			}
 		}
-		const movementVector = getMovementVectorFromKeys(SPEED, keys);
+		const movementVector = getMovementVectorFromKeys(SPEED);
 		// move player forward
 		ref.current.position.x += movementVector.x;
 		ref.current.position.z += movementVector.z;
@@ -139,10 +155,11 @@ function Player({
 		} catch (Error) {
 			// dont set a new height because he isnt on a stair anymore
 		}
-
-		// player rotation
-		setTargetRotation(getPlayerRotationFromKeys(targetRotation));
-		setRotation(getNewLerpedPlayerRoation(rotation, targetRotation, ROTATION_SPEED));
+		if (movementVector.x != 0 || movementVector.z != 0) {
+			// player rotation
+			setTargetRotation(getPlayerRotationFromKeys(targetRotation));
+			setRotation(getNewLerpedPlayerRoation(rotation, targetRotation, ROTATION_SPEED));
+		}
 	});
 
 	return (
@@ -152,6 +169,7 @@ function Player({
 			position={[startPosition.x, startPosition.y + PLAYER_SIZE / 2, startPosition.z]}
 			rotation={rotation.toArray()}>
 			<ObjectLoad path="/Player/player.glb" position={[0, 0, 0]} scale={[0.2, 0.2, 0.2]} rotation={[0, 90, 0]} />
+			<ObjectLoad path="/Helmet/helmet.glb" position={[0, 1, 0]} scale={[1, 1, 1]} rotation={[0, -90, 0]} />
 		</mesh>
 	);
 }
@@ -162,32 +180,7 @@ function getHeight(stairLength: number, stairHeight: number, currentProgression:
 	return lowerHeight + currentProgression / (stairLength / stairHeight);
 }
 
-function getMovementVectorFromKeys(
-	speed: number,
-	keys: {
-		left: boolean;
-		right: boolean;
-		up: boolean;
-		down: boolean;
-	}
-): Vector3 {
-	let movementVector = new Vector3();
-	if (keys.right) {
-		movementVector.z += 1;
-		movementVector.x -= 1;
-	}
-	if (keys.down) {
-		movementVector.x -= 1;
-		movementVector.z -= 1;
-	}
-	if (keys.left) {
-		movementVector.z -= 1;
-		movementVector.x += 1;
-	}
-	if (keys.up) {
-		movementVector.x += 1;
-		movementVector.z += 1;
-	}
+function getMovementVectorFromKeys(speed: number): Vector3 {
 	// normalize Vector to avoid diagonal speedUp
 	movementVector = movementVector.normalize().multiplyScalar(speed);
 	return movementVector;
@@ -278,97 +271,58 @@ function getNewPlayerHeight(
 }
 
 function getNewLerpedPlayerRoation(rotation: Vector3, targetRotation: Vector3, rotation_speed: number): Vector3 {
-	const fullCirclesOfDiffBetweenRotationAndTargetRotation =
-		rotation.y - (((rotation.y + Math.PI) % (Math.PI * 2)) - Math.PI);
-	targetRotation.y += fullCirclesOfDiffBetweenRotationAndTargetRotation;
-	// Smoothly rotate the player towards the target rotation
-	const diffRotation = new Vector3().subVectors(targetRotation, rotation);
+	const rotationDeg = MathUtils.radToDeg(rotation.y);
+	const targetRotationDeg = MathUtils.radToDeg(targetRotation.y);
 
-	// Ensure the rotation difference is within -Math.PI to Math.PI range
-	diffRotation.y = ((diffRotation.y + Math.PI) % (Math.PI * 2)) - Math.PI;
+	// Calculate the difference between the two angles
+	let diff = targetRotationDeg - rotationDeg;
 
-	const rotationStep = new Vector3().copy(diffRotation).multiplyScalar(rotation_speed);
-	return new Vector3().addVectors(rotation, rotationStep);
+	// Adjust the difference to ensure it falls within the range of -180 to 180 degrees
+	diff = ((diff + 180) % 360) - 180;
+
+	const diffRotation = MathUtils.degToRad(diff);
+	rotation.y += diffRotation * rotation_speed;
+	return rotation;
 }
 
 function getPlayerRotationFromKeys(currentRotation: Vector3): Vector3 {
-	let rotationDegree = MathUtils.radToDeg(currentRotation.y);
-	if (keys.right && keys.down) {
-		rotationDegree = 90;
-	} else if (keys.down && keys.left) {
-		rotationDegree = 0;
-	} else if (keys.left && keys.up) {
-		rotationDegree = 270;
-	} else if (keys.up && keys.right) {
-		rotationDegree = 180;
-	} else if (keys.right) {
-		rotationDegree = 135;
-	} else if (keys.down) {
-		rotationDegree = 45;
-	} else if (keys.left) {
-		rotationDegree = 315;
-	} else if (keys.up) {
-		rotationDegree = 225;
-	}
-	return new Vector3(currentRotation.x, MathUtils.degToRad(rotationDegree), currentRotation.z);
+	const a = Math.atan2(-movementVector.x, -movementVector.z);
+	return new Vector3(currentRotation.x, a, currentRotation.z);
 }
 
-// change 'keys' based on input events
 export const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = event => {
-	if (event.key === 'ArrowLeft') keys.left = true;
-	if (event.key === 'ArrowRight') keys.right = true;
-	if (event.key === 'ArrowUp') keys.up = true;
-	if (event.key === 'ArrowDown') keys.down = true;
+	movementVector = new Vector3();
+	if (event.key === 'ArrowRight') {
+		movementVector.z += 1;
+		movementVector.x -= 1;
+	}
+	if (event.key === 'ArrowDown') {
+		movementVector.x -= 1;
+		movementVector.z -= 1;
+	}
+	if (event.key === 'ArrowLeft') {
+		movementVector.z -= 1;
+		movementVector.x += 1;
+	}
+	if (event.key === 'ArrowUp') {
+		movementVector.x += 1;
+		movementVector.z += 1;
+	}
 };
 
-export const handleKeyUp: React.KeyboardEventHandler<HTMLDivElement> = event => {
-	if (event.key === 'ArrowLeft') keys.left = false;
-	if (event.key === 'ArrowRight') keys.right = false;
-	if (event.key === 'ArrowUp') keys.up = false;
-	if (event.key === 'ArrowDown') keys.down = false;
+export const handleKeyUp: React.KeyboardEventHandler<HTMLDivElement> = () => {
+	resetKeys();
 };
 
-export const handleJoystickMove = (stick: IJoystickUpdateEvent) => {
-	// reset all keys
-	handleJoystickStop();
+export const handleJoystickMove = (stick: IJoystickUpdateEvent | Vector2) => {
+	resetKeys();
 	if (stick.x && stick.y) {
-		// calculate angle of joystick
-		const directionVector = new Vector2(stick.x, stick.y);
-		const directionAngle = MathUtils.radToDeg(directionVector.angle());
-		// 0 deg is Right 180deg is Left etc.
-		//    102.5  57.5
-		//    \    |    /
-		//     \   |   /
-		//      \  |  /
-		// 147.5 \ | / 12.5
-		//        \|/
-		//180 --------------0
-		//        /|\
-		// 212.5 / | \ 347.5
-		//      /  |  \
-		//     /   |   \
-		//    /    |    \
-		//   257.5   302.5
-		if (directionAngle > 302.5 || directionAngle < 57.5) {
-			keys.right = true;
-		}
-		if (directionAngle > 12.5 && directionAngle < 147.5) {
-			keys.up = true;
-		}
-		if (directionAngle > 102.5 && directionAngle < 257.5) {
-			keys.left = true;
-		}
-		if (directionAngle > 212.5 && directionAngle < 347.5) {
-			keys.down = true;
-		}
+		movementVector = new Vector3(-stick.x, 0, stick.y).applyAxisAngle(new Vector3(0, 1, 0), MathUtils.degToRad(45));
 	}
 };
 
 export function resetKeys() {
-	keys.left = false;
-	keys.right = false;
-	keys.up = false;
-	keys.down = false;
+	movementVector = new Vector3();
 }
 
 export const handleJoystickStop = () => {
@@ -378,7 +332,6 @@ export const handleJoystickStop = () => {
 export default Player;
 
 export const ExportedForTestingOnly = {
-	keys,
 	handleJoystickStop,
 	handleJoystickMove,
 	getHeight,
