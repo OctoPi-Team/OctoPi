@@ -4,7 +4,7 @@ import { ENGINEERING } from '../../../AllColorVariables';
 import Text from '../../Text';
 import { Box3, Vector3 } from 'three';
 import Tube from '../objects/Tube';
-import Button from '../objects/Button';
+import Button from '../../ui/Button';
 
 type EngineeringPlatformOptions = {
 	position?: [number, number, number];
