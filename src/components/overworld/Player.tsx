@@ -150,6 +150,7 @@ function Player({
 			position={[startPosition.x, startPosition.y + PLAYER_SIZE / 2, startPosition.z]}
 			rotation={rotation.toArray()}>
 			<ObjectLoad path="/Player/player.glb" position={[0, 0, 0]} scale={[0.2, 0.2, 0.2]} rotation={[0, 90, 0]} />
+			<ObjectLoad path="/Helmet/helmet.glb" position={[0, 1, 0]} scale={[1,1,1]} rotation={[0, -90, 0]} />
 		</mesh>
 	);
 }
