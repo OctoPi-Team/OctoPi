@@ -20,7 +20,7 @@ for file in $obj_files; do
 
   # Compress the resulting .glb using gltf-pipeline
   compressed_glb_file="${file%.obj}.glb"
-  gltf-pipeline -i "$glb_file" -o "$compressed_glb_file" -d
+  gltf-pipeline -i "$glb_file" -o "$compressed_glb_file" -d --draco.compressionLevel 10
 
   echo -e "Compression complete: $compressed_glb_file \\n"
 done
