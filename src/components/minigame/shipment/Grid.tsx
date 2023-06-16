@@ -1,9 +1,12 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import Tile, { TileProps, TileType } from './Tile';
-import { Vector3 } from 'three';
 import { FinalTube } from './FinalTube';
-import { SIZE_OF_GAME_MATRIX } from './ShipmentGame';
+import { Vector3 } from 'three';
+
+export const TILE_SIZE = 3;
+export const SIZE_OF_GAME_MATRIX: [number, number] = [3, 3];
+export const SPACING = 0.2;
 
 enum direction {
 	right,
@@ -300,7 +303,7 @@ export default function Grid({ size, isFinished, currentVariation }: GridProps) 
 	}
 	return (
 		<>
-			{...getTilesFromProps(tiles, tileClickHandler, victoryCondition)}
+			{getTilesFromProps(tiles, tileClickHandler, victoryCondition)}
 			{typeof victoryCondition !== 'undefined' && victoryCondition.length > 0 && <FinalTube {...victoryCondition} />}
 		</>
 	);
@@ -311,4 +314,5 @@ export const ExportedForTestingOnly = {
 	checkVictory,
 	isNeighbourOfEmptyTile,
 	getRandomTileType,
+	generateFunctioningGrid,
 };

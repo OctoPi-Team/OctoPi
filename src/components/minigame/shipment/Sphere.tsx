@@ -2,7 +2,7 @@ import { RED } from '../../../AllColorVariables';
 import { CubicBezierCurve3, CurvePath, SphereGeometry, Vector3 } from 'three';
 import { useFrame } from '@react-three/fiber';
 import { useState } from 'react';
-import { SIZE_OF_GAME_MATRIX, SPACING, TILE_SIZE } from './ShipmentGame';
+import { SIZE_OF_GAME_MATRIX, SPACING, TILE_SIZE } from './Grid';
 
 type SphereProps = {
 	curv: CurvePath<Vector3>;
