@@ -62,7 +62,6 @@ function Player({
 						if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
 						break;
 					case 'production':
-						console.log('Walked on button on production platform');
 						setButton('Production');
 						isButton(true);
 						setTimeout(() => {
@@ -70,7 +69,6 @@ function Player({
 						}, 3000);
 						break;
 					case 'engineering':
-						console.log('Walked on button on engineering platform');
 						setButton('Engineering');
 						isButton(true);
 						setTimeout(() => {
@@ -78,7 +76,6 @@ function Player({
 						}, 3000);
 						break;
 					case 'parts':
-						console.log('Walked on button on parts platform');
 						setButton('Parts');
 						isButton(true);
 						setTimeout(() => {
@@ -86,7 +83,6 @@ function Player({
 						}, 3000);
 						break;
 					case 'design':
-						console.log('Walked on button on design platform');
 						setButton('Design');
 						isButton(true);
 						setTimeout(() => {
@@ -94,7 +90,6 @@ function Player({
 						}, 3000);
 						break;
 					case 'monitoring':
-						console.log('Walked on button on monitoring platform');
 						setButton('Monitoring');
 						isButton(true);
 						setTimeout(() => {
