@@ -37,6 +37,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 	const [collisionBoxes, setCollisionBoxes] = useState<Box3[]>([]);
 	const [buttonName, setButtonName] = useState('');
 	const [isOnButton, setIsOnButton] = useState(false);
+	const [isPlatformFixed, setIsPlatformFixed] = useState(false);
 
 	const CAM_WIDTH = 80;
 	const CAM_HEIGHT = 80;
@@ -100,6 +101,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 			</>
 		);
 	}
+
 	return (
 		<>
 			<div style={{ width: '100vw', height: '100vh' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
@@ -190,6 +192,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 							reference={addPlatform}
 							buttonreference={addButtons}
 							addCollisionBox={addCollisionBox}
+							isPlatformFixed={isPlatformFixed}
 						/>
 						<Stair startPosition={new Vector3(10, 0, 0)} endPosition={new Vector3(18, 4.5, 0)} reference={addStair} />
 						<MonitoringPlatform
@@ -208,6 +211,8 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						collisionObjects={collisionBoxes}
 						setButton={setButtonName}
 						isButton={setIsOnButton}
+						isPlatformFixed={isPlatformFixed}
+						setIsPlatformFixed={setIsPlatformFixed}
 					/>
 				</Canvas>
 			</div>

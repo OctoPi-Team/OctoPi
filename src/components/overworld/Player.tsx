@@ -28,6 +28,8 @@ interface PlayerArgs {
 	collisionObjects: Box3[];
 	setButton: Dispatch<SetStateAction<string>>;
 	isButton: Dispatch<SetStateAction<boolean>>;
+	isPlatformFixed: boolean;
+	setIsPlatformFixed: Dispatch<SetStateAction<boolean>>;
 }
 
 function Player({
@@ -39,6 +41,8 @@ function Player({
 	collisionObjects,
 	setButton,
 	isButton,
+	isPlatformFixed,
+	setIsPlatformFixed,
 }: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
 	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
@@ -64,8 +68,11 @@ function Player({
 					case 'production':
 						setButton('Production');
 						isButton(true);
+						console.log(isPlatformFixed);
 						setTimeout(() => {
 							isButton(false);
+							setIsPlatformFixed(true);
+							console.log(isPlatformFixed);
 						}, 3000);
 						break;
 					case 'engineering':
@@ -78,8 +85,11 @@ function Player({
 					case 'parts':
 						setButton('Parts');
 						isButton(true);
+						console.log(isPlatformFixed);
 						setTimeout(() => {
 							isButton(false);
+							setIsPlatformFixed(true);
+							console.log(isPlatformFixed);
 						}, 3000);
 						break;
 					case 'design':

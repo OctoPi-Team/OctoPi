@@ -11,6 +11,7 @@ type PartsPlatformOptions = {
 	reference?: (meshRef: Box3) => void;
 	buttonreference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
+	isPlatformFixed: boolean;
 };
 
 export default function PartsPlatform({
@@ -18,6 +19,7 @@ export default function PartsPlatform({
 	reference,
 	buttonreference,
 	addCollisionBox,
+	isPlatformFixed,
 }: PartsPlatformOptions): JSX.Element {
 	return (
 		<>
@@ -61,56 +63,56 @@ export default function PartsPlatform({
 				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
-				path="/kaputtesMetallregal/kaputtesMetallregal.glb"
+				path={isPlatformFixed ? '/Metallregal/metallregal.glb' : '/kaputtesMetallregal/kaputtesMetallregal.glb'}
 				position={[position[0] - 6, position[1], position[2] - 2.5]}
 				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
-				path="/kaputtesMetallregal/kaputtesMetallregal.glb"
+				path={isPlatformFixed ? '/Metallregal/metallregal.glb' : '/kaputtesMetallregal/kaputtesMetallregal.glb'}
 				position={[position[0] - 6, position[1], position[2] - 6.5]}
 				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
-				path="/kaputtesMetallregal/kaputtesMetallregal.glb"
+				path={isPlatformFixed ? '/Metallregal/metallregal.glb' : '/kaputtesMetallregal/kaputtesMetallregal.glb'}
 				position={[position[0] + 10, position[1], position[2] + 4]}
 				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
-				path="/kaputtesMetallregal/kaputtesMetallregal.glb"
+				path={isPlatformFixed ? '/Metallregal/metallregal.glb' : '/kaputtesMetallregal/kaputtesMetallregal.glb'}
 				position={[position[0] + 10, position[1], position[2]]}
 				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
-				path="/kaputtesMetallregal/kaputtesMetallregal.glb"
+				path={isPlatformFixed ? '/Metallregal/metallregal.glb' : '/kaputtesMetallregal/kaputtesMetallregal.glb'}
 				position={[position[0] + 10, position[1], position[2] - 4]}
 				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
-				path="/kaputtesMetallregal/kaputtesMetallregal.glb"
+				path={isPlatformFixed ? '/Metallregal/metallregal.glb' : '/kaputtesMetallregal/kaputtesMetallregal.glb'}
 				position={[position[0] + 6, position[1], position[2] + 4]}
 				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
-				path="/kaputtesMetallregal/kaputtesMetallregal.glb"
+				path={isPlatformFixed ? '/Metallregal/metallregal.glb' : '/kaputtesMetallregal/kaputtesMetallregal.glb'}
 				position={[position[0] + 6, position[1], position[2]]}
 				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
-				path="/kaputtesMetallregal/kaputtesMetallregal.glb"
+				path={isPlatformFixed ? '/Metallregal/metallregal.glb' : '/kaputtesMetallregal/kaputtesMetallregal.glb'}
 				position={[position[0] + 6, position[1], position[2] - 4]}
 				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 90, 0]}
