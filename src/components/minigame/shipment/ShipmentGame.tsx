@@ -10,9 +10,7 @@ import { Scene, SceneProps } from '../../../App';
 import FixedCamera from '../../overworld/FixedCamera';
 import ObjectLoad from '../../ObjectLoad';
 import NavigationButton from '../../overworld/objects/NavigationButton';
-import { resetKeys } from '../../overworld/Player';
 import './victoryScreen.css';
-import { useEffect, useState } from 'react';
 import WinScreen from './WinScreen';
 import InfoButton from '../../InfoButton';
 
@@ -73,18 +71,18 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 						);
 					}}
 				/>
-        <NavigationButton
-				  position="absolute"
-			  	right="30px"
-		  		top="40px"
-	  			text="i"
-  				onClick={() => {
-			  		setInfo(true);
-		  			if (info) {
-	  					setInfo(false);
-					  }
-				  }}
-			  />
+				<NavigationButton
+					position="absolute"
+					right="30px"
+					top="40px"
+					text="i"
+					onClick={() => {
+						setInfo(true);
+						if (info) {
+							setInfo(false);
+						}
+					}}
+				/>
 				<NavigationButton
 					position="absolute"
 					left="30px"
@@ -117,17 +115,5 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 				{info && <InfoButton />}
 			</div>
 		</>
-	);
-}
-
-function WinScreen(onClickNewGame: () => void, onClickBack: () => void) {
-	return (
-		<div className={'win'}>
-			Du hast gewonnen!
-			<div className={'buttons'}>
-				<button onClick={onClickNewGame}>Starte neues Spiel</button>
-				<button onClick={onClickBack}>Zurück zur Plattform</button>
-			</div>
-		</div>
 	);
 }
