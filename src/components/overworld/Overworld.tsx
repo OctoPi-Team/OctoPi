@@ -147,7 +147,6 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
 						{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} visibility={visible} />}
 					</group>
-					<Squircle />
 					<group name="platforms-and-stairs">
 						<MainPlatform position={[0, 0, 0]} reference={addPlatform} addCollisionBox={addCollisionBox} />
 						<Stair startPosition={new Vector3(8, 0, 6.5)} endPosition={new Vector3(8, 4, 16)} reference={addStair} />

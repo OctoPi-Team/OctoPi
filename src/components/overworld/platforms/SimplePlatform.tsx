@@ -5,6 +5,7 @@ import { SimpleText } from './SimpleText';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry';
 import { PLAYER_SIZE } from '../Player';
 import { RED } from '../../../AllColorVariables';
+import Squircle from './Squircle';
 
 // This interface is used to set the options of the ObjectLoad function.
 type SimplePlatformProps = {
@@ -21,7 +22,7 @@ export default function SimplePlatform({ name, position, size = [1, 0.1, 1], col
 	const [collsionRefWasSet, collsionRefSet] = useState(false);
 	const [meshBox, setMeshBox] = useState<Box3>();
 
-	const SHOW_COLLISION_BOX = false;
+	const SHOW_COLLISION_BOX = true;
 	if (!collsionRefWasSet && reference && ref.current) {
 		collsionRefSet(true);
 		const plattformPadding = 0.3;
@@ -57,13 +58,6 @@ export default function SimplePlatform({ name, position, size = [1, 0.1, 1], col
 		}
 	});
 
-	const roundedBoxGeometry = new RoundedBoxGeometry(size[0], size[1], size[2], 4, 2);
-	const roundedBoxMaterial = new MeshStandardMaterial({ color });
-
-	const roundedBoxMesh = new Mesh(roundedBoxGeometry, roundedBoxMaterial);
-	//roundedBoxMesh.position.set(0, 0, 0);
-	roundedBoxMesh.castShadow = true;
-	roundedBoxMesh.receiveShadow = true;
 	return (
 		<>
 			{SHOW_COLLISION_BOX && meshBox && (
@@ -72,10 +66,7 @@ export default function SimplePlatform({ name, position, size = [1, 0.1, 1], col
 					<meshLambertMaterial color={RED} opacity={0.6} transparent={true} />
 				</mesh>
 			)}
-			<SimpleText position={position} textValue={name} />
-			<mesh ref={ref} castShadow receiveShadow>
-				<primitive object={roundedBoxMesh} />
-			</mesh>
+			<Squircle position={position} color={color} dimensions={size} />
 		</>
 	);
 }

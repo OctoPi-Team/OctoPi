@@ -3,49 +3,42 @@ import { Mesh, Vector3, Shape, ExtrudeGeometry } from 'three';
 import { useFrame } from 'react-three-fiber';
 
 interface SquircleProps {
-	position?: Vector3;
+	position?: [number, number, number];
 	color?: string;
-	size?: number;
+	dimensions?: [number, number, number];
 	borderRadius?: number;
-	depth?: number;
+	rotation?: [number, number, number];
 }
 
 const Squircle: React.FC<SquircleProps> = ({
-	position = new Vector3(0, 3, 0),
+	position = [0, 3, 0],
 	color = 'lightgray',
-	size = 4,
-	borderRadius = 1,
-	depth = 0.3,
+	dimensions = [1, 1, 1],
+	borderRadius = 2,
+	rotation = [Math.PI / 2, 0, 0],
 }) => {
 	const meshRef = useRef<Mesh>(null);
 
-	// only for visualization purposes
-	useFrame(() => {
-		if (meshRef.current) {
-			meshRef.current.rotation.x += 0.01;
-			meshRef.current.rotation.y += 0.01;
-		}
-	});
-
-	// Create the squircle shape
+	const [length, depth, width] = dimensions;
 	const shape = new Shape();
-	shape.moveTo(-size / 2 + borderRadius, -size / 2);
-	shape.lineTo(size / 2 - borderRadius, -size / 2);
-	shape.quadraticCurveTo(size / 2, -size / 2, size / 2, -size / 2 + borderRadius);
-	shape.lineTo(size / 2, size / 2 - borderRadius);
-	shape.quadraticCurveTo(size / 2, size / 2, size / 2 - borderRadius, size / 2);
-	shape.lineTo(-size / 2 + borderRadius, size / 2);
-	shape.quadraticCurveTo(-size / 2, size / 2, -size / 2, size / 2 - borderRadius);
-	shape.lineTo(-size / 2, -size / 2 + borderRadius);
-	shape.quadraticCurveTo(-size / 2, -size / 2, -size / 2 + borderRadius, -size / 2);
+	shape.moveTo(-length / 2 + borderRadius, -width / 2);
+	// Create the squircle shape, it consists of 4 straights and 4 quadratic curves
+	shape.lineTo(length / 2 - borderRadius, -width / 2);
+	shape.quadraticCurveTo(length / 2, -width / 2, length / 2, -width / 2 + borderRadius);
+	shape.lineTo(length / 2, width / 2 - borderRadius);
+	shape.quadraticCurveTo(length / 2, width / 2, length / 2 - borderRadius, width / 2);
+	shape.lineTo(-length / 2 + borderRadius, width / 2);
+	shape.quadraticCurveTo(-length / 2, width / 2, -length / 2, width / 2 - borderRadius);
+	shape.lineTo(-length / 2, -width / 2 + borderRadius);
+	shape.quadraticCurveTo(-length / 2, -width / 2, -length / 2 + borderRadius, -width / 2);
 
 	const extrudeSettings = {
-		depth,
+		depth: depth,
 		bevelEnabled: false,
 	};
 
 	return (
-		<mesh ref={meshRef} position={position} castShadow receiveShadow>
+		<mesh ref={meshRef} position={position} rotation={rotation} castShadow receiveShadow>
 			<extrudeGeometry args={[shape, extrudeSettings]} />
 			<meshStandardMaterial color={color} roughness={0.5} metalness={0.5} />
 		</mesh>
