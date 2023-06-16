@@ -4,7 +4,7 @@ import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
 import Text from '../../Text';
 import Tube from '../objects/Tube';
-import Button from '../objects/Button';
+import Button from '../../ui/Button';
 
 type ProductionPlatformOptions = {
 	position?: [number, number, number];

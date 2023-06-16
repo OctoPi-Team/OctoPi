@@ -2,10 +2,10 @@ import { useRef, useEffect, useState } from 'react';
 import { useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three-stdlib';
 import THREE, { Vector3, BufferGeometry, Material, MathUtils, Box3, InstancedMesh } from 'three';
-import { Scene } from '../App';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
-import { RED } from '../AllColorVariables';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils';
+
+import { RED } from '../AllColorVariables';
 
 const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
@@ -17,7 +17,6 @@ type ObjectLoadOptions = {
 	rotation?: [number, number, number];
 	scale?: [number, number, number];
 	reference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
-	onClick?: ((val: Scene.Shipment) => void) | null;
 	collisionRefSetter?: (meshRef: Box3) => void;
 	customCollisionBoxes?: { positionOffset: Vector3; size: Vector3 }[];
 	customName?: string; // Add customName property
@@ -30,7 +29,6 @@ export default function ObjectLoad({
 	scale = [1, 1, 1], // Default scale is 1, 1, 1.
 	reference,
 	rotation = [0, 0, 0], // Default rotation is 0, 0, 0, the rotation is in degrees.
-	onClick,
 	collisionRefSetter,
 	customCollisionBoxes,
 	customName, // Include customName in function parameters
@@ -112,16 +110,13 @@ export default function ObjectLoad({
 					</mesh>
 				))}
 			<mesh
-				castShadow
-				receiveShadow
+				castShadow={true}
+				receiveShadow={true}
 				ref={meshRef}
 				name={meshRef.current?.name}
 				position={position}
 				scale={new Vector3(scale[0], scale[1], scale[2])}
-				rotation={rotation}
-				onClick={() => {
-					if (onClick) onClick(Scene.Shipment);
-				}}>
+				rotation={rotation}>
 				<primitive object={clone(obj.scene)} />
 			</mesh>
 		</>
