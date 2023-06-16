@@ -1,6 +1,6 @@
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
-import { PlatformFixProps, SceneProps } from '../../../App';
+import { SceneProps } from '../../../App';
 import Button from '../../ui/Button';
 import { SHIPMENT } from '../../../AllColorVariables';
 import Tube from '../objects/Tube';
@@ -11,21 +11,18 @@ type ShipmentPlatformOptions = {
 	position?: [number, number, number];
 	reference?: (meshRef: Box3) => void;
 	sceneProps?: SceneProps;
-	buttonReference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	buttonreference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
 	setplayerpos?: (setplayerpos: Vector3) => void;
-	isPlatformFixed: PlatformFixProps | undefined;
 };
 
 export default function ShipmentPlatform({
 	position = [0, 0, 0],
 	reference,
-	buttonReference,
+	buttonreference,
 	addCollisionBox,
-	isPlatformFixed,
 }: ShipmentPlatformOptions): JSX.Element {
 	return (
-		//TODO do something on platform when isPlatformFixed.shipment = true
 		<>
 			<SimplePlatform position={position} size={[18, 0.5, 18]} reference={reference} color={SHIPMENT} />
 			<Text
@@ -139,7 +136,7 @@ export default function ShipmentPlatform({
 			<Button
 				customName="shipment"
 				position={[position[0] - 6, position[1] + 6, position[2] - 9]}
-				reference={buttonReference}
+				reference={buttonreference}
 			/>
 		</>
 	);

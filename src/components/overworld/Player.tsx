@@ -1,9 +1,9 @@
 import { useFrame } from '@react-three/fiber';
-import { PlatformFixProps, Scene, SceneProps } from '../../App';
 import { IJoystickUpdateEvent } from 'react-joystick-component/build/lib/Joystick';
 import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { Box3, BufferGeometry, Material, MathUtils, Mesh, Vector2, Vector3 } from 'three';
 
+import { Scene, SceneProps } from '../../App';
 import { STAIR_WIDTH, StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
 
@@ -23,7 +23,6 @@ interface PlayerArgs {
 	collisionObjects: Box3[];
 	setButton: Dispatch<SetStateAction<string>>;
 	isButton: Dispatch<SetStateAction<boolean>>;
-	setIsPlatformFixed: ((newProps: Partial<PlatformFixProps>) => void) | undefined;
 }
 
 function Player({
@@ -35,7 +34,6 @@ function Player({
 	collisionObjects,
 	setButton,
 	isButton,
-	setIsPlatformFixed,
 }: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
 	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
@@ -58,18 +56,12 @@ function Player({
 				switch (button.name) {
 					case 'shipment':
 						if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
-						if (setIsPlatformFixed) {
-							setIsPlatformFixed({ shipment: true });
-						}
 						break;
 					case 'production':
 						setButton('Production');
 						isButton(true);
 						setTimeout(() => {
 							isButton(false);
-							if (setIsPlatformFixed) {
-								setIsPlatformFixed({ production: true });
-							}
 						}, BUTTON_TIMEOUT);
 						break;
 					case 'engineering':
@@ -77,9 +69,6 @@ function Player({
 						isButton(true);
 						setTimeout(() => {
 							isButton(false);
-							if (setIsPlatformFixed) {
-								setIsPlatformFixed({ engineering: true });
-							}
 						}, BUTTON_TIMEOUT);
 						break;
 					case 'parts':
@@ -87,9 +76,6 @@ function Player({
 						isButton(true);
 						setTimeout(() => {
 							isButton(false);
-							if (setIsPlatformFixed) {
-								setIsPlatformFixed({ parts: true });
-							}
 						}, BUTTON_TIMEOUT);
 						break;
 					case 'design':
@@ -97,9 +83,6 @@ function Player({
 						isButton(true);
 						setTimeout(() => {
 							isButton(false);
-							if (setIsPlatformFixed) {
-								setIsPlatformFixed({ design: true });
-							}
 						}, BUTTON_TIMEOUT);
 						break;
 					case 'monitoring':
@@ -107,9 +90,6 @@ function Player({
 						isButton(true);
 						setTimeout(() => {
 							isButton(false);
-							if (setIsPlatformFixed) {
-								setIsPlatformFixed({ monitoring: true });
-							}
 						}, BUTTON_TIMEOUT);
 						break;
 				}
@@ -167,7 +147,7 @@ function Player({
 			position={[startPosition.x, startPosition.y + PLAYER_SIZE / 2, startPosition.z]}
 			rotation={rotation.toArray()}>
 			<ObjectLoad path="/Player/player.glb" position={[0, 0, 0]} scale={[0.2, 0.2, 0.2]} rotation={[0, 90, 0]} />
-			<ObjectLoad path="/Helmet/helmet.glb" position={[0, 1, 0]} scale={[1, 1, 1]} rotation={[0, -90, 0]} />
+			<ObjectLoad path="/Helmet/helmet.glb" position={[0, 1, 0]} scale={[1,1,1]} rotation={[0, -90, 0]} />
 		</mesh>
 	);
 }

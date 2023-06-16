@@ -4,23 +4,20 @@ import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
 import Text from '../../Text';
 import Tube from '../objects/Tube';
-import { PlatformFixProps } from '../../../App';
 import Button from '../../ui/Button';
 
 type ProductionPlatformOptions = {
 	position?: [number, number, number];
 	reference?: (meshRef: Box3) => void;
-	buttonReference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	buttonreference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
-	isPlatformFixed: PlatformFixProps | undefined;
 };
 
 export default function ProductionPlatform({
 	position = [0, 0, 0],
 	reference,
-	buttonReference,
+	buttonreference,
 	addCollisionBox,
-	isPlatformFixed,
 }: ProductionPlatformOptions): JSX.Element {
 	return (
 		<>
@@ -34,9 +31,9 @@ export default function ProductionPlatform({
 			<gridHelper position={[position[0] - 6, position[1], position[2]]} args={[7, 7, 'black', 'white']} />
 
 			<ObjectLoad
-				path={isPlatformFixed?.production ? '/Roboterarm/roboterarm.glb' : '/Roboterarm_kaputt/roboterarm_kaputt.glb'}
+				path="/Roboterarm_kaputt/roboterarm_kaputt.glb"
 				position={[position[0] - 6, position[1], position[2]]}
-				scale={isPlatformFixed?.production ? [0.46, 0.46, 0.46] : [0.11, 0.11, 0.11]}
+				scale={[0.11, 0.11, 0.11]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(1.1, 4, 1.1) }]}
@@ -139,7 +136,7 @@ export default function ProductionPlatform({
 			<Button
 				customName="production"
 				position={[position[0] - 11, position[1] + 6, position[2] - 9]}
-				reference={buttonReference}
+				reference={buttonreference}
 			/>
 		</>
 	);
