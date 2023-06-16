@@ -4,8 +4,8 @@ import { MONITORING } from '../../../AllColorVariables';
 import Text from '../../Text';
 import { Box3, Vector3 } from 'three';
 import Tube from '../objects/Tube';
-import Button from '../objects/Button';
 import { PlatformFixProps } from '../../../App';
+import Button from '../../ui/Button';
 
 type MonitoringPlatformOptions = {
 	position?: [number, number, number];

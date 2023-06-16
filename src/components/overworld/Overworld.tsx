@@ -7,17 +7,18 @@ import {
 	DirectionalLight,
 	OrthographicCamera,
 	DirectionalLightHelper,
+	Vector2,
 } from 'three';
+import { Canvas } from '@react-three/fiber';
+import { useRef, useState } from 'react';
+import { Joystick } from 'react-joystick-component';
+import { OrbitControls, useHelper } from '@react-three/drei';
 
 import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp, resetKeys } from './Player';
 import Stair, { StairType } from './platforms/Stair';
-import FixedCamera from './FixedCamera';
-import { OrbitControls, useHelper } from '@react-three/drei';
+import FixedCamera from '../FixedCamera';
 import ShipmentPlatform from './platforms/ShipmentPlatform';
-import { Canvas } from '@react-three/fiber';
-import { useRef, useState } from 'react';
 import { SceneProps } from '../../App';
-import { Joystick } from 'react-joystick-component';
 import DesignPlatform from './platforms/DesignPlatform';
 import MainPlatform from './platforms/MainPlatform';
 import MonitoringPlatform from './platforms/MonitoringPlatform';
@@ -25,8 +26,10 @@ import PartsPlatform from './platforms/PartsPlatform';
 import ProductionPlatform from './platforms/ProductionPlatform';
 import EngineeringPlatform from './platforms/EngineeringPlatform';
 import Floor from './platforms/Floor';
-import NavigationButton from './objects/NavigationButton';
-import './buttonstyle.css';
+import NavigationButton from '../ui/NavigationButton';
+import DragVector from './DragVector';
+import InfoButton from '../InfoButton';
+import '../ui/buttonstyle.css';
 
 export default function Overworld({
 	setSceneHook,
@@ -41,11 +44,15 @@ export default function Overworld({
 	const [stairs, setStairs] = useState<StairType[]>([]);
 	const [buttons, setButtons] = useState<Mesh<BufferGeometry, Material | Material[]>[]>([]);
 	const [collisionBoxes, setCollisionBoxes] = useState<Box3[]>([]);
+	const [info, setInfo] = useState(false);
 	const [buttonName, setButtonName] = useState('');
 	const [isOnButton, setIsOnButton] = useState(false);
 
 	const CAM_WIDTH = 80;
 	const CAM_HEIGHT = 80;
+
+	const { handleMouseDown, handleMouseMove, handleMouseUp, handleTouchStart, handleTouchMove, handleTouchEnd } =
+		DragVector(new Vector2(window.innerWidth / 2, window.innerHeight / 2), handleJoystickMove, handleJoystickStop);
 
 	function addPlatform(newPlatform: Box3) {
 		// these platforms are used to detect player collsion iwth the edge of the platform
@@ -93,7 +100,7 @@ export default function Overworld({
 					ref={dirLight}
 					shadow-mapSize={[1024, 1024]}
 					intensity={0.7}
-					castShadow>
+					castShadow={true}>
 					<orthographicCamera
 						attach="shadow-camera"
 						position={[-8, 20, -15]}
@@ -116,7 +123,7 @@ export default function Overworld({
 							<Joystick
 								baseColor="lightgreen"
 								stickColor="darkgreen"
-								size={100}
+								size={150}
 								move={handleJoystickMove}
 								stop={handleJoystickStop}
 							/>
@@ -127,9 +134,10 @@ export default function Overworld({
 							top="40px"
 							text="i"
 							onClick={() => {
-								window.alert(
-									'Willkommen zu unserem Spiel Operation:Innovation! Schaue dich mal auf den verschiedenen Plattformen um, siehst du einen Button auf dem Boden? Geh ruhig mal hin.'
-								);
+								setInfo(true);
+								if (info) {
+									setInfo(false);
+								}
 							}}
 						/>
 						<NavigationButton
@@ -147,7 +155,16 @@ export default function Overworld({
 						/>
 					</>
 				)}
-				<Canvas orthographic shadows style={{ visibility: visible ? 'hidden' : 'visible' }}>
+				<Canvas
+					orthographic
+					shadows
+					style={{ visibility: visible ? 'hidden' : 'visible' }}
+					onMouseDown={handleMouseDown}
+					onMouseMove={handleMouseMove}
+					onMouseUp={handleMouseUp}
+					onTouchStart={handleTouchStart}
+					onTouchMove={handleTouchMove}
+					onTouchEnd={handleTouchEnd}>
 					<group name="lighting-and-camera">
 						<color attach="background" args={['white']} />
 						<DirLight />
@@ -224,6 +241,7 @@ export default function Overworld({
 						setIsPlatformFixed={setIsPlatformFixed}
 					/>
 				</Canvas>
+				{info ? <InfoButton /> : <div></div>}
 			</div>
 			{isOnButton ? <div className={'button'}>Du bist nun auf der Plattform: {buttonName}</div> : <div></div>}
 		</>

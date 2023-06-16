@@ -7,9 +7,13 @@ import './victoryScreen.css';
 
 import { GREEN, WHITE } from '../../../AllColorVariables';
 import { Scene, SceneProps } from '../../../App';
-import FixedCamera from '../../overworld/FixedCamera';
+import FixedCamera from '../../FixedCamera';
 import ObjectLoad from '../../ObjectLoad';
-import NavigationButton from '../../overworld/objects/NavigationButton';
+import NavigationButton from '../../ui/NavigationButton';
+import './victoryScreen.css';
+import WinScreen from './WinScreen';
+import InfoButton from '../../InfoButton';
+
 import Tube from './Tube';
 import Grid from './Grid';
 
@@ -20,6 +24,7 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 	const ORBITAL_CONTROLS_ACTIVE = false;
 	const [finished, setFinished] = useState(false);
 	const INPUT_TUBE_POSITION = TILE_SIZE * (SIZE_OF_GAME_MATRIX[1] - 1) + (SIZE_OF_GAME_MATRIX[1] - 1) * SPACING;
+	const [info, setInfo] = useState(false);
 	const VECTORS_FOR_INPUT_TUBE = [
 		new Vector3(-1.9 + 2 * SPACING, 0.7, INPUT_TUBE_POSITION),
 		new Vector3(-15, 0.7, INPUT_TUBE_POSITION),
@@ -41,7 +46,6 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 	function changeView(done = true) {
 		if (done) setSceneHook(Scene.Overworld);
 	}
-
 	function reloadGame() {
 		let randomVariant = -1;
 		while (randomVariant > 0 && randomVariant == currentVariation) randomVariant = Math.floor(Math.random() * 6); // in range number of variants
@@ -65,6 +69,18 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 						window.alert(
 							'Willkommen zu unserem Spiel Operation:Innovation! Das Spiel ist ganz simpel. Klicke auf eine der verschiedenen Grids und verändere somit die Position der verschiedenen Röhren. Sobald du eine Verbindung erfolgreich zum Trichter geschafft hast, hast du gewonnen! Viel Erfolg!'
 						);
+					}}
+				/>
+				<NavigationButton
+					position="absolute"
+					right="30px"
+					top="40px"
+					text="i"
+					onClick={() => {
+						setInfo(true);
+						if (info) {
+							setInfo(false);
+						}
 					}}
 				/>
 				<NavigationButton
@@ -96,19 +112,8 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 					</group>
 				</Canvas>
 				{finished && WinScreen(reloadGame, () => changeView(true))}
+				{info && <InfoButton />}
 			</div>
 		</>
-	);
-}
-
-function WinScreen(onClickNewGame: () => void, onClickBack: () => void) {
-	return (
-		<div className={'win'}>
-			Du hast gewonnen!
-			<div className={'buttons'}>
-				<button onClick={onClickNewGame}>Starte neues Spiel</button>
-				<button onClick={onClickBack}>Zurück zur Plattform</button>
-			</div>
-		</div>
 	);
 }
