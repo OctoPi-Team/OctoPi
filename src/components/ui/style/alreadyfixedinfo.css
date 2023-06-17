@@ -1,12 +1,12 @@
-.button {
+.alreadyfixedinformation {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     position: absolute;
     margin-left: auto;
     margin-right: auto;
-    left: 0;
-    right: 0;
-    height: 120px;
-    width: 500px;
+    left: 30px;
+    display: flex;
+    height: 310px;
+    width: 90px;
     top: 50px;
     bottom: 590px;
     text-align: center;
@@ -14,20 +14,20 @@
     border-radius: 10px;
     color: white;
     padding: 40px;
-    font-size: 50px;
+    font-size: 15px;
+    flex-direction: column;
     align-items: center;
     vertical-align: center;
-    opacity: 0.9;
+    opacity: 0.8;
     animation: fadeIn 1s;
+    gap: 20px;
 }
 
-@media (max-width: 820px) {
-    .button {
-        top: 150px;
-        width: 400px;
-        height: 100px;
-        font-size: 30px;
-    }
+.platformnames {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 100px;
 }
 
 @keyframes fadeIn {
@@ -35,6 +35,6 @@
         opacity: 0;
     }
     100% {
-        opacity: 0.9;
+        opacity: 0.8;
     }
 }
