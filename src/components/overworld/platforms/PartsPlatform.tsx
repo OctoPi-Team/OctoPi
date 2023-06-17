@@ -5,7 +5,7 @@ import Text from '../../Text';
 import { Box3, Vector3 } from 'three';
 import Tube from '../objects/Tube';
 import { PlatformFixProps } from '../../../App';
-import Button from '../../ui/Button';
+import Button from '../objects/Button';
 
 type PartsPlatformOptions = {
 	position?: [number, number, number];

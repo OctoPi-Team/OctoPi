@@ -1,7 +1,7 @@
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
 import { PlatformFixProps, SceneProps } from '../../../App';
-import Button from '../../ui/Button';
+import Button from '../objects/Button';
 import { SHIPMENT } from '../../../AllColorVariables';
 import Tube from '../objects/Tube';
 import Text from '../../Text';

@@ -14,8 +14,8 @@ const keys = {
 	up: false,
 	down: false,
 	left: false,
-	right: false
-}
+	right: false,
+};
 let movementVector = new Vector3();
 
 interface PlayerArgs {
@@ -321,7 +321,7 @@ function setMovementVectorFromKeys() {
 	}
 }
 
-export const handleKeyUp: React.KeyboardEventHandler<HTMLDivElement> = (event) => {
+export const handleKeyUp: React.KeyboardEventHandler<HTMLDivElement> = event => {
 	if (event.key === 'ArrowRight') keys.right = false;
 	if (event.key === 'ArrowDown') keys.down = false;
 	if (event.key === 'ArrowLeft') keys.left = false;

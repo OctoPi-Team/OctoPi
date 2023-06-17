@@ -29,7 +29,8 @@ import Floor from './platforms/Floor';
 import NavigationButton from '../ui/NavigationButton';
 import InfoButton from '../ui/InfoButton';
 import DragVector from './DragVector';
-import '../ui/buttonstyle.css';
+import './style/onbuttonstep.css';
+import AlreadyFixedInformation from '../ui/AlreadyFixedInformation';
 
 export default function Overworld({
 	setSceneHook,
@@ -251,6 +252,16 @@ export default function Overworld({
 				</Canvas>
 				{info && <InfoButton />}
 			</div>
+			{(
+				isPlatformFixed?.monitoring ||
+				isPlatformFixed?.parts ||
+				isPlatformFixed?.design ||
+				isPlatformFixed?.engineering ||
+				isPlatformFixed?.shipment ||
+				isPlatformFixed?.production
+			) && <AlreadyFixedInformation isPlatformFixed={isPlatformFixed} />
+			}
+			{isOnButton ? <div className={'button'}>Du bist nun auf der Plattform: {buttonName}</div> : <div></div>}
 			{isOnButton && <div className={'button'}>Du bist nun auf der Plattform: {buttonName}</div>}
 		</>
 	);
