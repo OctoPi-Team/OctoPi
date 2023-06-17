@@ -1,13 +1,14 @@
 import { useEffect, useRef } from 'react';
-import { Mesh } from 'three';
-import ObjectLoad from '../../ObjectLoad';
+import THREE, { Mesh } from 'three';
+import ObjectLoad from '../ObjectLoad';
 
 type ButtonProps = {
 	position: [number, number, number];
 	reference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	customName: string; // Add customName prop
 };
 
-export default function Button({ position, reference }: ButtonProps) {
+export default function Button({ position, reference, customName }: ButtonProps) {
 	const buttonRef = useRef<Mesh>(null);
 
 	// Call the reference prop and pass the buttonRef as an argument whenever the ref changes
@@ -24,6 +25,7 @@ export default function Button({ position, reference }: ButtonProps) {
 			scale={[1, 1, 1]}
 			rotation={[0, 90, 0]}
 			reference={reference}
+			customName={customName}
 		/>
 	);
 }

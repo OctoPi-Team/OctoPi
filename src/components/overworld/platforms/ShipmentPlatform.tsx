@@ -1,7 +1,7 @@
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
-import { SceneProps } from '../../../App';
-import Button from '../objects/Button';
+import { PlatformFixProps, SceneProps } from '../../../App';
+import Button from '../../ui/Button';
 import { SHIPMENT } from '../../../AllColorVariables';
 import Tube from '../objects/Tube';
 import Text from '../../Text';
@@ -11,18 +11,21 @@ type ShipmentPlatformOptions = {
 	position?: [number, number, number];
 	reference?: (meshRef: Box3) => void;
 	sceneProps?: SceneProps;
-	buttonreference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	buttonReference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
 	setplayerpos?: (setplayerpos: Vector3) => void;
+	isPlatformFixed: PlatformFixProps | undefined;
 };
 
 export default function ShipmentPlatform({
 	position = [0, 0, 0],
 	reference,
-	buttonreference,
+	buttonReference,
 	addCollisionBox,
+	isPlatformFixed,
 }: ShipmentPlatformOptions): JSX.Element {
 	return (
+		//TODO do something on platform when isPlatformFixed.shipment = true
 		<>
 			<SimplePlatform position={position} size={[18, 0.5, 18]} reference={reference} color={SHIPMENT} />
 			<Text
@@ -164,31 +167,13 @@ export default function ShipmentPlatform({
 					new Vector3(5.6, 10, 30),
 					new Vector3(5.5, 8.4, 30),
 				]}
-			/>		
-			{/*
-			<Tube
-				name="finalShipmentTube"
-				position={[0, 0, 0]}
-				size={[0.5, 8, 1]}
-				vectors={[
-					new Vector3(1.5, -1, -5),
-					new Vector3(1.5, -1, 8),
-					new Vector3(1.5, 3.5, 8),
-					new Vector3(1.5, 3.5, 15),
-					new Vector3(1, 2.5, 15),
-					new Vector3(2, 2.5, 15),
-					new Vector3(2, 2.5, 18),
-					new Vector3(2, 5, 18),
-					new Vector3(2, 5, 25),
-					new Vector3(2, 2, 25),
-					new Vector3(15.7, 2, 25.5),
-					new Vector3(15.7, 10, 25.5),
-					new Vector3(5.6, 10, 30),
-					new Vector3(5.5, 8.4, 30),
-				]}
 			/>
-			*/}
-			<Button position={[position[0] - 6, position[1] + 6, position[2] - 9]} reference={buttonreference} />
+
+			<Button
+				customName="shipment"
+				position={[position[0] - 6, position[1] + 6, position[2] - 9]}
+				reference={buttonReference}
+			/>
 		</>
 	);
 }

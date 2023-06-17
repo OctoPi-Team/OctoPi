@@ -18,8 +18,8 @@
 		"serve": "vite preview",
 		"lint": "eslint --fix --ext .ts,.tsx ./src",
 		"format": "prettier --write src/*.{js,jsx,ts,tsx,css,md,json,scss} --config ./.prettierrc",
-		"test": "react-scripts test --reporters='jest-html-reporters'",
-		"coverage": "react-scripts test --reporters='jest-html-reporters' --coverage"
+		"test": "react-scripts test --reporters='jest-html-reporters' --watchAll=false",
+		"coverage": "react-scripts test --reporters='jest-html-reporters' --coverage --watchAll=false"
 	},
 	"eslintConfig": {
 		"extends": [
@@ -40,6 +40,7 @@
 		]
 	},
 	"devDependencies": {
+		"@babel/plugin-proposal-private-property-in-object": "^7.21.11",
 		"@react-three/test-renderer": "^8.1.3",
 		"@testing-library/react": "^14.0.0",
 		"@testing-library/user-event": "^13.5.0",
