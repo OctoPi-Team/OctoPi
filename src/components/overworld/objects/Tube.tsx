@@ -21,29 +21,29 @@ function Tube({
 	ballColor = GREEN,
 }: TubeProps): JSX.Element {
 	const curve = new CatmullRomCurve3(vectors);
-	const tubeGeometry = new TubeGeometry(curve, 100, 0.4, detailed ? 50 : 10, false);
+	const tubeGeometry = new TubeGeometry(curve, 1000, 0.4, detailed ? 50 : 15, false);
 	//const material = new MeshPhysicalMaterial({roughness: 0.01, transmission: 1, thickness: 1, side: DoubleSide });
 
 	const ballRadius = 0.25;
 	const ballGeometry = new SphereGeometry(ballRadius, 32, 32);
-  	const ballMaterial = new MeshBasicMaterial({color: ballColor});
-  	const ballMesh = new Mesh(ballGeometry, ballMaterial);
+	const ballMaterial = new MeshBasicMaterial({ color: ballColor });
+	const ballMesh = new Mesh(ballGeometry, ballMaterial);
 
-  	const ballSpeed = 1; 
- 
-	let ballPosition = 0; 
+	const ballSpeed = 1;
 
-  const animateBall = () => {
-    requestAnimationFrame(animateBall);
+	let ballPosition = 0;
 
-    const tubePosition = curve.getPointAt(ballPosition % 1);
-    ballMesh.position.copy(tubePosition);
-    ballPosition += ballSpeed * 0.001;
+	const animateBall = () => {
+		requestAnimationFrame(animateBall);
 
-  };
-  if (ballAnimation) {
-    animateBall();
-  }
+		const tubePosition = curve.getPointAt(ballPosition % 1);
+		ballMesh.position.copy(tubePosition);
+		ballPosition += ballSpeed * 0.001;
+
+	};
+	if (ballAnimation) {
+		animateBall();
+	}
 	return (
 		<>
 			<mesh name={name} position={position}>
@@ -51,7 +51,7 @@ function Tube({
 				<meshPhysicalMaterial roughness={0.05} transmission={1} thickness={0.5} side={DoubleSide} />
 			</mesh>
 			{ballAnimation &&
-			 <primitive object={ballMesh}/>
+				<primitive object={ballMesh} />
 			}
 		</>
 	);
