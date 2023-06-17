@@ -7,7 +7,6 @@ import Squircle from './Squircle';
 
 // This interface is used to set the options of the ObjectLoad function.
 type SimplePlatformProps = {
-	name?: string;
 	position: [number, number, number];
 	size?: [number, number, number];
 	color: string;
@@ -15,7 +14,7 @@ type SimplePlatformProps = {
 };
 
 // This function is to load an object from a .obj file and a .mtl file. To use it no knowlage of the ObjextLoad function is needed.
-export default function SimplePlatform({ name, position, size = [1, 0.1, 1], color, reference }: SimplePlatformProps) {
+export default function SimplePlatform({ position, size = [1, 0.1, 1], color, reference }: SimplePlatformProps) {
 	const ref = useRef<THREE.Mesh>(null);
 	const [collsionRefWasSet, collsionRefSet] = useState(false);
 	const [meshBox, setMeshBox] = useState<Box3>();

@@ -33,5 +33,5 @@ const Squircle = forwardRef<Mesh, SquircleProps>(({ position, color, dimensions,
 		</mesh>
 	);
 });
-
+Squircle.displayName = 'Squircle';
 export default Squircle;

@@ -46,7 +46,7 @@ export default function ProductionPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[
 					{ positionOffset: new Vector3(), size: new Vector3(2.5, 2, 1.5) },
-					{ positionOffset: new Vector3(0, 0, -1.3), size: new Vector3(1, 2, 1) }
+					{ positionOffset: new Vector3(0, 0, -1.3), size: new Vector3(1, 2, 1) },
 				]}
 			/>
 			<ObjectLoad
@@ -57,7 +57,7 @@ export default function ProductionPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[
 					{ positionOffset: new Vector3(), size: new Vector3(2.5, 2, 1.5) },
-					{ positionOffset: new Vector3(0, 0, 1.3), size: new Vector3(1, 2, 1) }
+					{ positionOffset: new Vector3(0, 0, 1.3), size: new Vector3(1, 2, 1) },
 				]}
 			/>
 			<ObjectLoad
@@ -96,7 +96,7 @@ export default function ProductionPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[
 					{ positionOffset: new Vector3(), size: new Vector3(2.5, 2, 1.5) },
-					{ positionOffset: new Vector3(0, 0, 1.3), size: new Vector3(1, 2, 1) }
+					{ positionOffset: new Vector3(0, 0, 1.3), size: new Vector3(1, 2, 1) },
 				]}
 			/>
 			<ObjectLoad
@@ -107,7 +107,7 @@ export default function ProductionPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[
 					{ positionOffset: new Vector3(), size: new Vector3(2.5, 2, 1.5) },
-					{ positionOffset: new Vector3(0, 0, -1.5), size: new Vector3(1.3, 2, 1.3) }
+					{ positionOffset: new Vector3(0, 0, -1.5), size: new Vector3(1.3, 2, 1.3) },
 				]}
 			/>
 			<ObjectLoad
@@ -118,7 +118,7 @@ export default function ProductionPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[
 					{ positionOffset: new Vector3(), size: new Vector3(1.5, 2, 2.5) },
-					{ positionOffset: new Vector3(1.3, 0, 0), size: new Vector3(1, 2, 1) }
+					{ positionOffset: new Vector3(1.3, 0, 0), size: new Vector3(1, 2, 1) },
 				]}
 			/>
 			<Tube

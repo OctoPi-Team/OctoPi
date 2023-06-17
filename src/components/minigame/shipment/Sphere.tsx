@@ -37,12 +37,12 @@ export default function Sphere({ curv }: SphereProps) {
 		let a = clock.getElapsedTime();
 		a = Math.round(a * 1000);
 		if (a > time) {
-			ticktime(time => a);
+			ticktime(() => a);
 			movepointr(pointer => pointer + 7);
 		}
-		updatepos(pos => points[pointer]);
+		updatepos(() => points[pointer]);
 		if (pointer >= points.length) {
-			movepointr(pointer => 0);
+			movepointr(() => 0);
 		}
 	});
 
