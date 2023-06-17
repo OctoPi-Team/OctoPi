@@ -29,7 +29,7 @@ import Floor from './platforms/Floor';
 import NavigationButton from '../ui/NavigationButton';
 import InfoButton from '../ui/InfoButton';
 import DragVector from './DragVector';
-import './objects/style/buttonstyle.css';
+import './style/onbuttonstep.css';
 
 export default function Overworld({
 	setSceneHook,
@@ -52,7 +52,7 @@ export default function Overworld({
 	const CAM_HEIGHT = 80;
 
 	const { handleMouseDown, handleMouseMove, handleMouseUp, handleTouchStart, handleTouchMove, handleTouchEnd } =
-		DragVector(new Vector2(window.innerWidth / 2, window.innerHeight / 2), handleJoystickMove, handleJoystickStop);
+		DragVector(new Vector2(window.innerWidth / 2, window.innerHeight / 2), handleJoystickMove);
 
 	function addPlatform(newPlatform: Box3) {
 		// these platforms are used to detect player collsion iwth the edge of the platform
