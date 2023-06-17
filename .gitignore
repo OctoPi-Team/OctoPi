@@ -40,3 +40,4 @@ yarn-error.log*
 *.iml
 *.flattened-pom.xml
 *.env
+.fleet
