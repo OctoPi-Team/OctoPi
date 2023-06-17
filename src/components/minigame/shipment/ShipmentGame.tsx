@@ -3,14 +3,14 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { Vector3 } from 'three';
 
-import './victoryScreen.css';
+import './style/victoryScreen.css';
 
 import { GREEN, WHITE } from '../../../AllColorVariables';
 import { Scene, SceneProps } from '../../../App';
 import FixedCamera from '../../FixedCamera';
 import ObjectLoad from '../../ObjectLoad';
 import NavigationButton from '../../ui/NavigationButton';
-import './victoryScreen.css';
+import './style/victoryScreen.css';
 import WinScreen from './WinScreen';
 import InfoButton from '../../ui/InfoButton';
 

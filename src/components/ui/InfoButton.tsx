@@ -1,4 +1,4 @@
-import './infobutton.css';
+import './style/infobutton.css';
 
 function InfoButton() {
 	return (

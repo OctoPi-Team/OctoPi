@@ -29,7 +29,7 @@ import Floor from './platforms/Floor';
 import NavigationButton from '../ui/NavigationButton';
 import InfoButton from '../ui/InfoButton';
 import DragVector from './DragVector';
-import '../ui/buttonstyle.css';
+import './objects/style/buttonstyle.css';
 
 export default function Overworld({
 	setSceneHook,

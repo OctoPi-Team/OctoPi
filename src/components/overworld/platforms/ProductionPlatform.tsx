@@ -5,7 +5,7 @@ import SimplePlatform from './SimplePlatform';
 import Text from '../../Text';
 import Tube from '../objects/Tube';
 import { PlatformFixProps } from '../../../App';
-import Button from '../../ui/Button';
+import Button from '../objects/Button';
 
 type ProductionPlatformOptions = {
 	position?: [number, number, number];

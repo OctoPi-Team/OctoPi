@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import THREE, { Mesh } from 'three';
-import ObjectLoad from '../ObjectLoad';
+import ObjectLoad from '../../ObjectLoad';
 
 type ButtonProps = {
 	position: [number, number, number];

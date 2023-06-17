@@ -1,5 +1,5 @@
 import { useProgress } from '@react-three/drei';
-import './loadingscreen.css';
+import './style/loadingscreen.css';
 import Video from './Video';
 
 type LoadingScreenProps = {
