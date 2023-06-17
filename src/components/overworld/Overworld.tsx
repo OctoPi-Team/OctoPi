@@ -175,7 +175,11 @@ export default function Overworld({
 					</group>
 					<group name="platforms-and-stairs">
 						<MainPlatform position={[0, 0, 0]} reference={addPlatform} addCollisionBox={addCollisionBox} />
-						<Stair startPosition={new Vector3(8, 0, 6.5)} endPosition={new Vector3(8, 4, 16)} reference={addStair} />
+						<Stair
+							startPosition={new Vector3(7.5, 0, 6.5)}
+							endPosition={new Vector3(7.5, 4, 16)}
+							reference={addStair}
+						/>
 						<ShipmentPlatform
 							position={[9, 4, 25]}
 							reference={addPlatform}
@@ -184,9 +188,13 @@ export default function Overworld({
 							addCollisionBox={addCollisionBox}
 							isPlatformFixed={isPlatformFixed}
 						/>
-						<Stair startPosition={new Vector3(-7, 0, 6.5)} endPosition={new Vector3(-7, 4, 13)} reference={addStair} />
+						<Stair
+							startPosition={new Vector3(-7.5, 0, 6.5)}
+							endPosition={new Vector3(-7.5, 4, 13)}
+							reference={addStair}
+						/>
 						<EngineeringPlatform
-							position={[-13, 4, 22]}
+							position={[-12.5, 4, 22]}
 							reference={addPlatform}
 							buttonReference={addButtons}
 							addCollisionBox={addCollisionBox}

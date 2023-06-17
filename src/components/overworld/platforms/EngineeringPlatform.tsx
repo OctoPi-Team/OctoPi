@@ -24,7 +24,7 @@ export default function EngineeringPlatform({
 }: EngineeringPlatformOptions): JSX.Element {
 	return (
 		<>
-			<SimplePlatform name={''} position={position} size={[15, 0.5, 18]} reference={reference} color={ENGINEERING} />
+			<SimplePlatform position={position} size={[15, 0.5, 18]} reference={reference} color={ENGINEERING} />
 			<Text
 				text={'ENGINEERING'}
 				color={ENGINEERING}

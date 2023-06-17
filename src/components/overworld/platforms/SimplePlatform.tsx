@@ -1,14 +1,12 @@
 import { useRef, useEffect, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { Box3, Mesh, MeshStandardMaterial, Vector3 } from 'three';
-import { SimpleText } from './SimpleText';
-import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry';
+import { Box3, Vector3 } from 'three';
 import { PLAYER_SIZE } from '../Player';
 import { RED } from '../../../AllColorVariables';
+import Squircle from './Squircle';
 
 // This interface is used to set the options of the ObjectLoad function.
 type SimplePlatformProps = {
-	name?: string;
 	position: [number, number, number];
 	size?: [number, number, number];
 	color: string;
@@ -16,7 +14,7 @@ type SimplePlatformProps = {
 };
 
 // This function is to load an object from a .obj file and a .mtl file. To use it no knowlage of the ObjextLoad function is needed.
-export default function SimplePlatform({ name, position, size = [1, 0.1, 1], color, reference }: SimplePlatformProps) {
+export default function SimplePlatform({ position, size = [1, 0.1, 1], color, reference }: SimplePlatformProps) {
 	const ref = useRef<THREE.Mesh>(null);
 	const [collsionRefWasSet, collsionRefSet] = useState(false);
 	const [meshBox, setMeshBox] = useState<Box3>();
@@ -42,7 +40,7 @@ export default function SimplePlatform({ name, position, size = [1, 0.1, 1], col
 	}
 	useEffect(() => {
 		if (ref && ref.current) {
-			const meshPosition = new Vector3(position[0], position[1] - size[1] / 2, position[2]);
+			const meshPosition = new Vector3(position[0], position[1], position[2]);
 			ref.current.position.copy(meshPosition);
 		}
 	});
@@ -56,14 +54,6 @@ export default function SimplePlatform({ name, position, size = [1, 0.1, 1], col
 			textRef.current.lookAt(camera.position);
 		}
 	});
-
-	const roundedBoxGeometry = new RoundedBoxGeometry(size[0], size[1], size[2], 4, 2);
-	const roundedBoxMaterial = new MeshStandardMaterial({ color });
-
-	const roundedBoxMesh = new Mesh(roundedBoxGeometry, roundedBoxMaterial);
-	//roundedBoxMesh.position.set(0, 0, 0);
-	roundedBoxMesh.castShadow = true;
-	roundedBoxMesh.receiveShadow = true;
 	return (
 		<>
 			{SHOW_COLLISION_BOX && meshBox && (
@@ -72,10 +62,14 @@ export default function SimplePlatform({ name, position, size = [1, 0.1, 1], col
 					<meshLambertMaterial color={RED} opacity={0.6} transparent={true} />
 				</mesh>
 			)}
-			<SimpleText position={position} textValue={name} />
-			<mesh ref={ref} castShadow receiveShadow>
-				<primitive object={roundedBoxMesh} />
-			</mesh>
+			<Squircle
+				ref={ref}
+				position={position}
+				color={color}
+				dimensions={size}
+				borderRadius={1.5}
+				rotation={[Math.PI / 2, 0, 0]}
+			/>
 		</>
 	);
 }
