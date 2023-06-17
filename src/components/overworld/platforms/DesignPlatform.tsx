@@ -36,7 +36,7 @@ export default function DesignPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[
 					{ positionOffset: new Vector3(), size: new Vector3(2.5, 2, 1.5) },
-					{ positionOffset: new Vector3(1, 0, 1.5), size: new Vector3(0.6, 1.5, 0.6) }
+					{ positionOffset: new Vector3(1, 0, 1.5), size: new Vector3(0.6, 1.5, 0.6) },
 				]}
 			/>
 			<ObjectLoad
@@ -47,7 +47,7 @@ export default function DesignPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[
 					{ positionOffset: new Vector3(), size: new Vector3(1.5, 2, 2.5) },
-					{ positionOffset: new Vector3(1.7, 0, -0.5), size: new Vector3(0.6, 1.5, 0.6) }
+					{ positionOffset: new Vector3(1.7, 0, -0.5), size: new Vector3(0.6, 1.5, 0.6) },
 				]}
 			/>
 
@@ -66,7 +66,7 @@ export default function DesignPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[
 					{ positionOffset: new Vector3(), size: new Vector3(2.5, 2, 1.5) },
-					{ positionOffset: new Vector3(0, 0, -1.5), size: new Vector3(1, 2, 1) }
+					{ positionOffset: new Vector3(0, 0, -1.5), size: new Vector3(1, 2, 1) },
 				]}
 			/>
 			<ObjectLoad
@@ -84,13 +84,28 @@ export default function DesignPlatform({
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			{/*
 			<Tube
-				position={[position[0] + 2, position[1], position[2] - 9]}
+				name="tubeToDesign"
+				position={[0, 0, 0]}
 				size={[0.5, 8, 1]}
-				vectors={[new Vector3(0, 0, 0), new Vector3(0, 1, 0), new Vector3(3, 1, 0), new Vector3(3, 0, 0)]}
+				vectors={[
+					new Vector3(-1, -1, -5),
+					new Vector3(-1, -1, 12),
+					new Vector3(-1, 1, 12),
+					new Vector3(-33, 1, 12),
+					new Vector3(-33, 1, 4),
+					new Vector3(-33, 7, 4),
+					new Vector3(-33, 7, -11),
+					new Vector3(-28, 7, -11),
+					new Vector3(-28, 3, -11),
+					new Vector3(-25, 3, -11),
+					new Vector3(-25, 1, -11),
+					new Vector3(-23, 1, -11),
+					new Vector3(-23, 3, -11),
+					new Vector3(-20, 3, -11),
+					new Vector3(-20, 2, -11),
+				]}
 			/>
-			*/}
 			<ObjectLoad
 				path="/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb"
 				position={[position[0] - 7.5, position[1], position[2] + 2]}

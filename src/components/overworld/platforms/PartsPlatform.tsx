@@ -22,31 +22,29 @@ export default function PartsPlatform({
 	return (
 		<>
 			<SimplePlatform position={position} size={[24, 0.5, 18]} reference={reference} color={PARTS} />
-			{/*
 			<Tube
-				name="Tube"
-				position={[position[0] + 11, position[1], position[2] - 7]}
+				name="tubeToParts"
+				position={[0, 0, 0]}
 				size={[0.5, 8, 1]}
 				vectors={[
-					new Vector3(0.5, 0, 0),
-					new Vector3(0.5, 2, 0),
-					new Vector3(-5, 2, 0),
-					new Vector3(-5, 0, 0)
+					new Vector3(1, -1, -5),
+					new Vector3(1, -1, -12),
+					new Vector3(12, -1, -12),
+					new Vector3(12, 4, -12),
+					new Vector3(12, 4, -18),
+					new Vector3(12, -1, -18),
+					new Vector3(12, -1, -35),
+					new Vector3(12, 1, -35),
+					new Vector3(2, 1, -35),
+					new Vector3(2, 1, -30),
+					new Vector3(2, 0, -30),
+					new Vector3(21, 0, -30),
+					new Vector3(21, 0, -32),
+					new Vector3(21, 3, -32),
+					new Vector3(26, 3, -32),
+					new Vector3(26, 0, -32),
 				]}
 			/>
-			<Tube
-				name="Tube"
-				position={[position[0] - 6, position[1], position[2] - 7]}
-				size={[0.5, 8, 1]}
-				vectors={[
-					new Vector3(0, -1, 0),
-					new Vector3(0, -1, -3),
-					new Vector3(-6, -1, -3),
-					new Vector3(-6, -1, 2),
-					new Vector3(0, -1, 0),
-				]}
-			/>
-			*/}
 			<Text
 				text={'PARTS'}
 				color={PARTS}

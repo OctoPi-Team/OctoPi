@@ -46,7 +46,7 @@ export default function ProductionPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[
 					{ positionOffset: new Vector3(), size: new Vector3(2.5, 2, 1.5) },
-					{ positionOffset: new Vector3(0, 0, -1.3), size: new Vector3(1, 2, 1) }
+					{ positionOffset: new Vector3(0, 0, -1.3), size: new Vector3(1, 2, 1) },
 				]}
 			/>
 			<ObjectLoad
@@ -57,7 +57,7 @@ export default function ProductionPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[
 					{ positionOffset: new Vector3(), size: new Vector3(2.5, 2, 1.5) },
-					{ positionOffset: new Vector3(0, 0, 1.3), size: new Vector3(1, 2, 1) }
+					{ positionOffset: new Vector3(0, 0, 1.3), size: new Vector3(1, 2, 1) },
 				]}
 			/>
 			<ObjectLoad
@@ -96,7 +96,7 @@ export default function ProductionPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[
 					{ positionOffset: new Vector3(), size: new Vector3(2.5, 2, 1.5) },
-					{ positionOffset: new Vector3(0, 0, 1.3), size: new Vector3(1, 2, 1) }
+					{ positionOffset: new Vector3(0, 0, 1.3), size: new Vector3(1, 2, 1) },
 				]}
 			/>
 			<ObjectLoad
@@ -107,7 +107,7 @@ export default function ProductionPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[
 					{ positionOffset: new Vector3(), size: new Vector3(2.5, 2, 1.5) },
-					{ positionOffset: new Vector3(0, 0, -1.5), size: new Vector3(1.3, 2, 1.3) }
+					{ positionOffset: new Vector3(0, 0, -1.5), size: new Vector3(1.3, 2, 1.3) },
 				]}
 			/>
 			<ObjectLoad
@@ -118,23 +118,35 @@ export default function ProductionPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[
 					{ positionOffset: new Vector3(), size: new Vector3(1.5, 2, 2.5) },
-					{ positionOffset: new Vector3(1.3, 0, 0), size: new Vector3(1, 2, 1) }
+					{ positionOffset: new Vector3(1.3, 0, 0), size: new Vector3(1, 2, 1) },
 				]}
 			/>
-			{/*
 			<Tube
-				position={[position[0] - 9, position[1], position[2] - 1]}
+				name="tubeToProduction"
+				position={[0, 0, 0]}
 				size={[0.5, 8, 1]}
 				vectors={[
-					new Vector3(0, 0, -4),
-					new Vector3(0, 1, -4),
-					new Vector3(0, 1, -7),
-					new Vector3(0, -1, -7),
-					new Vector3(6, -1, -7),
-					new Vector3(6, -1, -1),
+					new Vector3(-1, -1, -3),
+					new Vector3(-1, -1, -8),
+					new Vector3(-1, 0, -10),
+					new Vector3(-13, 0, -10),
+					new Vector3(-13, 0, -14),
+					new Vector3(-13, 4, -14),
+					new Vector3(-22.5, 4, -14),
+					new Vector3(-22.5, 3.5, -14),
+					new Vector3(-22.5, 3.5, -17),
+					new Vector3(-21, 3.5, -17),
+					new Vector3(-21, 3.5, -22),
+					new Vector3(-21, 2, -22),
+					new Vector3(-21, 2, -27),
+					new Vector3(-21, 4, -27),
+					new Vector3(-21, 4, -30),
+					new Vector3(-21, 2, -30),
+					new Vector3(-14, 2, -30),
+					new Vector3(-14, 2, -25),
 				]}
+				ballAnimation
 			/>
-			*/}
 			<Button position={[position[0] - 11, position[1] + 6, position[2] - 9]} reference={buttonreference} />
 		</>
 	);

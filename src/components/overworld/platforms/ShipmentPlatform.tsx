@@ -37,9 +37,7 @@ export default function ShipmentPlatform({
 				scale={[0.12, 0.12, 0.12]}
 				rotation={[0, 180, 0]}
 				collisionRefSetter={addCollisionBox}
-				customCollisionBoxes={[
-					{ positionOffset: new Vector3(0.6, 0, -2.2), size: new Vector3(1.6, 5, 8.2) },
-				]}
+				customCollisionBoxes={[{ positionOffset: new Vector3(0.6, 0, -2.2), size: new Vector3(1.6, 5, 8.2) }]}
 			/>
 			<ObjectLoad
 				path="/Packet/packet.glb"
@@ -68,9 +66,7 @@ export default function ShipmentPlatform({
 				scale={[0.8, 0.8, 0.8]}
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
-				customCollisionBoxes={[
-					{ positionOffset: new Vector3(), size: new Vector3(5, 10, 4) },
-				]}
+				customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(5, 10, 4) }]}
 			/>
 			<ObjectLoad
 				path="/Palette/palette.glb"
@@ -131,14 +127,26 @@ export default function ShipmentPlatform({
 				collisionRefSetter={addCollisionBox}
 			/>
 			<Tube name="Tube" position={[position[0] + 7.6, position[1], position[2] + 0.5]} size={[0.5, 8, 1]} />
-			
-			{/*<Tube
-				name="Tube2"
-				position={[position[0] - 7, position[1], position[2] - 7]}
+			<Tube
+				name="tubeToShipment"
+				position={[0, 0, 0]}
 				size={[0.5, 8, 1]}
-				vectors={[new Vector3(0, 0, 0), new Vector3(0, 1, 0), new Vector3(0, 1, 7), new Vector3(0, 0, 7)]}
+				vectors={[
+					new Vector3(1.5, -1, -5),
+					new Vector3(1.5, -1, 8),
+					new Vector3(1.5, 3.5, 8),
+					new Vector3(1.5, 3.5, 15),
+					new Vector3(1, 2.5, 15),
+					new Vector3(2, 2.5, 15),
+					new Vector3(2, 2.5, 18),
+					new Vector3(2, 5, 18),
+					new Vector3(2, 5, 25),
+					new Vector3(2, 2, 25),
+					new Vector3(16, 2, 25),
+					new Vector3(16, 3, 25),
+				]}
+				ballAnimation
 			/>
-			*/}
 			<Button position={[position[0] - 6, position[1] + 6, position[2] - 9]} reference={buttonreference} />
 		</>
 	);

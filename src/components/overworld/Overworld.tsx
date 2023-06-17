@@ -30,7 +30,7 @@ import Tube from './objects/Tube';
 import { GREEN, RED } from '../../AllColorVariables';
 
 export default function Overworld({ setSceneHook, visible, playerPos = new Vector3() }: SceneProps) {
-	const ORBITAL_CONTROLS_ACTIVE = false;
+	const ORBITAL_CONTROLS_ACTIVE = true;
 
 	const [platforms, setPlatforms] = useState<Box3[]>([]);
 	const [stairs, setStairs] = useState<StairType[]>([]);
@@ -181,185 +181,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						sceneProps={{ setSceneHook }}
 						collisionObjects={collisionBoxes}
 					/>
-					{/*tubes between parts and shipment*/}
-					{/*tube above the stairs */}
-					{/*
-					<Tube
-						position={[12, 0, -16]}
-						size={[0.5, 8, 1]}
-						vectors={[
-							new Vector3(1, -2, -10),
-							new Vector3(1, 0, 8),
-							new Vector3(1, 4, 8),
-							new Vector3(1, 4, 10),
-							new Vector3(1, 4, 20),
-							new Vector3(1, 0, 20),
-							new Vector3(1, 0, 40),
-						]}
-					/>
-					<Tube
-						position={[12, 0, -16]}
-						size={[0.5, 8, 1]}
-						vectors={[
-							new Vector3(8, 4, 22),
-							new Vector3(8, 0, 22),
-							new Vector3(3, 0, 22),
-							new Vector3(3, 0, 28),
-							new Vector3(3, 0, 42),
-							new Vector3(3, 4, 42),
-						]}
-					/>
-					<Tube
-						position={[12, 0, -16]}
-						size={[0.5, 8, 1]}
-						vectors={[new Vector3(-1, -2, -10), new Vector3(-1, 0, 40)]}
-					/>
-					*/}
-					<Tube
-						name="tubeToProduction"
-						position={[0, 0, 0]}
-						size={[0.5, 8, 1]}
-						vectors={[
-							new Vector3(-1, -1, -3),
-							new Vector3(-1, -1, -8),
-							new Vector3(-1, 0, -10),
-							new Vector3(-13, 0, -10),
-							new Vector3(-13, 0, -14),
-							new Vector3(-13, 4, -14),
-							new Vector3(-22.5, 4, -14),
-							new Vector3(-22.5, 3.5, -14),
-							new Vector3(-22.5, 3.5, -17),
-							new Vector3(-21, 3.5, -17),
-							new Vector3(-21, 3.5, -22),
-							new Vector3(-21, 2, -22),
-							new Vector3(-21, 2, -27),
-							new Vector3(-21, 4, -27),
-							new Vector3(-21, 4, -30),
-							new Vector3(-21, 2, -30),
-							new Vector3(-14, 2, -30),
-							new Vector3(-14, 2, -25),
-						]}
-						ballAnimation
-					/>
-					<Tube
-						name="tubeToEngineering"
-						position={[0, 0, 0]}
-						size={[0.5, 8, 1]}
-						vectors={[
-							new Vector3(0, -1, -5),
-							new Vector3(0, -1, 8),
-							new Vector3(0, 5, 8),
-							new Vector3(0, 5, 12),
-							new Vector3(-3, 5, 12),
-							new Vector3(-3, 5, 29),
-							new Vector3(-6, 5, 29),
-							new Vector3(-6, 2, 29),
-							new Vector3(-6, 2, 29),
-							new Vector3(-14, 2, 29),
-							new Vector3(-14, 5, 29),
-							new Vector3(-14, 5, 32),
-							new Vector3(-14, 3, 32),
-							new Vector3(-21, 3, 32),
-							new Vector3(-21, 3, 28),
-							new Vector3(-21, 5, 28),
-							new Vector3(-19, 5, 28),
-							new Vector3(-19, 4, 28)
-						]}
-					/>
-					<Tube
-						name="tubeToShipment"
-						position={[0, 0, 0]}
-						size={[0.5, 8, 1]}
-						vectors={[
-							new Vector3(1.5, -1, -5),
-							new Vector3(1.5, -1, 8),
-							new Vector3(1.5, 3.5, 8),
-							new Vector3(1.5, 3.5, 15),
-							new Vector3(1, 2.5, 15),
-							new Vector3(2, 2.5, 15),
-							new Vector3(2, 2.5, 18),
-							new Vector3(2, 5, 18),
-							new Vector3(2, 5, 25),
-							new Vector3(2, 2, 25),
-							new Vector3(16, 2, 25),
-							new Vector3(16, 3, 25)
-						]}
-						ballAnimation
-						color={GREEN}
-					/>
-					<Tube
-						name="tubeToMonitoring"
-						position={[0, 0, 0]}
-						size={[0.5, 8, 1]}
-						vectors={[
-							new Vector3(2, -1, -5),
-							new Vector3(2, -1, -8),
-							new Vector3(15, -1, -8),
-							new Vector3(15, 0, -8),
-							new Vector3(15, 1, 6),
-							new Vector3(15, 0, 6),
-							new Vector3(20, 0, 6),
-							new Vector3(20, 6, 6),
-							new Vector3(26, 6, 6),
-							new Vector3(26, 3, 6),
-							new Vector3(33, 3, 6),
-							new Vector3(33, 8, 6),
-							new Vector3(33, 8, -15),
-							new Vector3(33, 5, -15),
-							new Vector3(19.5, 5, -15),
-							new Vector3(19.5, 2, -15),
-							new Vector3(19.5, 2, -11),
-							new Vector3(19.5, 6, -11),
-							new Vector3(19.5, 6, -8),
-							new Vector3(19.5, 4, -8),
-						]}
-					/>
-					<Tube
-						name="tubeToParts"
-						position={[0, 0, 0]}
-						size={[0.5, 8, 1]}
-						vectors={[
-							new Vector3(1, -1, -5),
-							new Vector3(1, -1, -12),
-							new Vector3(12, -1, -12),
-							new Vector3(12, 4, -12),
-							new Vector3(12, 4, -18),
-							new Vector3(12, -1, -18),
-							new Vector3(12, -1, -35),
-							new Vector3(12, 1, -35),
-							new Vector3(2, 1, -35),
-							new Vector3(2, 1, -30),
-							new Vector3(2, 0, -30),
-							new Vector3(21, 0, -30),
-							new Vector3(21, 0, -32),
-							new Vector3(21, 3, -32),
-							new Vector3(26, 3, -32),
-							new Vector3(26, 0, -32),
-						]}
-					/>
-					<Tube
-						name="tubeToDesign"
-						position={[0, 0, 0]}
-						size={[0.5, 8, 1]}
-						vectors={[
-							new Vector3(-1, -1, -5),
-							new Vector3(-1, -1, 12),
-							new Vector3(-1, 1, 12),
-							new Vector3(-33, 1, 12),
-							new Vector3(-33, 1, 4),
-							new Vector3(-33, 7, 4),
-							new Vector3(-33, 7, -11),
-							new Vector3(-28, 7, -11),
-							new Vector3(-28, 3, -11),
-							new Vector3(-25, 3, -11),
-							new Vector3(-25, 1, -11),
-							new Vector3(-23, 1, -11),
-							new Vector3(-23, 3, -11),
-							new Vector3(-20, 3, -11),
-							new Vector3(-20, 2, -11),
-						]}
-					/>
-					<Tube
+					{/*<Tube
 						name="tubeToAllPlatfroms"
 						position={[0, 0, 0]}
 						size={[0.5, 8, 1]}
@@ -376,6 +198,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 							new Vector3(22, 2, -15)
 						]}
 					/>
+					*/}
 				</Canvas>
 			</div>
 		</>
