@@ -126,9 +126,48 @@ export default function ShipmentPlatform({
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
+			{/*
 			<Tube name="Tube" position={[position[0] + 7.6, position[1], position[2] + 0.5]} size={[0.5, 8, 1]} />
+			*/}
 			<Tube
-				name="tubeToShipment"
+				name="brokenShipmentTube1"
+				position={[0, 0, 0]}
+				size={[0.5, 8, 1]}
+				vectors={[
+					new Vector3(1.5, -1, -5),
+					new Vector3(1.5, -1, 8),
+					new Vector3(1.5, 3.5, 8),
+					new Vector3(1.5, 3.5, 15),
+					new Vector3(1, 2.5, 15),
+					new Vector3(2, 2.5, 15),
+					new Vector3(2, 2.5, 18),
+					new Vector3(2, 5, 18),
+					new Vector3(2, 5.7, 21),
+				]}
+			/>
+			<Tube
+				name="brokenShipmentTube2"
+				position={[0, 0, 0]}
+				size={[0.5, 8, 1]}
+				vectors={[
+					new Vector3(16.6, 4, 25.5),
+					new Vector3(15.7, 10, 25.5),
+					new Vector3(12, 11, 27.1),
+				]}
+			/>
+			<Tube
+				name="brokenShipmentTube3"
+				position={[0, 0, 0]}
+				size={[0.5, 8, 1]}
+				vectors={[
+					new Vector3(8.5, 10.9, 28.7),
+					new Vector3(5.6, 10, 30),
+					new Vector3(5.5, 8.4, 30),
+				]}
+			/>		
+			{/*
+			<Tube
+				name="finalShipmentTube"
 				position={[0, 0, 0]}
 				size={[0.5, 8, 1]}
 				vectors={[
@@ -142,11 +181,13 @@ export default function ShipmentPlatform({
 					new Vector3(2, 5, 18),
 					new Vector3(2, 5, 25),
 					new Vector3(2, 2, 25),
-					new Vector3(16, 2, 25),
-					new Vector3(16, 3, 25),
+					new Vector3(15.7, 2, 25.5),
+					new Vector3(15.7, 10, 25.5),
+					new Vector3(5.6, 10, 30),
+					new Vector3(5.5, 8.4, 30),
 				]}
-				ballAnimation
 			/>
+			*/}
 			<Button position={[position[0] - 6, position[1] + 6, position[2] - 9]} reference={buttonreference} />
 		</>
 	);

@@ -145,7 +145,6 @@ export default function ProductionPlatform({
 					new Vector3(-14, 2, -30),
 					new Vector3(-14, 2, -25),
 				]}
-				ballAnimation
 			/>
 			<Button position={[position[0] - 11, position[1] + 6, position[2] - 9]} reference={buttonreference} />
 		</>
