@@ -52,7 +52,7 @@ export default function Overworld({
 	const CAM_HEIGHT = 80;
 
 	const { handleMouseDown, handleMouseMove, handleMouseUp, handleTouchStart, handleTouchMove, handleTouchEnd } =
-		DragVector(new Vector2(window.innerWidth / 2, window.innerHeight / 2), handleJoystickMove, handleJoystickStop);
+		DragVector(new Vector2(window.innerWidth / 2, window.innerHeight / 2), handleJoystickMove);
 
 	function addPlatform(newPlatform: Box3) {
 		// these platforms are used to detect player collsion iwth the edge of the platform
@@ -249,9 +249,9 @@ export default function Overworld({
 						setIsPlatformFixed={setIsPlatformFixed}
 					/>
 				</Canvas>
-				{info ? <InfoButton /> : <div></div>}
+				{info && <InfoButton />}
 			</div>
-			{isOnButton ? <div className={'button'}>Du bist nun auf der Plattform: {buttonName}</div> : <div></div>}
+			{isOnButton && <div className={'button'}>Du bist nun auf der Plattform: {buttonName}</div>}
 		</>
 	);
 }
