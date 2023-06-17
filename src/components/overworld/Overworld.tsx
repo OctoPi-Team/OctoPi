@@ -26,6 +26,7 @@ import PartsPlatform from './platforms/PartsPlatform';
 import ProductionPlatform from './platforms/ProductionPlatform';
 import EngineeringPlatform from './platforms/EngineeringPlatform';
 import Floor from './platforms/Floor';
+
 import NavigationButton from '../ui/NavigationButton';
 import InfoButton from '../ui/InfoButton';
 import DragVector from './DragVector';
@@ -249,6 +250,24 @@ export default function Overworld({
 						isButton={setIsOnButton}
 						setIsPlatformFixed={setIsPlatformFixed}
 					/>
+					{/*<Tube
+						name="tubeToAllPlatfroms"
+						position={[0, 0, 0]}
+						size={[0.5, 8, 1]}
+						vectors={[
+							new Vector3(22, 2, -15),
+							new Vector3(22, 2, 19),
+	
+							new Vector3(-4, 2, 19),
+							new Vector3(-4, 0, 19),
+							new Vector3(-25, 0, 19),
+							new Vector3(-25, 0, -19),
+							new Vector3(22, 0, -19),
+							new Vector3(22, 0, -15),
+							new Vector3(22, 2, -15)
+						]}
+					/>
+					*/}
 				</Canvas>
 				{info && <InfoButton />}
 			</div>

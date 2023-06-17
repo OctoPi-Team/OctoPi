@@ -86,21 +86,28 @@ export default function EngineeringPlatform({
 				]}
 			/>
 			<Tube
-				name="Tube2"
-				position={[position[0] - 7, position[1], position[2] + 3]}
+				name="tubeToEngineering"
+				position={[0, 0, 0]}
 				size={[0.5, 8, 1]}
 				vectors={[
-					new Vector3(0, 0, 3),
-					new Vector3(0, 1, 3),
-					new Vector3(-1.5, 1, 3),
-					new Vector3(-1.5, 0, 3),
-					new Vector3(-1.5, -1, 3),
-					new Vector3(-1.5, -1, 6.2),
-					new Vector3(6, -1, 6.2),
-					new Vector3(6, 1, 6.2),
-					new Vector3(6, 1, 5),
-					new Vector3(6, 1, 4),
-					new Vector3(6, 0, 4),
+					new Vector3(0, -1, -5),
+					new Vector3(0, -1, 8),
+					new Vector3(0, 5, 8),
+					new Vector3(0, 5, 12),
+					new Vector3(-3, 5, 12),
+					new Vector3(-3, 5, 29),
+					new Vector3(-6, 5, 29),
+					new Vector3(-6, 2, 29),
+					new Vector3(-6, 2, 29),
+					new Vector3(-14, 2, 29),
+					new Vector3(-14, 5, 29),
+					new Vector3(-14, 5, 32),
+					new Vector3(-14, 3, 32),
+					new Vector3(-21, 3, 32),
+					new Vector3(-21, 3, 28),
+					new Vector3(-21, 5, 28),
+					new Vector3(-19, 5, 28),
+					new Vector3(-19, 4, 28),
 				]}
 			/>
 			<ObjectLoad

@@ -72,14 +72,31 @@ export default function MonitoringPlatform({
 				customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(1, 2, 2) }]}
 			/>
 			<Tube
-				position={[position[0] - 5, position[1], position[2] + 9]}
+				name="tubeToMonitoring"
+				position={[0, 0, 0]}
 				size={[0.5, 8, 1]}
-				vectors={[new Vector3(0, 0, 0), new Vector3(0, 2, 0), new Vector3(6, 2, 0), new Vector3(6, 0, 0)]}
-			/>
-			<Tube
-				position={[position[0] - 5, position[1], position[2] - 8]}
-				size={[0.5, 8, 1]}
-				vectors={[new Vector3(0, 0, 0), new Vector3(0, 1, 0), new Vector3(0, 1, 3), new Vector3(0, 0, 3)]}
+				vectors={[
+					new Vector3(2, -1, -5),
+					new Vector3(2, -1, -8),
+					new Vector3(15, -1, -8),
+					new Vector3(15, 0, -8),
+					new Vector3(15, 1, 6),
+					new Vector3(15, 0, 6),
+					new Vector3(20, 0, 6),
+					new Vector3(20, 6, 6),
+					new Vector3(26, 6, 6),
+					new Vector3(26, 3, 6),
+					new Vector3(33, 3, 6),
+					new Vector3(33, 8, 6),
+					new Vector3(33, 8, -15),
+					new Vector3(33, 5, -15),
+					new Vector3(19.5, 5, -15),
+					new Vector3(19.5, 2, -15),
+					new Vector3(19.5, 2, -11),
+					new Vector3(19.5, 6, -11),
+					new Vector3(19.5, 6, -8),
+					new Vector3(19.5, 4, -8),
+				]}
 			/>
 			<Button
 				customName="monitoring"
