@@ -92,7 +92,6 @@ export default function ObjectLoad({
 		}
 	}, [position, customName]);
 
-
 	collisionBoxes.map((box, index) => (
 		<mesh key={index} position={box.getCenter(new Vector3(...position))}>
 			<boxGeometry args={box.getSize(new Vector3(0, 0, 0)).toArray()} />

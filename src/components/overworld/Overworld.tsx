@@ -188,7 +188,11 @@ export default function Overworld({
 							addCollisionBox={addCollisionBox}
 							isPlatformFixed={isPlatformFixed}
 						/>
-						<Stair startPosition={new Vector3(-7.5, 0, 6.5)} endPosition={new Vector3(-7.5, 4, 13)} reference={addStair} />
+						<Stair
+							startPosition={new Vector3(-7.5, 0, 6.5)}
+							endPosition={new Vector3(-7.5, 4, 13)}
+							reference={addStair}
+						/>
 						<EngineeringPlatform
 							position={[-12.5, 4, 22]}
 							reference={addPlatform}
