@@ -3,8 +3,6 @@ import { PlatformFixProps, Scene, SceneProps } from '../../App';
 import { IJoystickUpdateEvent } from 'react-joystick-component/build/lib/Joystick';
 import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { Box3, BufferGeometry, Material, MathUtils, Mesh, Vector2, Vector3 } from 'three';
-
-import { Scene, SceneProps } from '../../App';
 import { STAIR_WIDTH, StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
 
@@ -99,7 +97,7 @@ function Player({
 						isButton(true);
 						setTimeout(() => {
 							isButton(false);
-              if (setIsPlatformFixed) {
+							if (setIsPlatformFixed) {
 								setIsPlatformFixed({ design: true });
 							}
 						}, BUTTON_TIMEOUT);
