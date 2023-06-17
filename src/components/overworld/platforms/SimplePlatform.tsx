@@ -1,8 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { Box3, Mesh, MeshStandardMaterial, Vector3 } from 'three';
-import { SimpleText } from './SimpleText';
-import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry';
+import { Box3, Vector3 } from 'three';
 import { PLAYER_SIZE } from '../Player';
 import { RED } from '../../../AllColorVariables';
 import Squircle from './Squircle';
@@ -22,7 +20,7 @@ export default function SimplePlatform({ name, position, size = [1, 0.1, 1], col
 	const [collsionRefWasSet, collsionRefSet] = useState(false);
 	const [meshBox, setMeshBox] = useState<Box3>();
 
-	const SHOW_COLLISION_BOX = true;
+	const SHOW_COLLISION_BOX = false;
 	if (!collsionRefWasSet && reference && ref.current) {
 		collsionRefSet(true);
 		const plattformPadding = 0.3;
@@ -43,7 +41,7 @@ export default function SimplePlatform({ name, position, size = [1, 0.1, 1], col
 	}
 	useEffect(() => {
 		if (ref && ref.current) {
-			const meshPosition = new Vector3(position[0], position[1] - size[1] / 2, position[2]);
+			const meshPosition = new Vector3(position[0], position[1], position[2]);
 			ref.current.position.copy(meshPosition);
 		}
 	});
@@ -57,7 +55,6 @@ export default function SimplePlatform({ name, position, size = [1, 0.1, 1], col
 			textRef.current.lookAt(camera.position);
 		}
 	});
-
 	return (
 		<>
 			{SHOW_COLLISION_BOX && meshBox && (
@@ -66,7 +63,14 @@ export default function SimplePlatform({ name, position, size = [1, 0.1, 1], col
 					<meshLambertMaterial color={RED} opacity={0.6} transparent={true} />
 				</mesh>
 			)}
-			<Squircle position={position} color={color} dimensions={size} />
+			<Squircle
+				ref={ref}
+				position={position}
+				color={color}
+				dimensions={size}
+				borderRadius={1.5}
+				rotation={[Math.PI / 2, 0, 0]}
+			/>
 		</>
 	);
 }
