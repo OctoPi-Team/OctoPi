@@ -168,7 +168,6 @@ export default function ShipmentPlatform({
 					new Vector3(5.5, 8.4, 30),
 				]}
 			/>
-
 			<Button
 				customName="shipment"
 				position={[position[0] - 6, position[1] + 6, position[2] - 9]}
