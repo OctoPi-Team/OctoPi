@@ -4,25 +4,27 @@ import { ENGINEERING } from '../../../AllColorVariables';
 import Text from '../../Text';
 import { Box3, Vector3 } from 'three';
 import Tube from '../objects/Tube';
-import Button from '../objects/Button';
+import { PlatformFixProps } from '../../../App';
+import Button from '../../ui/Button';
 
 type EngineeringPlatformOptions = {
 	position?: [number, number, number];
 	reference?: (meshRef: Box3) => void;
-	buttonreference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	buttonReference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
+	isPlatformFixed: PlatformFixProps | undefined;
 };
 
 export default function EngineeringPlatform({
 	position = [0, 0, 0],
 	reference,
-	buttonreference,
+	buttonReference,
 	addCollisionBox,
+	isPlatformFixed,
 }: EngineeringPlatformOptions): JSX.Element {
 	return (
 		<>
 			<SimplePlatform position={position} size={[15, 0.5, 18]} reference={reference} color={ENGINEERING} />
-
 			<Text
 				text={'ENGINEERING'}
 				color={ENGINEERING}
@@ -43,13 +45,13 @@ export default function EngineeringPlatform({
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			{/* <ObjectLoad
+			{/*<ObjectLoad
 				path="/MonitorMitSchreibtischUndStuhl/monitorMitSchreibtischUndStuhl.glb"
 				position={[position[0] - 2.5, position[1], position[2] + 8]}
 				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
-			/> */}
+			/>*/}
 			<ObjectLoad
 				path="/MonitorMitSchreibtischUndStuhl/monitorMitSchreibtischUndStuhl.glb"
 				position={[position[0] - 3, position[1], position[2] + 8]}
@@ -102,13 +104,21 @@ export default function EngineeringPlatform({
 				]}
 			/>
 			<ObjectLoad
-				path="/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb"
+				path={
+					isPlatformFixed?.engineering
+						? '/Whiteboard_neu/whiteboard_neu.glb'
+						: '/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb'
+				}
 				position={[position[0] - 0.5, position[1], position[2] - 7.5]}
 				scale={[0.6, 0.6, 0.6]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			<Button position={[position[0] - 7, position[1] + 6, position[2] - 9]} reference={buttonreference} />
+			<Button
+				customName="engineering"
+				position={[position[0] - 7, position[1] + 6, position[2] - 9]}
+				reference={buttonReference}
+			/>
 		</>
 	);
 }

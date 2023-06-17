@@ -4,20 +4,23 @@ import { DESIGN } from '../../../AllColorVariables';
 import Text from '../../Text';
 import { Box3, Vector3 } from 'three';
 import Tube from '../objects/Tube';
-import Button from '../objects/Button';
+import { PlatformFixProps } from '../../../App';
+import Button from '../../ui/Button';
 
 type DesignPlatformOptions = {
 	position?: [number, number, number];
 	reference?: (meshRef: Box3) => void;
-	buttonreference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	buttonReference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
+	isPlatformFixed: PlatformFixProps | undefined;
 };
 
 export default function DesignPlatform({
 	position = [0, 0, 0],
 	reference,
-	buttonreference,
+	buttonReference,
 	addCollisionBox,
+	isPlatformFixed,
 }: DesignPlatformOptions): JSX.Element {
 	return (
 		<>
@@ -70,7 +73,11 @@ export default function DesignPlatform({
 				]}
 			/>
 			<ObjectLoad
-				path="/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb"
+				path={
+					isPlatformFixed?.design
+						? '/Whiteboard_neu/whiteboard_neu.glb'
+						: '/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb'
+				}
 				position={[position[0], position[1], position[2] + 8.5]}
 				scale={[0.6, 0.6, 0.6]}
 				rotation={[0, 0, 0]}
@@ -90,13 +97,21 @@ export default function DesignPlatform({
 				vectors={[new Vector3(0, 0, 0), new Vector3(0, 1, 0), new Vector3(3, 1, 0), new Vector3(3, 0, 0)]}
 			/>
 			<ObjectLoad
-				path="/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb"
+				path={
+					isPlatformFixed?.design
+						? '/Whiteboard_neu/whiteboard_neu.glb'
+						: '/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb'
+				}
 				position={[position[0] - 7.5, position[1], position[2] + 2]}
 				scale={[0.6, 0.6, 0.6]}
 				rotation={[0, 60, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			<Button position={[position[0] - 7, position[1] + 6, position[2] - 9]} reference={buttonreference} />
+			<Button
+				customName="design"
+				position={[position[0] - 7, position[1] + 6, position[2] - 9]}
+				reference={buttonReference}
+			/>
 		</>
 	);
 }

@@ -4,20 +4,23 @@ import { MONITORING } from '../../../AllColorVariables';
 import Text from '../../Text';
 import { Box3, Vector3 } from 'three';
 import Tube from '../objects/Tube';
-import Button from '../objects/Button';
+import { PlatformFixProps } from '../../../App';
+import Button from '../../ui/Button';
 
 type MonitoringPlatformOptions = {
 	position?: [number, number, number];
 	reference?: (meshRef: Box3) => void;
-	buttonreference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	buttonReference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
+	isPlatformFixed: PlatformFixProps | undefined;
 };
 
 export default function MonitoringPlatform({
 	position = [0, 0, 0],
 	reference,
-	buttonreference,
+	buttonReference,
 	addCollisionBox,
+	isPlatformFixed,
 }: MonitoringPlatformOptions): JSX.Element {
 	return (
 		<>
@@ -29,7 +32,11 @@ export default function MonitoringPlatform({
 				rotation={[0, 270, 0]}
 			/>
 			<ObjectLoad
-				path="/Radarschuessel_kaputt_final/radarschuessel_kaputt_final.glb"
+				path={
+					isPlatformFixed?.monitoring
+						? '/Radarschuessel/radarschuessel.glb'
+						: '/Radarschuessel_kaputt_final/radarschuessel_kaputt_final.glb'
+				}
 				position={[position[0], position[1], position[2] + 5]}
 				scale={[0.8, 0.8, 0.8]}
 				rotation={[0, 0, 0]}
@@ -37,7 +44,11 @@ export default function MonitoringPlatform({
 				customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(2, 2, 2) }]}
 			/>
 			<ObjectLoad
-				path="/Radarschuessel_kaputt_final/radarschuessel_kaputt_final.glb"
+				path={
+					isPlatformFixed?.monitoring
+						? '/Radarschuessel/radarschuessel.glb'
+						: '/Radarschuessel_kaputt_final/radarschuessel_kaputt_final.glb'
+				}
 				position={[position[0] - 2, position[1], position[2] - 7]}
 				scale={[0.7, 0.7, 0.7]}
 				rotation={[0, 90, 0]}
@@ -70,7 +81,11 @@ export default function MonitoringPlatform({
 				size={[0.5, 8, 1]}
 				vectors={[new Vector3(0, 0, 0), new Vector3(0, 1, 0), new Vector3(0, 1, 3), new Vector3(0, 0, 3)]}
 			/>
-			<Button position={[position[0] - 8, position[1] + 6, position[2] - 9]} reference={buttonreference} />
+			<Button
+				customName="monitoring"
+				position={[position[0] - 8, position[1] + 6, position[2] - 9]}
+				reference={buttonReference}
+			/>
 		</>
 	);
 }
