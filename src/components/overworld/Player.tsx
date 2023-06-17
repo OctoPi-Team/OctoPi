@@ -10,7 +10,12 @@ export const PLAYER_SIZE = 0.5;
 const SPEED = 0.1;
 const COLLISION_IS_ACTIVE = true;
 const ROTATION_SPEED = 0.1;
-
+const keys = {
+	up: false,
+	down: false,
+	left: false,
+	right: false
+}
 let movementVector = new Vector3();
 
 interface PlayerArgs {
@@ -289,27 +294,39 @@ function getPlayerRotationFromKeys(currentRotation: Vector3): Vector3 {
 }
 
 export const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = event => {
-	movementVector = new Vector3();
-	if (event.key === 'ArrowRight') {
-		movementVector.z += 1;
-		movementVector.x -= 1;
-	}
-	if (event.key === 'ArrowDown') {
-		movementVector.x -= 1;
-		movementVector.z -= 1;
-	}
-	if (event.key === 'ArrowLeft') {
-		movementVector.z -= 1;
-		movementVector.x += 1;
-	}
-	if (event.key === 'ArrowUp') {
-		movementVector.x += 1;
-		movementVector.z += 1;
-	}
+	if (event.key === 'ArrowRight') keys.right = true;
+	if (event.key === 'ArrowDown') keys.down = true;
+	if (event.key === 'ArrowLeft') keys.left = true;
+	if (event.key === 'ArrowUp') keys.up = true;
+	setMovementVectorFromKeys();
 };
 
-export const handleKeyUp: React.KeyboardEventHandler<HTMLDivElement> = () => {
+function setMovementVectorFromKeys() {
 	resetKeys();
+	if (keys.right) {
+		movementVector.z += 1;
+		movementVector.x -= 1;
+	}
+	if (keys.down) {
+		movementVector.x -= 1;
+		movementVector.z -= 1;
+	}
+	if (keys.left) {
+		movementVector.z -= 1;
+		movementVector.x += 1;
+	}
+	if (keys.up) {
+		movementVector.x += 1;
+		movementVector.z += 1;
+	}
+}
+
+export const handleKeyUp: React.KeyboardEventHandler<HTMLDivElement> = (event) => {
+	if (event.key === 'ArrowRight') keys.right = false;
+	if (event.key === 'ArrowDown') keys.down = false;
+	if (event.key === 'ArrowLeft') keys.left = false;
+	if (event.key === 'ArrowUp') keys.up = false;
+	setMovementVectorFromKeys();
 };
 
 export const handleJoystickMove = (stick: IJoystickUpdateEvent | Vector2) => {
