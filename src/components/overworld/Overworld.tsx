@@ -250,19 +250,19 @@ export default function Overworld({
 						setIsPlatformFixed={setIsPlatformFixed}
 					/>
 				</Canvas>
-				{info ? <InfoButton /> : <div></div>}
+				{info && <InfoButton />}
 			</div>
-			{isPlatformFixed?.monitoring ||
-			isPlatformFixed?.parts ||
-			isPlatformFixed?.design ||
-			isPlatformFixed?.engineering ||
-			isPlatformFixed?.shipment ||
-			isPlatformFixed?.production ? (
-				<AlreadyFixedInformation isPlatformFixed={isPlatformFixed} />
-			) : (
-				<div></div>
-			)}
+			{(
+				isPlatformFixed?.monitoring ||
+				isPlatformFixed?.parts ||
+				isPlatformFixed?.design ||
+				isPlatformFixed?.engineering ||
+				isPlatformFixed?.shipment ||
+				isPlatformFixed?.production
+			) && <AlreadyFixedInformation isPlatformFixed={isPlatformFixed} />
+			}
 			{isOnButton ? <div className={'button'}>Du bist nun auf der Plattform: {buttonName}</div> : <div></div>}
+			{isOnButton && <div className={'button'}>Du bist nun auf der Plattform: {buttonName}</div>}
 		</>
 	);
 }

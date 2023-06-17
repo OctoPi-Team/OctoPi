@@ -19,6 +19,8 @@
     vertical-align: center;
     opacity: 0.9;
     animation: fadeIn 1s;
+    pointer-events: none;
+    height: max-content;
 }
 
 @media (max-width: 820px) {
@@ -34,6 +36,7 @@
     0% {
         opacity: 0;
     }
+
     100% {
         opacity: 0.9;
     }
