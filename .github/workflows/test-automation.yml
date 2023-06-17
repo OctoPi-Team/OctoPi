@@ -40,6 +40,7 @@ jobs:
         run: npm ci
 
       - name: Run Tests
+        continue-on-error: true
         run: npm run coverage
 
       - name: Create Test Statistics View

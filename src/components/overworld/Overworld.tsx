@@ -7,17 +7,18 @@ import {
 	DirectionalLight,
 	OrthographicCamera,
 	DirectionalLightHelper,
+	Vector2,
 } from 'three';
+import { Canvas } from '@react-three/fiber';
+import { useRef, useState } from 'react';
+import { Joystick } from 'react-joystick-component';
+import { OrbitControls, useHelper } from '@react-three/drei';
 
 import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp, resetKeys } from './Player';
 import Stair, { StairType } from './platforms/Stair';
-import FixedCamera from './FixedCamera';
-import { OrbitControls, useHelper } from '@react-three/drei';
+import FixedCamera from '../FixedCamera';
 import ShipmentPlatform from './platforms/ShipmentPlatform';
-import { Canvas } from '@react-three/fiber';
-import { useRef, useState } from 'react';
 import { SceneProps } from '../../App';
-import { Joystick } from 'react-joystick-component';
 import DesignPlatform from './platforms/DesignPlatform';
 import MainPlatform from './platforms/MainPlatform';
 import MonitoringPlatform from './platforms/MonitoringPlatform';
@@ -25,20 +26,33 @@ import PartsPlatform from './platforms/PartsPlatform';
 import ProductionPlatform from './platforms/ProductionPlatform';
 import EngineeringPlatform from './platforms/EngineeringPlatform';
 import Floor from './platforms/Floor';
-import NavigationButton from './objects/NavigationButton';
-import Tube from './objects/Tube';
-import { GREEN, RED } from '../../AllColorVariables';
+import NavigationButton from '../ui/NavigationButton';
+import InfoButton from '../ui/InfoButton';
+import DragVector from './DragVector';
+import '../ui/buttonstyle.css';
 
-export default function Overworld({ setSceneHook, visible, playerPos = new Vector3() }: SceneProps) {
-	const ORBITAL_CONTROLS_ACTIVE = true;
+export default function Overworld({
+	setSceneHook,
+	visible,
+	playerPos = new Vector3(),
+	setIsPlatformFixed,
+	isPlatformFixed,
+}: SceneProps) {
+	const ORBITAL_CONTROLS_ACTIVE = false;
 
 	const [platforms, setPlatforms] = useState<Box3[]>([]);
 	const [stairs, setStairs] = useState<StairType[]>([]);
 	const [buttons, setButtons] = useState<Mesh<BufferGeometry, Material | Material[]>[]>([]);
 	const [collisionBoxes, setCollisionBoxes] = useState<Box3[]>([]);
+	const [info, setInfo] = useState(false);
+	const [buttonName, setButtonName] = useState('');
+	const [isOnButton, setIsOnButton] = useState(false);
 
 	const CAM_WIDTH = 80;
 	const CAM_HEIGHT = 80;
+
+	const { handleMouseDown, handleMouseMove, handleMouseUp, handleTouchStart, handleTouchMove, handleTouchEnd } =
+		DragVector(new Vector2(window.innerWidth / 2, window.innerHeight / 2), handleJoystickMove, handleJoystickStop);
 
 	function addPlatform(newPlatform: Box3) {
 		// these platforms are used to detect player collsion iwth the edge of the platform
@@ -86,7 +100,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 					ref={dirLight}
 					shadow-mapSize={[1024, 1024]}
 					intensity={0.7}
-					castShadow>
+					castShadow={true}>
 					<orthographicCamera
 						attach="shadow-camera"
 						position={[-8, 20, -15]}
@@ -99,6 +113,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 			</>
 		);
 	}
+
 	return (
 		<>
 			<div style={{ width: '100vw', height: '100vh' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
@@ -108,7 +123,7 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 							<Joystick
 								baseColor="lightgreen"
 								stickColor="darkgreen"
-								size={100}
+								size={150}
 								move={handleJoystickMove}
 								stop={handleJoystickStop}
 							/>
@@ -119,9 +134,10 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 							top="40px"
 							text="i"
 							onClick={() => {
-								window.alert(
-									'Willkommen zu unserem Spiel Operation:Innovation! Schaue dich mal auf den verschiedenen Platformen um, siehst du einen Button auf dem Boden? Geh ruhig mal hin.'
-								);
+								setInfo(true);
+								if (info) {
+									setInfo(false);
+								}
 							}}
 						/>
 						<NavigationButton
@@ -139,7 +155,17 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						/>
 					</>
 				)}
-				<Canvas orthographic shadows style={{ visibility: visible ? 'hidden' : 'visible' }}>
+				<Canvas
+					orthographic
+					shadows
+					style={{ visibility: visible ? 'hidden' : 'visible' }}
+					onMouseDown={handleMouseDown}
+					onMouseMove={handleMouseMove}
+					onMouseUp={handleMouseUp}
+					onTouchStart={handleTouchStart}
+					onTouchMove={handleTouchMove}
+					onTouchEnd={handleTouchEnd}>
+
 					<group name="lighting-and-camera">
 						<color attach="background" args={['white']} />
 						<DirLight />
@@ -150,28 +176,67 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 					</group>
 					<group name="platforms-and-stairs">
 						<MainPlatform position={[0, 0, 0]} reference={addPlatform} addCollisionBox={addCollisionBox} />
-						<Stair startPosition={new Vector3(8, 0, 6.5)} endPosition={new Vector3(8, 4, 16)} reference={addStair} />
+						<Stair
+							startPosition={new Vector3(7.5, 0, 6.5)}
+							endPosition={new Vector3(7.5, 4, 16)}
+							reference={addStair}
+						/>
 						<ShipmentPlatform
 							position={[9, 4, 25]}
 							reference={addPlatform}
 							sceneProps={{ setSceneHook }}
-							buttonreference={addButtons}
+							buttonReference={addButtons}
 							addCollisionBox={addCollisionBox}
+							isPlatformFixed={isPlatformFixed}
 						/>
-						<Stair startPosition={new Vector3(-7, 0, 6.5)} endPosition={new Vector3(-7, 4, 13)} reference={addStair} />
-						<EngineeringPlatform position={[-13, 4, 22]} reference={addPlatform} addCollisionBox={addCollisionBox} />
+						<Stair
+							startPosition={new Vector3(-7.5, 0, 6.5)}
+							endPosition={new Vector3(-7.5, 4, 13)}
+							reference={addStair}
+						/>
+						<EngineeringPlatform
+							position={[-12.5, 4, 22]}
+							reference={addPlatform}
+							buttonReference={addButtons}
+							addCollisionBox={addCollisionBox}
+							isPlatformFixed={isPlatformFixed}
+						/>
 						<Stair startPosition={new Vector3(-10, 0, 0)} endPosition={new Vector3(-16.2, 2, 0)} reference={addStair} />
-						<DesignPlatform position={[-25.2, 2, -2]} reference={addPlatform} addCollisionBox={addCollisionBox} />
+						<DesignPlatform
+							position={[-25.2, 2, -2]}
+							reference={addPlatform}
+							buttonReference={addButtons}
+							addCollisionBox={addCollisionBox}
+							isPlatformFixed={isPlatformFixed}
+						/>
 						<Stair
 							startPosition={new Vector3(-7, 0, -6.5)}
 							endPosition={new Vector3(-7, 3, -16)}
 							reference={addStair}
 						/>
-						<ProductionPlatform position={[-11, 3, -22]} reference={addPlatform} addCollisionBox={addCollisionBox} />
+						<ProductionPlatform
+							position={[-11, 3, -22]}
+							reference={addPlatform}
+							buttonReference={addButtons}
+							addCollisionBox={addCollisionBox}
+							isPlatformFixed={isPlatformFixed}
+						/>
 						<Stair startPosition={new Vector3(6, 0, -6.5)} endPosition={new Vector3(6, 1, -16)} reference={addStair} />
-						<PartsPlatform position={[15, 1, -25]} reference={addPlatform} addCollisionBox={addCollisionBox} />
+						<PartsPlatform
+							position={[15, 1, -25]}
+							reference={addPlatform}
+							buttonReference={addButtons}
+							addCollisionBox={addCollisionBox}
+							isPlatformFixed={isPlatformFixed}
+						/>
 						<Stair startPosition={new Vector3(10, 0, 0)} endPosition={new Vector3(18, 4.5, 0)} reference={addStair} />
-						<MonitoringPlatform position={[25, 4.5, -3]} reference={addPlatform} addCollisionBox={addCollisionBox} />
+						<MonitoringPlatform
+							position={[25, 4.5, -3]}
+							reference={addPlatform}
+							buttonReference={addButtons}
+							addCollisionBox={addCollisionBox}
+							isPlatformFixed={isPlatformFixed}
+						/>
 					</group>
 					<Player
 						startPosition={playerPos}
@@ -180,6 +245,9 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 						buttons={buttons}
 						sceneProps={{ setSceneHook }}
 						collisionObjects={collisionBoxes}
+						setButton={setButtonName}
+						isButton={setIsOnButton}
+						setIsPlatformFixed={setIsPlatformFixed}
 					/>
 					{/*<Tube
 						name="tubeToAllPlatfroms"
@@ -200,7 +268,9 @@ export default function Overworld({ setSceneHook, visible, playerPos = new Vecto
 					/>
 					*/}
 				</Canvas>
+				{info ? <InfoButton /> : <div></div>}
 			</div>
+			{isOnButton ? <div className={'button'}>Du bist nun auf der Plattform: {buttonName}</div> : <div></div>}
 		</>
 	);
 }
