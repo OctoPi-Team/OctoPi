@@ -5,7 +5,6 @@ import Text from '../../Text';
 import { Box3, Vector3 } from 'three';
 import Tube from '../objects/Tube';
 import Button from '../objects/Button';
-import Cylinder from '../objects/Cylinder';
 
 type PartsPlatformOptions = {
 	position?: [number, number, number];
@@ -23,9 +22,6 @@ export default function PartsPlatform({
 	return (
 		<>
 			<SimplePlatform position={position} size={[24, 0.5, 18]} reference={reference} color={PARTS} />
-			<Cylinder position={[position[0] - 3, position[1], position[2] + 7]} color={PARTS} />
-			<Cylinder position={[position[0] + 6, position[1], position[2] - 7]} color={PARTS} />
-			<Cylinder position={[position[0] + 11.2, position[1], position[2] - 7]} color={PARTS} />
 			<Text
 				text={'PARTS'}
 				color={PARTS}

@@ -6,7 +6,6 @@ import Text from '../../Text';
 import Tube from '../objects/Tube';
 import Button from '../objects/Button';
 import { Circle } from '@react-three/drei';
-import Cylinder from '../objects/Cylinder';
 
 type ProductionPlatformOptions = {
 	position?: [number, number, number];
@@ -123,8 +122,6 @@ export default function ProductionPlatform({
 					{ positionOffset: new Vector3(1.3, 0, 0), size: new Vector3(1, 2, 1) },
 				]}
 			/>
-			<Cylinder position={[position[0] - 10, position[1], position[2] + 0.2]} color={PRODUCTION} />
-			<Cylinder position={[position[0] - 10, position[1], position[2] - 5]} color={PRODUCTION} />
 			<Button position={[position[0] - 11, position[1] + 6, position[2] - 9]} reference={buttonreference} />
 		</>
 	);
