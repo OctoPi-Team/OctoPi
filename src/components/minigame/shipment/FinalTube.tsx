@@ -1,9 +1,9 @@
 import { GREEN } from '../../../AllColorVariables';
 import { TileProps, TileType } from './Tile';
-import { TILE_SIZE, SPACING } from './ShipmentGame';
 import { CubicBezierCurve3, DoubleSide, TubeGeometry, Vector3, CurvePath } from 'three';
 
 import Sphere from './Sphere';
+import { SPACING, TILE_SIZE } from './Grid';
 
 function getRealCornerPositionFromGridPosition(gridPosition: [number, number], startVector: Vector3): Vector3 {
 	return new Vector3(

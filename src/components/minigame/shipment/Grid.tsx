@@ -1,9 +1,12 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import Tile, { TileProps, TileType } from './Tile';
-import { Vector3 } from 'three';
 import { FinalTube } from './FinalTube';
-import { SIZE_OF_GAME_MATRIX } from './ShipmentGame';
+import { Vector3 } from 'three';
+
+export const TILE_SIZE = 3;
+export const SIZE_OF_GAME_MATRIX: [number, number] = [3, 3];
+export const SPACING = 0.2;
 
 enum direction {
 	right,
@@ -21,7 +24,7 @@ type GridProps = {
 function getTilesFromProps(
 	props: TileProps[][],
 	tileClickHandler: (tileProps: TileProps) => void,
-	victoryPath: TileProps[]
+	renderTubes: boolean
 ): Array<JSX.Element> {
 	if (props.every(a => !a.length)) {
 		return [];
@@ -35,9 +38,8 @@ function getTilesFromProps(
 			oneDimension.push(props[i][j]);
 		}
 	}
-	const render = victoryPath.length == 0;
 	return oneDimension.map((prop, index) => (
-		<Tile key={index} tileClickHandler={tileClickHandler} {...prop} render={render} />
+		<Tile key={index} tileClickHandler={tileClickHandler} render={renderTubes} {...prop} />
 	));
 }
 
@@ -48,9 +50,13 @@ function getRandomTileType(): number {
 function isNeighbourOfEmptyTile(gridPosition: [number, number], emptyTile: [number, number]): boolean {
 	const xDistanceToEmpty = Math.abs(gridPosition[0] - emptyTile[0]);
 	const yDistanceToEmpty = Math.abs(gridPosition[1] - emptyTile[1]);
-	// check if tile is direct neighbour, diagonals dont count
+	// check if tile is direct neighbour, diagonals and same tilePos dont count
 	// -> if true tile can be swapped into the space of the empty tile
-	return (xDistanceToEmpty <= 1 && yDistanceToEmpty == 0) || (yDistanceToEmpty <= 1 && xDistanceToEmpty == 0);
+	console.log(gridPosition[0] == emptyTile[0] && gridPosition[1] == emptyTile[1]);
+	return (
+		!(gridPosition[0] == emptyTile[0] && gridPosition[1] == emptyTile[1]) &&
+		((xDistanceToEmpty <= 1 && yDistanceToEmpty == 0) || (yDistanceToEmpty <= 1 && xDistanceToEmpty == 0))
+	);
 }
 
 function initialize2DArray() {
@@ -296,7 +302,7 @@ export default function Grid({ size, isFinished, currentVariation }: GridProps) 
 	}
 	return (
 		<>
-			{...getTilesFromProps(tiles, tileClickHandler, victoryCondition)}
+			{getTilesFromProps(tiles, tileClickHandler, victoryCondition.length == 0)}
 			{typeof victoryCondition !== 'undefined' && victoryCondition.length > 0 && <FinalTube {...victoryCondition} />}
 		</>
 	);
@@ -307,4 +313,5 @@ export const ExportedForTestingOnly = {
 	checkVictory,
 	isNeighbourOfEmptyTile,
 	getRandomTileType,
+	generateFunctioningGrid,
 };

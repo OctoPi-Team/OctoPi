@@ -15,11 +15,8 @@ import WinScreen from './WinScreen';
 import InfoButton from '../../ui/InfoButton';
 
 import Tube from './Tube';
-import Grid from './Grid';
+import Grid, { SIZE_OF_GAME_MATRIX, SPACING, TILE_SIZE } from './Grid';
 
-export const TILE_SIZE = 3;
-export const SIZE_OF_GAME_MATRIX: [number, number] = [3, 3];
-export const SPACING = 0.2;
 export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
 	const [finished, setFinished] = useState(false);
