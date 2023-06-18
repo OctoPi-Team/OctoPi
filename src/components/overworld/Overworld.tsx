@@ -140,6 +140,9 @@ export default function Overworld({
 								if (info) {
 									setInfo(false);
 								}
+								setTimeout(() => {
+									setInfo(false);
+								}, 10000);
 							}}
 						/>
 						<NavigationButton
@@ -271,17 +274,13 @@ export default function Overworld({
 				</Canvas>
 				{info && <InfoButton />}
 			</div>
-			{(
-				isPlatformFixed?.monitoring ||
+			{(isPlatformFixed?.monitoring ||
 				isPlatformFixed?.parts ||
 				isPlatformFixed?.design ||
 				isPlatformFixed?.engineering ||
 				isPlatformFixed?.shipment ||
-				isPlatformFixed?.production
-			) && <AlreadyFixedInformation isPlatformFixed={isPlatformFixed} />
-			}
-			{isOnButton ? <div className={'button'}>Du bist nun auf der Plattform: {buttonName}</div> : <div></div>}
-			{isOnButton && <div className={'button'}>Du bist nun auf der Plattform: {buttonName}</div>}
+				isPlatformFixed?.production) && <AlreadyFixedInformation isPlatformFixed={isPlatformFixed} />}
+			{isOnButton ? <div className={'button'}>Minigame: {buttonName.toUpperCase()}</div> : <div></div>}
 		</>
 	);
 }

@@ -6,6 +6,7 @@ function InfoButton() {
 			Willkommen zu unserem Spiel Operation:Innovation! Schaue dich mal auf den verschiedenen Platformen um, siehst du
 			einen Button auf dem Boden? <br />
 			Geh ruhig mal hin.
+			<div className={'test'}></div>
 		</div>
 	);
 }
