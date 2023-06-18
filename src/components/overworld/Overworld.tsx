@@ -13,7 +13,6 @@ import { Canvas } from '@react-three/fiber';
 import { useRef, useState } from 'react';
 import { Joystick } from 'react-joystick-component';
 import { OrbitControls, useHelper } from '@react-three/drei';
-
 import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp, resetKeys } from './Player';
 import Stair, { StairType } from './platforms/Stair';
 import FixedCamera from '../FixedCamera';
@@ -26,7 +25,6 @@ import PartsPlatform from './platforms/PartsPlatform';
 import ProductionPlatform from './platforms/ProductionPlatform';
 import EngineeringPlatform from './platforms/EngineeringPlatform';
 import Floor from './platforms/Floor';
-
 import NavigationButton from '../ui/NavigationButton';
 import InfoButton from '../ui/InfoButton';
 import DragVector from './DragVector';
@@ -40,8 +38,6 @@ export default function Overworld({
 	setIsPlatformFixed,
 	isPlatformFixed,
 }: SceneProps) {
-	const ORBITAL_CONTROLS_ACTIVE = false;
-
 	const [platforms, setPlatforms] = useState<Box3[]>([]);
 	const [stairs, setStairs] = useState<StairType[]>([]);
 	const [buttons, setButtons] = useState<Mesh<BufferGeometry, Material | Material[]>[]>([]);
@@ -50,6 +46,7 @@ export default function Overworld({
 	const [buttonName, setButtonName] = useState('');
 	const [isOnButton, setIsOnButton] = useState(false);
 
+	const ORBITAL_CONTROLS_ACTIVE = false;
 	const CAM_WIDTH = 80;
 	const CAM_HEIGHT = 80;
 
