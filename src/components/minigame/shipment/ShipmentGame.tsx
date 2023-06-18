@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
-import { Vector3 } from 'three';
+import { OrbitControls, useHelper } from '@react-three/drei';
+import { DirectionalLight, DirectionalLightHelper, OrthographicCamera, PCFSoftShadowMap, Vector3 } from 'three';
 
 import './style/victoryscreen.css';
 
@@ -16,6 +16,7 @@ import InfoButton from '../../ui/InfoButton';
 
 import Tube from './Tube';
 import Grid, { SIZE_OF_GAME_MATRIX, SPACING, TILE_SIZE } from './Grid';
+import Squircle from '../../overworld/platforms/Squircle';
 
 export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
@@ -29,6 +30,8 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 		new Vector3(-15, 5, INPUT_TUBE_POSITION),
 	];
 	const [currentVariation, setVariation] = useState<number>(Math.floor(Math.random() * 6));
+	const CAM_WIDTH = 80;
+	const CAM_HEIGHT = 80;
 
 	useEffect(() => {
 		if (visible) {
@@ -51,6 +54,34 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 		setTimeout(() => {
 			setSceneHook(Scene.Shipment);
 		}, 50);
+	}
+
+	function DirLight() {
+		const dirLight = useRef<DirectionalLight>(null);
+		const SHOW_LIGHT_SOURCE = false;
+		if (SHOW_LIGHT_SOURCE) {
+			const mutableDirLightRef = dirLight as React.MutableRefObject<DirectionalLight>;
+			useHelper(mutableDirLightRef, DirectionalLightHelper, 3, 0xff0000);
+		}
+		return (
+			<>
+				<directionalLight
+					position={[8, 14, 12]}
+					ref={dirLight}
+					shadow-mapSize={[2048, 2048]}
+					intensity={0.6}
+					castShadow={true}>
+					<orthographicCamera
+						attach="shadow-camera"
+						position={[8, 14, 12]}
+						args={[CAM_WIDTH / -2, CAM_WIDTH / 2, CAM_HEIGHT / 2, CAM_HEIGHT / -2]}
+						near={0.1}
+						far={300}
+					/>
+				</directionalLight>
+				{dirLight.current && <primitive object={dirLight.current.shadow.camera as OrthographicCamera} />}
+			</>
+		);
 	}
 
 	return (
@@ -92,9 +123,10 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 				/>
 			</div>
 			<div style={{ width: '100vw', height: '100vh' }} onClick={() => changeView(finished)} tabIndex={0}>
-				<Canvas orthographic camera={{ zoom: 50, position: [40, 40, 40] }}>
-					<directionalLight intensity={0.5} color={WHITE} />
-					<ambientLight intensity={0.5} />
+				<Canvas orthographic camera={{ zoom: 50, position: [40, 40, 40] }} shadows={{ type: PCFSoftShadowMap }}>
+					<DirLight />
+					<ambientLight intensity={0.3} />
+					<Squircle position={[0, 0.5, 0]} color="beige" dimensions={[69, 0.1, 69]} rotation={[Math.PI / 2, 0, 0]} />
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
 					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={30} visibility={visible} />}
 					<group position={[0, 4, 0]}>

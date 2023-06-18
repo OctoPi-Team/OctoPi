@@ -26,14 +26,22 @@ function Tube({
 	render = true,
 }: TubeProps): JSX.Element {
 	const curve = new CubicBezierCurve3(vectors[0], vectors[1], vectors[2], vectors[3]);
-	const opacity = render ? 0.65 : 0;
+	const opacity = render ? 0.5 : 0;
 	const tubeGeometry = new TubeGeometry(curve, 100, 0.4, 100, false);
 
 	return (
 		<>
 			<mesh name={name} position={position}>
 				<primitive object={tubeGeometry} />
-				<meshStandardMaterial color={color} transparent={true} depthWrite={false} opacity={opacity} side={DoubleSide} />
+				<meshPhysicalMaterial
+					color={color}
+					transparent={true}
+					depthWrite={false}
+					opacity={opacity}
+					roughness={0.2}
+					thickness={0.5}
+					side={DoubleSide}
+				/>
 			</mesh>
 		</>
 	);
