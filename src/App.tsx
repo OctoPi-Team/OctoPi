@@ -21,7 +21,7 @@ export type SceneProps = {
 	setIsPlatformFixed?: (newProps: Partial<PlatformFixProps>) => void;
 };
 
-export type PlatformFixProps = {
+type PlatformFixProps = {
 	shipment: boolean;
 	design: boolean;
 	parts: boolean;
