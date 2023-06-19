@@ -5,7 +5,7 @@ import { DirectionalLight, DirectionalLightHelper, OrthographicCamera, PCFSoftSh
 
 import './style/victoryscreen.css';
 
-import { GREEN, WHITE } from '../../../AllColorVariables';
+import { GREEN } from '../../../AllColorVariables';
 import { Scene, SceneProps } from '../../../App';
 import FixedCamera from '../../FixedCamera';
 import ObjectLoad from '../../ObjectLoad';
@@ -16,19 +16,20 @@ import InfoButton from '../../ui/InfoButton';
 
 import Tube from './Tube';
 import Grid, { SIZE_OF_GAME_MATRIX, SPACING, TILE_SIZE } from './Grid';
-import Squircle from '../../overworld/platforms/Squircle';
+import Squircle from '../../overworld/objects/Squircle';
+
+const INPUT_TUBE_POSITION = TILE_SIZE * (SIZE_OF_GAME_MATRIX[1] - 1) + (SIZE_OF_GAME_MATRIX[1] - 1) * SPACING;
+export const VECTORS_FOR_INPUT_TUBE = [
+	new Vector3(-1.9 + 2 * SPACING, 0.7, INPUT_TUBE_POSITION),
+	new Vector3(-15, 0.7, INPUT_TUBE_POSITION),
+	new Vector3(-1.9 + SPACING, 5, INPUT_TUBE_POSITION),
+	new Vector3(-15, 5, INPUT_TUBE_POSITION),
+];
 
 export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
 	const [finished, setFinished] = useState(false);
-	const INPUT_TUBE_POSITION = TILE_SIZE * (SIZE_OF_GAME_MATRIX[1] - 1) + (SIZE_OF_GAME_MATRIX[1] - 1) * SPACING;
 	const [info, setInfo] = useState(false);
-	const VECTORS_FOR_INPUT_TUBE = [
-		new Vector3(-1.9 + 2 * SPACING, 0.7, INPUT_TUBE_POSITION),
-		new Vector3(-15, 0.7, INPUT_TUBE_POSITION),
-		new Vector3(-1.9 + SPACING, 5, INPUT_TUBE_POSITION),
-		new Vector3(-15, 5, INPUT_TUBE_POSITION),
-	];
 	const [currentVariation, setVariation] = useState<number>(Math.floor(Math.random() * 6));
 	const CAM_WIDTH = 80;
 	const CAM_HEIGHT = 80;
