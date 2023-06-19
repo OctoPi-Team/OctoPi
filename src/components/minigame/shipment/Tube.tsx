@@ -31,21 +31,18 @@ function Tube({
 
 	return (
 		<>
-			{render &&
-				<mesh castShadow name={name} position={position}>
-					<primitive object={tubeGeometry} />
-
-					<meshPhysicalMaterial
-						color={color}
-						transparent={true}
-						depthWrite={false}
-						opacity={opacity}
-						roughness={0.75}
-						thickness={0.5}
-						side={DoubleSide}
-					/>
-				</mesh>
-			}
+			<mesh castShadow name={name} position={position}>
+				<primitive object={tubeGeometry} />
+				<meshPhysicalMaterial
+					color={color}
+					transparent={true}
+					depthWrite={false}
+					opacity={opacity}
+					roughness={0.75}
+					thickness={0.5}
+					side={DoubleSide}
+				/>
+			</mesh>
 		</>
 	);
 }

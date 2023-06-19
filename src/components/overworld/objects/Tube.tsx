@@ -1,13 +1,5 @@
-import THREE, {
-	CatmullRomCurve3,
-	DoubleSide,
-	Mesh,
-	MeshBasicMaterial,
-	SphereGeometry,
-	TubeGeometry,
-	Vector3,
-} from 'three';
-import { GREEN } from '../../../AllColorVariables';
+import THREE, { CatmullRomCurve3, DoubleSide, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, SphereGeometry, TubeGeometry, Vector3 } from 'three';
+import { GREEN, RED } from '../../../AllColorVariables';
 
 type TubeProps = {
 	name?: string;
@@ -47,6 +39,7 @@ function Tube({
 		const tubePosition = curve.getPointAt(ballPosition % 1);
 		ballMesh.position.copy(tubePosition);
 		ballPosition += ballSpeed * 0.001;
+
 	};
 	if (ballAnimation) {
 		animateBall();
@@ -57,7 +50,9 @@ function Tube({
 				<primitive object={tubeGeometry} />
 				<meshPhysicalMaterial roughness={0.05} transmission={1} thickness={0.5} side={DoubleSide} />
 			</mesh>
-			{ballAnimation && <primitive object={ballMesh} />}
+			{ballAnimation &&
+				<primitive object={ballMesh} />
+			}
 		</>
 	);
 }
