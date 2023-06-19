@@ -15,17 +15,17 @@ import WinScreen from './WinScreen';
 import InfoButton from '../../ui/InfoButton';
 
 import Tube from './Tube';
-import Grid, { SIZE_OF_GAME_MATRIX, SPACING, TILE_SIZE } from './Grid';
+import Grid from './Grid';
 
 export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
 	const [finished, setFinished] = useState(false);
-	const INPUT_TUBE_POSITION = TILE_SIZE * (SIZE_OF_GAME_MATRIX[1] - 1) + (SIZE_OF_GAME_MATRIX[1] - 1) * SPACING;
+	const INPUT_TUBE_POSITION = GameSpec.tileSize * (GameSpec.sizeOfGameMatrix[1] - 1) + (GameSpec.sizeOfGameMatrix[1] - 1) * GameSpec.spacing;
 	const [info, setInfo] = useState(false);
 	const VECTORS_FOR_INPUT_TUBE = [
-		new Vector3(-1.9 + 2 * SPACING, 0.7, INPUT_TUBE_POSITION),
+		new Vector3(-1.9 + 2 * GameSpec.spacing, 0.7, INPUT_TUBE_POSITION),
 		new Vector3(-15, 0.7, INPUT_TUBE_POSITION),
-		new Vector3(-1.9 + SPACING, 5, INPUT_TUBE_POSITION),
+		new Vector3(-1.9 + GameSpec.spacing, 5, INPUT_TUBE_POSITION),
 		new Vector3(-15, 5, INPUT_TUBE_POSITION),
 	];
 	const [currentVariation, setVariation] = useState<number>(Math.floor(Math.random() * 6));
@@ -98,10 +98,10 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
 					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={30} visibility={visible} />}
 					<group position={[0, 4, 0]}>
-						<Grid size={SIZE_OF_GAME_MATRIX} isFinished={setFinished} currentVariation={currentVariation} />
+						<Grid isFinished={setFinished} currentVariation={currentVariation} vectorsForInputTube={VECTORS_FOR_INPUT_TUBE} />
 						<ObjectLoad
 							path="/Trichter/trichter.glb"
-							position={[(2.9 + 0.2) * SIZE_OF_GAME_MATRIX[0], -3.3, -0.5]}
+							position={[(2.9 + 0.2) * GameSpec.sizeOfGameMatrix[0], -3.3, -0.5]}
 							scale={[0.25, 0.25, 0.25]}
 							rotation={[0, 180, 0]}
 						/>

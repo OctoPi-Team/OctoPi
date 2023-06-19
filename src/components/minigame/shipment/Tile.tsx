@@ -22,18 +22,9 @@ export type TileProps = {
 	tileType: TileType;
 	color?: string;
 	render?: boolean;
+	getRealPositionFromGridPosition: (gridPosition: [number, number]) => Vector3;
+	tileSize: number;
 };
-
-const GRID_SPACING = 0.2;
-const TILE_SIZE = 3;
-
-function getRealPositionFromGridPosition(gridPosition: [number, number]): Vector3 {
-	return new Vector3(
-		gridPosition[0] * GRID_SPACING + gridPosition[0] * TILE_SIZE,
-		0,
-		gridPosition[1] * GRID_SPACING + gridPosition[1] * TILE_SIZE
-	);
-}
 
 export default function Tile({
 	gridPosition,
@@ -43,6 +34,8 @@ export default function Tile({
 	tileType,
 	color = BLUE,
 	render = true,
+	getRealPositionFromGridPosition,
+	tileSize
 }: TileProps) {
 	const ref = useRef<Mesh>(null);
 
@@ -58,43 +51,43 @@ export default function Tile({
 
 	switch (tileType) {
 		case TileType.AngleRight:
-			startVector = new Vector3(0, 0, -TILE_SIZE / 2);
-			cubicbenziercontrol1 = new Vector3(0, 0, -TILE_SIZE / 12);
-			cubicbenziercontrol2 = new Vector3(-TILE_SIZE / 12, 0, 0);
-			endVector = new Vector3(-TILE_SIZE / 2, 0, 0);
+			startVector = new Vector3(0, 0, -tileSize / 2);
+			cubicbenziercontrol1 = new Vector3(0, 0, -tileSize / 12);
+			cubicbenziercontrol2 = new Vector3(-tileSize / 12, 0, 0);
+			endVector = new Vector3(-tileSize / 2, 0, 0);
 			break;
 		case TileType.AngleLeft:
-			startVector = new Vector3(0, 0, TILE_SIZE / 2);
-			cubicbenziercontrol1 = new Vector3(0, 0, TILE_SIZE / 12);
-			cubicbenziercontrol2 = new Vector3(-TILE_SIZE / 12, 0, 0);
-			endVector = new Vector3(-TILE_SIZE / 2, 0, 0);
+			startVector = new Vector3(0, 0, tileSize / 2);
+			cubicbenziercontrol1 = new Vector3(0, 0, tileSize / 12);
+			cubicbenziercontrol2 = new Vector3(-tileSize / 12, 0, 0);
+			endVector = new Vector3(-tileSize / 2, 0, 0);
 			break;
 		case TileType.StraightNormal:
-			startVector = new Vector3(-TILE_SIZE / 2, 0, 0);
+			startVector = new Vector3(-tileSize / 2, 0, 0);
 			cubicbenziercontrol1 = new Vector3(0, 0, 0);
 			cubicbenziercontrol2 = new Vector3(0, 0, 0);
-			endVector = new Vector3(TILE_SIZE / 2, 0, 0);
+			endVector = new Vector3(tileSize / 2, 0, 0);
 			break;
 		case TileType.StraightInverted:
-			startVector = new Vector3(0, 0, -TILE_SIZE / 2);
+			startVector = new Vector3(0, 0, -tileSize / 2);
 			cubicbenziercontrol1 = new Vector3(0, 0, 0);
 			cubicbenziercontrol2 = new Vector3(0, 0, 0);
-			endVector = new Vector3(0, 0, TILE_SIZE / 2);
+			endVector = new Vector3(0, 0, tileSize / 2);
 			break;
 		case TileType.AngleRightInverted:
 			// Handle AngleRightInverson case
-			startVector = new Vector3(TILE_SIZE / 2, 0, 0);
-			cubicbenziercontrol1 = new Vector3(TILE_SIZE / 12, 0, 0);
-			cubicbenziercontrol2 = new Vector3(0, 0, -TILE_SIZE / 12);
-			endVector = new Vector3(0, 0, -TILE_SIZE / 2);
+			startVector = new Vector3(tileSize / 2, 0, 0);
+			cubicbenziercontrol1 = new Vector3(tileSize / 12, 0, 0);
+			cubicbenziercontrol2 = new Vector3(0, 0, -tileSize / 12);
+			endVector = new Vector3(0, 0, -tileSize / 2);
 
 			break;
 		case TileType.AngleLeftInverted:
 			// Handle AngleLeftInverted case
-			startVector = new Vector3(TILE_SIZE / 2, 0, 0);
-			cubicbenziercontrol1 = new Vector3(TILE_SIZE / 12, 0, 0);
-			cubicbenziercontrol2 = new Vector3(0, 0, TILE_SIZE / 12);
-			endVector = new Vector3(0, 0, TILE_SIZE / 2);
+			startVector = new Vector3(tileSize / 2, 0, 0);
+			cubicbenziercontrol1 = new Vector3(tileSize / 12, 0, 0);
+			cubicbenziercontrol2 = new Vector3(0, 0, tileSize / 12);
+			endVector = new Vector3(0, 0, tileSize / 2);
 			break;
 		default:
 			break;
@@ -111,6 +104,8 @@ export default function Tile({
 							startVector: startVector,
 							endVector: endVector,
 							tileType: tileType,
+							getRealPositionFromGridPosition: getRealPositionFromGridPosition,
+							tileSize: tileSize
 						});
 				}}>
 				<Tube
@@ -119,7 +114,7 @@ export default function Tile({
 					vectors={[startVector, cubicbenziercontrol1, cubicbenziercontrol2, endVector]}
 					render={render}
 				/>
-				<boxGeometry args={[TILE_SIZE, 0.5, TILE_SIZE]} />
+				<boxGeometry args={[tileSize, 0.5, tileSize]} />
 				<meshStandardMaterial color={color} />
 			</mesh>
 		</>

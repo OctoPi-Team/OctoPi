@@ -2,27 +2,21 @@ import { RED } from '../../../AllColorVariables';
 import { CubicBezierCurve3, CurvePath, SphereGeometry, Vector3 } from 'three';
 import { useFrame } from '@react-three/fiber';
 import { useState } from 'react';
-import { SIZE_OF_GAME_MATRIX, SPACING, TILE_SIZE } from './Grid';
 
 type SphereProps = {
 	// curve: CatmullRomCurve3;
 	curve: CurvePath<Vector3>;
+	vectorsForInputTube: Vector3[];
 };
-export default function Sphere({ curve }: SphereProps) {
+
+export default function Sphere({ curve, vectorsForInputTube }: SphereProps) {
 	const name = 'sphere';
 	const color: string = RED;
-	const INPUTTUBEPOSSITION = TILE_SIZE * (SIZE_OF_GAME_MATRIX[1] - 1) + (SIZE_OF_GAME_MATRIX[1] - 1) * SPACING;
+	const INPUTTUBEPOSSITION = GameSpec.tileSize * (GameSpec.sizeOfGameMatrix[1] - 1) + (GameSpec.sizeOfGameMatrix[1] - 1) * GameSpec.spacing;
 	const [pos, updatepos] = useState<Vector3>(new Vector3(-15, 5, INPUTTUBEPOSSITION));
 	const [time, ticktime] = useState(0);
 	const [pointer, movepointr] = useState(0);
-
-	const VECTORS_FOR_TUBE = [
-		new Vector3(-1.9 + 2 * SPACING, 0.7, INPUTTUBEPOSSITION),
-		new Vector3(-15, 0.7, INPUTTUBEPOSSITION),
-		new Vector3(-1.9 + SPACING, 5, INPUTTUBEPOSSITION),
-		new Vector3(-15, 5, INPUTTUBEPOSSITION),
-	];
-	const startingcurve = new CubicBezierCurve3(...VECTORS_FOR_TUBE);
+	const startingcurve = new CubicBezierCurve3(...vectorsForInputTube);
 	const points: Vector3[] = startingcurve.getSpacedPoints(1000);
 
 	points.reverse();
