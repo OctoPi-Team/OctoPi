@@ -103,7 +103,7 @@ export default function Grid({ isFinished, currentVariation, vectorsForInputTube
 				<FinalTube
 					getRealPositionFromGridPosition={getRealPositionFromGridPosition}
 					vectorsForInputTube={vectorsForInputTube}
-					victoryTileSequence={...victoryCondition}
+					victoryTileSequence={victoryCondition}
 				/>
 			)}
 		</>

@@ -71,7 +71,7 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 					position={[3, 100, 3]}
 					ref={dirLight}
 					shadow-mapSize={[2048, 2048]}
-					intensity={0.15}
+					intensity={0.3}
 					castShadow={true}>
 					<orthographicCamera
 						attach="shadow-camera"
@@ -139,7 +139,7 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 						/>
 						<ObjectLoad
 							path="/Trichter/trichter.glb"
-							position={[(2.9 + 0.2) * GameSpec.sizeOfGameMatrix[0], -3.3, -0.5]}
+							position={[(2.9 + 0.2) * GameSpec.sizeOfGameMatrix[0], -2.3, -0.1]}
 							scale={[0.2, 0.2, 0.2]}
 							rotation={[0, 180, 0]}
 						/>
