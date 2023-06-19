@@ -4,11 +4,12 @@ import ObjectLoad from '../../ObjectLoad';
 
 type ButtonProps = {
 	position: [number, number, number];
+	scale: [number, number, number];
 	reference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 	customName: string; // Add customName prop
 };
 
-export default function Button({ position, reference, customName }: ButtonProps) {
+export default function Button({ position, scale, reference, customName }: ButtonProps) {
 	const buttonRef = useRef<Mesh>(null);
 
 	// Call the reference prop and pass the buttonRef as an argument whenever the ref changes
@@ -21,9 +22,8 @@ export default function Button({ position, reference, customName }: ButtonProps)
 	return (
 		<ObjectLoad
 			path="/Button/button.glb"
-			//position={[position[0] + 10, position[1] - 6, position[2] + 10]}
 			position={position}
-			scale={[1, 1, 1]}
+			scale={scale}
 			rotation={[0, 90, 0]}
 			reference={reference}
 			customName={customName}

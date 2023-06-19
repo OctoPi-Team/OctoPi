@@ -172,6 +172,7 @@ export default function PartsPlatform({
 			<Button
 				customName="parts"
 				position={[position[0] + 1, position[1], position[2] + 4]}
+				scale={[1, 1, 1]}
 				reference={buttonReference}
 			/>
 		</>

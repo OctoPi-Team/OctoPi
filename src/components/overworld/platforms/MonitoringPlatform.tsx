@@ -102,6 +102,7 @@ export default function MonitoringPlatform({
 			<Button
 				customName="monitoring"
 				position={[position[0] + 2, position[1], position[2] + 1]}
+				scale={[1, 1, 1]}
 				reference={buttonReference}
 			/>
 		</>

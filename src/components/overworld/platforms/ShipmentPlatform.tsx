@@ -247,6 +247,7 @@ export default function ShipmentPlatform({
 			<Button
 				customName="shipment"
 				position={[position[0] + 4, position[1], position[2] + 1]}
+				scale={[1, 1, 1]}
 				reference={buttonReference}
 			/>
 		</>

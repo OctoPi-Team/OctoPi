@@ -153,6 +153,7 @@ export default function ProductionPlatform({
 			<Button
 				customName="production"
 				position={[position[0] - 1, position[1], position[2] + 1]}
+				scale={[1, 1, 1]}
 				reference={buttonReference}
 			/>
 		</>

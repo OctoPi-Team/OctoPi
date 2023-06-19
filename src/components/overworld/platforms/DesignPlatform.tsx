@@ -128,6 +128,7 @@ export default function DesignPlatform({
 			<Button
 				customName="design"
 				position={[position[0] + 3, position[1], position[2] + 1]}
+				scale={[1, 1, 1]}
 				reference={buttonReference}
 			/>
 		</>
