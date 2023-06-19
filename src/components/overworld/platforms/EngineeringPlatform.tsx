@@ -32,14 +32,22 @@ export default function EngineeringPlatform({
 				rotation={[0, 270, 0]}
 			/>
 			<ObjectLoad
-				path="/Zeichentisch/zeichentisch.glb"
+				path={
+					isPlatformFixed?.engineering
+						? '/Zeichentisch/zeichentisch.glb'
+						: '/ZeichentischKaputt/zeichentischKaputtMitPapier.glb'
+				}
 				position={[position[0] - 6.5, position[1], position[2] - 3]}
 				scale={[0.4, 0.4, 0.4]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
-				path="/Zeichentisch/zeichentisch.glb"
+			path={
+					isPlatformFixed?.engineering
+						? '/Zeichentisch/zeichentisch.glb'
+						: '/ZeichentischKaputt/zeichentischKaputtMitPapier.glb'
+				}
 				position={[position[0] + 5.5, position[1], position[2] + 8]}
 				scale={[0.4, 0.4, 0.4]}
 				rotation={[0, 90, 0]}
@@ -109,6 +117,7 @@ export default function EngineeringPlatform({
 					new Vector3(-19, 5, 28),
 					new Vector3(-19, 4, 28),
 				]}
+				ballAnimation={isPlatformFixed?.engineering}
 			/>
 			<ObjectLoad
 				path={

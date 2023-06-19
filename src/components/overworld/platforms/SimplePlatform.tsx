@@ -3,7 +3,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { Box3, Vector3 } from 'three';
 import { PLAYER_SIZE } from '../Player';
 import { RED } from '../../../AllColorVariables';
-import Squircle from './Squircle';
+import Squircle from '../objects/Squircle';
 
 // This interface is used to set the options of the ObjectLoad function.
 type SimplePlatformProps = {
