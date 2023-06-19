@@ -3,12 +3,8 @@
     position: absolute;
     margin-left: auto;
     margin-right: auto;
-    left: 0;
-    right: -350px;
     height: 120px;
     width: 400px;
-    top: 15%;
-    bottom: 590px;
     text-align: center;
     background: #3aaa35;
     border-radius: 5px;
@@ -20,13 +16,17 @@
     opacity: 0.9;
     animation: fadeIn 1s;
     pointer-events: none;
+    top: calc(50vh - 280px);
+    left: calc(50vw - 50px);
+    position: fixed;
 }
 
 .triangle {
     width: 0;
     height: 0;
-    position: absolute;
-    left: 10px;
+    position: fixed;
+    top: calc(50vh - 130px);
+    left: calc(50vw - 15px);
     border-left: 25px solid transparent;
     border-right: 25px solid transparent;
     border-top: 50px solid #3aaa35;
@@ -36,6 +36,7 @@
     0% {
         opacity: 0;
     }
+
     100% {
         opacity: 0.9;
     }
