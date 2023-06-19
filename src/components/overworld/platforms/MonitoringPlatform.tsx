@@ -101,7 +101,7 @@ export default function MonitoringPlatform({
 			/>
 			<Button
 				customName="monitoring"
-				position={[position[0] - 8, position[1] + 6, position[2] - 9]}
+				position={[position[0] + 2, position[1], position[2] + 1]}
 				reference={buttonReference}
 			/>
 		</>

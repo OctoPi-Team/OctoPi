@@ -21,7 +21,8 @@ export default function Button({ position, reference, customName }: ButtonProps)
 	return (
 		<ObjectLoad
 			path="/Button/button.glb"
-			position={[position[0] + 10, position[1] - 6, position[2] + 10]}
+			//position={[position[0] + 10, position[1] - 6, position[2] + 10]}
+			position={position}
 			scale={[1, 1, 1]}
 			rotation={[0, 90, 0]}
 			reference={reference}

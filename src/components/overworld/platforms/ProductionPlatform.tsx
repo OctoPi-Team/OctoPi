@@ -152,7 +152,7 @@ export default function ProductionPlatform({
 			/>
 			<Button
 				customName="production"
-				position={[position[0] - 11, position[1] + 6, position[2] - 9]}
+				position={[position[0] - 1, position[1], position[2] + 1]}
 				reference={buttonReference}
 			/>
 		</>
