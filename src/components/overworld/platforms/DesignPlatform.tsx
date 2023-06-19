@@ -112,6 +112,7 @@ export default function DesignPlatform({
 					new Vector3(-20, 3, -11),
 					new Vector3(-20, 2, -11),
 				]}
+				ballAnimation={isPlatformFixed?.design}
 			/>
 			<ObjectLoad
 				path={

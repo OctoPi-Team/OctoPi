@@ -109,6 +109,7 @@ export default function EngineeringPlatform({
 					new Vector3(-19, 5, 28),
 					new Vector3(-19, 4, 28),
 				]}
+				ballAnimation={isPlatformFixed?.engineering}
 			/>
 			<ObjectLoad
 				path={
