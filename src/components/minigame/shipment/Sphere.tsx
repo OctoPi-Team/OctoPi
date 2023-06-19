@@ -2,6 +2,7 @@ import { RED } from '../../../AllColorVariables';
 import { CubicBezierCurve3, CurvePath, SphereGeometry, Vector3 } from 'three';
 import { useFrame } from '@react-three/fiber';
 import { useState } from 'react';
+import { GameSpec } from './GameSpec';
 
 type SphereProps = {
 	// curve: CatmullRomCurve3;
@@ -12,7 +13,8 @@ type SphereProps = {
 export default function Sphere({ curve, vectorsForInputTube }: SphereProps) {
 	const name = 'sphere';
 	const color: string = RED;
-	const INPUTTUBEPOSSITION = GameSpec.tileSize * (GameSpec.sizeOfGameMatrix[1] - 1) + (GameSpec.sizeOfGameMatrix[1] - 1) * GameSpec.spacing;
+	const INPUTTUBEPOSSITION =
+		GameSpec.tileSize * (GameSpec.sizeOfGameMatrix[1] - 1) + (GameSpec.sizeOfGameMatrix[1] - 1) * GameSpec.spacing;
 	const [pos, updatepos] = useState<Vector3>(new Vector3(-15, 5, INPUTTUBEPOSSITION));
 	const [time, ticktime] = useState(0);
 	const [pointer, movepointr] = useState(0);

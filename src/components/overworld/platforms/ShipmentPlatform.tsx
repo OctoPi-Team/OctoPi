@@ -152,21 +152,13 @@ export default function ShipmentPlatform({
 				name="brokenShipmentTube2"
 				position={[0, 0, 0]}
 				size={[0.5, 8, 1]}
-				vectors={[
-					new Vector3(16.6, 4, 25.5),
-					new Vector3(15.7, 10, 25.5),
-					new Vector3(12, 11, 27.1),
-				]}
+				vectors={[new Vector3(16.6, 4, 25.5), new Vector3(15.7, 10, 25.5), new Vector3(12, 11, 27.1)]}
 			/>
 			<Tube
 				name="brokenShipmentTube3"
 				position={[0, 0, 0]}
 				size={[0.5, 8, 1]}
-				vectors={[
-					new Vector3(8.5, 10.9, 28.7),
-					new Vector3(5.6, 10, 30),
-					new Vector3(5.5, 8.4, 30),
-				]}
+				vectors={[new Vector3(8.5, 10.9, 28.7), new Vector3(5.6, 10, 30), new Vector3(5.5, 8.4, 30)]}
 			/>
 			<Button
 				customName="shipment"

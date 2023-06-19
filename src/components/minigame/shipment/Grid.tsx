@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import Tile, { TileProps, TileType } from './Tile';
 import { FinalTube } from './FinalTube';
 import { Vector3 } from 'three';
+import { GameSpec } from './GameSpec';
 
 enum direction {
 	right,
@@ -49,7 +50,7 @@ export default function Grid({ isFinished, currentVariation, vectorsForInputTube
 					tileType: tileType,
 					color: color,
 					getRealPositionFromGridPosition: getRealPositionFromGridPosition,
-					tileSize: GameSpec.tileSize
+					tileSize: GameSpec.tileSize,
 				},
 				gridPosition[0],
 				gridPosition[1]
@@ -73,8 +74,10 @@ export default function Grid({ isFinished, currentVariation, vectorsForInputTube
 						endVector: new Vector3(3 / 2, 0, 0),
 						tileType: board[x][y],
 						getRealPositionFromGridPosition: getRealPositionFromGridPosition,
-						tileSize: GameSpec.tileSize
-					}, x, y
+						tileSize: GameSpec.tileSize,
+					},
+					x,
+					y
 				);
 			}
 		}
@@ -96,7 +99,13 @@ export default function Grid({ isFinished, currentVariation, vectorsForInputTube
 	return (
 		<>
 			{getTilesFromProps(tiles, tileClickHandler, victoryCondition.length == 0)}
-			{typeof victoryCondition !== 'undefined' && victoryCondition.length > 0 && <FinalTube getRealPositionFromGridPosition={getRealPositionFromGridPosition} vectorsForInputTube={vectorsForInputTube} victoryTileSequence={...victoryCondition} />}
+			{typeof victoryCondition !== 'undefined' && victoryCondition.length > 0 && (
+				<FinalTube
+					getRealPositionFromGridPosition={getRealPositionFromGridPosition}
+					vectorsForInputTube={vectorsForInputTube}
+					victoryTileSequence={...victoryCondition}
+				/>
+			)}
 		</>
 	);
 }
@@ -109,7 +118,11 @@ function getRealPositionFromGridPosition(gridPosition: [number, number]): Vector
 	);
 }
 
-function getTilesFromProps(props: TileProps[][], tileClickHandler: (tileProps: TileProps) => void, renderTubes: boolean): Array<JSX.Element> {
+function getTilesFromProps(
+	props: TileProps[][],
+	tileClickHandler: (tileProps: TileProps) => void,
+	renderTubes: boolean
+): Array<JSX.Element> {
 	if (props.every(a => !a.length)) {
 		return [];
 	}
@@ -136,7 +149,6 @@ function isNeighbourOfEmptyTile(gridPosition: [number, number], emptyTile: [numb
 	const yDistanceToEmpty = Math.abs(gridPosition[1] - emptyTile[1]);
 	// check if tile is direct neighbour, diagonals and same tilePos dont count
 	// -> if true tile can be swapped into the space of the empty tile
-	console.log(gridPosition[0] == emptyTile[0] && gridPosition[1] == emptyTile[1]);
 	return (
 		!(gridPosition[0] == emptyTile[0] && gridPosition[1] == emptyTile[1]) &&
 		((xDistanceToEmpty <= 1 && yDistanceToEmpty == 0) || (yDistanceToEmpty <= 1 && xDistanceToEmpty == 0))

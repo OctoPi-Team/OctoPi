@@ -35,7 +35,7 @@ export default function Tile({
 	color = BLUE,
 	render = true,
 	getRealPositionFromGridPosition,
-	tileSize
+	tileSize,
 }: TileProps) {
 	const ref = useRef<Mesh>(null);
 
@@ -105,7 +105,7 @@ export default function Tile({
 							endVector: endVector,
 							tileType: tileType,
 							getRealPositionFromGridPosition: getRealPositionFromGridPosition,
-							tileSize: tileSize
+							tileSize: tileSize,
 						});
 				}}>
 				<Tube
