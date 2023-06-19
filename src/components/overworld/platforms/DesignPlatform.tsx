@@ -22,6 +22,8 @@ export default function DesignPlatform({
 	addCollisionBox,
 	isPlatformFixed,
 }: DesignPlatformOptions): JSX.Element {
+	const visibiltyForDamaged = !isPlatformFixed?.design;
+	const visibiltyForFixed = isPlatformFixed?.design;
 	return (
 		<>
 			<SimplePlatform position={position} size={[18, 0.5, 20]} reference={reference} color={DESIGN} />
@@ -72,18 +74,24 @@ export default function DesignPlatform({
 					{ positionOffset: new Vector3(0, 0, -1.5), size: new Vector3(1, 2, 1) },
 				]}
 			/>
-			<ObjectLoad
-				path={
-					isPlatformFixed?.design
-						? '/Whiteboard_neu/whiteboard_neu.glb'
-						: '/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb'
-				}
-				position={[position[0], position[1], position[2] + 8.5]}
-				scale={[0.6, 0.6, 0.6]}
-				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
-
+			<group>
+				<ObjectLoad
+					path={'/Whiteboard_neu/whiteboard_neu.glb'}
+					position={[position[0], position[1], position[2] + 8.5]}
+					scale={[0.6, 0.6, 0.6]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForFixed}
+				/>
+				<ObjectLoad
+					path={'/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb'}
+					position={[position[0], position[1], position[2] + 8.5]}
+					scale={[0.6, 0.6, 0.6]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForDamaged}
+				/>
+			</group>
 			<ObjectLoad
 				path="/Whiteboard_neu/whiteboard_neu.glb"
 				position={[position[0] + 8, position[1], position[2] - 6.5]}
@@ -114,17 +122,24 @@ export default function DesignPlatform({
 				]}
 				ballAnimation={isPlatformFixed?.design}
 			/>
-			<ObjectLoad
-				path={
-					isPlatformFixed?.design
-						? '/Whiteboard_neu/whiteboard_neu.glb'
-						: '/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb'
-				}
-				position={[position[0] - 7.5, position[1], position[2] + 2]}
-				scale={[0.6, 0.6, 0.6]}
-				rotation={[0, 60, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
+			<group>
+				<ObjectLoad
+					path={'/Whiteboard_neu/whiteboard_neu.glb'}
+					position={[position[0] - 7.5, position[1], position[2] + 2]}
+					scale={[0.6, 0.6, 0.6]}
+					rotation={[0, 60, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForFixed}
+				/>
+				<ObjectLoad
+					path={'/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb'}
+					position={[position[0] - 7.5, position[1], position[2] + 2]}
+					scale={[0.6, 0.6, 0.6]}
+					rotation={[0, 60, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForDamaged}
+				/>
+			</group>
 			<Button
 				customName="design"
 				position={[position[0] - 7, position[1] + 6, position[2] - 9]}

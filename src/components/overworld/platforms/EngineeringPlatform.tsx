@@ -22,6 +22,8 @@ export default function EngineeringPlatform({
 	addCollisionBox,
 	isPlatformFixed,
 }: EngineeringPlatformOptions): JSX.Element {
+	const visibiltyForDamaged = !isPlatformFixed?.engineering;
+	const visibiltyForFixed = isPlatformFixed?.engineering;
 	return (
 		<>
 			<SimplePlatform position={position} size={[15, 0.5, 18]} reference={reference} color={ENGINEERING} />
@@ -31,28 +33,42 @@ export default function EngineeringPlatform({
 				position={[position[0] + 8.5, position[1], position[2] - 8]}
 				rotation={[0, 270, 0]}
 			/>
-			<ObjectLoad
-				path={
-					isPlatformFixed?.engineering
-						? '/Zeichentisch/zeichentisch.glb'
-						: '/ZeichentischKaputt/zeichentischKaputtMitPapier.glb'
-				}
-				position={[position[0] - 6.5, position[1], position[2] - 3]}
-				scale={[0.4, 0.4, 0.4]}
-				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
-			<ObjectLoad
-			path={
-					isPlatformFixed?.engineering
-						? '/Zeichentisch/zeichentisch.glb'
-						: '/ZeichentischKaputt/zeichentischKaputtMitPapier.glb'
-				}
-				position={[position[0] + 5.5, position[1], position[2] + 8]}
-				scale={[0.4, 0.4, 0.4]}
-				rotation={[0, 90, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
+			<group>
+				<ObjectLoad
+					path={'/Zeichentisch/zeichentisch.glb'}
+					position={[position[0] - 6.5, position[1], position[2] - 3]}
+					scale={[0.4, 0.4, 0.4]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForFixed}
+				/>
+				<ObjectLoad
+					path={'/ZeichentischKaputt/zeichentischKaputtMitPapier.glb'}
+					position={[position[0] - 6.5, position[1], position[2] - 3]}
+					scale={[0.4, 0.4, 0.4]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForDamaged}
+				/>
+			</group>
+			<group>
+				<ObjectLoad
+					path={'/Zeichentisch/zeichentisch.glb'}
+					position={[position[0] + 5.5, position[1], position[2] + 8]}
+					scale={[0.4, 0.4, 0.4]}
+					rotation={[0, 90, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForFixed}
+				/>
+				<ObjectLoad
+					path={'/ZeichentischKaputt/zeichentischKaputtMitPapier.glb'}
+					position={[position[0] + 5.5, position[1], position[2] + 8]}
+					scale={[0.4, 0.4, 0.4]}
+					rotation={[0, 90, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForDamaged}
+				/>
+			</group>
 			{/*<ObjectLoad
 				path="/MonitorMitSchreibtischUndStuhl/monitorMitSchreibtischUndStuhl.glb"
 				position={[position[0] - 2.5, position[1], position[2] + 8]}
@@ -119,17 +135,25 @@ export default function EngineeringPlatform({
 				]}
 				ballAnimation={isPlatformFixed?.engineering}
 			/>
-			<ObjectLoad
-				path={
-					isPlatformFixed?.engineering
-						? '/Whiteboard_neu/whiteboard_neu.glb'
-						: '/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb'
-				}
-				position={[position[0] - 0.5, position[1], position[2] - 7.5]}
-				scale={[0.6, 0.6, 0.6]}
-				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
+			<group>
+				<ObjectLoad
+					path={'/Whiteboard_neu/whiteboard_neu.glb'}
+					position={[position[0] - 0.5, position[1], position[2] - 7.5]}
+					scale={[0.6, 0.6, 0.6]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForFixed}
+				/>
+				<ObjectLoad
+					path={'/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb'}
+					position={[position[0] - 0.5, position[1], position[2] - 7.5]}
+					scale={[0.6, 0.6, 0.6]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForDamaged}
+				/>
+			</group>
+
 			<Button
 				customName="engineering"
 				position={[position[0] - 7, position[1] + 6, position[2] - 9]}

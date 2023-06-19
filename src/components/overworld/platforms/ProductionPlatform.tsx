@@ -22,6 +22,8 @@ export default function ProductionPlatform({
 	addCollisionBox,
 	isPlatformFixed,
 }: ProductionPlatformOptions): JSX.Element {
+	const visibiltyForDamaged = !isPlatformFixed?.production;
+	const visibiltyForFixed = isPlatformFixed?.production;
 	return (
 		<>
 			<SimplePlatform position={position} size={[21, 0.5, 12]} reference={reference} color={PRODUCTION} />
@@ -33,14 +35,26 @@ export default function ProductionPlatform({
 			/>
 			<gridHelper position={[position[0] - 6, position[1], position[2]]} args={[7, 7, 'black', 'white']} />
 
-			<ObjectLoad
-				path={isPlatformFixed?.production ? '/Roboterarm/roboterarm.glb' : '/Roboterarm_kaputt/roboterarm_kaputt.glb'}
-				position={[position[0] - 6, position[1], position[2]]}
-				scale={isPlatformFixed?.production ? [0.46, 0.46, 0.46] : [0.11, 0.11, 0.11]}
-				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
-				customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(1.1, 4, 1.1) }]}
-			/>
+			<group>
+				<ObjectLoad
+					path={'/Roboterarm/roboterarm.glb'}
+					position={[position[0] - 6, position[1], position[2]]}
+					scale={isPlatformFixed?.production ? [0.46, 0.46, 0.46] : [0.11, 0.11, 0.11]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+					customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(1.1, 4, 1.1) }]}
+					visible={visibiltyForFixed}
+				/>
+				<ObjectLoad
+					path={'/Roboterarm_kaputt/roboterarm_kaputt.glb'}
+					position={[position[0] - 6, position[1], position[2]]}
+					scale={isPlatformFixed?.production ? [0.46, 0.46, 0.46] : [0.11, 0.11, 0.11]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+					customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(1.1, 4, 1.1) }]}
+					visible={visibiltyForDamaged}
+				/>
+			</group>
 			<ObjectLoad
 				path="/SchreibtischMitStuhl/schreibtischMitStuhl.glb"
 				position={[position[0] + 8, position[1], position[2] - 4]}
