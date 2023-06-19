@@ -176,7 +176,12 @@ export default function Overworld({
 						{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} visibility={visible} />}
 					</group>
 					<group name="platforms-and-stairs">
-						<MainPlatform position={[0, 0, 0]} reference={addPlatform} addCollisionBox={addCollisionBox} />
+						<MainPlatform
+							position={[0, 0, 0]}
+							reference={addPlatform}
+							addCollisionBox={addCollisionBox}
+							buttonReference={addButtons}
+						/>
 						<Stair
 							startPosition={new Vector3(7.5, 0, 6.5)}
 							endPosition={new Vector3(7.5, 4, 16)}

@@ -55,7 +55,7 @@ function Tube({
 		<>
 			<mesh name={name} position={position}>
 				<primitive object={tubeGeometry} />
-				<meshPhysicalMaterial roughness={0.05} transmission={1} thickness={0.5} side={DoubleSide} />
+				<meshPhysicalMaterial roughness={0.05} transmission={0} thickness={0.5} side={DoubleSide} />
 			</mesh>
 			{ballAnimation && <primitive object={ballMesh} />}
 		</>

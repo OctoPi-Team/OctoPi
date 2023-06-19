@@ -5,10 +5,12 @@ import ShipmentGame from './components/minigame/shipment/ShipmentGame';
 import { LoadingScreen } from './components/startscreen/LoadingScreen';
 import { Vector3 } from 'three';
 import { resetKeys } from './components/overworld/Player';
+import BTPinfo from './components/BTPinfo/BTPinfo';
 
 export enum Scene {
 	Overworld,
 	Shipment,
+	BTPinfo,
 }
 
 export type SceneProps = {
@@ -105,6 +107,7 @@ export default function App() {
 					}}
 				/>
 			)}
+			{scene === Scene.BTPinfo && <BTPinfo />}
 		</>
 	);
 }
