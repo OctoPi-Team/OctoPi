@@ -148,7 +148,7 @@ export default function ProductionPlatform({
 					new Vector3(-14, 2, -30),
 					new Vector3(-14, 2, -25),
 				]}
-				ballAnimation={isPlatformFixed?.production}	
+				ballAnimation={isPlatformFixed?.production}
 			/>
 			<Button
 				customName="production"
