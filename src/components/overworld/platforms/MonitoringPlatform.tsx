@@ -97,6 +97,7 @@ export default function MonitoringPlatform({
 					new Vector3(19.5, 6, -8),
 					new Vector3(19.5, 4, -8),
 				]}
+				ballAnimation={isPlatformFixed?.monitoring}	
 			/>
 			<Button
 				customName="monitoring"

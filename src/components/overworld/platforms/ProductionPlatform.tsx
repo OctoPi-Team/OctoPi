@@ -1,5 +1,5 @@
 import { Box3, Vector3 } from 'three';
-import { PRODUCTION } from '../../../AllColorVariables';
+import { PRODUCTION, RED } from '../../../AllColorVariables';
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
 import Text from '../../Text';
@@ -148,6 +148,7 @@ export default function ProductionPlatform({
 					new Vector3(-14, 2, -30),
 					new Vector3(-14, 2, -25),
 				]}
+				ballAnimation={isPlatformFixed?.production}	
 			/>
 			<Button
 				customName="production"
