@@ -5,7 +5,7 @@
     margin-right: auto;
     left: 30px;
     display: flex;
-    height: 220px;
+    height: 26%;
     width: 90px;
     top: 50px;
     bottom: 590px;
@@ -21,6 +21,7 @@
     opacity: 0.8;
     animation: fadeIn 1s;
     gap: 20px;
+    pointer-events: none;
 }
 
 .platformnamesalign {
