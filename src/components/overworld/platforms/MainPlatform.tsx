@@ -33,6 +33,48 @@ export default function MainPlatform({
 				rotation={[0, 270, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
+			<ObjectLoad
+				path="/Infotafel/infotafel.glb"
+				position={[position[0] + 5.2, position[1], position[2] + 6]}
+				scale={[0.45, 0.45, 0.45]}
+				rotation={[0, 0, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
+			<ObjectLoad
+				path="/Infotafel/infotafel.glb"
+				position={[position[0] + 9.5, position[1], position[2] + 2]}
+				scale={[0.45, 0.45, 0.45]}
+				rotation={[0, 90, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
+			<ObjectLoad
+				path="/Infotafel/infotafel.glb"
+				position={[position[0] - 5.3, position[1], position[2] + 6]}
+				scale={[0.45, 0.45, 0.45]}
+				rotation={[0, 0, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
+			<ObjectLoad
+				path="/Infotafel/infotafel.glb"
+				position={[position[0] - 9.5, position[1], position[2] - 2.2]}
+				scale={[0.45, 0.45, 0.45]}
+				rotation={[0, 270, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
+			<ObjectLoad
+				path="/Infotafel/infotafel.glb"
+				position={[position[0] - 4.7, position[1], position[2] - 6]}
+				scale={[0.45, 0.45, 0.45]}
+				rotation={[0, 180, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
+			<ObjectLoad
+				path="/Infotafel/infotafel.glb"
+				position={[position[0] + 3.8, position[1], position[2] - 6]}
+				scale={[0.45, 0.45, 0.45]}
+				rotation={[0, 180, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
 			<gridHelper position={[position[0], position[1], position[2] - 4]} args={[2, 2, 'black', 'black']} />
 		</>
 	);
