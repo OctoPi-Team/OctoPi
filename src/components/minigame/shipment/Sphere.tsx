@@ -3,6 +3,7 @@ import { CubicBezierCurve3, CurvePath, SphereGeometry, Vector3 } from 'three';
 import { useFrame } from '@react-three/fiber';
 import { useState } from 'react';
 import { SIZE_OF_GAME_MATRIX, SPACING, TILE_SIZE } from './Grid';
+import { VECTORS_FOR_INPUT_TUBE } from './ShipmentGame';
 
 type SphereProps = {
 	// curve: CatmullRomCurve3;
@@ -16,13 +17,7 @@ export default function Sphere({ curve }: SphereProps) {
 	const [time, ticktime] = useState(0);
 	const [pointer, movepointr] = useState(0);
 
-	const VECTORS_FOR_TUBE = [
-		new Vector3(-1.9 + 2 * SPACING, 0.7, INPUTTUBEPOSSITION),
-		new Vector3(-15, 0.7, INPUTTUBEPOSSITION),
-		new Vector3(-1.9 + SPACING, 5, INPUTTUBEPOSSITION),
-		new Vector3(-15, 5, INPUTTUBEPOSSITION),
-	];
-	const startingcurve = new CubicBezierCurve3(...VECTORS_FOR_TUBE);
+	const startingcurve = new CubicBezierCurve3(...VECTORS_FOR_INPUT_TUBE);
 	const points: Vector3[] = startingcurve.getSpacedPoints(1000);
 
 	points.reverse();

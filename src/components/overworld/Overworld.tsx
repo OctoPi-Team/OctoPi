@@ -261,7 +261,6 @@ export default function Overworld({
 				isPlatformFixed?.production
 			) && <AlreadyFixedInformation isPlatformFixed={isPlatformFixed} />
 			}
-			{isOnButton ? <div className={'button'}>Du bist nun auf der Plattform: {buttonName}</div> : <div></div>}
 			{isOnButton && <div className={'button'}>Du bist nun auf der Plattform: {buttonName}</div>}
 		</>
 	);
