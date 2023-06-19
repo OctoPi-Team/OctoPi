@@ -4,7 +4,7 @@ import { PlatformFixProps, SceneProps } from '../../../App';
 import Button from '../objects/Button';
 import { SHIPMENT } from '../../../AllColorVariables';
 import Tube from '../objects/Tube';
-import Text from '../../Text';
+import Text from '../objects/Text';
 import { Box3, Vector3 } from 'three';
 
 type ShipmentPlatformOptions = {
