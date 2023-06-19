@@ -15,21 +15,22 @@ import WinScreen from './WinScreen';
 import InfoButton from '../../ui/InfoButton';
 
 import Tube from './Tube';
-import Grid, { SIZE_OF_GAME_MATRIX, SPACING, TILE_SIZE } from './Grid';
+import Grid from './Grid';
+import { GameSpec } from './GameSpec';
 import Squircle from '../../overworld/objects/Squircle';
-
-const INPUT_TUBE_POSITION = TILE_SIZE * (SIZE_OF_GAME_MATRIX[1] - 1) + (SIZE_OF_GAME_MATRIX[1] - 1) * SPACING;
-export const VECTORS_FOR_INPUT_TUBE = [
-	new Vector3(-1.9 + 2 * SPACING, 0.7, INPUT_TUBE_POSITION),
-	new Vector3(-15, 0.7, INPUT_TUBE_POSITION),
-	new Vector3(-1.9 + SPACING, 5, INPUT_TUBE_POSITION),
-	new Vector3(-15, 5, INPUT_TUBE_POSITION),
-];
 
 export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
 	const [finished, setFinished] = useState(false);
+	const INPUT_TUBE_POSITION =
+		GameSpec.tileSize * (GameSpec.sizeOfGameMatrix[1] - 1) + (GameSpec.sizeOfGameMatrix[1] - 1) * GameSpec.spacing;
 	const [info, setInfo] = useState(false);
+	const VECTORS_FOR_INPUT_TUBE = [
+		new Vector3(-1.9 + 2 * GameSpec.spacing, 0.7, INPUT_TUBE_POSITION),
+		new Vector3(-15, 0.7, INPUT_TUBE_POSITION),
+		new Vector3(-1.9 + GameSpec.spacing, 5, INPUT_TUBE_POSITION),
+		new Vector3(-15, 5, INPUT_TUBE_POSITION),
+	];
 	const [currentVariation, setVariation] = useState<number>(Math.floor(Math.random() * 6));
 	const CAM_WIDTH = 80;
 	const CAM_HEIGHT = 80;
@@ -70,7 +71,7 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 					position={[3, 100, 3]}
 					ref={dirLight}
 					shadow-mapSize={[2048, 2048]}
-					intensity={0.15}
+					intensity={0.3}
 					castShadow={true}>
 					<orthographicCamera
 						attach="shadow-camera"
@@ -131,10 +132,14 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
 					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={30} visibility={visible} />}
 					<group position={[0, 4, 0]}>
-						<Grid size={SIZE_OF_GAME_MATRIX} isFinished={setFinished} currentVariation={currentVariation} />
+						<Grid
+							isFinished={setFinished}
+							currentVariation={currentVariation}
+							vectorsForInputTube={VECTORS_FOR_INPUT_TUBE}
+						/>
 						<ObjectLoad
 							path="/Trichter/trichter.glb"
-							position={[(2.9 + 0.2) * SIZE_OF_GAME_MATRIX[0], -2.3, -0.5]}
+							position={[(2.9 + 0.2) * GameSpec.sizeOfGameMatrix[0], -2.3, -0.1]}
 							scale={[0.2, 0.2, 0.2]}
 							rotation={[0, 180, 0]}
 						/>

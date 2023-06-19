@@ -43,7 +43,7 @@ export default function EngineeringPlatform({
 				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
-			path={
+				path={
 					isPlatformFixed?.engineering
 						? '/Zeichentisch/zeichentisch.glb'
 						: '/ZeichentischKaputt/zeichentischKaputtMitPapier.glb'

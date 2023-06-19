@@ -1,5 +1,5 @@
 import { Box3, Vector3 } from 'three';
-import { PRODUCTION, RED } from '../../../AllColorVariables';
+import { PRODUCTION } from '../../../AllColorVariables';
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
 import Text from '../../Text';
