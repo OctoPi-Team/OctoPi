@@ -223,7 +223,33 @@ export default function ShipmentPlatform({
 					new Vector3(5.5, 8.4, 30),
 				]}
 			/>
-}
+}					{isPlatformFixed?.shipment? null:
+			<ObjectLoad
+				path="/ScherbenGross/scherbenGross.glb"
+				position={[position[0] - 7, position[1], position[2] - 2]}
+				scale={[0.1, 0.1, 0.1]}
+				rotation={[0, 0, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
+				}
+				{isPlatformFixed?.shipment? null:
+				<ObjectLoad
+				path="/ScherbenKlein1/scherbenKlein.glb"
+				position={[position[0] - 7, position[1], position[2] - 3.5]}
+				scale={[0.1, 0.1, 0.1]}
+				rotation={[0, 0, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
+				}
+					{isPlatformFixed?.shipment? null:
+			<ObjectLoad
+				path="/ScherbenGross/scherbenGross.glb"
+				position={[position[0] - 7, position[1], position[2] - 0.5]}
+				scale={[0.1, 0.1, 0.1]}
+				rotation={[0, 0, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
+				}
 			<Button
 				customName="shipment"
 				position={[position[0] - 6, position[1] + 6, position[2] - 9]}
