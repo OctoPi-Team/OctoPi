@@ -66,10 +66,10 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 		return (
 			<>
 				<directionalLight
-					position={[8, 14, 12]}
+					position={[3, 100, 3]}
 					ref={dirLight}
 					shadow-mapSize={[2048, 2048]}
-					intensity={0.6}
+					intensity={0.15}
 					castShadow={true}>
 					<orthographicCamera
 						attach="shadow-camera"
@@ -125,16 +125,16 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 			<div style={{ width: '100vw', height: '100vh' }} onClick={() => changeView(finished)} tabIndex={0}>
 				<Canvas orthographic camera={{ zoom: 50, position: [40, 40, 40] }} shadows={{ type: PCFSoftShadowMap }}>
 					<DirLight />
-					<ambientLight intensity={0.3} />
-					<Squircle position={[0, 0.5, 0]} color="beige" dimensions={[69, 0.1, 69]} rotation={[Math.PI / 2, 0, 0]} />
+					<ambientLight intensity={0.35} />
+					<Squircle position={[0, 2, 0]} color="beige" dimensions={[69, 0.1, 69]} rotation={[Math.PI / 2, 0, 0]} />
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
 					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={30} visibility={visible} />}
 					<group position={[0, 4, 0]}>
 						<Grid size={SIZE_OF_GAME_MATRIX} isFinished={setFinished} currentVariation={currentVariation} />
 						<ObjectLoad
 							path="/Trichter/trichter.glb"
-							position={[(2.9 + 0.2) * SIZE_OF_GAME_MATRIX[0], -3.3, -0.5]}
-							scale={[0.25, 0.25, 0.25]}
+							position={[(2.9 + 0.2) * SIZE_OF_GAME_MATRIX[0], -2.3, -0.5]}
+							scale={[0.2, 0.2, 0.2]}
 							rotation={[0, 180, 0]}
 						/>
 						<Tube name="InputTubeInGame" position={[0, 0, 0]} color={GREEN} vectors={VECTORS_FOR_INPUT_TUBE} />
