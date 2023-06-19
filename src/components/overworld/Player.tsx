@@ -5,6 +5,7 @@ import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { Box3, BufferGeometry, Material, MathUtils, Mesh, Vector2, Vector3 } from 'three';
 import { STAIR_WIDTH, StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
+import Infoboard from '../ui/Infoboard';
 
 export const PLAYER_SIZE = 0.5;
 const SPEED = 0.1;
@@ -129,6 +130,30 @@ function Player({
 									}
 								}
 							}, BUTTON_TIMEOUT);
+							break;
+						case 'infotafelDesign':
+							Infoboard("Human-centered Design ist bei uns nicht nur ein Buzzword. " + 
+									"Unsere Projekte starten im UX Design mit der Frage: Was braucht der Nutzer wirklich? " + 
+									"Dazu im Einsatz: Design Thinking, Design Scoping und UX Research. " +
+									"Hier greifen wir auch auf unsere Erfahrung aus einer Vielzahl von erfolgreichen Kundenprojekten zurück. " + 
+									"Unser Ziel ist es, schnell zu verprobaren Prototypen der wirklich wichtigen Lösungen zu kommen. " +
+									"Und zwar bevor in die erste Zeile Code investiert wird.",
+									);
+							break;
+						case 'infotafelEngineering':
+							setButton('Testtest');
+							break;
+						case 'infotafelProduction':
+							setButton('Testtest');
+							break;
+						case 'infotafelParts':
+							setButton('Testtest');
+							break;
+						case 'infotafelShipment':
+							setButton('Testtest');
+							break;
+						case 'infotafelMonitoring':
+							setButton('Testtest');
 							break;
 					}
 				}

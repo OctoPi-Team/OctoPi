@@ -64,6 +64,7 @@ export default function MainPlatform({
 			<ObjectLoad
 				path="/Infotafel/infotafel.glb"
 				position={[position[0] - 5.3, position[1], position[2] + 6]}
+				scale={[0.45, 0.45, 0.45]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
