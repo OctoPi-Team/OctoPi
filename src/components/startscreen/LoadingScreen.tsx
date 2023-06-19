@@ -35,14 +35,14 @@ export const LoadingScreen = ({ setVisible }: LoadingScreenProps) => {
 					/>
 				</div>
 				<div className="loadingScreen__board">
-					<h1 className="loadingScreen__title">Renovate to Innovate</h1>
+					<h1 className="loadingScreen__title">RENOVATE TO INNOVATE</h1>
 					<button
 						className="loadingScreen__button"
 						disabled={progress < 100}
 						onClick={() => {
 							setVisible(false);
 						}}>
-						Start
+						START
 					</button>
 				</div>
 			</div>

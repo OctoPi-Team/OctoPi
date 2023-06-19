@@ -4,17 +4,18 @@ import './style/alreadyfixedinfo.css';
 type Props = {
 	isPlatformFixed: PlatformFixProps | undefined;
 };
+
 function AlreadyFixedInformation({ isPlatformFixed }: Props) {
 	return (
 		<div className={'alreadyfixedinformation'}>
 			<div className={'platformnamesalign'}>
-				<div className={'platformnames'}> Parts {isPlatformFixed?.parts ? <div>✅</div> : <div>❌</div>}</div>
+				<div className={'platformnames'}> PARTS {isPlatformFixed?.parts ? <div>✅</div> : <div>❌</div>}</div>
 			</div>
-			<div className={'platformnames'}> Design {isPlatformFixed?.design ? <div>✅</div> : <div>❌</div>}</div>
-			<div className={'platformnames'}> Shipment {isPlatformFixed?.shipment ? <div>✅</div> : <div>❌</div>}</div>
-			<div className={'platformnames'}> Monitoring {isPlatformFixed?.monitoring ? <div>✅</div> : <div>❌</div>}</div>
-			<div className={'platformnames'}> Production {isPlatformFixed?.production ? <div>✅</div> : <div>❌</div>}</div>
-			<div className={'platformnames'}> Engineering {isPlatformFixed?.engineering ? <div>✅</div> : <div>❌</div>}</div>
+			<div className={'platformnames'}> DESIGN {isPlatformFixed?.design ? <div>✅</div> : <div>❌</div>}</div>
+			<div className={'platformnames'}> SHIPMENT {isPlatformFixed?.shipment ? <div>✅</div> : <div>❌</div>}</div>
+			<div className={'platformnames'}> MONITORING {isPlatformFixed?.monitoring ? <div>✅</div> : <div>❌</div>}</div>
+			<div className={'platformnames'}> PRODUCTION {isPlatformFixed?.production ? <div>✅</div> : <div>❌</div>}</div>
+			<div className={'platformnames'}> ENGINEERING {isPlatformFixed?.engineering ? <div>✅</div> : <div>❌</div>}</div>
 		</div>
 	);
 }
