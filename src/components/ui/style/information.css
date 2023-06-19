@@ -7,13 +7,13 @@
     right: -350px;
     height: 120px;
     width: 400px;
-    top: 20%;
+    top: 15%;
     bottom: 590px;
     text-align: center;
     background: #3aaa35;
     border-radius: 5px;
     color: white;
-    padding: 10px;
+    padding: 20px;
     font-size: 20px;
     align-items: center;
     vertical-align: center;
@@ -22,7 +22,7 @@
     pointer-events: none;
 }
 
-.test {
+.triangle {
     width: 0;
     height: 0;
     position: absolute;
