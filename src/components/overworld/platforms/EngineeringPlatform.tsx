@@ -1,7 +1,7 @@
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
 import { ENGINEERING } from '../../../AllColorVariables';
-import Text from '../../Text';
+import Text from '../objects/Text';
 import { Box3, Vector3 } from 'three';
 import Tube from '../objects/Tube';
 import { PlatformFixProps } from '../../../App';
