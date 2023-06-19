@@ -122,7 +122,7 @@ export default function Overworld({
 							<Joystick
 								baseColor="lightgreen"
 								stickColor="darkgreen"
-								size={150}
+								size={130}
 								move={handleJoystickMove}
 								stop={handleJoystickStop}
 							/>
@@ -247,8 +247,10 @@ export default function Overworld({
 						sceneProps={{ setSceneHook }}
 						collisionObjects={collisionBoxes}
 						setButton={setButtonName}
-						isButton={setIsOnButton}
+						setIsOnButton={setIsOnButton}
+						isOnButton={isOnButton}
 						setIsPlatformFixed={setIsPlatformFixed}
+						isPlatformFixed={isPlatformFixed}
 					/>
 					{/*<Tube
 						name="tubeToAllPlatfroms"
@@ -277,7 +279,7 @@ export default function Overworld({
 				isPlatformFixed?.engineering ||
 				isPlatformFixed?.shipment ||
 				isPlatformFixed?.production) && <AlreadyFixedInformation isPlatformFixed={isPlatformFixed} />}
-			{isOnButton ? <div className={'button'}>Minigame: {buttonName.toUpperCase()}</div> : <div></div>}
+			{isOnButton && <div className={'button'}>Minigame: {buttonName.toUpperCase()}</div>}
 		</>
 	);
 }
