@@ -64,12 +64,12 @@ function Player({
 		for (const button of buttonPositionAndName) {
 			if (playerPosition.distanceTo(button.position) < 1) {
 				const BUTTON_TIMEOUT = 3000;
-				switch (button.name) {
-					case 'shipment':
-						if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
-						break;
-					case 'production':
-						if (!isOnButton) {
+				if (!isOnButton) {
+					switch (button.name) {
+						case 'shipment':
+							if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
+							break;
+						case 'production':
 							setButton('Production');
 							setIsOnButton(true);
 							if (setIsPlatformFixed) {
@@ -80,10 +80,9 @@ function Player({
 							setTimeout(() => {
 								setIsOnButton(false);
 							}, BUTTON_TIMEOUT);
-						}
-						break;
-					case 'engineering':
-						if (!isOnButton) {
+
+							break;
+						case 'engineering':
 							setButton('Engineering');
 							setIsOnButton(true);
 							setTimeout(() => {
@@ -94,10 +93,8 @@ function Player({
 									}
 								}
 							}, BUTTON_TIMEOUT);
-						}
-						break;
-					case 'parts':
-						if (!isOnButton) {
+							break;
+						case 'parts':
 							setButton('Parts');
 							setIsOnButton(true);
 							setTimeout(() => {
@@ -108,22 +105,20 @@ function Player({
 									}
 								}
 							}, BUTTON_TIMEOUT);
-						}
-						break;
-					case 'design':
-						setButton('Design');
-						setIsOnButton(true);
-						setTimeout(() => {
-							setIsOnButton(false);
-							if (setIsPlatformFixed) {
-								if (isPlatformFixed?.design === false) {
-									setIsPlatformFixed({ design: true });
+							break;
+						case 'design':
+							setButton('Design');
+							setIsOnButton(true);
+							setTimeout(() => {
+								setIsOnButton(false);
+								if (setIsPlatformFixed) {
+									if (isPlatformFixed?.design === false) {
+										setIsPlatformFixed({ design: true });
+									}
 								}
-							}
-						}, BUTTON_TIMEOUT);
-						break;
-					case 'monitoring':
-						if (!isOnButton) {
+							}, BUTTON_TIMEOUT);
+							break;
+						case 'monitoring':
 							setButton('Monitoring');
 							setIsOnButton(true);
 							setTimeout(() => {
@@ -134,8 +129,8 @@ function Player({
 									}
 								}
 							}, BUTTON_TIMEOUT);
-						}
-						break;
+							break;
+					}
 				}
 			}
 		}
