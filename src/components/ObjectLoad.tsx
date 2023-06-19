@@ -8,7 +8,7 @@ import { clone } from 'three/examples/jsm/utils/SkeletonUtils';
 import { RED } from '../AllColorVariables';
 
 const dracoLoader = new DRACOLoader();
-dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+dracoLoader.setDecoderPath('/DracoLoader/');
 
 // This interface is used to set the options of the ObjectLoad function.
 type ObjectLoadOptions = {
