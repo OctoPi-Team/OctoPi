@@ -1,40 +1,42 @@
 import { RED } from '../../../AllColorVariables';
-import { CatmullRomCurve3, CurvePath, SphereGeometry, Vector3 } from 'three';
+import { CubicBezierCurve3, CurvePath, SphereGeometry, Vector3 } from 'three';
 import { useFrame } from '@react-three/fiber';
 import { useState } from 'react';
-import { SPACING, TILE_SIZE } from './ShipmentGame';
+import { SIZE_OF_GAME_MATRIX, SPACING, TILE_SIZE } from './Grid';
 
 type SphereProps = {
-	// curv: CatmullRomCurve3;
-	curv: CurvePath<Vector3>;
+	// curve: CatmullRomCurve3;
+	curve: CurvePath<Vector3>;
 };
-export default function Sphere({ curv }: SphereProps) {
+export default function Sphere({ curve }: SphereProps) {
 	const name = 'sphere';
 	const color: string = RED;
+	const INPUTTUBEPOSSITION = TILE_SIZE * (SIZE_OF_GAME_MATRIX[1] - 1) + (SIZE_OF_GAME_MATRIX[1] - 1) * SPACING;
+	const [pos, updatepos] = useState<Vector3>(new Vector3(-15, 5, INPUTTUBEPOSSITION));
+	const [time, ticktime] = useState(0);
+	const [pointer, movepointr] = useState(0);
 
-	const [pos, updatepos] = useState<Vector3>(new Vector3(0, 0, 9.6));
-	const [timer, ticktime] = useState(0);
-	const INPUTTUBEPOSSITION = TILE_SIZE * TILE_SIZE + TILE_SIZE * SPACING;
 	const VECTORS_FOR_TUBE = [
-		new Vector3(-1.9, -1.3 + 2, INPUTTUBEPOSSITION),
-		new Vector3(-3, -1.2 + 2, INPUTTUBEPOSSITION),
-		new Vector3(-3.5, 2 + 2, INPUTTUBEPOSSITION),
-		new Vector3(-20, 1.5 + 2, INPUTTUBEPOSSITION),
+		new Vector3(-1.9 + 2 * SPACING, 0.7, INPUTTUBEPOSSITION),
+		new Vector3(-15, 0.7, INPUTTUBEPOSSITION),
+		new Vector3(-1.9 + SPACING, 5, INPUTTUBEPOSSITION),
+		new Vector3(-15, 5, INPUTTUBEPOSSITION),
 	];
-
-	const startingcurve = new CatmullRomCurve3(VECTORS_FOR_TUBE, false, 'centripetal', 20);
+	const startingcurve = new CubicBezierCurve3(...VECTORS_FOR_TUBE);
 	const points: Vector3[] = startingcurve.getSpacedPoints(1000);
-	points.reverse();
-	points.push(...curv.getSpacedPoints(1000));
-	const sphereGeometry = new SphereGeometry(0.3, 70, 20);
 
+	points.reverse();
+	points.push(...curve.getSpacedPoints(600));
+	const sphereGeometry = new SphereGeometry(0.3, 70, 20);
 	useFrame(({ clock }) => {
-		let a = clock.getElapsedTime();
-		a = Math.round(a * 400);
-		ticktime(time => a % points.length);
-		updatepos(pos => points[timer]);
-		if (timer >= points.length) {
-			ticktime(time => 0);
+		const deltaTime = Math.round(clock.getElapsedTime() * 1000);
+		if (deltaTime > time) {
+			ticktime(() => deltaTime);
+			movepointr(pointer => pointer + 7);
+		}
+		updatepos(() => points[pointer]);
+		if (pointer >= points.length) {
+			movepointr(() => 0);
 		}
 	});
 

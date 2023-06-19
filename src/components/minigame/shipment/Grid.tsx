@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import Tile, { TileProps, TileType } from './Tile';
-import { Vector3 } from 'three';
 import { FinalTube } from './FinalTube';
-import { SIZE_OF_GAME_MATRIX } from './ShipmentGame';
+import { Vector3 } from 'three';
+
+export const TILE_SIZE = 3;
+export const SIZE_OF_GAME_MATRIX: [number, number] = [3, 3];
+export const SPACING = 0.2;
 
 enum direction {
 	right,
@@ -14,18 +17,19 @@ enum direction {
 
 type GridProps = {
 	size: [number, number];
+	isFinished: Dispatch<SetStateAction<boolean>>;
+	currentVariation: number;
 };
 
-function getTilesFromProps(props: TileProps[][], tileClickHandler: (tileProps: TileProps) => void): Array<JSX.Element> {
-	const tileElements = [];
-	const oneDimension = [];
-	if (
-		props.every(function (a) {
-			return !a.length;
-		})
-	) {
+function getTilesFromProps(
+	props: TileProps[][],
+	tileClickHandler: (tileProps: TileProps) => void,
+	renderTubes: boolean
+): Array<JSX.Element> {
+	if (props.every(a => !a.length)) {
 		return [];
 	}
+	const oneDimension = [];
 	for (let i = 0; i < SIZE_OF_GAME_MATRIX[0]; i++) {
 		for (let j = 0; j < SIZE_OF_GAME_MATRIX[1]; j++) {
 			if (props[i][j].tileType == 6) {
@@ -34,63 +38,42 @@ function getTilesFromProps(props: TileProps[][], tileClickHandler: (tileProps: T
 			oneDimension.push(props[i][j]);
 		}
 	}
-
-	for (const prop of oneDimension) {
-		tileElements.push(<Tile tileClickHandler={tileClickHandler} {...prop} />);
-	}
-	return tileElements;
+	return oneDimension.map((prop, index) => (
+		<Tile key={index} tileClickHandler={tileClickHandler} render={renderTubes} {...prop} />
+	));
 }
 
-//function to create random tiletype
 function getRandomTileType(): number {
-	//const tileTypes = Object.values(TileType).map(value => value as TileType);
-	//return tileTypes[Math.floor(Math.random() * tileTypes.length)];
 	return Math.floor(Math.random() * 6);
 }
 
 function isNeighbourOfEmptyTile(gridPosition: [number, number], emptyTile: [number, number]): boolean {
 	const xDistanceToEmpty = Math.abs(gridPosition[0] - emptyTile[0]);
 	const yDistanceToEmpty = Math.abs(gridPosition[1] - emptyTile[1]);
-	// check if tile is direct neighbour, diagonals dont count
+	// check if tile is direct neighbour, diagonals and same tilePos dont count
 	// -> if true tile can be swapped into the space of the empty tile
-	return (xDistanceToEmpty <= 1 && yDistanceToEmpty == 0) || (yDistanceToEmpty <= 1 && xDistanceToEmpty == 0);
+	console.log(gridPosition[0] == emptyTile[0] && gridPosition[1] == emptyTile[1]);
+	return (
+		!(gridPosition[0] == emptyTile[0] && gridPosition[1] == emptyTile[1]) &&
+		((xDistanceToEmpty <= 1 && yDistanceToEmpty == 0) || (yDistanceToEmpty <= 1 && xDistanceToEmpty == 0))
+	);
 }
 
-function checkVictory(size: [number, number], emptyTile: [number, number], tileList: TileProps[]): boolean {
-	tileList.sort((a, b) => (a.gridPosition > b.gridPosition ? 1 : -1));
-	if (tileList.length == 0) return false;
-	const oneDimensionArray: number[] = [];
-	tileList.forEach(tile => {
-		oneDimensionArray.push(tile.tileType);
-	});
-	const twoDimensionArray: number[][] = [];
-	let z: number[];
-	oneDimensionArray.reverse();
-	for (let x = 0; x < size[0]; x++) {
-		z = [];
-		for (let y = 0; y < size[1]; y++) {
-			if (x == emptyTile[0] && y == emptyTile[1]) {
-				//empty	tile
-				z.push(-1);
-				continue;
-			}
-			const nextValue = oneDimensionArray.pop();
-			if (nextValue) z.push(nextValue);
-		}
-		twoDimensionArray[x] = [];
-		twoDimensionArray[x] = twoDimensionArray[x].concat(z);
+function initialize2DArray() {
+	const array = [];
+	for (let x = 0; x < SIZE_OF_GAME_MATRIX[0]; x++) {
+		array[x] = [];
 	}
-	//starting position coordinates
+	return array;
+}
+
+function checkVictory(tiles: TileProps[][]): TileProps[] {
+	const victoryPath: TileProps[] = [];
 	let x = -1;
-	let y = 3;
-	enum direction {
-		right,
-		left,
-		up,
-		down,
-	}
+	let y: number = SIZE_OF_GAME_MATRIX[1] - 1;
+
 	let currentDirection: direction = direction.right;
-	for (let z = 0; z < size[0] * size[1]; z++) {
+	for (let z = 0; z < SIZE_OF_GAME_MATRIX[0] * SIZE_OF_GAME_MATRIX[1]; z++) {
 		//moving into new tile
 		switch (+currentDirection) {
 			case direction.right:
@@ -106,29 +89,31 @@ function checkVictory(size: [number, number], emptyTile: [number, number], tileL
 				y++;
 				break;
 			default:
-				// this case is not supposed to happen
-				return false;
+				return [];
 		}
-		if (x == size[0] && y == 0 && currentDirection == direction.right) {
-			return true;
+		// final Tile
+		if (x == SIZE_OF_GAME_MATRIX[0] && y == 0 && currentDirection == direction.right) {
+			return victoryPath;
 		}
-		// Team outofbounds
-		if (x < 0 || y < 0 || y > 3 || x > 3) {
-			return false;
+		// outside the grid
+		else if (x < 0 || y < 0 || y >= SIZE_OF_GAME_MATRIX[1] || x >= SIZE_OF_GAME_MATRIX[0]) {
+			return [];
 		}
-		if (twoDimensionArray[x][y] == -1) {
-			return false;
+		// into the empty tile
+		else if (tiles[x][y].tileType == 6) {
+			return [];
 		}
+		victoryPath.push(tiles[x][y]);
 
 		//changing direction
-		switch (twoDimensionArray[x][y]) {
+		switch (tiles[x][y].tileType) {
 			case TileType.AngleRightInverted:
 				if (currentDirection == direction.left) {
 					currentDirection = direction.up;
 				} else if (currentDirection == direction.down) {
 					currentDirection = direction.right;
 				} else {
-					return false;
+					return [];
 				}
 				break;
 			case TileType.AngleRight:
@@ -137,7 +122,7 @@ function checkVictory(size: [number, number], emptyTile: [number, number], tileL
 				} else if (currentDirection == direction.down) {
 					currentDirection = direction.left;
 				} else {
-					return false;
+					return [];
 				}
 				break;
 			case TileType.AngleLeft:
@@ -146,83 +131,103 @@ function checkVictory(size: [number, number], emptyTile: [number, number], tileL
 				} else if (currentDirection == direction.up) {
 					currentDirection = direction.left;
 				} else {
-					return false;
+					return [];
 				}
 				break;
 			case TileType.StraightNormal:
-				if (currentDirection != direction.left && currentDirection != direction.right) {
-					return false;
+				if (currentDirection == direction.left || currentDirection == direction.right) {
+					break;
+				} else {
+					return [];
 				}
-				break;
 			case TileType.StraightInverted:
-				if (currentDirection != direction.up && currentDirection != direction.down) {
-					return false;
+				if (currentDirection == direction.up || currentDirection == direction.down) {
+					break;
+				} else {
+					return [];
 				}
-				break;
 			case TileType.AngleLeftInverted:
 				if (currentDirection == direction.up) {
 					currentDirection = direction.right;
 				} else if (currentDirection == direction.left) {
 					currentDirection = direction.down;
 				} else {
-					return false;
+					return [];
 				}
 				break;
 		}
 	}
-	return false;
-}
-function shuffle<T>(array: T[]): T[] {
-	let currentIndex = array.length,
-		randomIndex;
-
-	// While there remain elements to shuffle.
-	while (currentIndex != 0) {
-		// Pick a remaining element.
-		randomIndex = Math.floor(Math.random() * currentIndex);
-		currentIndex--;
-
-		// And swap it with the current element.
-		[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-	}
-
-	return array;
+	return [];
 }
 
-function generateFunctioningTable(size: [number, number]) {
-	//in order to keep the game simple,these are the minimum required tiles
-	let possibleBoard = [0, 5, 2];
-	//three different arrangements that will make the game solvable
-	const RAND = Math.ceil(Math.random() * 3);
-	if (RAND == 1) {
-		const OPTION1 = [2, 2, 3, 3];
-		possibleBoard.push(...OPTION1);
+type TableProp = {
+	board: [[number, number, number], [number, number, number], [number, number, number]];
+	emptyTile: [number, number];
+};
+
+function generateFunctioningGrid(variant: number): TableProp {
+	// returns the seected pre configured grid
+	// they are preconfigured to assure difficulty balancing
+	switch (variant) {
+		case 0:
+			return {
+				board: [
+					[5, 6, 5],
+					[5, 3, 0],
+					[2, 0, 0],
+				],
+				emptyTile: [0, 1],
+			};
+		case 1:
+			return {
+				board: [
+					[5, 2, 0],
+					[3, 5, 3],
+					[0, 2, 6],
+				],
+				emptyTile: [2, 2],
+			};
+		case 2:
+			return {
+				board: [
+					[3, 5, 0],
+					[0, 2, 0],
+					[5, 6, 5],
+				],
+				emptyTile: [2, 1],
+			};
+		case 3:
+			return {
+				board: [
+					[3, 0, 2],
+					[3, 5, 6],
+					[5, 0, 2],
+				],
+				emptyTile: [1, 2],
+			};
+		case 4:
+			return {
+				board: [
+					[6, 5, 2],
+					[2, 0, 3],
+					[0, 0, 5],
+				],
+				emptyTile: [0, 0],
+			};
+		default:
+			return {
+				board: [
+					[3, 2, 5],
+					[2, 6, 5],
+					[3, 0, 0],
+				],
+				emptyTile: [1, 1],
+			};
 	}
-	if (RAND == 2) {
-		const OPTION2 = [0, 0, 5, 5];
-		possibleBoard.push(...OPTION2);
-	}
-	if (RAND == 3) {
-		const OPTION3 = [0, 2, 3, 5];
-		possibleBoard.push(...OPTION3);
-	}
-	// at this pont the board is solvable and we can fill it with random tiles
-	for (let x = 0; x < size[0] * size[1] - 8; x++) {
-		possibleBoard.push(getRandomTileType());
-	}
-	possibleBoard = shuffle(possibleBoard);
-	return possibleBoard;
 }
 
-function initialize2DArray() {
-	const array = [];
-	for (let x = 0; x < SIZE_OF_GAME_MATRIX[0]; x++) {
-		array[x] = [];
-	}
-	return array;
-}
-
-export default function Grid({ size }: GridProps) {
+export default function Grid({ size, isFinished, currentVariation }: GridProps) {
+	const [done, setDone] = useState(true);
 	const [tiles, setTiles] = useState<TileProps[][]>(initialize2DArray());
 	const [emptyTile, setEmptyTile] = useState<[number, number]>([0, 0]);
 
@@ -236,273 +241,77 @@ export default function Grid({ size }: GridProps) {
 		const copy = tiles;
 		copy[gridPosition[0]][gridPosition[1]].tileType = 6;
 		setTiles(copy);
-		//setTiles(tiles.filter(item => item.gridPosition != gridPosition));
 	}
 
-	function tileClickHandler({ Vector1, Vector2, tileType, color, gridPosition }: TileProps) {
-		if (isNeighbourOfEmptyTile(gridPosition)) {
+	function tileClickHandler({ startVector, endVector, tileType, color, gridPosition }: TileProps) {
+		if (isNeighbourOfEmptyTile(gridPosition, emptyTile)) {
 			// swap positions of clicked and empty tile
 			const bufferedEmptyTile = emptyTile;
 			setEmptyTile(gridPosition);
 			removeTile(gridPosition);
 			gridPosition = bufferedEmptyTile;
-			addTile({ Vector1, Vector2, color, tileType, gridPosition }, gridPosition[0], gridPosition[1]);
+			addTile(
+				{
+					gridPosition: gridPosition,
+					startVector: startVector,
+					endVector: endVector,
+					tileType: tileType,
+					color: color,
+				},
+				gridPosition[0],
+				gridPosition[1]
+			);
 		}
 	}
 
-	function isNeighbourOfEmptyTile(gridPosition: [number, number]): boolean {
-		const xDistanceToEmpty = Math.abs(gridPosition[0] - emptyTile[0]);
-		const yDistanceToEmpty = Math.abs(gridPosition[1] - emptyTile[1]);
-		// check if tile is direct neighbour, diagonals dont count
-		// -> if true tile can be swapped into the space of the empty tile
-		return (xDistanceToEmpty <= 1 && yDistanceToEmpty == 0) || (yDistanceToEmpty <= 1 && xDistanceToEmpty == 0);
-	}
-
-	function checkVictory(): TileProps[] {
-		// const tileList = tiles;
-		// //tileList.sort((a, b) => (a.gridPosition > b.gridPosition ? 1 : -1));
-		// if (tileList.length == 0) return [];
-		// const oneDimensionArray: number[] = [];
-		// tileList.forEach(tile => {
-		// 	oneDimensionArray.push(tile.tileType);
-		// });
-		// const twoDimensionArray: number[][] = [];
-		// let z: number[];
-		// oneDimensionArray.reverse();
-		// for (let x = 0; x < size[0]; x++) {
-		// 	z = [];
-		// 	for (let y = 0; y < size[1]; y++) {
-		// 		if (x == emptyTile[0] && y == emptyTile[1]) {
-		// 			//empty	tile
-		// 			z.push(-1);
-		// 			continue;
-		// 		}
-		// 		// @ts-ignore
-		// 		z.push(oneDimensionArray.pop());
-		// 	}
-		// 	twoDimensionArray[x] = [];
-		// 	twoDimensionArray[x] = twoDimensionArray[x].concat(z);
-		// }
-		//starting position coordinates
-		const victoryPath: TileProps[] = [];
-		let x = -1;
-		let y = 3;
-
-		let currentDirection: direction = direction.right;
-		for (let z = 0; z < size[0] * size[1]; z++) {
-			//moving into new tile
-			switch (+currentDirection) {
-				case direction.right:
-					x++;
-					break;
-				case direction.left:
-					x--;
-					break;
-				case direction.up:
-					y--;
-					break;
-				case direction.down:
-					y++;
-					break;
-				default:
-					console.log('wtf are you doing here');
-					return [];
-			}
-			if (x == size[0] && y == 0 && currentDirection == direction.right) {
-				console.log('YOU WIN');
-				return victoryPath;
-			}
-			// Team outofbounds
-			if (x < 0 || y < 0 || y > 3 || x > 3) {
-				return [];
-			}
-			if (tiles[x][y].tileType == 6) {
-				return [];
-			}
-			victoryPath.push(tiles[x][y]);
-
-			//changing direction
-			switch (tiles[x][y].tileType) {
-				case TileType.AngleRightInverted:
-					if (currentDirection == direction.left) {
-						currentDirection = direction.up;
-					} else if (currentDirection == direction.down) {
-						currentDirection = direction.right;
-					} else {
-						return [];
-					}
-					break;
-				case TileType.AngleRight:
-					if (currentDirection == direction.right) {
-						currentDirection = direction.up;
-					} else if (currentDirection == direction.down) {
-						currentDirection = direction.left;
-					} else {
-						return [];
-					}
-					break;
-				case TileType.AngleLeft:
-					if (currentDirection == direction.right) {
-						currentDirection = direction.down;
-					} else if (currentDirection == direction.up) {
-						currentDirection = direction.left;
-					} else {
-						return [];
-					}
-					break;
-				case TileType.StraightNormal:
-					// if (currentDirection == direction.left) {
-					// } else if (currentDirection == direction.right) {
-					// } else {
-					// 	return [];
-					// }
-					break;
-				case TileType.StraightInverted:
-					// if (currentDirection == direction.up) {
-					// } else if (currentDirection == direction.down) {
-					// } else {
-					// 	return [];
-					// }
-					break;
-				case TileType.AngleLeftInverted:
-					if (currentDirection == direction.up) {
-						currentDirection = direction.right;
-					} else if (currentDirection == direction.left) {
-						currentDirection = direction.down;
-					} else {
-						return [];
-					}
-					break;
-			}
-		}
-		return [];
-	}
-	function shuffle<T>(array: T[]): T[] {
-		let currentIndex = array.length,
-			randomIndex;
-
-		// While there remain elements to shuffle.
-		while (currentIndex != 0) {
-			// Pick a remaining element.
-			randomIndex = Math.floor(Math.random() * currentIndex);
-			currentIndex--;
-
-			// And swap it with the current element.
-			[array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-		}
-
-		return array;
-	}
-
-	function generateFunctioningTable() {
-		//in order to keep the game simple,these are the minimum required tiles
-		let possibleBoard = [0, 5, 2];
-		//three different arrangements that will make the game solvable
-		const RAND = Math.ceil(Math.random() * 3);
-		if (RAND == 1) {
-			const OPTION1 = [2, 2, 3, 3];
-			possibleBoard.push(...OPTION1);
-		}
-		if (RAND == 2) {
-			const OPTION2 = [0, 0, 5, 5];
-			possibleBoard.push(...OPTION2);
-		}
-		if (RAND == 3) {
-			const OPTION3 = [0, 2, 3, 5];
-			possibleBoard.push(...OPTION3);
-		}
-		// at this pont the board is solvable and we can fill it with random tiles
-		for (let x = 0; x < size[0] * size[1] - 8; x++) {
-			possibleBoard.push(getRandomTileType());
-		}
-		possibleBoard = shuffle(possibleBoard);
-		return possibleBoard;
-	}
-
-	// function transformCordToTileIndex(x: number, z: number): number {
-	// 	let xorigin = 0;
-	// 	let zorigin = 0;
-	// 	let counter = 0;
-	// 	if (x == emptyTile[0] && z == emptyTile[1]) return -1;
-	// 	while (true) {
-	// 		//console.log("z: " + zorigin + " x: " + xorigin);
-	// 		counter++;
-	// 		if (emptyTile[0] == xorigin && emptyTile[1] == zorigin) {
-	// 			counter--;
-	// 		}
-	// 		zorigin++;
-	// 		if (zorigin == SIZE_OF_GAME_MATRIX[1]) {
-	// 			zorigin = 0;
-	// 			xorigin++;
-	// 		}
-	// 		if (xorigin == x && zorigin == z) {
-	// 			break;
-	// 		}
-	// 	}
-	// 	return counter;
-	// }
-	function onUpdate() {
-		if (
-			!tiles.every(function (a) {
-				return !a.length;
-			})
-		) {
+	function onUpdate(currentVariation: number) {
+		if (!tiles.every(a => !a.length)) {
 			return [];
 		}
-		const TILES = generateFunctioningTable();
-		let counter = 0;
-
+		const { board, emptyTile } = generateFunctioningGrid(currentVariation);
+		setEmptyTile(emptyTile);
 		for (let x = 0; x < size[0]; x++) {
 			for (let y = 0; y < size[1]; y++) {
-				if (!(x === 0 && y === 0)) {
-					// exclude default empty tile
-					addTile(
-						{
-							gridPosition: [x, y],
-							Vector1: new Vector3(-3 / 2, 0, 0),
-							Vector2: new Vector3(3 / 2, 0, 0),
-							tileType: TILES[counter],
-						},
-						x,
-						y
-					);
-					counter++;
-				} else {
-					addTile(
-						{
-							gridPosition: [x, y],
-							Vector1: new Vector3(-3 / 2, 0, 0),
-							Vector2: new Vector3(3 / 2, 0, 0),
-							tileType: 6,
-						},
-						x,
-						y
-					);
-				}
+				// exclude default empty tile
+				addTile(
+					{
+						gridPosition: [x, y],
+						startVector: new Vector3(-3 / 2, 0, 0),
+						endVector: new Vector3(3 / 2, 0, 0),
+						tileType: board[x][y],
+					},
+					x,
+					y
+				);
 			}
 		}
 	}
 
 	useEffect(() => {
-		onUpdate();
-	}, [size]);
+		onUpdate(currentVariation);
+	}, [currentVariation]);
 
-	onUpdate();
+	onUpdate(currentVariation);
 
-	const victoryPath = checkVictory();
+	const victoryCondition = checkVictory(tiles);
+	if (victoryCondition.length > 0 && done) {
+		setDone(false);
+		setTimeout(() => {
+			isFinished(true);
+		}, 1500);
+	}
 	return (
 		<>
-			{...getTilesFromProps(tiles, tileClickHandler)}
-			{typeof victoryPath !== 'undefined' && victoryPath.length > 0 && <FinalTube {...victoryPath} />}
+			{getTilesFromProps(tiles, tileClickHandler, victoryCondition.length == 0)}
+			{typeof victoryCondition !== 'undefined' && victoryCondition.length > 0 && <FinalTube {...victoryCondition} />}
 		</>
 	);
 }
 
 export const ExportedForTestingOnly = {
 	getTilesFromProps,
-	shuffle,
-	generateFunctioningTable,
 	checkVictory,
 	isNeighbourOfEmptyTile,
 	getRandomTileType,
+	generateFunctioningGrid,
 };

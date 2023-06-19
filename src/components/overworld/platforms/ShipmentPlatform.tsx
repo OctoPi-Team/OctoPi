@@ -1,33 +1,37 @@
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
-import { SceneProps } from '../../../App';
+import { PlatformFixProps, SceneProps } from '../../../App';
 import Button from '../objects/Button';
 import { SHIPMENT } from '../../../AllColorVariables';
 import Tube from '../objects/Tube';
 import Text from '../../Text';
-import { Box3 } from 'three';
+import { Box3, Vector3 } from 'three';
 
 type ShipmentPlatformOptions = {
 	position?: [number, number, number];
 	reference?: (meshRef: Box3) => void;
 	sceneProps?: SceneProps;
-	buttonreference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	buttonReference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
+	setplayerpos?: (setplayerpos: Vector3) => void;
+	isPlatformFixed: PlatformFixProps | undefined;
 };
 
 export default function ShipmentPlatform({
 	position = [0, 0, 0],
 	reference,
-	buttonreference,
+	buttonReference,
 	addCollisionBox,
+	isPlatformFixed,
 }: ShipmentPlatformOptions): JSX.Element {
 	return (
+		//TODO do something on platform when isPlatformFixed.shipment = true
 		<>
 			<SimplePlatform position={position} size={[18, 0.5, 18]} reference={reference} color={SHIPMENT} />
 			<Text
 				text={'SHIPMENT'}
 				color={SHIPMENT}
-				position={[position[0] + 10, position[1], position[2] - 8]}
+				position={[position[0] + 10, position[1], position[2] - 9]}
 				rotation={[0, 270, 0]}
 			/>
 			<ObjectLoad
@@ -36,6 +40,7 @@ export default function ShipmentPlatform({
 				scale={[0.12, 0.12, 0.12]}
 				rotation={[0, 180, 0]}
 				collisionRefSetter={addCollisionBox}
+				customCollisionBoxes={[{ positionOffset: new Vector3(0.6, 0, -2.2), size: new Vector3(1.6, 5, 8.2) }]}
 			/>
 			<ObjectLoad
 				path="/Packet/packet.glb"
@@ -64,6 +69,7 @@ export default function ShipmentPlatform({
 				scale={[0.8, 0.8, 0.8]}
 				rotation={[0, 90, 0]}
 				collisionRefSetter={addCollisionBox}
+				customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(5, 10, 4) }]}
 			/>
 			<ObjectLoad
 				path="/Palette/palette.glb"
@@ -123,8 +129,50 @@ export default function ShipmentPlatform({
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			<Tube name="Tube" position={[position[0] + 7.6, position[1] - 1.9, position[2] + 0.5]} size={[0.5, 8, 1]} />
-			<Button position={[position[0] - 6, position[1] + 6, position[2] - 9]} reference={buttonreference} />
+			{/*
+			<Tube name="Tube" position={[position[0] + 7.6, position[1], position[2] + 0.5]} size={[0.5, 8, 1]} />
+			*/}
+			<Tube
+				name="brokenShipmentTube1"
+				position={[0, 0, 0]}
+				size={[0.5, 8, 1]}
+				vectors={[
+					new Vector3(1.5, -1, -5),
+					new Vector3(1.5, -1, 8),
+					new Vector3(1.5, 3.5, 8),
+					new Vector3(1.5, 3.5, 15),
+					new Vector3(1, 2.5, 15),
+					new Vector3(2, 2.5, 15),
+					new Vector3(2, 2.5, 18),
+					new Vector3(2, 5, 18),
+					new Vector3(2, 5.7, 21),
+				]}
+			/>
+			<Tube
+				name="brokenShipmentTube2"
+				position={[0, 0, 0]}
+				size={[0.5, 8, 1]}
+				vectors={[
+					new Vector3(16.6, 4, 25.5),
+					new Vector3(15.7, 10, 25.5),
+					new Vector3(12, 11, 27.1),
+				]}
+			/>
+			<Tube
+				name="brokenShipmentTube3"
+				position={[0, 0, 0]}
+				size={[0.5, 8, 1]}
+				vectors={[
+					new Vector3(8.5, 10.9, 28.7),
+					new Vector3(5.6, 10, 30),
+					new Vector3(5.5, 8.4, 30),
+				]}
+			/>
+			<Button
+				customName="shipment"
+				position={[position[0] - 6, position[1] + 6, position[2] - 9]}
+				reference={buttonReference}
+			/>
 		</>
 	);
 }
