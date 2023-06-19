@@ -1,5 +1,4 @@
 import './index.css';
-
 import { useEffect, useState } from 'react';
 import Overworld from './components/overworld/Overworld';
 import ShipmentGame from './components/minigame/shipment/ShipmentGame';
@@ -34,7 +33,6 @@ export default function App() {
 	const [playerstartingPos, setPlayerstartingPos] = useState<Vector3>(new Vector3(0, 0, 0));
 	const [scene, setScene] = useState<Scene>(Scene.Overworld);
 	const [visible, setVisible] = useState(true);
-
 	const [isPlatformFixed, setIsPlatformFixed] = useState<PlatformFixProps>({
 		shipment: false,
 		design: false,

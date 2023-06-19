@@ -47,6 +47,7 @@ export default function PartsPlatform({
 					new Vector3(26, 3, -32),
 					new Vector3(26, 0, -32),
 				]}
+				ballAnimation={isPlatformFixed?.parts}
 			/>
 			<Text
 				text={'PARTS'}

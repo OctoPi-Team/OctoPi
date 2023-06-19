@@ -5,15 +5,15 @@
     margin-right: auto;
     left: 30px;
     display: flex;
-    height: 26%;
+    height: 215px;
     width: 90px;
     top: 50px;
     bottom: 590px;
     text-align: center;
-    background: green;
+    background: #3aaa35;
     border-radius: 10px;
     color: white;
-    padding: 25px;
+    padding: 30px;
     font-size: 15px;
     flex-direction: column;
     align-items: center;
@@ -31,7 +31,7 @@
 .platformnames {
     display: flex;
     justify-content: space-between;
-    width: 110px;
+    width: 120px;
 }
 
 @keyframes fadeIn {
