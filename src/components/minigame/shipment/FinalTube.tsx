@@ -169,7 +169,7 @@ export function FinalTube({
 					side={DoubleSide}
 				/>
 				<Sphere curve={fullCurve} vectorsForInputTube={vectorsForInputTube} />
-			</mesh >
+			</mesh>
 		</>
 	);
 }
