@@ -19,7 +19,15 @@ export default function WinScreen(
 						}}>
 						Zurück zur Plattform
 					</button>
-					<button onClick={onClickNewGame}>Starte neues Spiel</button>
+					<button
+						onClick={() => {
+							onClickNewGame;
+							if (setIsPlatformFixed) {
+								setIsPlatformFixed({ shipment: true });
+							}
+						}}>
+						Starte neues Spiel
+					</button>
 				</div>
 			</div>
 		</>
