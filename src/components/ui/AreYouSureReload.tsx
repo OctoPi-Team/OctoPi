@@ -13,15 +13,15 @@ function AreYouSureReload({ setAreYouSureReload }: Props) {
 				<div className="buttons">
 					<button
 						onClick={() => {
-							location.reload();
-						}}>
-						Neustart
-					</button>
-					<button
-						onClick={() => {
 							setAreYouSureReload(false);
 						}}>
 						Abbruch
+					</button>
+					<button
+						onClick={() => {
+							location.reload();
+						}}>
+						Neustart
 					</button>
 				</div>
 			</div>
