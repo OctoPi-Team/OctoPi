@@ -257,16 +257,18 @@ export default function ShipmentPlatform({
 					collisionRefSetter={addCollisionBox}
 				/>
 			) : null}
-			{isPlatformFixed?.shipment ? ( <Cylinder
-				position={[position[0] + 8.35, position[1], position[2] + 0.4]}
-				color={SHIPMENT}
-				collisionRefSetter={addCollisionBox}
-			/>): (
+			{isPlatformFixed?.shipment ? (
 				<Cylinder
-				position={[position[0] + 7.55, position[1], position[2] + 0.5]}
-				color={SHIPMENT}
-				collisionRefSetter={addCollisionBox}
-			/>
+					position={[position[0] + 8.35, position[1], position[2] + 0.4]}
+					color={SHIPMENT}
+					collisionRefSetter={addCollisionBox}
+				/>
+			) : (
+				<Cylinder
+					position={[position[0] + 7.55, position[1], position[2] + 0.5]}
+					color={SHIPMENT}
+					collisionRefSetter={addCollisionBox}
+				/>
 			)}
 			<Button
 				customName="shipment"
