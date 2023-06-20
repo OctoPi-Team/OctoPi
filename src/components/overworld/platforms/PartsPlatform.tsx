@@ -22,6 +22,8 @@ export default function PartsPlatform({
 	addCollisionBox,
 	isPlatformFixed,
 }: PartsPlatformOptions): JSX.Element {
+	const visibiltyForDamaged = !isPlatformFixed?.parts;
+	const visibiltyForFixed = isPlatformFixed?.parts;
 	return (
 		<>
 			<SimplePlatform position={position} size={[24, 0.5, 18]} reference={reference} color={PARTS} />
@@ -69,62 +71,151 @@ export default function PartsPlatform({
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			<ObjectLoad
-				path={isPlatformFixed?.parts ? '/Metallregal/metallregal.glb' : '/kaputtesMetallregal/kaputtesMetallregal.glb'}
-				position={[position[0] - 6, position[1], position[2] - 2.5]}
-				scale={[0.3, 0.3, 0.3]}
-				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
-			<ObjectLoad
-				path={isPlatformFixed?.parts ? '/Metallregal/metallregal.glb' : '/kaputtesMetallregal/kaputtesMetallregal.glb'}
-				position={[position[0] - 6, position[1], position[2] - 6.5]}
-				scale={[0.3, 0.3, 0.3]}
-				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
-			<ObjectLoad
-				path={isPlatformFixed?.parts ? '/Metallregal/metallregal.glb' : '/kaputtesMetallregal/kaputtesMetallregal.glb'}
-				position={[position[0] + 10, position[1], position[2] + 4]}
-				scale={[0.3, 0.3, 0.3]}
-				rotation={[0, 90, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
-			<ObjectLoad
-				path={isPlatformFixed?.parts ? '/Metallregal/metallregal.glb' : '/kaputtesMetallregal/kaputtesMetallregal.glb'}
-				position={[position[0] + 10, position[1], position[2]]}
-				scale={[0.3, 0.3, 0.3]}
-				rotation={[0, 90, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
-			<ObjectLoad
-				path={isPlatformFixed?.parts ? '/Metallregal/metallregal.glb' : '/kaputtesMetallregal/kaputtesMetallregal.glb'}
-				position={[position[0] + 10, position[1], position[2] - 4]}
-				scale={[0.3, 0.3, 0.3]}
-				rotation={[0, 90, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
-			<ObjectLoad
-				path={isPlatformFixed?.parts ? '/Metallregal/metallregal.glb' : '/kaputtesMetallregal/kaputtesMetallregal.glb'}
-				position={[position[0] + 6, position[1], position[2] + 4]}
-				scale={[0.3, 0.3, 0.3]}
-				rotation={[0, 90, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
-			<ObjectLoad
-				path={isPlatformFixed?.parts ? '/Metallregal/metallregal.glb' : '/kaputtesMetallregal/kaputtesMetallregal.glb'}
-				position={[position[0] + 6, position[1], position[2]]}
-				scale={[0.3, 0.3, 0.3]}
-				rotation={[0, 90, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
-			<ObjectLoad
-				path={isPlatformFixed?.parts ? '/Metallregal/metallregal.glb' : '/kaputtesMetallregal/kaputtesMetallregal.glb'}
-				position={[position[0] + 6, position[1], position[2] - 4]}
-				scale={[0.3, 0.3, 0.3]}
-				rotation={[0, 90, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
+			<group>
+				<ObjectLoad
+					path={'/Metallregal/metallregal.glb'}
+					position={[position[0] - 6, position[1], position[2] - 2.5]}
+					scale={[0.3, 0.3, 0.3]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForFixed}
+				/>
+
+				<ObjectLoad
+					path={'/kaputtesMetallregal/kaputtesMetallregal.glb'}
+					position={[position[0] - 6, position[1], position[2] - 2.5]}
+					scale={[0.3, 0.3, 0.3]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForDamaged}
+				/>
+			</group>
+			<group>
+				<ObjectLoad
+					path={'/Metallregal/metallregal.glb'}
+					position={[position[0] - 6, position[1], position[2] - 6.5]}
+					scale={[0.3, 0.3, 0.3]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForFixed}
+				/>
+				<ObjectLoad
+					path={'/kaputtesMetallregal/kaputtesMetallregal.glb'}
+					position={[position[0] - 6, position[1], position[2] - 6.5]}
+					scale={[0.3, 0.3, 0.3]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForDamaged}
+				/>
+			</group>
+			<group>
+				<ObjectLoad
+					path={'/Metallregal/metallregal.glb'}
+					position={[position[0] + 10, position[1], position[2] + 4]}
+					scale={[0.3, 0.3, 0.3]}
+					rotation={[0, 90, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForFixed}
+				/>
+				<ObjectLoad
+					path={'/kaputtesMetallregal/kaputtesMetallregal.glb'}
+					position={[position[0] + 10, position[1], position[2] + 4]}
+					scale={[0.3, 0.3, 0.3]}
+					rotation={[0, 90, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForDamaged}
+				/>
+			</group>
+			<group>
+				<ObjectLoad
+					path={'/Metallregal/metallregal.glb'}
+					position={[position[0] + 10, position[1], position[2]]}
+					scale={[0.3, 0.3, 0.3]}
+					rotation={[0, 90, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForFixed}
+				/>
+				<ObjectLoad
+					path={'/kaputtesMetallregal/kaputtesMetallregal.glb'}
+					position={[position[0] + 10, position[1], position[2]]}
+					scale={[0.3, 0.3, 0.3]}
+					rotation={[0, 90, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForDamaged}
+				/>
+			</group>
+			<group>
+				<ObjectLoad
+					path={'/Metallregal/metallregal.glb'}
+					position={[position[0] + 10, position[1], position[2] - 4]}
+					scale={[0.3, 0.3, 0.3]}
+					rotation={[0, 90, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForFixed}
+				/>
+				<ObjectLoad
+					path={'/kaputtesMetallregal/kaputtesMetallregal.glb'}
+					position={[position[0] + 10, position[1], position[2] - 4]}
+					scale={[0.3, 0.3, 0.3]}
+					rotation={[0, 90, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForDamaged}
+				/>
+			</group>
+			<group>
+				<ObjectLoad
+					path={'/Metallregal/metallregal.glb'}
+					position={[position[0] + 6, position[1], position[2] + 4]}
+					scale={[0.3, 0.3, 0.3]}
+					rotation={[0, 90, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForFixed}
+				/>
+				<ObjectLoad
+					path={'/kaputtesMetallregal/kaputtesMetallregal.glb'}
+					position={[position[0] + 6, position[1], position[2] + 4]}
+					scale={[0.3, 0.3, 0.3]}
+					rotation={[0, 90, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForDamaged}
+				/>
+			</group>
+			<group>
+				<ObjectLoad
+					path={'/Metallregal/metallregal.glb'}
+					position={[position[0] + 6, position[1], position[2]]}
+					scale={[0.3, 0.3, 0.3]}
+					rotation={[0, 90, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForFixed}
+				/>
+				<ObjectLoad
+					path={'/kaputtesMetallregal/kaputtesMetallregal.glb'}
+					position={[position[0] + 6, position[1], position[2]]}
+					scale={[0.3, 0.3, 0.3]}
+					rotation={[0, 90, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForDamaged}
+				/>
+			</group>
+			<group>
+				<ObjectLoad
+					path={'/Metallregal/metallregal.glb'}
+					position={[position[0] + 6, position[1], position[2] - 4]}
+					scale={[0.3, 0.3, 0.3]}
+					rotation={[0, 90, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForFixed}
+				/>
+				<ObjectLoad
+					path={'/kaputtesMetallregal/kaputtesMetallregal.glb'}
+					position={[position[0] + 6, position[1], position[2] - 4]}
+					scale={[0.3, 0.3, 0.3]}
+					rotation={[0, 90, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForDamaged}
+				/>
+			</group>
 			<ObjectLoad
 				path="/Palette/palette.glb"
 				position={[position[0] + 10, position[1], position[2] + -7]}

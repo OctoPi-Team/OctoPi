@@ -22,6 +22,8 @@ export default function MonitoringPlatform({
 	addCollisionBox,
 	isPlatformFixed,
 }: MonitoringPlatformOptions): JSX.Element {
+	const visibiltyForDamaged = !isPlatformFixed?.monitoring;
+	const visibiltyForFixed = isPlatformFixed?.monitoring;
 	return (
 		<>
 			<SimplePlatform position={position} size={[14, 0.5, 21]} reference={reference} color={MONITORING} />
@@ -31,30 +33,47 @@ export default function MonitoringPlatform({
 				position={[position[0] + 3, position[1] + 5, position[2] - 15]}
 				rotation={[0, 270, 0]}
 			/>
-			<ObjectLoad
-				path={
-					isPlatformFixed?.monitoring
-						? '/Radarschuessel/radarschuessel.glb'
-						: '/Radarschuessel_kaputt_final/radarschuessel_kaputt_final.glb'
-				}
-				position={[position[0], position[1], position[2] + 5]}
-				scale={[0.8, 0.8, 0.8]}
-				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
-				customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(2, 2, 2) }]}
-			/>
-			<ObjectLoad
-				path={
-					isPlatformFixed?.monitoring
-						? '/Radarschuessel/radarschuessel.glb'
-						: '/Radarschuessel_kaputt_final/radarschuessel_kaputt_final.glb'
-				}
-				position={[position[0] - 2, position[1], position[2] - 7]}
-				scale={[0.7, 0.7, 0.7]}
-				rotation={[0, 90, 0]}
-				collisionRefSetter={addCollisionBox}
-				customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(2, 2, 2) }]}
-			/>
+			<group>
+				<ObjectLoad
+					path={'/Radarschuessel/radarschuessel.glb'}
+					position={[position[0], position[1], position[2] + 5]}
+					scale={[0.8, 0.8, 0.8]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+					customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(2, 2, 2) }]}
+					visible={visibiltyForFixed}
+				/>
+				<ObjectLoad
+					path={'/Radarschuessel_kaputt_final/radarschuessel_kaputt_final.glb'}
+					position={[position[0], position[1], position[2] + 5]}
+					scale={[0.8, 0.8, 0.8]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+					customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(2, 2, 2) }]}
+					visible={visibiltyForDamaged}
+				/>
+			</group>
+			<group>
+				<ObjectLoad
+					path={'/Radarschuessel/radarschuessel.glb'}
+					position={[position[0] - 2, position[1], position[2] - 7]}
+					scale={[0.7, 0.7, 0.7]}
+					rotation={[0, 90, 0]}
+					collisionRefSetter={addCollisionBox}
+					customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(2, 2, 2) }]}
+					visible={visibiltyForFixed}
+				/>
+				<ObjectLoad
+					path={'/Radarschuessel_kaputt_final/radarschuessel_kaputt_final.glb'}
+					position={[position[0] - 2, position[1], position[2] - 7]}
+					scale={[0.7, 0.7, 0.7]}
+					rotation={[0, 90, 0]}
+					collisionRefSetter={addCollisionBox}
+					customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(2, 2, 2) }]}
+					visible={visibiltyForDamaged}
+				/>
+			</group>
+
 			<ObjectLoad
 				path="/TischMitTV/tischMitTV.glb"
 				position={[position[0] + 3.5, position[1], position[2] - 0.5]}
