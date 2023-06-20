@@ -140,8 +140,8 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos, 
 				</Canvas>
 				{finished && WinScreen(reloadGame, () => changeView(true), setIsPlatformFixed)}
 				{info && InfoButton("Willkommen zu unserem Minispiel der Shipment-Platform! " +
-						"Du kannst neben dem leeren Feld die Röhren anklicken und tauschst so die zwei Felder." + 
-						"Probiers ruhig mal aus.")}
+					"Du kannst neben dem leeren Feld die Röhren anklicken und tauschst so die zwei Felder. " +
+					"Probiers ruhig mal aus.")}
 			</div>
 		</>
 	);
