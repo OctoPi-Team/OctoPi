@@ -33,7 +33,7 @@ export default function ObjectLoad({
 	collisionRefSetter,
 	customCollisionBoxes,
 	customName, // Include customName in function parameters
-	visible = true
+	visible = true,
 }: ObjectLoadOptions): JSX.Element {
 	const SHOW_COLLISION_BOX = false;
 	const meshRef = useRef<InstancedMesh<BufferGeometry, Material | Material[]>>(null);

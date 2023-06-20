@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Mesh, Vector3 } from 'three';
 
-import { BLUE, GREEN, PINK, SHIPMENT, WHITE } from '../../../AllColorVariables';
+import { GREEN } from '../../../AllColorVariables';
 import Tube from './Tube';
 
 export enum TileType {
@@ -41,7 +41,7 @@ export default function Tile({
 	startVector,
 	endVector,
 	tileType,
-	color = "#cfcfcf",
+	color = '#cfcfcf',
 	render = true,
 }: TileProps) {
 	const ref = useRef<Mesh>(null);

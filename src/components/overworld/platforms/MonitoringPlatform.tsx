@@ -72,7 +72,6 @@ export default function MonitoringPlatform({
 					customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(2, 2, 2) }]}
 					visible={visibiltyForDamaged}
 				/>
-
 			</group>
 
 			<ObjectLoad

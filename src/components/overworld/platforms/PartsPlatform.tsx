@@ -107,7 +107,6 @@ export default function PartsPlatform({
 					collisionRefSetter={addCollisionBox}
 					visible={visibiltyForDamaged}
 				/>
-
 			</group>
 			<group>
 				<ObjectLoad
@@ -126,7 +125,6 @@ export default function PartsPlatform({
 					collisionRefSetter={addCollisionBox}
 					visible={visibiltyForDamaged}
 				/>
-
 			</group>
 			<group>
 				<ObjectLoad
