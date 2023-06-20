@@ -107,7 +107,7 @@ export default function App() {
 					}}
 				/>
 			)}
-			{scene === Scene.BTPinfo && <BTPinfo />}
+			{scene === Scene.BTPinfo && <BTPinfo setSceneHook={setScene} visible={visible} playerPos={playerstartingPos} />}
 		</>
 	);
 }
