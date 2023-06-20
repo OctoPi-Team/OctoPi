@@ -30,6 +30,7 @@ import InfoButton from '../ui/InfoButton';
 import DragVector from './DragVector';
 import './style/onbuttonstep.css';
 import AlreadyFixedInformation from '../ui/AlreadyFixedInformation';
+import showPlatformInfo from '../ui/Infoboard';
 
 export default function Overworld({
 	setSceneHook,
@@ -176,7 +177,12 @@ export default function Overworld({
 						{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} visibility={visible} />}
 					</group>
 					<group name="platforms-and-stairs">
-						<MainPlatform position={[0, 0, 0]} reference={addPlatform} buttonReference={addButtons} addCollisionBox={addCollisionBox} />
+						<MainPlatform
+							position={[0, 0, 0]}
+							reference={addPlatform}
+							buttonReference={addButtons}
+							addCollisionBox={addCollisionBox}
+						/>
 						<Stair
 							startPosition={new Vector3(7.5, 0, 6.5)}
 							endPosition={new Vector3(7.5, 4, 16)}
@@ -280,6 +286,7 @@ export default function Overworld({
 				isPlatformFixed?.shipment ||
 				isPlatformFixed?.production) && <AlreadyFixedInformation isPlatformFixed={isPlatformFixed} />}
 			{isOnButton && <div className={'button'}>Minigame: {buttonName.toUpperCase()}</div>}
+			{console.log(buttons[0])}
 		</>
 	);
 }

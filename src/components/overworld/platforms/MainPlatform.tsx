@@ -35,84 +35,87 @@ export default function MainPlatform({
 				rotation={[0, 270, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			<ObjectLoad
-				path="/Infotafel/infotafel.glb"
-				position={[position[0] + 5.2, position[1], position[2] + 6]}
-				scale={[0.45, 0.45, 0.45]}
-				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
-			<Button
-				customName="infotafelShipment"
-				position={[position[0] + 5.2, position[1], position[2] + 5.2]}
-				scale={[0.5, 0.5, 0.5]}
-				reference={buttonReference}
-			/>
-			<ObjectLoad
-				path="/Infotafel/infotafel.glb"
-				position={[position[0] + 9.5, position[1], position[2] + 2]}
-				scale={[0.45, 0.45, 0.45]}
-				rotation={[0, 90, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
-			<Button
-				customName="infotafelMonitoring"
-				position={[position[0] + 8.7, position[1], position[2] + 2]}
-				scale={[0.5, 0.5, 0.5]}
-				reference={buttonReference}
-			/>
-			<ObjectLoad
-				path="/Infotafel/infotafel.glb"
-				position={[position[0] - 5.3, position[1], position[2] + 6]}
-				scale={[0.45, 0.45, 0.45]}
-				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
-			<Button
-				customName="infotafelEngineering"
-				position={[position[0] - 5.3, position[1], position[2] + 5.2]}
-				scale={[0.5, 0.5, 0.5]}
-				reference={buttonReference}
-			/>
-			<ObjectLoad
-				path="/Infotafel/infotafel.glb"
-				position={[position[0] - 9.5, position[1], position[2] - 2.2]}
-				scale={[0.45, 0.45, 0.45]}
-				rotation={[0, 270, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
-			<Button
-				customName="infotafelDesign"
-				position={[position[0] - 8.7, position[1], position[2] - 2.2]}
-				scale={[0.5, 0.5, 0.5]}
-				reference={buttonReference}
-			/>
-			<ObjectLoad
-				path="/Infotafel/infotafel.glb"
-				position={[position[0] - 4.7, position[1], position[2] - 6]}
-				scale={[0.45, 0.45, 0.45]}
-				rotation={[0, 180, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
-			<Button
-				customName="infotafelProducion"
-				position={[position[0] - 4.7, position[1], position[2] - 5.2]}
-				scale={[0.5, 0.5, 0.5]}
-				reference={buttonReference}
-			/>
-			<ObjectLoad
-				path="/Infotafel/infotafel.glb"
-				position={[position[0] + 3.8, position[1], position[2] - 6]}
-				scale={[0.45, 0.45, 0.45]}
-				rotation={[0, 180, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
-			<Button
-				customName="infotafelParts"
-				position={[position[0] + 3.8, position[1], position[2] - 5.2]}
-				scale={[0.5, 0.5, 0.5]}
-				reference={buttonReference}
-			/>
+
+			<group name="info-board-and-buttons">
+				<ObjectLoad
+					path="/Infotafel/infotafel.glb"
+					position={[position[0] + 5.2, position[1], position[2] + 6]}
+					scale={[0.45, 0.45, 0.45]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+				/>
+				<Button
+					customName="shipmentInfo"
+					position={[position[0] + 5.2, position[1], position[2] + 5.2]}
+					scale={[0.6, 0.6, 0.6]}
+					reference={buttonReference}
+				/>
+				<ObjectLoad
+					path="/Infotafel/infotafel.glb"
+					position={[position[0] + 9.5, position[1], position[2] + 2]}
+					scale={[0.45, 0.45, 0.45]}
+					rotation={[0, 90, 0]}
+					collisionRefSetter={addCollisionBox}
+				/>
+				<Button
+					customName="monitoringInfo"
+					position={[position[0] + 8.7, position[1], position[2] + 2]}
+					scale={[0.6, 0.6, 0.6]}
+					reference={buttonReference}
+				/>
+				<ObjectLoad
+					path="/Infotafel/infotafel.glb"
+					position={[position[0] - 5.3, position[1], position[2] + 6]}
+					scale={[0.45, 0.45, 0.45]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+				/>
+				<Button
+					customName="engineeringInfo"
+					position={[position[0] - 5.3, position[1], position[2] + 5.2]}
+					scale={[0.6, 0.6, 0.6]}
+					reference={buttonReference}
+				/>
+				<ObjectLoad
+					path="/Infotafel/infotafel.glb"
+					position={[position[0] - 9.5, position[1], position[2] - 2.2]}
+					scale={[0.45, 0.45, 0.45]}
+					rotation={[0, 270, 0]}
+					collisionRefSetter={addCollisionBox}
+				/>
+				<Button
+					customName="designInfo"
+					position={[position[0] - 8.7, position[1], position[2] - 2.2]}
+					scale={[0.6, 0.6, 0.6]}
+					reference={buttonReference}
+				/>
+				<ObjectLoad
+					path="/Infotafel/infotafel.glb"
+					position={[position[0] - 4.7, position[1], position[2] - 6]}
+					scale={[0.45, 0.45, 0.45]}
+					rotation={[0, 180, 0]}
+					collisionRefSetter={addCollisionBox}
+				/>
+				<Button
+					customName="productionInfo"
+					position={[position[0] - 4.7, position[1], position[2] - 5.2]}
+					scale={[0.6, 0.6, 0.6]}
+					reference={buttonReference}
+				/>
+				<ObjectLoad
+					path="/Infotafel/infotafel.glb"
+					position={[position[0] + 3.8, position[1], position[2] - 6]}
+					scale={[0.45, 0.45, 0.45]}
+					rotation={[0, 180, 0]}
+					collisionRefSetter={addCollisionBox}
+				/>
+				<Button
+					customName="partsInfo"
+					position={[position[0] + 3.8, position[1], position[2] - 5.2]}
+					scale={[0.6, 0.6, 0.6]}
+					reference={buttonReference}
+				/>
+			</group>
 			<gridHelper position={[position[0], position[1], position[2] - 4]} args={[2, 2, 'black', 'black']} />
 		</>
 	);

@@ -6,7 +6,21 @@ import { Box3, BufferGeometry, Material, MathUtils, Mesh, Vector2, Vector3 } fro
 import { STAIR_WIDTH, StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
 import Infoboard from '../ui/Infoboard';
-import { HEADDESIGN, HEADENGINEERING, HEADMONITORING, HEADPARTS, HEADPRODUCTION, HEADSHIPMENT, INFODESIGN, INFOENGINEERING, INFOMONITORING, INFOPARTS, INFOPRODUCTION, INFOSHIPMENT } from '../ui/InfotextAboutPlatforms';
+import {
+	HEADDESIGN,
+	HEADENGINEERING,
+	HEADMONITORING,
+	HEADPARTS,
+	HEADPRODUCTION,
+	HEADSHIPMENT,
+	INFODESIGN,
+	INFOENGINEERING,
+	INFOMONITORING,
+	INFOPARTS,
+	INFOPRODUCTION,
+	INFOSHIPMENT,
+} from '../ui/InfotextAboutPlatforms';
+import showPlatformInfo from '../ui/Infoboard';
 
 export const PLAYER_SIZE = 0.5;
 const SPEED = 0.1;
@@ -52,13 +66,13 @@ function Player({
 	const [targetRotation, setTargetRotation] = useState<Vector3>(new Vector3(0, 0, 0));
 	const [showInfoboard, setShowInfoboard] = useState(false);
 
-  	const handleInfoboardClose = () => {
-    	setShowInfoboard(false);
-  	};
+	const handleInfoboardClose = () => {
+		setShowInfoboard(false);
+	};
 
-  	const handleClick = () => {
-    	setShowInfoboard(true);
-  	};
+	const handleClick = () => {
+		setShowInfoboard(true);
+	};
 	// player movement
 	useFrame(() => {
 		if (!ref.current) return;
@@ -140,27 +154,57 @@ function Player({
 								}
 							}, BUTTON_TIMEOUT);
 							break;
-						case 'infotafelDesign':
-							{showInfoboard&&(
-								Infoboard(HEADDESIGN, INFODESIGN, handleInfoboardClose)
-							)}
+						case 'designInfo':
+							setButton('designInfo');
+							setIsOnButton(true);
+							setTimeout(() => {
+								setIsOnButton(false);
+								showPlatformInfo('cyxc', 'ascsd');
+							}, BUTTON_TIMEOUT);
+
 							break;
-						case 'infotafelEngineering':
-							Infoboard(HEADENGINEERING, INFOENGINEERING, handleInfoboardClose);
-							console.log("engineering");
+						case 'engineeringInfo':
+							setButton('engineeringInfo');
+							setIsOnButton(true);
+							setTimeout(() => {
+								setIsOnButton(false);
+								showPlatformInfo('cyxc', 'ascsd');
+							}, BUTTON_TIMEOUT);
+
 							break;
-						case 'infotafelProduction':
-							Infoboard(HEADPRODUCTION, INFOPRODUCTION, handleInfoboardClose);
-							console.log("production");
+						case 'productionInfo':
+							setButton('productionInfo');
+							setIsOnButton(true);
+							setTimeout(() => {
+								setIsOnButton(false);
+								showPlatformInfo('cyxc', 'ascsd');
+							}, BUTTON_TIMEOUT);
+
 							break;
-						case 'infotafelParts':
-							Infoboard(HEADPARTS, INFOPARTS, handleInfoboardClose);
+						case 'partsInfo':
+							setButton('partsInfo');
+							setIsOnButton(true);
+							setTimeout(() => {
+								setIsOnButton(false);
+								showPlatformInfo('cyxc', 'ascsd');
+							}, BUTTON_TIMEOUT);
+
 							break;
-						case 'infotafelShipment':
-							Infoboard(HEADSHIPMENT, INFOSHIPMENT, handleInfoboardClose);
+						case 'shipmentInfo':
+							setButton('shipmentInfo');
+							setIsOnButton(true);
+							setTimeout(() => {
+								setIsOnButton(false);
+							}, BUTTON_TIMEOUT);
+
 							break;
-						case 'infotafelMonitoring':
-							Infoboard(HEADMONITORING, INFOMONITORING, handleInfoboardClose);
+						case 'monitoringInfo':
+							setButton('monitoringInfo');
+							setIsOnButton(true);
+							setTimeout(() => {
+								setIsOnButton(false);
+							}, BUTTON_TIMEOUT);
+
 							break;
 					}
 				}
