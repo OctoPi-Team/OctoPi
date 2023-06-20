@@ -292,7 +292,7 @@ function getNewPlayerHeight(
 
 function getNewLerpedPlayerRoation(rotation: Vector3, targetRotation: Vector3, rotation_speed: number): Vector3 {
 	const rotationDeg = MathUtils.radToDeg(rotation.y);
-	let targetRotationDeg = MathUtils.radToDeg(targetRotation.y);
+	const targetRotationDeg = MathUtils.radToDeg(targetRotation.y);
 
 	// Calculate the difference between the two angles
 	let diff = targetRotationDeg - rotationDeg;
