@@ -6,6 +6,7 @@ import { Box3, BufferGeometry, Material, MathUtils, Mesh, Vector2, Vector3 } fro
 import { STAIR_WIDTH, StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
 import Infoboard from '../ui/Infoboard';
+import { HEADDESIGN, HEADENGINEERING, HEADMONITORING, HEADPARTS, HEADPRODUCTION, HEADSHIPMENT, INFODESIGN, INFOENGINEERING, INFOMONITORING, INFOPARTS, INFOPRODUCTION, INFOSHIPMENT } from '../ui/InfotextAboutPlatforms';
 
 export const PLAYER_SIZE = 0.5;
 const SPEED = 0.1;
@@ -49,7 +50,15 @@ function Player({
 	const ref = useRef<Mesh>(null);
 	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
 	const [targetRotation, setTargetRotation] = useState<Vector3>(new Vector3(0, 0, 0));
+	const [showInfoboard, setShowInfoboard] = useState(false);
 
+  	const handleInfoboardClose = () => {
+    	setShowInfoboard(false);
+  	};
+
+  	const handleClick = () => {
+    	setShowInfoboard(true);
+  	};
 	// player movement
 	useFrame(() => {
 		if (!ref.current) return;
@@ -132,28 +141,26 @@ function Player({
 							}, BUTTON_TIMEOUT);
 							break;
 						case 'infotafelDesign':
-							Infoboard("Human-centered Design ist bei uns nicht nur ein Buzzword. " + 
-									"Unsere Projekte starten im UX Design mit der Frage: Was braucht der Nutzer wirklich? " + 
-									"Dazu im Einsatz: Design Thinking, Design Scoping und UX Research. " +
-									"Hier greifen wir auch auf unsere Erfahrung aus einer Vielzahl von erfolgreichen Kundenprojekten zurück. " + 
-									"Unser Ziel ist es, schnell zu verprobaren Prototypen der wirklich wichtigen Lösungen zu kommen. " +
-									"Und zwar bevor in die erste Zeile Code investiert wird.",
-									);
+							{showInfoboard&&(
+								Infoboard(HEADDESIGN, INFODESIGN, handleInfoboardClose)
+							)}
 							break;
 						case 'infotafelEngineering':
-							setButton('Testtest');
+							Infoboard(HEADENGINEERING, INFOENGINEERING, handleInfoboardClose);
+							console.log("engineering");
 							break;
 						case 'infotafelProduction':
-							setButton('Testtest');
+							Infoboard(HEADPRODUCTION, INFOPRODUCTION, handleInfoboardClose);
+							console.log("production");
 							break;
 						case 'infotafelParts':
-							setButton('Testtest');
+							Infoboard(HEADPARTS, INFOPARTS, handleInfoboardClose);
 							break;
 						case 'infotafelShipment':
-							setButton('Testtest');
+							Infoboard(HEADSHIPMENT, INFOSHIPMENT, handleInfoboardClose);
 							break;
 						case 'infotafelMonitoring':
-							setButton('Testtest');
+							Infoboard(HEADMONITORING, INFOMONITORING, handleInfoboardClose);
 							break;
 					}
 				}
