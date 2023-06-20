@@ -66,6 +66,9 @@ function Player({
 				const BUTTON_TIMEOUT = 3000;
 				if (!isOnButton) {
 					switch (button.name) {
+						case 'BTPinfo':
+							if (sceneProps) sceneProps.setSceneHook(Scene.BTPinfo);
+							break;
 						case 'shipment':
 							if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
 							break;
