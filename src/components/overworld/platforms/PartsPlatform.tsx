@@ -6,6 +6,7 @@ import { Box3, Vector3 } from 'three';
 import Tube from '../objects/Tube';
 import { PlatformFixProps } from '../../../App';
 import Button from '../objects/Button';
+import Cylinder from '../objects/Cylinder';
 
 type PartsPlatformOptions = {
 	position?: [number, number, number];
@@ -260,6 +261,25 @@ export default function PartsPlatform({
 				rotation={[0, 180, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
+			
+<ObjectLoad
+				path="/SchrankOffen/schrankOffen.glb"
+				position={[position[0], position[1], position[2] + 8]}
+				scale={[0.8, 0.8, 0.8]}
+				rotation={[0, 0, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
+			<ObjectLoad
+				path="/SchrankZu/schrankZu.glb"
+				position={[position[0] + 1.8, position[1], position[2] + 8]}
+				scale={[0.8, 0.8, 0.8]}
+				rotation={[0, 0, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
+			<Cylinder position={[position[0] - 3, position[1], position[2] + 7.1]} color={PARTS} />
+			<Cylinder position={[position[0] + 5.8, position[1], position[2] - 7.2]} color={PARTS} />
+			<Cylinder position={[position[0] + 11.2, position[1], position[2] - 7]} color={PARTS} />
+			
 			<Button
 				customName="parts"
 				position={[position[0] - 9, position[1] + 6, position[2] - 6]}
