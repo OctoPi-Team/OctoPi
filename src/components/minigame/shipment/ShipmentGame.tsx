@@ -26,7 +26,7 @@ export const VECTORS_FOR_INPUT_TUBE = [
 	new Vector3(-15, 5, INPUT_TUBE_POSITION),
 ];
 
-export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }: SceneProps) {
+export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos, setIsPlatformFixed }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
 	const [finished, setFinished] = useState(false);
 	const [info, setInfo] = useState(false);
@@ -95,17 +95,6 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 					top="40px"
 					text="i"
 					onClick={() => {
-						window.alert(
-							'Willkommen zu unserem Spiel Operation:Innovation! Das Spiel ist ganz simpel. Klicke auf eine der verschiedenen Grids und verändere somit die Position der verschiedenen Röhren. Sobald du eine Verbindung erfolgreich zum Trichter geschafft hast, hast du gewonnen! Viel Erfolg!'
-						);
-					}}
-				/>
-				<NavigationButton
-					position="absolute"
-					right="30px"
-					top="40px"
-					text="i"
-					onClick={() => {
 						setInfo(true);
 						if (info) {
 							setInfo(false);
@@ -141,7 +130,7 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 						<Tube name="InputTubeInGame" position={[0, 0, 0]} color={GREEN} vectors={VECTORS_FOR_INPUT_TUBE} />
 					</group>
 				</Canvas>
-				{finished && WinScreen(reloadGame, () => changeView(true))}
+				{finished && WinScreen(reloadGame, () => changeView(true), setIsPlatformFixed)}
 				{info && <InfoButton />}
 			</div>
 		</>
