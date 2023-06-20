@@ -161,9 +161,21 @@ export default function EngineeringPlatform({
 				rotation={[0, 210, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			<Cylinder position={[position[0] - 1.4, position[1], position[2] + 6.8]} color={ENGINEERING} />
-			<Cylinder position={[position[0] + 6.3, position[1], position[2] + 7]} color={ENGINEERING} />
-			<Cylinder position={[position[0] - 6.4, position[1], position[2] + 6]} color={ENGINEERING} />
+			<Cylinder
+				position={[position[0] - 1.4, position[1], position[2] + 6.8]}
+				color={ENGINEERING}
+				collisionRefSetter={addCollisionBox}
+			/>
+			<Cylinder
+				position={[position[0] + 6.3, position[1], position[2] + 7]}
+				color={ENGINEERING}
+				collisionRefSetter={addCollisionBox}
+			/>
+			<Cylinder
+				position={[position[0] - 6.4, position[1], position[2] + 6]}
+				color={ENGINEERING}
+				collisionRefSetter={addCollisionBox}
+			/>
 			<Button
 				customName="engineering"
 				position={[position[0] - 7, position[1] + 6, position[2] - 9]}
