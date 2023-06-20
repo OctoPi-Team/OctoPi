@@ -243,7 +243,7 @@ export default function Grid({ size, isFinished, currentVariation }: GridProps) 
 	}
 
 	function tileClickHandler({ startVector, endVector, tileType, color, gridPosition }: TileProps) {
-		if (isNeighbourOfEmptyTile(gridPosition, emptyTile)) {
+		if (isNeighbourOfEmptyTile(gridPosition, emptyTile) && done) {
 			// swap positions of clicked and empty tile
 			const bufferedEmptyTile = emptyTile;
 			setEmptyTile(gridPosition);

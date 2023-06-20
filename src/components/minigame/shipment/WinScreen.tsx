@@ -2,7 +2,7 @@ import { PlatformFixProps } from '../../../App';
 
 export default function WinScreen(
 	onClickNewGame: () => void,
-	onClickBack: () => void,
+	onClickBack: (b: boolean) => void,
 	setIsPlatformFixed: ((newProps: Partial<PlatformFixProps>) => void) | undefined
 ) {
 	return (
@@ -12,22 +12,14 @@ export default function WinScreen(
 				<div className={'buttons'}>
 					<button
 						onClick={() => {
-							onClickBack;
+							onClickBack(true);
 							if (setIsPlatformFixed) {
 								setIsPlatformFixed({ shipment: true });
 							}
 						}}>
 						Zurück zur Plattform
 					</button>
-					<button
-						onClick={() => {
-							onClickNewGame;
-							if (setIsPlatformFixed) {
-								setIsPlatformFixed({ shipment: true });
-							}
-						}}>
-						Starte neues Spiel
-					</button>
+					<button onClick={onClickNewGame}>Starte neues Spiel</button>
 				</div>
 			</div>
 		</>
