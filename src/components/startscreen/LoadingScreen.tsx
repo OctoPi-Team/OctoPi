@@ -17,19 +17,17 @@ export const LoadingScreen = ({ setVisible, setScene }: LoadingScreenProps) => {
 		}
 		if (progress === 100) {
 			button.style.backgroundColor = 'rgba(0, 149, 7, 0.729)';
-			document.addEventListener('touchstart', () => {
-				setVisible(false);
-				setScene(Scene.Overworld);
-			});
-			document.addEventListener('click', () => {
-				setVisible(false);
-				setScene(Scene.Overworld);
-			});
+		}
+	}
+	function showOverworld() {
+		if (progress === 100) {
+			setVisible(false);
+			setScene(Scene.Overworld);
 		}
 	}
 	return (
 		<>
-			<div className="loadingScreen">
+			<div onClick={showOverworld} onTouchStart={showOverworld} className="loadingScreen">
 				<div className="loadingScreen__progress">
 					<div
 						className="loadingScreen__progress__value"

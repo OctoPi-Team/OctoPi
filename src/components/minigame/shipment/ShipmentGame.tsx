@@ -42,7 +42,7 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos, 
 			// set position of Player for when he spawns again after the game
 			if (setPlayerPos) setPlayerPos(new Vector3(9, 4, 25));
 		};
-	}, [visible, setSceneHook]);
+	}, []);
 
 	function changeView(done = true) {
 		if (done) setSceneHook(Scene.Overworld);

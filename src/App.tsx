@@ -14,7 +14,7 @@ export enum Scene {
 	Overworld,
 	Shipment,
 	EndScreen,
-	IdleScreen
+	IdleScreen,
 	BTPinfo
 }
 
@@ -38,7 +38,10 @@ export type PlatformFixProps = {
 
 export default function App() {
 	const [playerstartingPos, setPlayerstartingPos] = useState<Vector3>(new Vector3(0, 0, 0));
-	const [scene, setScene] = useState<Scene>(Scene.Overworld);
+	const [scene, _setScene] = useState<Scene>(Scene.Overworld);
+	function setScene(newScene: Scene) {
+		_setScene(newScene);
+	}
 	const [visible, setVisible] = useState(true);
 	const [isPlatformFixed, setIsPlatformFixed] = useState<PlatformFixProps>({
 		shipment: false,
@@ -58,21 +61,21 @@ export default function App() {
 		}));
 	}
 
-	const resetTimer = () => {
-		clearTimeout(timeoutId);
-		timeoutId = setTimeout(() => {
-			setVisible(false);
-			setScene(Scene.IdleScreen);
-		}, delay);
-	};
-
-	// Add event listeners to detect user activity
-	document.addEventListener('touchmove', resetTimer);
-	document.addEventListener('keydown', resetTimer);
-	document.addEventListener('click', resetTimer);
-	document.addEventListener('mousemove', resetTimer);
-
 	useEffect(() => {
+		const resetTimer = () => {
+			clearTimeout(timeoutId);
+			timeoutId = setTimeout(() => {
+				setVisible(false);
+				setScene(Scene.IdleScreen);
+			}, delay);
+		};
+		if (!timeoutId) {
+			// Add event listeners to detect user activity
+			document.addEventListener('touchmove', resetTimer);
+			document.addEventListener('keydown', resetTimer);
+			document.addEventListener('click', resetTimer);
+			document.addEventListener('mousemove', resetTimer);
+		}
 		// re-start the timer
 		resetTimer();
 		// Clean up event listeners
@@ -83,7 +86,7 @@ export default function App() {
 			document.removeEventListener('click', resetTimer);
 			document.removeEventListener('mousemove', resetTimer);
 		};
-	}, [visible]);
+	}, []);
 
 	useEffect(() => {
 		if (isPlatformFixed.design
@@ -94,7 +97,7 @@ export default function App() {
 			&& isPlatformFixed.shipment
 		)
 			setScene(Scene.EndScreen);
-	}, [isPlatformFixed]);
+	}, [setScene, isPlatformFixed]);
 
 	function showStartScreen() {
 		// reset fixed state
@@ -106,8 +109,6 @@ export default function App() {
 			monitoring: false,
 			production: false,
 		});
-		// reset player movement
-		resetKeys();
 		// show startscreen scene (async to avoid that the event is catched by the loading screen immediately)
 		setTimeout(() => {
 			setScene(Scene.Overworld);
