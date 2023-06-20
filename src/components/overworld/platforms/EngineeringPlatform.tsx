@@ -6,6 +6,7 @@ import { Box3, Vector3 } from 'three';
 import Tube from '../objects/Tube';
 import { PlatformFixProps } from '../../../App';
 import Button from '../objects/Button';
+import Cylinder from '../objects/Cylinder';
 
 type EngineeringPlatformOptions = {
 	position?: [number, number, number];
@@ -153,7 +154,16 @@ export default function EngineeringPlatform({
 					visible={visibiltyForDamaged}
 				/>
 			</group>
-
+			<ObjectLoad
+				path="/Teleskop/teleskop.glb"
+				position={[position[0] - 5.3, position[1], position[2] - 7.5]}
+				scale={[1.5, 1.5, 1.5]}
+				rotation={[0, 210, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
+			<Cylinder position={[position[0] - 1.4, position[1], position[2] + 6.8]} color={ENGINEERING} />
+			<Cylinder position={[position[0] + 6.3, position[1], position[2] + 7]} color={ENGINEERING} />
+			<Cylinder position={[position[0] - 6.4, position[1], position[2] + 6]} color={ENGINEERING} />
 			<Button
 				customName="engineering"
 				position={[position[0] - 7, position[1] + 6, position[2] - 9]}

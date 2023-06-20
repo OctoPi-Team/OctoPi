@@ -6,6 +6,7 @@ import Text from '../objects/Text';
 import Tube from '../objects/Tube';
 import { PlatformFixProps } from '../../../App';
 import Button from '../objects/Button';
+import Cylinder from '../objects/Cylinder';
 
 type ProductionPlatformOptions = {
 	position?: [number, number, number];
@@ -164,6 +165,8 @@ export default function ProductionPlatform({
 				]}
 				ballAnimation={isPlatformFixed?.production}
 			/>
+			<Cylinder position={[position[0] - 10, position[1], position[2] - 0.05]} color={PRODUCTION} />
+			<Cylinder position={[position[0] - 9.9, position[1], position[2] - 4.9]} color={PRODUCTION} />
 			<Button
 				customName="production"
 				position={[position[0] - 11, position[1] + 6, position[2] - 9]}

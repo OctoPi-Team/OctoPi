@@ -6,6 +6,7 @@ import { Box3, Vector3 } from 'three';
 import Tube from '../objects/Tube';
 import { PlatformFixProps } from '../../../App';
 import Button from '../objects/Button';
+import Cylinder from '../objects/Cylinder';
 
 type MonitoringPlatformOptions = {
 	position?: [number, number, number];
@@ -82,11 +83,29 @@ export default function MonitoringPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(1, 2, 2) }]}
 			/>
-			<ObjectLoad
-				path="/TischMitTV/tischMitTV.glb"
+			
+		
+<ObjectLoad
+				path="/kleinerTisch/kleinerTisch.glb"
 				position={[position[0] + 2.5, position[1], position[2] - 4.5]}
 				scale={[0.45, 0.45, 0.45]}
 				rotation={[0, 7, 0]}
+				collisionRefSetter={addCollisionBox}
+				customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(1, 2, 2) }]}
+			/>
+			<ObjectLoad
+				path="/Fernglas/fernglas.glb"
+				position={[position[0] + 2.5, position[1] + 0.9, position[2] - 4]}
+				scale={[0.07, 0.07, 0.07]}
+				rotation={[0, 90, 0]}
+				collisionRefSetter={addCollisionBox}
+				customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(1, 2, 2) }]}
+			/>
+			<ObjectLoad
+				path="/Taschenlampe/taschenlampe.glb"
+				position={[position[0] + 2.3, position[1] + 1, position[2] - 5.3]}
+				scale={[0.15, 0.15, 0.15]}
+				rotation={[0, 180, 0]}
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(1, 2, 2) }]}
 			/>
@@ -118,6 +137,11 @@ export default function MonitoringPlatform({
 				]}
 				ballAnimation={isPlatformFixed?.monitoring}
 			/>
+			<Cylinder position={[position[0] - 5.5, position[1], position[2] - 8.15]} color={MONITORING} />
+			<Cylinder position={[position[0] - 5.5, position[1], position[2] - 4.85]} color={MONITORING} />
+			<Cylinder position={[position[0] - 5.4, position[1], position[2] + 8.9]} color={MONITORING} />
+			<Cylinder position={[position[0] + 1, position[1], position[2] + 8.9]} color={MONITORING} />
+
 			<Button
 				customName="monitoring"
 				position={[position[0] - 8, position[1] + 6, position[2] - 9]}

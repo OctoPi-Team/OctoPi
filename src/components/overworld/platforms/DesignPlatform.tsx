@@ -6,6 +6,7 @@ import { Box3, Vector3 } from 'three';
 import Tube from '../objects/Tube';
 import { PlatformFixProps } from '../../../App';
 import Button from '../objects/Button';
+import Cylinder from '../objects/Cylinder';
 
 type DesignPlatformOptions = {
 	position?: [number, number, number];
@@ -140,6 +141,10 @@ export default function DesignPlatform({
 					visible={visibiltyForDamaged}
 				/>
 			</group>
+			<Cylinder position={[position[0] + 2.1, position[1], position[2] - 9]} color={DESIGN} />
+			<Cylinder position={[position[0] + 5.3, position[1], position[2] - 9]} color={DESIGN} />
+			<Cylinder position={[position[0] + 0.4, position[1], position[2] - 9]} color={DESIGN} />
+			<Cylinder position={[position[0] - 7.8, position[1], position[2] + 5.7]} color={DESIGN} />
 			<Button
 				customName="design"
 				position={[position[0] - 7, position[1] + 6, position[2] - 9]}
