@@ -19,6 +19,7 @@ type GridProps = {
 	size: [number, number];
 	isFinished: Dispatch<SetStateAction<boolean>>;
 	currentVariation: number;
+	finished: boolean;
 };
 
 function getTilesFromProps(
@@ -225,7 +226,7 @@ function generateFunctioningGrid(variant: number): TableProp {
 	}
 }
 
-export default function Grid({ size, isFinished, currentVariation }: GridProps) {
+export default function Grid({ size, isFinished, finished, currentVariation }: GridProps) {
 	const [done, setDone] = useState(true);
 	const [tiles, setTiles] = useState<TileProps[][]>(initialize2DArray());
 	const [emptyTile, setEmptyTile] = useState<[number, number]>([0, 0]);
@@ -243,7 +244,7 @@ export default function Grid({ size, isFinished, currentVariation }: GridProps) 
 	}
 
 	function tileClickHandler({ startVector, endVector, tileType, color, gridPosition }: TileProps) {
-		if (isNeighbourOfEmptyTile(gridPosition, emptyTile)) {
+		if (isNeighbourOfEmptyTile(gridPosition, emptyTile) && !finished) {
 			// swap positions of clicked and empty tile
 			const bufferedEmptyTile = emptyTile;
 			setEmptyTile(gridPosition);
