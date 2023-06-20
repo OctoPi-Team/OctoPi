@@ -124,7 +124,6 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos, 
 							size={SIZE_OF_GAME_MATRIX}
 							isFinished={setFinished}
 							currentVariation={currentVariation}
-							finished={finished}
 						/>
 						<ObjectLoad
 							path="/Trichter/trichter.glb"
