@@ -75,13 +75,13 @@ function Player({
 						case 'production':
 							setButton('Production');
 							setIsOnButton(true);
-							if (setIsPlatformFixed) {
-								if (isPlatformFixed?.production === false) {
-									setIsPlatformFixed({ production: true });
-								}
-							}
 							setTimeout(() => {
 								setIsOnButton(false);
+								if (setIsPlatformFixed) {
+									if (isPlatformFixed?.production === false) {
+										setIsPlatformFixed({ production: true });
+									}
+								}
 							}, BUTTON_TIMEOUT);
 
 							break;

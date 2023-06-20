@@ -34,7 +34,6 @@ function Tube({
 			{render &&
 				<mesh castShadow name={name} position={position}>
 					<primitive object={tubeGeometry} />
-
 					<meshPhysicalMaterial
 						color={color}
 						transparent={true}

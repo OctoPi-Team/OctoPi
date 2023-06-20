@@ -15,22 +15,21 @@ import WinScreen from './WinScreen';
 import InfoButton from '../../ui/InfoButton';
 
 import Tube from './Tube';
-import Grid from './Grid';
-import { GameSpec } from './GameSpec';
+import Grid, { SIZE_OF_GAME_MATRIX, SPACING, TILE_SIZE } from './Grid';
 import Squircle from '../../overworld/objects/Squircle';
 
-export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }: SceneProps) {
+const INPUT_TUBE_POSITION = TILE_SIZE * (SIZE_OF_GAME_MATRIX[1] - 1) + (SIZE_OF_GAME_MATRIX[1] - 1) * SPACING;
+export const VECTORS_FOR_INPUT_TUBE = [
+	new Vector3(-1.9 + 2 * SPACING, 0.7, INPUT_TUBE_POSITION),
+	new Vector3(-15, 0.7, INPUT_TUBE_POSITION),
+	new Vector3(-1.9 + SPACING, 5, INPUT_TUBE_POSITION),
+	new Vector3(-15, 5, INPUT_TUBE_POSITION),
+];
+
+export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos, setIsPlatformFixed }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
 	const [finished, setFinished] = useState(false);
-	const INPUT_TUBE_POSITION =
-		GameSpec.tileSize * (GameSpec.sizeOfGameMatrix[1] - 1) + (GameSpec.sizeOfGameMatrix[1] - 1) * GameSpec.spacing;
 	const [info, setInfo] = useState(false);
-	const VECTORS_FOR_INPUT_TUBE = [
-		new Vector3(-1.9 + 2 * GameSpec.spacing, 0.7, INPUT_TUBE_POSITION),
-		new Vector3(-15, 0.7, INPUT_TUBE_POSITION),
-		new Vector3(-1.9 + GameSpec.spacing, 5, INPUT_TUBE_POSITION),
-		new Vector3(-15, 5, INPUT_TUBE_POSITION),
-	];
 	const [currentVariation, setVariation] = useState<number>(Math.floor(Math.random() * 6));
 	const CAM_WIDTH = 80;
 	const CAM_HEIGHT = 80;
@@ -71,7 +70,7 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 					position={[3, 100, 3]}
 					ref={dirLight}
 					shadow-mapSize={[2048, 2048]}
-					intensity={0.3}
+					intensity={0.15}
 					castShadow={true}>
 					<orthographicCamera
 						attach="shadow-camera"
@@ -96,17 +95,6 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 					top="40px"
 					text="i"
 					onClick={() => {
-						window.alert(
-							'Willkommen zu unserem Spiel Operation:Innovation! Das Spiel ist ganz simpel. Klicke auf eine der verschiedenen Grids und verändere somit die Position der verschiedenen Röhren. Sobald du eine Verbindung erfolgreich zum Trichter geschafft hast, hast du gewonnen! Viel Erfolg!'
-						);
-					}}
-				/>
-				<NavigationButton
-					position="absolute"
-					right="30px"
-					top="40px"
-					text="i"
-					onClick={() => {
 						setInfo(true);
 						if (info) {
 							setInfo(false);
@@ -124,7 +112,15 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 					}}
 				/>
 			</div>
-			<div style={{ width: '100vw', height: '100vh' }} onClick={() => changeView(finished)} tabIndex={0}>
+			<div
+				style={{ width: '100vw', height: '100vh' }}
+				onClick={() => {
+					changeView(finished);
+					if (setIsPlatformFixed) {
+						setIsPlatformFixed({ shipment: true });
+					}
+				}}
+				tabIndex={0}>
 				<Canvas orthographic camera={{ zoom: 50, position: [40, 40, 40] }} shadows={{ type: PCFSoftShadowMap }}>
 					<DirLight />
 					<ambientLight intensity={0.35} />
@@ -132,21 +128,17 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos }
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
 					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={30} visibility={visible} />}
 					<group position={[0, 4, 0]}>
-						<Grid
-							isFinished={setFinished}
-							currentVariation={currentVariation}
-							vectorsForInputTube={VECTORS_FOR_INPUT_TUBE}
-						/>
+						<Grid size={SIZE_OF_GAME_MATRIX} isFinished={setFinished} currentVariation={currentVariation} />
 						<ObjectLoad
 							path="/Trichter/trichter.glb"
-							position={[(2.9 + 0.2) * GameSpec.sizeOfGameMatrix[0], -2.3, -0.1]}
+							position={[(2.9 + 0.2) * SIZE_OF_GAME_MATRIX[0], -2.3, -0.5]}
 							scale={[0.2, 0.2, 0.2]}
 							rotation={[0, 180, 0]}
 						/>
 						<Tube name="InputTubeInGame" position={[0, 0, 0]} color={GREEN} vectors={VECTORS_FOR_INPUT_TUBE} />
 					</group>
 				</Canvas>
-				{finished && WinScreen(reloadGame, () => changeView(true))}
+				{finished && WinScreen(reloadGame, () => changeView(true), setIsPlatformFixed)}
 				{info && <InfoButton />}
 			</div>
 		</>

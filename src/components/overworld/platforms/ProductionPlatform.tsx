@@ -2,10 +2,11 @@ import { Box3, Vector3 } from 'three';
 import { PRODUCTION } from '../../../AllColorVariables';
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
-import Text from '../../Text';
+import Text from '../objects/Text';
 import Tube from '../objects/Tube';
 import { PlatformFixProps } from '../../../App';
 import Button from '../objects/Button';
+import Cylinder from '../objects/Cylinder';
 
 type ProductionPlatformOptions = {
 	position?: [number, number, number];
@@ -22,6 +23,8 @@ export default function ProductionPlatform({
 	addCollisionBox,
 	isPlatformFixed,
 }: ProductionPlatformOptions): JSX.Element {
+	const visibiltyForDamaged = !isPlatformFixed?.production;
+	const visibiltyForFixed = isPlatformFixed?.production;
 	return (
 		<>
 			<SimplePlatform position={position} size={[21, 0.5, 12]} reference={reference} color={PRODUCTION} />
@@ -33,14 +36,26 @@ export default function ProductionPlatform({
 			/>
 			<gridHelper position={[position[0] - 6, position[1], position[2]]} args={[7, 7, 'black', 'white']} />
 
-			<ObjectLoad
-				path={isPlatformFixed?.production ? '/Roboterarm/roboterarm.glb' : '/Roboterarm_kaputt/roboterarm_kaputt.glb'}
-				position={[position[0] - 6, position[1], position[2]]}
-				scale={isPlatformFixed?.production ? [0.46, 0.46, 0.46] : [0.11, 0.11, 0.11]}
-				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
-				customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(1.1, 4, 1.1) }]}
-			/>
+			<group>
+				<ObjectLoad
+					path={'/Roboterarm/roboterarm.glb'}
+					position={[position[0] - 6, position[1], position[2]]}
+					scale={isPlatformFixed?.production ? [0.46, 0.46, 0.46] : [0.11, 0.11, 0.11]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+					customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(1.1, 4, 1.1) }]}
+					visible={visibiltyForFixed}
+				/>
+				<ObjectLoad
+					path={'/Roboterarm_kaputt/roboterarm_kaputt.glb'}
+					position={[position[0] - 6, position[1], position[2]]}
+					scale={isPlatformFixed?.production ? [0.46, 0.46, 0.46] : [0.11, 0.11, 0.11]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+					customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(1.1, 4, 1.1) }]}
+					visible={visibiltyForDamaged}
+				/>
+			</group>
 			<ObjectLoad
 				path="/SchreibtischMitStuhl/schreibtischMitStuhl.glb"
 				position={[position[0] + 8, position[1], position[2] - 4]}
@@ -150,6 +165,8 @@ export default function ProductionPlatform({
 				]}
 				ballAnimation={isPlatformFixed?.production}
 			/>
+			<Cylinder position={[position[0] - 10, position[1], position[2] - 0.05]} color={PRODUCTION} />
+			<Cylinder position={[position[0] - 9.9, position[1], position[2] - 4.9]} color={PRODUCTION} />
 			<Button
 				customName="production"
 				position={[position[0] - 11, position[1] + 6, position[2] - 9]}

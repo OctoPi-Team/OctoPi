@@ -105,6 +105,7 @@ export default function App() {
 						setPlayerstartingPos(playerPos);
 						resetKeys();
 					}}
+					setIsPlatformFixed={setPlatformFixed}
 				/>
 			)}
 			{scene === Scene.BTPinfo && <BTPinfo setSceneHook={setScene} visible={visible} playerPos={playerstartingPos} />}
