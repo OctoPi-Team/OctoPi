@@ -1,7 +1,7 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useMemo } from 'react';
 import { useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three-stdlib';
-import THREE, { Vector3, BufferGeometry, Material, MathUtils, Box3, InstancedMesh } from 'three';
+import THREE, { Vector3, BufferGeometry, Material, MathUtils, Box3, InstancedMesh, Mesh, MeshBasicMaterial, NearestFilter, Texture } from 'three';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils';
 
@@ -93,6 +93,23 @@ export default function ObjectLoad({
 			}
 		}
 	}, [position, customName]);
+
+	// buffer Mipmaps
+	useMemo(() => {
+		obj.scene.traverse((node) => {
+			if (node instanceof Mesh) {
+				const materials = Array.isArray(node.material) ? node.material : [node.material];
+				materials.forEach((material: MeshBasicMaterial) => {
+					if (material.map instanceof Texture) {
+						material.map.generateMipmaps = false;
+						material.map.minFilter = NearestFilter;
+						material.map.magFilter = NearestFilter;
+						material.map.needsUpdate = true;
+					}
+				});
+			}
+		});
+	}, [obj]);
 
 	collisionBoxes.map((box, index) => (
 		<mesh key={index} position={box.getCenter(new Vector3(...position))}>
