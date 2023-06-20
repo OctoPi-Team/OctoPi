@@ -83,9 +83,8 @@ export default function MonitoringPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(1, 2, 2) }]}
 			/>
-			
-		
-<ObjectLoad
+
+			<ObjectLoad
 				path="/kleinerTisch/kleinerTisch.glb"
 				position={[position[0] + 2.5, position[1], position[2] - 4.5]}
 				scale={[0.45, 0.45, 0.45]}
@@ -137,10 +136,26 @@ export default function MonitoringPlatform({
 				]}
 				ballAnimation={isPlatformFixed?.monitoring}
 			/>
-			<Cylinder position={[position[0] - 5.5, position[1], position[2] - 8.15]} color={MONITORING} />
-			<Cylinder position={[position[0] - 5.5, position[1], position[2] - 4.85]} color={MONITORING} />
-			<Cylinder position={[position[0] - 5.4, position[1], position[2] + 8.9]} color={MONITORING} />
-			<Cylinder position={[position[0] + 1, position[1], position[2] + 8.9]} color={MONITORING} />
+			<Cylinder
+				position={[position[0] - 5.5, position[1], position[2] - 8.15]}
+				color={MONITORING}
+				collisionRefSetter={addCollisionBox}
+			/>
+			<Cylinder
+				position={[position[0] - 5.5, position[1], position[2] - 4.85]}
+				color={MONITORING}
+				collisionRefSetter={addCollisionBox}
+			/>
+			<Cylinder
+				position={[position[0] - 5.4, position[1], position[2] + 8.9]}
+				color={MONITORING}
+				collisionRefSetter={addCollisionBox}
+			/>
+			<Cylinder
+				position={[position[0] + 1, position[1], position[2] + 8.9]}
+				color={MONITORING}
+				collisionRefSetter={addCollisionBox}
+			/>
 
 			<Button
 				customName="monitoring"
