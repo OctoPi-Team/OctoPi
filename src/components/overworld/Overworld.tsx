@@ -13,7 +13,7 @@ import { Canvas } from '@react-three/fiber';
 import { useRef, useState } from 'react';
 import { Joystick } from 'react-joystick-component';
 import { OrbitControls, useHelper } from '@react-three/drei';
-import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp, resetKeys } from './Player';
+import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp } from './Player';
 import Stair, { StairType } from './platforms/Stair';
 import FixedCamera from '../FixedCamera';
 import ShipmentPlatform from './platforms/ShipmentPlatform';
@@ -30,6 +30,7 @@ import InfoButton from '../ui/InfoButton';
 import DragVector from './DragVector';
 import './style/onbuttonstep.css';
 import AlreadyFixedInformation from '../ui/AlreadyFixedInformation';
+import AreYouSureReload from '../ui/AreYouSureReload';
 
 export default function Overworld({
 	setSceneHook,
@@ -45,6 +46,7 @@ export default function Overworld({
 	const [info, setInfo] = useState(false);
 	const [buttonName, setButtonName] = useState('');
 	const [isOnButton, setIsOnButton] = useState(false);
+	const [areYouSureReload, setAreYouSureReload] = useState(false);
 
 	const ORBITAL_CONTROLS_ACTIVE = false;
 	const CAM_WIDTH = 80;
@@ -148,11 +150,11 @@ export default function Overworld({
 							top="40px"
 							text={'\u21BB'}
 							onClick={() => {
-								resetKeys();
-								location.reload();
-								setTimeout(() => {
-									location.reload();
-								}, 50);
+								if (!areYouSureReload) {
+									setAreYouSureReload(true);
+								} else {
+									setAreYouSureReload(false);
+								}
 							}}
 						/>
 					</>
@@ -176,7 +178,12 @@ export default function Overworld({
 						{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} visibility={visible} />}
 					</group>
 					<group name="platforms-and-stairs">
-						<MainPlatform position={[0, 0, 0]} reference={addPlatform} addCollisionBox={addCollisionBox} />
+						<MainPlatform
+							position={[0, 0, 0]}
+							reference={addPlatform}
+							addCollisionBox={addCollisionBox}
+							buttonReference={addButtons}
+						/>
 						<Stair
 							startPosition={new Vector3(7.5, 0, 6.5)}
 							endPosition={new Vector3(7.5, 4, 16)}
@@ -280,6 +287,7 @@ export default function Overworld({
 				isPlatformFixed?.shipment ||
 				isPlatformFixed?.production) && <AlreadyFixedInformation isPlatformFixed={isPlatformFixed} />}
 			{isOnButton && <div className={'button'}>Minigame: {buttonName.toUpperCase()}</div>}
+			{areYouSureReload && <AreYouSureReload setAreYouSureReload={setAreYouSureReload} />}
 		</>
 	);
 }

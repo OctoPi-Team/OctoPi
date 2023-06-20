@@ -6,6 +6,7 @@ import { LoadingScreen } from './components/startscreen/LoadingScreen';
 import { Vector3 } from 'three';
 import { resetKeys } from './components/overworld/Player';
 import ImageScreen from './components/imagescreen/ImageScreen';
+import BTPinfo from './components/BTPinfo/BTPinfo';
 
 // startscreen is not done via scene initially to reduce loading time,
 // therefore it is realized via the 'visible' hook
@@ -14,6 +15,7 @@ export enum Scene {
 	Shipment,
 	EndScreen,
 	IdleScreen
+	BTPinfo
 }
 
 export type SceneProps = {
@@ -134,8 +136,10 @@ export default function App() {
 						setPlayerstartingPos(playerPos);
 						resetKeys();
 					}}
+					setIsPlatformFixed={setPlatformFixed}
 				/>
 			)}
+			{scene === Scene.BTPinfo && <BTPinfo setSceneHook={setScene} visible={visible} playerPos={playerstartingPos} />}
 		</>
 	);
 }

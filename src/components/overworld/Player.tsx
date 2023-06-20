@@ -66,19 +66,22 @@ function Player({
 				const BUTTON_TIMEOUT = 3000;
 				if (!isOnButton) {
 					switch (button.name) {
+						case 'BTPinfo':
+							if (sceneProps) sceneProps.setSceneHook(Scene.BTPinfo);
+							break;
 						case 'shipment':
 							if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
 							break;
 						case 'production':
 							setButton('Production');
 							setIsOnButton(true);
-							if (setIsPlatformFixed) {
-								if (isPlatformFixed?.production === false) {
-									setIsPlatformFixed({ production: true });
-								}
-							}
 							setTimeout(() => {
 								setIsOnButton(false);
+								if (setIsPlatformFixed) {
+									if (isPlatformFixed?.production === false) {
+										setIsPlatformFixed({ production: true });
+									}
+								}
 							}, BUTTON_TIMEOUT);
 
 							break;
