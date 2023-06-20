@@ -128,7 +128,12 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos, 
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
 					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={30} visibility={visible} />}
 					<group position={[0, 4, 0]}>
-						<Grid size={SIZE_OF_GAME_MATRIX} isFinished={setFinished} currentVariation={currentVariation} />
+						<Grid
+							size={SIZE_OF_GAME_MATRIX}
+							isFinished={setFinished}
+							currentVariation={currentVariation}
+							finished={finished}
+						/>
 						<ObjectLoad
 							path="/Trichter/trichter.glb"
 							position={[(2.9 + 0.2) * SIZE_OF_GAME_MATRIX[0], -2.3, -0.5]}
@@ -138,6 +143,7 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos, 
 						<Tube name="InputTubeInGame" position={[0, 0, 0]} color={GREEN} vectors={VECTORS_FOR_INPUT_TUBE} />
 					</group>
 				</Canvas>
+
 				{finished && WinScreen(reloadGame, () => changeView(true), setIsPlatformFixed)}
 				{info && <InfoButton />}
 			</div>
