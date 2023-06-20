@@ -5,22 +5,6 @@ import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { Box3, BufferGeometry, Material, MathUtils, Mesh, Vector2, Vector3 } from 'three';
 import { STAIR_WIDTH, StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
-import Infoboard from '../ui/Infoboard';
-import {
-	HEADDESIGN,
-	HEADENGINEERING,
-	HEADMONITORING,
-	HEADPARTS,
-	HEADPRODUCTION,
-	HEADSHIPMENT,
-	INFODESIGN,
-	INFOENGINEERING,
-	INFOMONITORING,
-	INFOPARTS,
-	INFOPRODUCTION,
-	INFOSHIPMENT,
-} from '../ui/InfotextAboutPlatforms';
-import showPlatformInfo from '../ui/Infoboard';
 
 export const PLAYER_SIZE = 0.5;
 const SPEED = 0.1;
@@ -64,15 +48,6 @@ function Player({
 	const ref = useRef<Mesh>(null);
 	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
 	const [targetRotation, setTargetRotation] = useState<Vector3>(new Vector3(0, 0, 0));
-	const [showInfoboard, setShowInfoboard] = useState(false);
-
-	const handleInfoboardClose = () => {
-		setShowInfoboard(false);
-	};
-
-	const handleClick = () => {
-		setShowInfoboard(true);
-	};
 	// player movement
 	useFrame(() => {
 		if (!ref.current) return;
@@ -84,132 +59,84 @@ function Player({
 
 		// Each button must have a 'customName'; based on this string a certain action for the button can be
 		// executed in the switch case construct
-
+		let standingOnButton = false;
 		for (const button of buttonPositionAndName) {
 			if (playerPosition.distanceTo(button.position) < 1) {
-				const BUTTON_TIMEOUT = 3000;
-				if (!isOnButton) {
-					switch (button.name) {
-						case 'shipment':
-							if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
-							break;
-						case 'production':
-							setButton('Production');
-							setIsOnButton(true);
-							if (setIsPlatformFixed) {
-								if (isPlatformFixed?.production === false) {
-									setIsPlatformFixed({ production: true });
-								}
+				standingOnButton = true;
+				setIsOnButton(true);
+				switch (button.name) {
+					case 'shipment':
+						if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
+						break;
+					case 'production':
+						setButton('Production');
+						if (setIsPlatformFixed) {
+							if (isPlatformFixed?.production === false) {
+								setIsPlatformFixed({ production: true });
 							}
-							setTimeout(() => {
-								setIsOnButton(false);
-							}, BUTTON_TIMEOUT);
+						}
+						break;
+					case 'engineering':
+						setButton('Engineering');
 
-							break;
-						case 'engineering':
-							setButton('Engineering');
-							setIsOnButton(true);
-							setTimeout(() => {
-								setIsOnButton(false);
-								if (setIsPlatformFixed) {
-									if (isPlatformFixed?.engineering === false) {
-										setIsPlatformFixed({ engineering: true });
-									}
-								}
-							}, BUTTON_TIMEOUT);
-							break;
-						case 'parts':
-							setButton('Parts');
-							setIsOnButton(true);
-							setTimeout(() => {
-								setIsOnButton(false);
-								if (setIsPlatformFixed) {
-									if (isPlatformFixed?.parts === false) {
-										setIsPlatformFixed({ parts: true });
-									}
-								}
-							}, BUTTON_TIMEOUT);
-							break;
-						case 'design':
-							setButton('Design');
-							setIsOnButton(true);
-							setTimeout(() => {
-								setIsOnButton(false);
-								if (setIsPlatformFixed) {
-									if (isPlatformFixed?.design === false) {
-										setIsPlatformFixed({ design: true });
-									}
-								}
-							}, BUTTON_TIMEOUT);
-							break;
-						case 'monitoring':
-							setButton('Monitoring');
-							setIsOnButton(true);
-							setTimeout(() => {
-								setIsOnButton(false);
-								if (setIsPlatformFixed) {
-									if (isPlatformFixed?.monitoring === false) {
-										setIsPlatformFixed({ monitoring: true });
-									}
-								}
-							}, BUTTON_TIMEOUT);
-							break;
-						case 'designInfo':
-							setButton('designInfo');
-							setIsOnButton(true);
-							setTimeout(() => {
-								setIsOnButton(false);
-								showPlatformInfo('cyxc', 'ascsd');
-							}, BUTTON_TIMEOUT);
+						if (setIsPlatformFixed) {
+							if (isPlatformFixed?.engineering === false) {
+								setIsPlatformFixed({ engineering: true });
+							}
+						}
+						break;
+					case 'parts':
+						setButton('Parts');
 
-							break;
-						case 'engineeringInfo':
-							setButton('engineeringInfo');
-							setIsOnButton(true);
-							setTimeout(() => {
-								setIsOnButton(false);
-								showPlatformInfo('cyxc', 'ascsd');
-							}, BUTTON_TIMEOUT);
+						if (setIsPlatformFixed) {
+							if (isPlatformFixed?.parts === false) {
+								setIsPlatformFixed({ parts: true });
+							}
+						}
+						break;
+					case 'design':
+						setButton('Design');
 
-							break;
-						case 'productionInfo':
-							setButton('productionInfo');
-							setIsOnButton(true);
-							setTimeout(() => {
-								setIsOnButton(false);
-								showPlatformInfo('cyxc', 'ascsd');
-							}, BUTTON_TIMEOUT);
-
-							break;
-						case 'partsInfo':
-							setButton('partsInfo');
-							setIsOnButton(true);
-							setTimeout(() => {
-								setIsOnButton(false);
-								showPlatformInfo('cyxc', 'ascsd');
-							}, BUTTON_TIMEOUT);
-
-							break;
-						case 'shipmentInfo':
-							setButton('shipmentInfo');
-							setIsOnButton(true);
-							setTimeout(() => {
-								setIsOnButton(false);
-							}, BUTTON_TIMEOUT);
-
-							break;
-						case 'monitoringInfo':
-							setButton('monitoringInfo');
-							setIsOnButton(true);
-							setTimeout(() => {
-								setIsOnButton(false);
-							}, BUTTON_TIMEOUT);
-
-							break;
-					}
+						if (setIsPlatformFixed) {
+							if (isPlatformFixed?.design === false) {
+								setIsPlatformFixed({ design: true });
+							}
+						}
+						break;
+					case 'monitoring':
+						setButton('Monitoring');
+						if (setIsPlatformFixed) {
+							if (isPlatformFixed?.monitoring === false) {
+								setIsPlatformFixed({ monitoring: true });
+							}
+						}
+						break;
+					case 'designInfo':
+						setButton('designInfo');
+						break;
+					case 'engineeringInfo':
+						setButton('engineeringInfo');
+						break;
+					case 'productionInfo':
+						setButton('productionInfo');
+						break;
+					case 'partsInfo':
+						setButton('partsInfo');
+						break;
+					case 'shipmentInfo':
+						setButton('shipmentInfo');
+						break;
+					case 'monitoringInfo':
+						setButton('monitoringInfo');
+						break;
 				}
+				if (standingOnButton) break;
 			}
 		}
+		if (!standingOnButton) {
+			setIsOnButton(false);
+		}
+
 		const movementVector = getMovementVectorFromKeys(SPEED);
 		// move player forward
 		ref.current.position.x += movementVector.x;
