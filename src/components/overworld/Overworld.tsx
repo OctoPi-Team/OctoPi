@@ -263,7 +263,7 @@ export default function Overworld({
 				</Canvas>
 				{info && InfoButton("Willkommen zu unserem Spiel Operation:Innovation! " +
 						"Schaue dich mal auf den verschiedenen Platformen um, siehst du " +
-						"einen Button auf dem Boden? " + 
+						"einen Button auf dem Boden?\n" + 
 						"Geh ruhig mal hin.")
 						}
 			</div>
