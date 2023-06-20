@@ -42,7 +42,7 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos, 
 			// set position of Player for when he spawns again after the game
 			if (setPlayerPos) setPlayerPos(new Vector3(9, 4, 25));
 		};
-	}, [visible, setSceneHook]);
+	}, []);
 
 	function changeView(done = true) {
 		if (done) setSceneHook(Scene.Overworld);
@@ -112,15 +112,7 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos, 
 					}}
 				/>
 			</div>
-			<div
-				style={{ width: '100vw', height: '100vh' }}
-				onClick={() => {
-					changeView(finished);
-					if (setIsPlatformFixed) {
-						setIsPlatformFixed({ shipment: true });
-					}
-				}}
-				tabIndex={0}>
+			<div style={{ width: '100vw', height: '100vh' }} tabIndex={0}>
 				<Canvas orthographic camera={{ zoom: 50, position: [40, 40, 40] }} shadows={{ type: PCFSoftShadowMap }}>
 					<DirLight />
 					<ambientLight intensity={0.35} />
@@ -128,7 +120,11 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos, 
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
 					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={30} visibility={visible} />}
 					<group position={[0, 4, 0]}>
-						<Grid size={SIZE_OF_GAME_MATRIX} isFinished={setFinished} currentVariation={currentVariation} />
+						<Grid
+							size={SIZE_OF_GAME_MATRIX}
+							isFinished={setFinished}
+							currentVariation={currentVariation}
+						/>
 						<ObjectLoad
 							path="/Trichter/trichter.glb"
 							position={[(2.9 + 0.2) * SIZE_OF_GAME_MATRIX[0], -2.3, -0.5]}
@@ -138,7 +134,7 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos, 
 						<Tube name="InputTubeInGame" position={[0, 0, 0]} color={GREEN} vectors={VECTORS_FOR_INPUT_TUBE} />
 					</group>
 				</Canvas>
-				{finished && WinScreen(reloadGame, () => changeView(true), setIsPlatformFixed)}
+				{finished && WinScreen(reloadGame, changeView, setIsPlatformFixed)}
 				{info && InfoButton("Willkommen zu unserem Minispiel der Shipment-Platform! " +
 					"Du kannst neben dem leeren Feld die Röhren anklicken und tauschst so die zwei Felder. " +
 					"Probiers ruhig mal aus.")}
