@@ -259,26 +259,13 @@ export default function Overworld({
 						setIsPlatformFixed={setIsPlatformFixed}
 						isPlatformFixed={isPlatformFixed}
 					/>
-					{/*<Tube
-						name="tubeToAllPlatfroms"
-						position={[0, 0, 0]}
-						size={[0.5, 8, 1]}
-						vectors={[
-							new Vector3(22, 2, -15),
-							new Vector3(22, 2, 19),
-	
-							new Vector3(-4, 2, 19),
-							new Vector3(-4, 0, 19),
-							new Vector3(-25, 0, 19),
-							new Vector3(-25, 0, -19),
-							new Vector3(22, 0, -19),
-							new Vector3(22, 0, -15),
-							new Vector3(22, 2, -15)
-						]}
-					/>
-					*/}
+					
 				</Canvas>
-				{info && <InfoButton />}
+				{info && InfoButton("Willkommen zu unserem Spiel Operation:Innovation! " +
+						"Schaue dich mal auf den verschiedenen Platformen um, siehst du " +
+						"einen Button auf dem Boden?\n" + 
+						"Geh ruhig mal hin.")
+						}
 			</div>
 			{(isPlatformFixed?.monitoring ||
 				isPlatformFixed?.parts ||

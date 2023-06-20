@@ -134,9 +134,10 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos, 
 						<Tube name="InputTubeInGame" position={[0, 0, 0]} color={GREEN} vectors={VECTORS_FOR_INPUT_TUBE} />
 					</group>
 				</Canvas>
-
 				{finished && WinScreen(reloadGame, changeView, setIsPlatformFixed)}
-				{info && <InfoButton />}
+				{info && InfoButton("Willkommen zu unserem Minispiel der Shipment-Platform! " +
+					"Du kannst neben dem leeren Feld die Röhren anklicken und tauschst so die zwei Felder. " +
+					"Probiers ruhig mal aus.")}
 			</div>
 		</>
 	);
