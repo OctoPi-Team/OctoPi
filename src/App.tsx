@@ -103,6 +103,7 @@ export default function App() {
 						setPlayerstartingPos(playerPos);
 						resetKeys();
 					}}
+					setIsPlatformFixed={setPlatformFixed}
 				/>
 			)}
 		</>
