@@ -165,8 +165,16 @@ export default function ProductionPlatform({
 				]}
 				ballAnimation={isPlatformFixed?.production}
 			/>
-			<Cylinder position={[position[0] - 10, position[1], position[2] - 0.05]} color={PRODUCTION} />
-			<Cylinder position={[position[0] - 9.9, position[1], position[2] - 4.9]} color={PRODUCTION} />
+			<Cylinder
+				position={[position[0] - 10, position[1], position[2] - 0.05]}
+				color={PRODUCTION}
+				collisionRefSetter={addCollisionBox}
+			/>
+			<Cylinder
+				position={[position[0] - 9.9, position[1], position[2] - 4.9]}
+				color={PRODUCTION}
+				collisionRefSetter={addCollisionBox}
+			/>
 			<Button
 				customName="production"
 				position={[position[0] - 11, position[1] + 6, position[2] - 9]}

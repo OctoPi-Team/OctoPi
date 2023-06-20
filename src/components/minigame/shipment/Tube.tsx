@@ -31,7 +31,7 @@ function Tube({
 
 	return (
 		<>
-			{render &&
+			{render && (
 				<mesh castShadow name={name} position={position}>
 					<primitive object={tubeGeometry} />
 					<meshPhysicalMaterial
@@ -44,7 +44,7 @@ function Tube({
 						side={DoubleSide}
 					/>
 				</mesh>
-			}
+			)}
 		</>
 	);
 }

@@ -1,14 +1,68 @@
 import { GREEN, RED } from '../../../AllColorVariables';
-import { CylinderGeometry, Group, Mesh, MeshBasicMaterial } from 'three';
+import THREE, {
+	Box3,
+	BufferGeometry,
+	CylinderGeometry,
+	Group,
+	InstancedMesh,
+	Material,
+	Mesh,
+	MeshBasicMaterial,
+	Vector3,
+} from 'three';
+import { useRef, useState } from 'react';
 
 type CylinderProps = {
 	name?: string;
 	position: [number, number, number];
 	color: number | string | THREE.Color;
+	reference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	collisionRefSetter?: (meshRef: Box3) => void;
+	customCollisionBoxes?: { positionOffset: Vector3; size: Vector3 }[];
 };
 
-function Cylinder({ name = 'cylinder', position = [0, 0, 0], color }: CylinderProps) {
+function Cylinder({
+	name = 'cylinder',
+	position = [0, 0, 0],
+	color,
+	reference,
+	collisionRefSetter,
+	customCollisionBoxes,
+}: CylinderProps) {
 	// create cylinder
+	const SHOW_COLLISION_BOX = false;
+	const meshRef = useRef<InstancedMesh<BufferGeometry, Material | Material[]>>(null);
+	const [collisionRefWasSet, setCollisionRefWasSet] = useState(false);
+	const [collisionBoxes, setCollisionBoxes] = useState<Box3[]>([]);
+
+	function addCollisionBox(newBox: Box3) {
+		setCollisionBoxes(boxes => [...boxes, newBox]);
+	}
+
+	if (reference && meshRef.current) {
+		reference(meshRef.current);
+	}
+
+	if (!collisionRefWasSet && collisionRefSetter && meshRef.current) {
+		setCollisionRefWasSet(true);
+		const boxes: Box3[] = [];
+		if (customCollisionBoxes && customCollisionBoxes.length > 0) {
+			for (const box of customCollisionBoxes) {
+				boxes.push(
+					new Box3().setFromCenterAndSize(
+						box.positionOffset.clone().add(new Vector3(position[0], position[1] + box.size.y / 2, position[2])),
+						box.size
+					)
+				);
+			}
+		} else {
+			boxes.push(new Box3().setFromObject(meshRef.current.clone()));
+		}
+		for (const box of boxes) {
+			addCollisionBox(box);
+			collisionRefSetter(box);
+		}
+	}
 	const cylinderGeometry = new CylinderGeometry(1, 1, 1, 32);
 	const cylinderMaterial = new MeshBasicMaterial({ color: GREEN });
 	const cylinderMesh = new Mesh(cylinderGeometry, cylinderMaterial);
@@ -28,7 +82,16 @@ function Cylinder({ name = 'cylinder', position = [0, 0, 0], color }: CylinderPr
 
 	return (
 		<>
-			<mesh name={name} position={position}>
+			{SHOW_COLLISION_BOX &&
+				collisionBoxes &&
+				collisionBoxes.map((box, index) => (
+					<mesh key={index} position={box.getCenter(new Vector3(...position))}>
+						<boxGeometry args={box.getSize(new Vector3(0, 0, 0)).toArray()} />
+						<meshLambertMaterial color={RED} opacity={0.6} transparent={true} />
+					</mesh>
+				))}
+
+			<mesh ref={meshRef} name={name} position={position}>
 				<primitive object={holeMesh} />
 			</mesh>
 		</>
