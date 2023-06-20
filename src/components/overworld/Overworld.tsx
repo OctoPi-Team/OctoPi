@@ -31,6 +31,19 @@ import DragVector from './DragVector';
 import './style/onbuttonstep.css';
 import AlreadyFixedInformation from '../ui/AlreadyFixedInformation';
 import showPlatformInfo from '../ui/Infoboard';
+import {
+	HEADDESIGN,
+	HEADENGINEERING,
+	HEADMONITORING,
+	HEADPARTS,
+	HEADSHIPMENT,
+	INFODESIGN,
+	INFOENGINEERING,
+	INFOMONITORING,
+	INFOPARTS,
+	INFOPRODUCTION,
+	INFOSHIPMENT,
+} from '../ui/InfotextAboutPlatforms';
 
 export default function Overworld({
 	setSceneHook,
@@ -84,6 +97,26 @@ export default function Overworld({
 
 	function addButtons(newButton: Mesh<BufferGeometry, Material | Material[]>) {
 		if (!buttons.includes(newButton)) setButtons(button => [...button, newButton]);
+	}
+	function showButtonInfo() {
+		if (isOnButton) {
+			console.log(true);
+			if (buttonName === 'shipmentInfo') {
+				return showPlatformInfo(HEADSHIPMENT, INFOSHIPMENT);
+			} else if (buttonName === 'designInfo') {
+				return showPlatformInfo(HEADDESIGN, INFODESIGN);
+			} else if (buttonName === 'productionInfo') {
+				return showPlatformInfo('Production Platform', INFOPRODUCTION);
+			} else if (buttonName === 'monitoringInfo') {
+				return showPlatformInfo(HEADMONITORING, INFOMONITORING);
+			} else if (buttonName === 'engineeringInfo') {
+				return showPlatformInfo(HEADENGINEERING, INFOENGINEERING);
+			} else if (buttonName === 'partsInfo') {
+				return showPlatformInfo(HEADPARTS, INFOPARTS);
+			} else {
+				return <div className={'button'}>Minigame: {buttonName.toUpperCase()}</div>;
+			}
+		}
 	}
 
 	function DirLight() {
@@ -285,8 +318,7 @@ export default function Overworld({
 				isPlatformFixed?.engineering ||
 				isPlatformFixed?.shipment ||
 				isPlatformFixed?.production) && <AlreadyFixedInformation isPlatformFixed={isPlatformFixed} />}
-			{isOnButton && <div className={'button'}>Minigame: {buttonName.toUpperCase()}</div>}
-			{console.log(buttons[0])}
+			{showButtonInfo()}
 		</>
 	);
 }
