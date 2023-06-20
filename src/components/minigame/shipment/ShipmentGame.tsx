@@ -112,7 +112,15 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos, 
 					}}
 				/>
 			</div>
-			<div style={{ width: '100vw', height: '100vh' }} onClick={() => changeView(finished)} tabIndex={0}>
+			<div
+				style={{ width: '100vw', height: '100vh' }}
+				onClick={() => {
+					changeView(finished);
+					if (setIsPlatformFixed) {
+						setIsPlatformFixed({ shipment: true });
+					}
+				}}
+				tabIndex={0}>
 				<Canvas orthographic camera={{ zoom: 50, position: [40, 40, 40] }} shadows={{ type: PCFSoftShadowMap }}>
 					<DirLight />
 					<ambientLight intensity={0.35} />
