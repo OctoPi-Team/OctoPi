@@ -15,7 +15,7 @@ export enum Scene {
 	Shipment,
 	EndScreen,
 	IdleScreen,
-	BTPinfo
+	BTPinfo,
 }
 
 export type SceneProps = {
@@ -89,12 +89,13 @@ export default function App() {
 	}, []);
 
 	useEffect(() => {
-		if (isPlatformFixed.design
-			&& isPlatformFixed.parts
-			&& isPlatformFixed.monitoring
-			&& isPlatformFixed.production
-			&& isPlatformFixed.engineering
-			&& isPlatformFixed.shipment
+		if (
+			isPlatformFixed.design &&
+			isPlatformFixed.parts &&
+			isPlatformFixed.monitoring &&
+			isPlatformFixed.production &&
+			isPlatformFixed.engineering &&
+			isPlatformFixed.shipment
 		)
 			setScene(Scene.EndScreen);
 	}, [setScene, isPlatformFixed]);
@@ -114,7 +115,7 @@ export default function App() {
 			setScene(Scene.Overworld);
 			setVisible(true);
 		}, 0);
-	};
+	}
 	return (
 		<>
 			{visible && <LoadingScreen setVisible={setVisible} setScene={setScene} />}
@@ -127,8 +128,8 @@ export default function App() {
 					isPlatformFixed={isPlatformFixed}
 				/>
 			)}
-			{scene === Scene.EndScreen && <ImageScreen imageSource={"/EndScreen.png"} onclick={showStartScreen} />}
-			{scene === Scene.IdleScreen && <ImageScreen imageSource={"/Innovation-Factory.jpg"} onclick={showStartScreen} />}
+			{scene === Scene.EndScreen && <ImageScreen imageSource={'/EndScreen.png'} onclick={showStartScreen} />}
+			{scene === Scene.IdleScreen && <ImageScreen imageSource={'/Innovation-Factory.jpg'} onclick={showStartScreen} />}
 			{scene === Scene.Shipment && (
 				<ShipmentGame
 					setSceneHook={setScene}
