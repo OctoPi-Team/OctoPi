@@ -36,6 +36,8 @@ function Tube({
 	const ballGeometry = new SphereGeometry(ballRadius, 32, 32);
 	const ballMaterial = new MeshBasicMaterial({ color: ballColor });
 	const ballMesh = new Mesh(ballGeometry, ballMaterial);
+	ballMesh.castShadow = true;
+	ballMesh.receiveShadow = true;
 
 	const ballSpeed = 1;
 
