@@ -4,7 +4,7 @@ import Overworld from './components/overworld/Overworld';
 import ShipmentGame from './components/minigame/shipment/ShipmentGame';
 import { LoadingScreen } from './components/startscreen/LoadingScreen';
 import { Vector3 } from 'three';
-import ImageScreen from './components/imagescreen/ImageScreen';
+import ImageScreen from './components/ui/ImageScreen';
 
 export enum Scene {
 	Overworld,

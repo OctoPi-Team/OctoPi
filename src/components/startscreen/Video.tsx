@@ -1,22 +1,18 @@
 import React from 'react';
 
-type VideoArgs = {};
-
-export default function Video({ }: VideoArgs) {
+export default function Video() {
 	return (
 		<React.Fragment>
 			<video
 				data-testid="start-animation-video"
-				loop
 				className="video"
-
 				height={window.innerHeight}
 				width={window.innerWidth}
 				preload="auto"
 				autoPlay
 				muted
 				data-setup="{}">
-				<source data-testid="start-animation-source" src="Startanimation.mov" type="video/mp4"></source>
+				<source data-testid="start-animation-source" src="Start_Animation.mp4" type="video/mp4"></source>
 			</video>
 		</React.Fragment>
 	);

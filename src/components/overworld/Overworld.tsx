@@ -9,7 +9,7 @@ import {
 	DirectionalLightHelper,
 	Vector2,
 } from 'three';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber';
 import { useRef, useState } from 'react';
 import { Joystick } from 'react-joystick-component';
 import { OrbitControls, useHelper } from '@react-three/drei';
@@ -258,12 +258,13 @@ export default function Overworld({
 					/>
 
 				</Canvas>
-				{info && InfoButton("Willkommen zu unserem Spiel Operation:Innovation! " +
-					"Schaue dich mal auf den verschiedenen Platformen um, siehst du " +
-					"einen Button auf dem Boden?\n" +
-					"Geh ruhig mal hin.")
-				}
-			</div>
+				{info && InfoButton(
+					'Willkommen zu unserem Spiel Operation:Innovation! ' +
+					'Schaue dich mal auf den verschiedenen Platformen um, siehst du ' +
+					'einen Button auf dem Boden?\n' +
+					'Geh ruhig mal hin.'
+				)}
+			</div >
 			{(isPlatformFixed?.monitoring ||
 				isPlatformFixed?.parts ||
 				isPlatformFixed?.design ||
