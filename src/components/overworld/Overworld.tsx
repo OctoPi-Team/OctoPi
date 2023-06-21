@@ -30,6 +30,7 @@ import InfoButton from '../ui/InfoButton';
 import DragVector from './DragVector';
 import './style/onbuttonstep.css';
 import AlreadyFixedInformation from '../ui/AlreadyFixedInformation';
+import InfoForButton from '../ui/InfoForButton';
 import AreYouSureReload from '../ui/AreYouSureReload';
 
 export default function Overworld({
@@ -258,22 +259,22 @@ export default function Overworld({
 					/>
 
 				</Canvas>
-				{info && InfoButton(
-					'Willkommen zu unserem Spiel Operation:Innovation! ' +
-					'Schaue dich mal auf den verschiedenen Platformen um, siehst du ' +
-					'einen Button auf dem Boden?\n' +
-					'Geh ruhig mal hin.'
-				)}
+				<InfoForButton buttonName={buttonName} isOnButton={isOnButton} />
+				{info &&
+					InfoButton(
+						'Willkommen zu unserem Spiel Operation:Innovation! ' +
+						'Schaue dich mal auf den verschiedenen Platformen um, siehst du ' +
+						'einen Button auf dem Boden?\n' +
+						'Geh ruhig mal hin.'
+					)}
 				{(isPlatformFixed?.monitoring ||
 					isPlatformFixed?.parts ||
 					isPlatformFixed?.design ||
 					isPlatformFixed?.engineering ||
 					isPlatformFixed?.shipment ||
 					isPlatformFixed?.production) && <AlreadyFixedInformation isPlatformFixed={isPlatformFixed} />}
-				{isOnButton && <div className={'button'}>Minigame: {buttonName.toUpperCase()}</div>}
 				{areYouSureReload && <AreYouSureReload setAreYouSureReload={setAreYouSureReload} />}
-
-			</div >
+			</div>
 		</>
 	);
 }

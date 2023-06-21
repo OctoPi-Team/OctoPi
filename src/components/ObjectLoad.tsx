@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState, useMemo } from 'react';
 import { useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three-stdlib';
-import THREE, {
+import {
 	Vector3,
 	BufferGeometry,
 	Material,
@@ -27,7 +27,7 @@ type ObjectLoadOptions = {
 	position: [number, number, number];
 	rotation?: [number, number, number];
 	scale?: [number, number, number];
-	reference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	reference?: (meshRef: Mesh<BufferGeometry, Material | Material[]>) => void;
 	collisionRefSetter?: (meshRef: Box3) => void;
 	customCollisionBoxes?: { positionOffset: Vector3; size: Vector3 }[];
 	customName?: string; // Add customName property

@@ -1,24 +1,16 @@
-import THREE, {
-	CatmullRomCurve3,
-	DoubleSide,
-	Mesh,
-	MeshBasicMaterial,
-	SphereGeometry,
-	TubeGeometry,
-	Vector3,
-} from 'three';
+import { CatmullRomCurve3, DoubleSide, Mesh, MeshBasicMaterial, SphereGeometry, TubeGeometry, Vector3 } from 'three';
 import { GREEN } from '../../../AllColorVariables';
 
 type TubeProps = {
 	name?: string;
 	position: [number, number, number];
 	size?: [number, number, number];
-	color?: number | string | THREE.Color;
-	reference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	color?: number | string | Color;
+	reference?: (meshRef: Mesh<BufferGeometry, Material | Material[]>) => void;
 	vectors?: [...Vector3[]];
 	detailed?: boolean;
 	ballAnimation?: boolean;
-	ballColor?: number | string | THREE.Color;
+	ballColor?: number | string | Color;
 };
 function Tube({
 	name = 'Tube',
@@ -55,7 +47,7 @@ function Tube({
 		<>
 			<mesh name={name} position={position}>
 				<primitive object={tubeGeometry} />
-				<meshPhysicalMaterial roughness={0.05} transmission={1} thickness={0.5} side={DoubleSide} />
+				<meshPhysicalMaterial roughness={0.05} thickness={0.5} side={DoubleSide} />
 			</mesh>
 			{ballAnimation && <primitive object={ballMesh} />}
 		</>
