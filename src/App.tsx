@@ -12,7 +12,7 @@ export enum Scene {
 	EndScreen,
 	IdleScreen,
 	BTPinfo,
-	StartScreen
+	StartScreen,
 }
 
 export type SceneProps = {
@@ -50,7 +50,7 @@ export default function App() {
 	});
 
 	function setPlatformFixed(newProps: Partial<PlatformFixProps>) {
-		setIsPlatformFixed(prevProps => ({ ...prevProps, ...newProps, }));
+		setIsPlatformFixed(prevProps => ({ ...prevProps, ...newProps }));
 	}
 
 	useEffect(() => {
@@ -70,27 +70,52 @@ export default function App() {
 	}, []);
 
 	useEffect(() => {
-		if (isPlatformFixed.design && isPlatformFixed.parts && isPlatformFixed.monitoring
-			&& isPlatformFixed.production && isPlatformFixed.engineering && isPlatformFixed.shipment
+		if (
+			isPlatformFixed.design &&
+			isPlatformFixed.parts &&
+			isPlatformFixed.monitoring &&
+			isPlatformFixed.production &&
+			isPlatformFixed.engineering &&
+			isPlatformFixed.shipment
 		)
 			setScene(Scene.EndScreen);
 	}, [isPlatformFixed]);
 
 	function showStartScreen() {
 		// reset fixed state
-		setIsPlatformFixed({ shipment: false, design: false, parts: false, engineering: false, monitoring: false, production: false });
+		setIsPlatformFixed({
+			shipment: false,
+			design: false,
+			parts: false,
+			engineering: false,
+			monitoring: false,
+			production: false,
+		});
 		// move player to main platform
 		setPlayerstartingPos(new Vector3(0, 0, 0));
 		// change scene to startscreen
 		setScene(Scene.StartScreen);
-	};
+	}
 	return (
 		<>
-			{scene === Scene.IdleScreen && <ImageScreen imageSource={"/Innovation-Factory.jpg"} onclick={showStartScreen} />}
+			{scene === Scene.IdleScreen && <ImageScreen imageSource={'/Innovation-Factory.jpg'} onclick={showStartScreen} />}
 			{scene === Scene.StartScreen && <LoadingScreen setScene={setScene} />}
-			{scene === Scene.EndScreen && <ImageScreen imageSource={"/EndScreen.png"} onclick={showStartScreen} />}
-			{scene === Scene.BTPinfo && <ImageScreen imageSource='/BTPinfo/BTP_Vorteile.png' backButton={true} onclick={() => setScene(Scene.Overworld)} init={() => setPlayerstartingPos(new Vector3(0, 0, 0))} />}
-			{scene === Scene.Shipment && <ShipmentGame setSceneHook={setScene} setPlayerPos={setPlayerstartingPos} setIsPlatformFixed={setPlatformFixed} />}
+			{scene === Scene.EndScreen && <ImageScreen imageSource={'/EndScreen.png'} onclick={showStartScreen} />}
+			{scene === Scene.BTPinfo && (
+				<ImageScreen
+					imageSource="/BTPinfo/BTP_Vorteile.png"
+					backButton={true}
+					onclick={() => setScene(Scene.Overworld)}
+					init={() => setPlayerstartingPos(new Vector3(0, 0, 0))}
+				/>
+			)}
+			{scene === Scene.Shipment && (
+				<ShipmentGame
+					setSceneHook={setScene}
+					setPlayerPos={setPlayerstartingPos}
+					setIsPlatformFixed={setPlatformFixed}
+				/>
+			)}
 			{/*Overworld needs to placed beneith the minigames because it is always loaded*/}
 			<Overworld
 				setSceneHook={setScene}

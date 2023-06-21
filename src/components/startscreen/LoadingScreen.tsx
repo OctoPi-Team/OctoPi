@@ -4,7 +4,7 @@ import Video from './Video';
 import { Scene } from '../../App';
 
 type LoadingScreenProps = {
-	setScene: (newScene: Scene) => void
+	setScene: (newScene: Scene) => void;
 };
 
 export const LoadingScreen = ({ setScene }: LoadingScreenProps) => {

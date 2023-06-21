@@ -5,7 +5,6 @@ import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 're
 import { Box3, BufferGeometry, Material, MathUtils, Mesh, Vector2, Vector3 } from 'three';
 import { STAIR_WIDTH, StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
-import { start } from 'repl';
 
 export const PLAYER_SIZE = 0.5;
 const SPEED = 0.1;
@@ -44,7 +43,6 @@ function Player({
 	setIsOnButton,
 	setIsPlatformFixed,
 	isPlatformFixed,
-	isOnButton,
 }: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
 	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
@@ -58,7 +56,7 @@ function Player({
 			ref.current.position.z = startPosition.z;
 		}
 		resetKeys();
-	}, [startPosition])
+	}, [startPosition]);
 	// player movement
 	useFrame(() => {
 		if (!ref.current) return;
@@ -367,7 +365,7 @@ export const handleJoystickMove = (stick: IJoystickUpdateEvent | Vector2) => {
 	}
 };
 
-export function resetKeys() {
+function resetKeys() {
 	movementVector = new Vector3();
 }
 

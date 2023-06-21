@@ -1,4 +1,15 @@
-import { BufferGeometry, CatmullRomCurve3, Color, DoubleSide, Material, Mesh, MeshBasicMaterial, MeshPhysicalMaterial, SphereGeometry, TubeGeometry, Vector3 } from 'three';
+import {
+	BufferGeometry,
+	CatmullRomCurve3,
+	Color,
+	DoubleSide,
+	Material,
+	Mesh,
+	MeshBasicMaterial,
+	SphereGeometry,
+	TubeGeometry,
+	Vector3,
+} from 'three';
 import { GREEN } from '../../../AllColorVariables';
 
 type TubeProps = {

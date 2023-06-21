@@ -118,7 +118,11 @@ export default function Overworld({
 
 	return (
 		<>
-			<div style={{ width: '100vw', height: '100vh', visibility: visible ? 'visible' : 'hidden' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
+			<div
+				style={{ width: '100vw', height: '100vh', visibility: visible ? 'visible' : 'hidden' }}
+				onKeyDown={handleKeyDown}
+				onKeyUp={handleKeyUp}
+				tabIndex={0}>
 				<>
 					<div style={{ position: 'absolute', zIndex: '50', right: '200px', bottom: '200px' }}>
 						<Joystick
@@ -257,15 +261,14 @@ export default function Overworld({
 						setIsPlatformFixed={setIsPlatformFixed}
 						isPlatformFixed={isPlatformFixed}
 					/>
-
 				</Canvas>
 				<InfoForButton buttonName={buttonName} isOnButton={isOnButton} />
 				{info &&
 					InfoButton(
 						'Willkommen zu unserem Spiel Operation:Innovation! ' +
-						'Schaue dich mal auf den verschiedenen Platformen um, siehst du ' +
-						'einen Button auf dem Boden?\n' +
-						'Geh ruhig mal hin.'
+							'Schaue dich mal auf den verschiedenen Platformen um, siehst du ' +
+							'einen Button auf dem Boden?\n' +
+							'Geh ruhig mal hin.'
 					)}
 				{(isPlatformFixed?.monitoring ||
 					isPlatformFixed?.parts ||
