@@ -26,7 +26,7 @@ export const VECTORS_FOR_INPUT_TUBE = [
 	new Vector3(-15, 5, INPUT_TUBE_POSITION),
 ];
 
-export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos, setIsPlatformFixed }: SceneProps) {
+export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlatformFixed }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
 	const [finished, setFinished] = useState(false);
 	const [info, setInfo] = useState(false);
@@ -35,9 +35,6 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos, 
 	const CAM_HEIGHT = 80;
 
 	useEffect(() => {
-		if (visible) {
-			setSceneHook(Scene.Overworld);
-		}
 		return () => {
 			// set position of Player for when he spawns again after the game
 			if (setPlayerPos) setPlayerPos(new Vector3(9, 4, 25));
@@ -54,7 +51,7 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos, 
 		setSceneHook(Scene.Overworld);
 		setTimeout(() => {
 			setSceneHook(Scene.Shipment);
-		}, 50);
+		}, 0);
 
 		if (finished) {
 			if (setIsPlatformFixed) {
@@ -124,7 +121,7 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos, 
 					<ambientLight intensity={0.35} />
 					<Squircle position={[0, 2, 0]} color="beige" dimensions={[69, 0.1, 69]} rotation={[Math.PI / 2, 0, 0]} />
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
-					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={30} visibility={visible} />}
+					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={30} visibility={false} />}
 					<group position={[0, 4, 0]}>
 						<Grid size={SIZE_OF_GAME_MATRIX} isFinished={setFinished} currentVariation={currentVariation} />
 						<ObjectLoad

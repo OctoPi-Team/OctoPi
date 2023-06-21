@@ -118,52 +118,53 @@ export default function Overworld({
 
 	return (
 		<>
-			<div style={{ width: '100vw', height: '100vh' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
-				{!visible && (
-					<>
-						<div style={{ position: 'absolute', zIndex: '50', right: '200px', bottom: '200px' }}>
-							<Joystick
-								baseColor="lightgreen"
-								stickColor="darkgreen"
-								size={130}
-								move={handleJoystickMove}
-								stop={handleJoystickStop}
-							/>
-						</div>
-						<NavigationButton
-							position="absolute"
-							right="30px"
-							top="40px"
-							text="i"
-							onClick={() => {
-								setInfo(true);
-								if (info) {
-									setInfo(false);
-								}
-								setTimeout(() => {
-									setInfo(false);
-								}, 10000);
-							}}
+			<div
+				style={{ width: '100vw', height: '100vh', visibility: visible ? 'visible' : 'hidden' }}
+				onKeyDown={handleKeyDown}
+				onKeyUp={handleKeyUp}
+				tabIndex={0}>
+				<>
+					<div style={{ position: 'absolute', zIndex: '50', right: '200px', bottom: '200px' }}>
+						<Joystick
+							baseColor="lightgreen"
+							stickColor="darkgreen"
+							size={130}
+							move={handleJoystickMove}
+							stop={handleJoystickStop}
 						/>
-						<NavigationButton
-							position="absolute"
-							right="100px"
-							top="40px"
-							text={'\u21BB'}
-							onClick={() => {
-								if (!areYouSureReload) {
-									setAreYouSureReload(true);
-								} else {
-									setAreYouSureReload(false);
-								}
-							}}
-						/>
-					</>
-				)}
+					</div>
+					<NavigationButton
+						position="absolute"
+						right="30px"
+						top="40px"
+						text="i"
+						onClick={() => {
+							setInfo(true);
+							if (info) {
+								setInfo(false);
+							}
+							setTimeout(() => {
+								setInfo(false);
+							}, 10000);
+						}}
+					/>
+					<NavigationButton
+						position="absolute"
+						right="100px"
+						top="40px"
+						text={'\u21BB'}
+						onClick={() => {
+							if (!areYouSureReload) {
+								setAreYouSureReload(true);
+							} else {
+								setAreYouSureReload(false);
+							}
+						}}
+					/>
+				</>
 				<Canvas
 					orthographic
 					shadows
-					style={{ visibility: visible ? 'hidden' : 'visible' }}
 					onMouseDown={handleMouseDown}
 					onMouseMove={handleMouseMove}
 					onMouseUp={handleMouseUp}
@@ -176,7 +177,7 @@ export default function Overworld({
 						<ambientLight intensity={0.3}></ambientLight>
 						<Floor position={[0, -3, 0]} />
 						{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
-						{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} visibility={visible} />}
+						{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} visibility={!visible} />}
 					</group>
 					<group name="platforms-and-stairs">
 						<MainPlatform
@@ -269,14 +270,14 @@ export default function Overworld({
 							'einen Button auf dem Boden?\n' +
 							'Geh ruhig mal hin.'
 					)}
+				{(isPlatformFixed?.monitoring ||
+					isPlatformFixed?.parts ||
+					isPlatformFixed?.design ||
+					isPlatformFixed?.engineering ||
+					isPlatformFixed?.shipment ||
+					isPlatformFixed?.production) && <AlreadyFixedInformation isPlatformFixed={isPlatformFixed} />}
+				{areYouSureReload && <AreYouSureReload setAreYouSureReload={setAreYouSureReload} />}
 			</div>
-			{(isPlatformFixed?.monitoring ||
-				isPlatformFixed?.parts ||
-				isPlatformFixed?.design ||
-				isPlatformFixed?.engineering ||
-				isPlatformFixed?.shipment ||
-				isPlatformFixed?.production) && <AlreadyFixedInformation isPlatformFixed={isPlatformFixed} />}
-			{areYouSureReload && <AreYouSureReload setAreYouSureReload={setAreYouSureReload} />}
 		</>
 	);
 }

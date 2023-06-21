@@ -1,4 +1,15 @@
-import { CatmullRomCurve3, DoubleSide, Mesh, MeshBasicMaterial, SphereGeometry, TubeGeometry, Vector3 } from 'three';
+import {
+	BufferGeometry,
+	CatmullRomCurve3,
+	Color,
+	DoubleSide,
+	Material,
+	Mesh,
+	MeshBasicMaterial,
+	SphereGeometry,
+	TubeGeometry,
+	Vector3,
+} from 'three';
 import { GREEN } from '../../../AllColorVariables';
 
 type TubeProps = {
@@ -22,7 +33,6 @@ function Tube({
 }: TubeProps): JSX.Element {
 	const curve = new CatmullRomCurve3(vectors);
 	const tubeGeometry = new TubeGeometry(curve, 1000, 0.4, detailed ? 50 : 15, false);
-	//const material = new MeshPhysicalMaterial({roughness: 0.01, transmission: 1, thickness: 1, side: DoubleSide });
 
 	const ballRadius = 0.25;
 	const ballGeometry = new SphereGeometry(ballRadius, 32, 32);
@@ -47,7 +57,7 @@ function Tube({
 		<>
 			<mesh name={name} position={position}>
 				<primitive object={tubeGeometry} />
-				<meshPhysicalMaterial roughness={0.05} thickness={0.5} side={DoubleSide} />
+				<meshPhysicalMaterial roughness={0.05} transmission={1} thickness={0.5} side={DoubleSide} />
 			</mesh>
 			{ballAnimation && <primitive object={ballMesh} />}
 		</>

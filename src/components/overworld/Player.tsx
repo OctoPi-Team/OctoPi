@@ -1,7 +1,7 @@
 import { useFrame } from '@react-three/fiber';
 import { PlatformFixProps, Scene, SceneProps } from '../../App';
 import { IJoystickUpdateEvent } from 'react-joystick-component/build/lib/Joystick';
-import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { Box3, BufferGeometry, Material, MathUtils, Mesh, Vector2, Vector3 } from 'three';
 import { STAIR_WIDTH, StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
@@ -43,11 +43,20 @@ function Player({
 	setIsOnButton,
 	setIsPlatformFixed,
 	isPlatformFixed,
-	isOnButton,
 }: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
 	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
 	const [targetRotation, setTargetRotation] = useState<Vector3>(new Vector3(0, 0, 0));
+
+	// playerStarting Position Reset
+	useEffect(() => {
+		if (ref.current) {
+			ref.current.position.x = startPosition.x;
+			ref.current.position.y = startPosition.y;
+			ref.current.position.z = startPosition.z;
+		}
+		resetKeys();
+	}, [startPosition]);
 	// player movement
 	useFrame(() => {
 		if (!ref.current) return;
@@ -356,7 +365,7 @@ export const handleJoystickMove = (stick: IJoystickUpdateEvent | Vector2) => {
 	}
 };
 
-export function resetKeys() {
+function resetKeys() {
 	movementVector = new Vector3();
 }
 

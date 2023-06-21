@@ -4,11 +4,10 @@ import Video from './Video';
 import { Scene } from '../../App';
 
 type LoadingScreenProps = {
-	setVisible: (visible: boolean) => void;
 	setScene: (newScene: Scene) => void;
 };
 
-export const LoadingScreen = ({ setVisible, setScene }: LoadingScreenProps) => {
+export const LoadingScreen = ({ setScene }: LoadingScreenProps) => {
 	const { progress } = useProgress();
 	const button = document.querySelector('.loadingScreen__button') as HTMLElement;
 	if (button) {
@@ -21,7 +20,6 @@ export const LoadingScreen = ({ setVisible, setScene }: LoadingScreenProps) => {
 	}
 	function showOverworld() {
 		if (progress === 100) {
-			setVisible(false);
 			setScene(Scene.Overworld);
 		}
 	}
@@ -42,14 +40,13 @@ export const LoadingScreen = ({ setVisible, setScene }: LoadingScreenProps) => {
 						className="loadingScreen__button"
 						disabled={progress < 100}
 						onClick={() => {
-							setVisible(false);
 							setScene(Scene.Overworld);
 						}}>
 						START
 					</button>
 				</div>
 			</div>
-			<Video setVisible={setVisible} />
+			<Video />
 		</>
 	);
 };
