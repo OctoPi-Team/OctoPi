@@ -152,10 +152,11 @@ export default function DesignPlatform({
 				collisionRefSetter={addCollisionBox}
 			/>
 			<Cylinder
-				position={[position[0] + 0.4, position[1], position[2] - 9]}
+				position={[position[0] + 0.3, position[1], position[2] - 9]}
 				color={DESIGN}
 				collisionRefSetter={addCollisionBox}
 			/>
+
 			<Cylinder
 				position={[position[0] - 7.8, position[1], position[2] + 5.7]}
 				color={DESIGN}
