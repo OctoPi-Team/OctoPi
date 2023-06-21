@@ -114,6 +114,27 @@ export default function MainPlatform({
 					reference={buttonReference}
 				/>
 			</group>
+			<ObjectLoad
+					path="/Sitzhocker/sitzhocker.glb"
+					position={[position[0] + 1.5, position[1], position[2] - 4.8]}
+					scale={[0.15, 0.15, 0.15]}
+					rotation={[0, 30, 0]}
+					collisionRefSetter={addCollisionBox}
+			/>
+			<ObjectLoad
+				path="/Sitzhocker/sitzhocker.glb"
+				position={[position[0], position[1], position[2] - 5.5]}
+				scale={[0.15, 0.15, 0.15]}
+				rotation={[0, 0, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
+			<ObjectLoad
+				path="/Sitzhocker/sitzhocker.glb"
+				position={[position[0] - 1.5, position[1], position[2] - 5]}
+				scale={[0.15, 0.15, 0.15]}
+				rotation={[0, 10, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
 			<Button
 				customName="BTPinfo"
 				position={[position[0], position[1], position[2] + 4]}
