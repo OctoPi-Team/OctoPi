@@ -1,6 +1,6 @@
 import React from 'react';
 
-type Position = 'absolute';
+type Position = 'absolute' | "relative" | "fixed";
 
 interface NavigationButtonProps {
 	text: string;

@@ -1,10 +1,8 @@
 import React from 'react';
 
-type VideoArgs = {
-	setVisible: (visibility: boolean) => void;
-};
+type VideoArgs = {};
 
-export default function Video({ setVisible }: VideoArgs) {
+export default function Video({ }: VideoArgs) {
 	return (
 		<React.Fragment>
 			<video

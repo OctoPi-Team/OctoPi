@@ -4,18 +4,15 @@ import Overworld from './components/overworld/Overworld';
 import ShipmentGame from './components/minigame/shipment/ShipmentGame';
 import { LoadingScreen } from './components/startscreen/LoadingScreen';
 import { Vector3 } from 'three';
-import { resetKeys } from './components/overworld/Player';
 import ImageScreen from './components/imagescreen/ImageScreen';
-import BTPinfo from './components/BTPinfo/BTPinfo';
 
-// startscreen is not done via scene initially to reduce loading time,
-// therefore it is realized via the 'visible' hook
 export enum Scene {
 	Overworld,
 	Shipment,
 	EndScreen,
 	IdleScreen,
-	BTPinfo
+	BTPinfo,
+	StartScreen
 }
 
 export type SceneProps = {
@@ -37,12 +34,15 @@ export type PlatformFixProps = {
 };
 
 export default function App() {
+	const DEFAULT_SCENE = Scene.IdleScreen;
 	const [playerstartingPos, setPlayerstartingPos] = useState<Vector3>(new Vector3(0, 0, 0));
-	const [scene, _setScene] = useState<Scene>(Scene.Overworld);
+	const [scene, _setScene] = useState<Scene>(DEFAULT_SCENE);
 	function setScene(newScene: Scene) {
+		//		if (scene === Scene.BTPinfo)
+		//			setVisible(true);
+		console.log(newScene);
 		_setScene(newScene);
 	}
-	const [visible, setVisible] = useState(true);
 	const [isPlatformFixed, setIsPlatformFixed] = useState<PlatformFixProps>({
 		shipment: false,
 		design: false,
@@ -65,7 +65,6 @@ export default function App() {
 		const resetTimer = () => {
 			clearTimeout(timeoutId);
 			timeoutId = setTimeout(() => {
-				setVisible(false);
 				setScene(Scene.IdleScreen);
 			}, delay);
 		};
@@ -80,12 +79,13 @@ export default function App() {
 		resetTimer();
 		// Clean up event listeners
 		return () => {
+		/*
 			clearTimeout(timeoutId);
 			document.removeEventListener('touchmove', resetTimer);
 			document.removeEventListener('keydown', resetTimer);
 			document.removeEventListener('click', resetTimer);
 			document.removeEventListener('mousemove', resetTimer);
-		};
+		*/		};
 	}, []);
 
 	useEffect(() => {
@@ -109,38 +109,28 @@ export default function App() {
 			monitoring: false,
 			production: false,
 		});
-		// show startscreen scene (async to avoid that the event is catched by the loading screen immediately)
-		setTimeout(() => {
-			setScene(Scene.Overworld);
-			setVisible(true);
-		}, 0);
+		setPlayerstartingPos(new Vector3(0, 0, 0));
+		// show startscreen scene
+		setScene(Scene.StartScreen);
 	};
 	return (
 		<>
-			{visible && <LoadingScreen setVisible={setVisible} setScene={setScene} />}
-			{scene === Scene.Overworld && (
-				<Overworld
-					setSceneHook={setScene}
-					visible={visible}
-					playerPos={playerstartingPos}
-					setIsPlatformFixed={setPlatformFixed}
-					isPlatformFixed={isPlatformFixed}
-				/>
-			)}
-			{scene === Scene.EndScreen && <ImageScreen imageSource={"/EndScreen.png"} onclick={showStartScreen} />}
 			{scene === Scene.IdleScreen && <ImageScreen imageSource={"/Innovation-Factory.jpg"} onclick={showStartScreen} />}
-			{scene === Scene.Shipment && (
-				<ShipmentGame
-					setSceneHook={setScene}
-					visible={visible}
-					setPlayerPos={playerPos => {
-						setPlayerstartingPos(playerPos);
-						resetKeys();
-					}}
-					setIsPlatformFixed={setPlatformFixed}
-				/>
-			)}
-			{scene === Scene.BTPinfo && <BTPinfo setSceneHook={setScene} visible={visible} playerPos={playerstartingPos} />}
+			{scene === Scene.StartScreen && <LoadingScreen setScene={setScene} />}
+			{scene === Scene.EndScreen && <ImageScreen imageSource={"/EndScreen.png"} onclick={showStartScreen} />}
+			{scene === Scene.Shipment && <ShipmentGame setSceneHook={setScene} setPlayerPos={setPlayerstartingPos} setIsPlatformFixed={setPlatformFixed} />}
+			{/*Overworld needs to placed beneith the minigames because it is always loaded*/}
+			<Overworld
+				setSceneHook={setScene}
+				visible={scene === Scene.Overworld}
+				playerPos={playerstartingPos}
+				setIsPlatformFixed={setPlatformFixed}
+				isPlatformFixed={isPlatformFixed}
+			/>
+			{scene === Scene.BTPinfo &&
+				<ImageScreen imageSource='/BTPinfo/BTP_Vorteile.png' backButton={true} onclick={() => { setScene(Scene.Overworld); }}
+					init={() => { setPlayerstartingPos(new Vector3(0, 0, 0)); }} />
+			}
 		</>
 	);
 }

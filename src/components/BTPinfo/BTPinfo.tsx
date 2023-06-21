@@ -1,16 +1,12 @@
-import { Canvas, useLoader } from '@react-three/fiber';
-import { TextureLoader } from 'three';
-import img from '/BTPinfo/BTP Vorteile.png';
 import NavigationButton from '../ui/NavigationButton';
 import { Scene, SceneProps } from '../../App';
+import { Vector3 } from 'three';
 
-export default function BTPinfo({ setSceneHook, visible, setPlayerPos }: SceneProps) {
-	function changeView(done = true) {
-		if (done) setSceneHook(Scene.Overworld);
-	}
+export default function BTPinfo({ setSceneHook, setPlayerPos }: SceneProps) {
+	if (setPlayerPos)
+		setPlayerPos(new Vector3(0, 0, 1));
 	return (
-		<div id={'img-container'}>
-			<img id={'img'} src={'/BTPinfo/BTP Vorteile.png'} alt={'info'} style={{ width: '100%', height: '100%	' }} />
+		<div style={{ "zIndex": 1 }} id={'img-container'}>
 			<div id="ui-elements">
 				<NavigationButton
 					position="absolute"
@@ -18,7 +14,6 @@ export default function BTPinfo({ setSceneHook, visible, setPlayerPos }: ScenePr
 					bottom="30px"
 					text="&larr;"
 					onClick={() => {
-						changeView(true);
 						setSceneHook(Scene.Overworld);
 					}}
 				/>

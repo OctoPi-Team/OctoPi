@@ -1,10 +1,11 @@
 import { useFrame } from '@react-three/fiber';
 import { PlatformFixProps, Scene, SceneProps } from '../../App';
 import { IJoystickUpdateEvent } from 'react-joystick-component/build/lib/Joystick';
-import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { Box3, BufferGeometry, Material, MathUtils, Mesh, Vector2, Vector3 } from 'three';
 import { STAIR_WIDTH, StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
+import { start } from 'repl';
 
 export const PLAYER_SIZE = 0.5;
 const SPEED = 0.1;
@@ -49,6 +50,15 @@ function Player({
 	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
 	const [targetRotation, setTargetRotation] = useState<Vector3>(new Vector3(0, 0, 0));
 
+	// playerStarting Position Reset
+	useEffect(() => {
+		if (ref.current) {
+			ref.current.position.x = startPosition.x;
+			ref.current.position.y = startPosition.y;
+			ref.current.position.z = startPosition.z;
+		}
+		resetKeys();
+	}, [startPosition])
 	// player movement
 	useFrame(() => {
 		if (!ref.current) return;
@@ -70,7 +80,8 @@ function Player({
 							if (sceneProps) sceneProps.setSceneHook(Scene.BTPinfo);
 							break;
 						case 'shipment':
-							if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
+							if (sceneProps)
+								sceneProps.setSceneHook(Scene.Shipment);
 							break;
 						case 'production':
 							setButton('Production');
