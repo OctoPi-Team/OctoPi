@@ -55,6 +55,12 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos, 
 		setTimeout(() => {
 			setSceneHook(Scene.Shipment);
 		}, 50);
+
+		if (finished) {
+			if (setIsPlatformFixed) {
+				setIsPlatformFixed({ shipment: true });
+			}
+		}
 	}
 
 	function DirLight() {
