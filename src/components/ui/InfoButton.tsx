@@ -1,11 +1,10 @@
 import './style/information.css';
 
-function InfoButton() {
+export function InfoButton(text: string) {
 	return (
 		<div className={'info'}>
-			Willkommen zu unserem Spiel Operation:Innovation! Schaue dich mal auf den verschiedenen Platformen um, siehst du
-			einen Button auf dem Boden? <br />
-			Geh ruhig mal hin.
+			{text}
+			<div className={'triangle'}></div>
 		</div>
 	);
 }

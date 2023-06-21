@@ -22,7 +22,7 @@ const NavigationButton: React.FC<NavigationButtonProps> = ({ position, right, to
 				left,
 				bottom,
 				zIndex: '100',
-				background: 'green',
+				background: '#3aaa35',
 				border: 'none',
 				padding: '10px',
 				borderRadius: '50px',
@@ -34,6 +34,7 @@ const NavigationButton: React.FC<NavigationButtonProps> = ({ position, right, to
 				justifyContent: 'center',
 				alignItems: 'center',
 				fontSize: '20px',
+				opacity: 0.8,
 			}}
 			onClick={onClick}>
 			{text}

@@ -13,8 +13,7 @@ import { Canvas } from '@react-three/fiber';
 import { useRef, useState } from 'react';
 import { Joystick } from 'react-joystick-component';
 import { OrbitControls, useHelper } from '@react-three/drei';
-
-import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp, resetKeys } from './Player';
+import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp } from './Player';
 import Stair, { StairType } from './platforms/Stair';
 import FixedCamera from '../FixedCamera';
 import ShipmentPlatform from './platforms/ShipmentPlatform';
@@ -26,12 +25,12 @@ import PartsPlatform from './platforms/PartsPlatform';
 import ProductionPlatform from './platforms/ProductionPlatform';
 import EngineeringPlatform from './platforms/EngineeringPlatform';
 import Floor from './platforms/Floor';
-
 import NavigationButton from '../ui/NavigationButton';
 import InfoButton from '../ui/InfoButton';
 import DragVector from './DragVector';
 import './style/onbuttonstep.css';
 import AlreadyFixedInformation from '../ui/AlreadyFixedInformation';
+import AreYouSureReload from '../ui/AreYouSureReload';
 
 export default function Overworld({
 	setSceneHook,
@@ -40,8 +39,6 @@ export default function Overworld({
 	setIsPlatformFixed,
 	isPlatformFixed,
 }: SceneProps) {
-	const ORBITAL_CONTROLS_ACTIVE = false;
-
 	const [platforms, setPlatforms] = useState<Box3[]>([]);
 	const [stairs, setStairs] = useState<StairType[]>([]);
 	const [buttons, setButtons] = useState<Mesh<BufferGeometry, Material | Material[]>[]>([]);
@@ -49,7 +46,9 @@ export default function Overworld({
 	const [info, setInfo] = useState(false);
 	const [buttonName, setButtonName] = useState('');
 	const [isOnButton, setIsOnButton] = useState(false);
+	const [areYouSureReload, setAreYouSureReload] = useState(false);
 
+	const ORBITAL_CONTROLS_ACTIVE = false;
 	const CAM_WIDTH = 80;
 	const CAM_HEIGHT = 80;
 
@@ -125,7 +124,7 @@ export default function Overworld({
 							<Joystick
 								baseColor="lightgreen"
 								stickColor="darkgreen"
-								size={150}
+								size={130}
 								move={handleJoystickMove}
 								stop={handleJoystickStop}
 							/>
@@ -140,6 +139,9 @@ export default function Overworld({
 								if (info) {
 									setInfo(false);
 								}
+								setTimeout(() => {
+									setInfo(false);
+								}, 10000);
 							}}
 						/>
 						<NavigationButton
@@ -148,11 +150,11 @@ export default function Overworld({
 							top="40px"
 							text={'\u21BB'}
 							onClick={() => {
-								resetKeys();
-								location.reload();
-								setTimeout(() => {
-									location.reload();
-								}, 50);
+								if (!areYouSureReload) {
+									setAreYouSureReload(true);
+								} else {
+									setAreYouSureReload(false);
+								}
 							}}
 						/>
 					</>
@@ -176,7 +178,12 @@ export default function Overworld({
 						{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} visibility={visible} />}
 					</group>
 					<group name="platforms-and-stairs">
-						<MainPlatform position={[0, 0, 0]} reference={addPlatform} addCollisionBox={addCollisionBox} />
+						<MainPlatform
+							position={[0, 0, 0]}
+							reference={addPlatform}
+							addCollisionBox={addCollisionBox}
+							buttonReference={addButtons}
+						/>
 						<Stair
 							startPosition={new Vector3(7.5, 0, 6.5)}
 							endPosition={new Vector3(7.5, 4, 16)}
@@ -247,41 +254,27 @@ export default function Overworld({
 						sceneProps={{ setSceneHook }}
 						collisionObjects={collisionBoxes}
 						setButton={setButtonName}
-						isButton={setIsOnButton}
+						setIsOnButton={setIsOnButton}
+						isOnButton={isOnButton}
 						setIsPlatformFixed={setIsPlatformFixed}
+						isPlatformFixed={isPlatformFixed}
 					/>
-					{/*<Tube
-						name="tubeToAllPlatfroms"
-						position={[0, 0, 0]}
-						size={[0.5, 8, 1]}
-						vectors={[
-							new Vector3(22, 2, -15),
-							new Vector3(22, 2, 19),
-	
-							new Vector3(-4, 2, 19),
-							new Vector3(-4, 0, 19),
-							new Vector3(-25, 0, 19),
-							new Vector3(-25, 0, -19),
-							new Vector3(22, 0, -19),
-							new Vector3(22, 0, -15),
-							new Vector3(22, 2, -15)
-						]}
-					/>
-					*/}
+					
 				</Canvas>
-				{info && <InfoButton />}
+				{info && InfoButton("Willkommen zu unserem Spiel Operation:Innovation! " +
+						"Schaue dich mal auf den verschiedenen Platformen um, siehst du " +
+						"einen Button auf dem Boden?\n" + 
+						"Geh ruhig mal hin.")
+						}
 			</div>
-			{(
-				isPlatformFixed?.monitoring ||
+			{(isPlatformFixed?.monitoring ||
 				isPlatformFixed?.parts ||
 				isPlatformFixed?.design ||
 				isPlatformFixed?.engineering ||
 				isPlatformFixed?.shipment ||
-				isPlatformFixed?.production
-			) && <AlreadyFixedInformation isPlatformFixed={isPlatformFixed} />
-			}
-			{isOnButton ? <div className={'button'}>Du bist nun auf der Plattform: {buttonName}</div> : <div></div>}
-			{isOnButton && <div className={'button'}>Du bist nun auf der Plattform: {buttonName}</div>}
+				isPlatformFixed?.production) && <AlreadyFixedInformation isPlatformFixed={isPlatformFixed} />}
+			{isOnButton && <div className={'button'}>Minigame: {buttonName.toUpperCase()}</div>}
+			{areYouSureReload && <AreYouSureReload setAreYouSureReload={setAreYouSureReload} />}
 		</>
 	);
 }

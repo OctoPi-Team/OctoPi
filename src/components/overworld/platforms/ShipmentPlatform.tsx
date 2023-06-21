@@ -4,8 +4,9 @@ import { PlatformFixProps, SceneProps } from '../../../App';
 import Button from '../objects/Button';
 import { SHIPMENT } from '../../../AllColorVariables';
 import Tube from '../objects/Tube';
-import Text from '../../Text';
+import Text from '../objects/Text';
 import { Box3, Vector3 } from 'three';
+import Cylinder from '../objects/Cylinder';
 
 type ShipmentPlatformOptions = {
 	position?: [number, number, number];
@@ -132,42 +133,143 @@ export default function ShipmentPlatform({
 			{/*
 			<Tube name="Tube" position={[position[0] + 7.6, position[1], position[2] + 0.5]} size={[0.5, 8, 1]} />
 			*/}
-			<Tube
-				name="brokenShipmentTube1"
-				position={[0, 0, 0]}
-				size={[0.5, 8, 1]}
-				vectors={[
-					new Vector3(1.5, -1, -5),
-					new Vector3(1.5, -1, 8),
-					new Vector3(1.5, 3.5, 8),
-					new Vector3(1.5, 3.5, 15),
-					new Vector3(1, 2.5, 15),
-					new Vector3(2, 2.5, 15),
-					new Vector3(2, 2.5, 18),
-					new Vector3(2, 5, 18),
-					new Vector3(2, 5.7, 21),
-				]}
+			{isPlatformFixed?.monitoring ? null : (
+				<Tube
+					name="brokenShipmentTube1"
+					position={[0, 0, 0]}
+					size={[0.5, 8, 1]}
+					vectors={[
+						new Vector3(1.5, -1, -5),
+						new Vector3(1.5, -1, 8),
+						new Vector3(1.5, 3.5, 8),
+						new Vector3(1.5, 3.5, 15),
+						new Vector3(1, 2.5, 15),
+						new Vector3(2, 2.5, 15),
+						new Vector3(2, 2.5, 18),
+						new Vector3(2, 5, 18),
+						new Vector3(2, 5.7, 21),
+					]}
+				/>
+			)}
+			{isPlatformFixed?.shipment ? null : (
+				<ObjectLoad
+					path="/ScherbenGross/scherbenGross.glb"
+					position={[position[0] + 1, position[1], position[2] + 2]}
+					scale={[0.1, 0.1, 0.1]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+				/>
+			)}
+			{isPlatformFixed?.shipment ? null : (
+				<ObjectLoad
+					path="/ScherbenKlein1/scherbenKlein.glb"
+					position={[position[0] + 2, position[1], position[2] + 3]}
+					scale={[0.1, 0.1, 0.1]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+				/>
+			)}
+			{isPlatformFixed?.shipment ? null : (
+				<ObjectLoad
+					path="/ScherbenKlein2/scherbenKlein.glb"
+					position={[position[0] + 1, position[1], position[2] + 3]}
+					scale={[0.1, 0.1, 0.1]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+				/>
+			)}
+			{isPlatformFixed?.shipment ? null : (
+				<Tube
+					name="brokenShipmentTube2"
+					position={[0, 0, 0]}
+					size={[0.5, 8, 1]}
+					vectors={[new Vector3(16.6, 4, 25.5), new Vector3(15.7, 10, 25.5), new Vector3(12, 11, 27.1)]}
+				/>
+			)}
+			{isPlatformFixed?.shipment ? (
+				<Tube
+					name="finalShipmentTube"
+					position={[0, 0, 0]}
+					size={[0.5, 8, 1]}
+					vectors={[
+						new Vector3(1.5, -1, -5),
+						new Vector3(1.5, -1, 8),
+						new Vector3(1.5, 3.5, 8),
+						new Vector3(1.5, 3.5, 15),
+						new Vector3(1, 2.5, 15),
+						new Vector3(2, 2.5, 15),
+						new Vector3(2, 2.5, 18),
+						new Vector3(2, 5, 18),
+						new Vector3(2, 5, 25),
+						new Vector3(2, 2, 25.5),
+						new Vector3(16.6, 2, 25.5),
+						new Vector3(15.7, 10, 25.5),
+
+						new Vector3(5.6, 10, 30),
+						new Vector3(5.5, 8.4, 30),
+					]}
+					ballAnimation={isPlatformFixed?.shipment}
+				/>
+			) : (
+				<Tube
+					name="brokenShipmentTube3"
+					position={[0, 0, 0]}
+					size={[0.5, 8, 1]}
+					vectors={[new Vector3(8.5, 10.9, 28.7), new Vector3(5.6, 10, 30), new Vector3(5.5, 8.4, 30)]}
+				/>
+			)}{' '}
+			{isPlatformFixed?.shipment ? null : (
+				<ObjectLoad
+					path="/ScherbenGross/scherbenGross.glb"
+					position={[position[0] - 7, position[1], position[2] - 2]}
+					scale={[0.1, 0.1, 0.1]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+				/>
+			)}
+			{isPlatformFixed?.shipment ? null : (
+				<ObjectLoad
+					path="/ScherbenKlein1/scherbenKlein.glb"
+					position={[position[0] - 7, position[1], position[2] - 3.5]}
+					scale={[0.1, 0.1, 0.1]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+				/>
+			)}
+			{isPlatformFixed?.shipment ? null : (
+				<ObjectLoad
+					path="/ScherbenGross/scherbenGross.glb"
+					position={[position[0] - 7, position[1], position[2] - 0.5]}
+					scale={[0.1, 0.1, 0.1]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+				/>
+			)}
+			<Cylinder
+				position={[position[0] - 6.95, position[1], position[2] - 7.1]}
+				color={SHIPMENT}
+				collisionRefSetter={addCollisionBox}
 			/>
-			<Tube
-				name="brokenShipmentTube2"
-				position={[0, 0, 0]}
-				size={[0.5, 8, 1]}
-				vectors={[
-					new Vector3(16.6, 4, 25.5),
-					new Vector3(15.7, 10, 25.5),
-					new Vector3(12, 11, 27.1),
-				]}
-			/>
-			<Tube
-				name="brokenShipmentTube3"
-				position={[0, 0, 0]}
-				size={[0.5, 8, 1]}
-				vectors={[
-					new Vector3(8.5, 10.9, 28.7),
-					new Vector3(5.6, 10, 30),
-					new Vector3(5.5, 8.4, 30),
-				]}
-			/>
+			{isPlatformFixed?.shipment ? (
+				<Cylinder
+					position={[position[0] - 7.2, position[1], position[2] + 0.2]}
+					color={SHIPMENT}
+					collisionRefSetter={addCollisionBox}
+				/>
+			) : null}
+			{isPlatformFixed?.shipment ? (
+				<Cylinder
+					position={[position[0] + 8.35, position[1], position[2] + 0.4]}
+					color={SHIPMENT}
+					collisionRefSetter={addCollisionBox}
+				/>
+			) : (
+				<Cylinder
+					position={[position[0] + 7.55, position[1], position[2] + 0.5]}
+					color={SHIPMENT}
+					collisionRefSetter={addCollisionBox}
+				/>
+			)}
 			<Button
 				customName="shipment"
 				position={[position[0] - 6, position[1] + 6, position[2] - 9]}

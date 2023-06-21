@@ -11,19 +11,14 @@ export default function Video({ setVisible }: VideoArgs) {
 				data-testid="start-animation-video"
 				loop
 				className="video"
-				onEnded={() => {
-					setVisible(false);
-				}}
-				onClick={() => {
-					setVisible(false);
-				}}
+
 				height={window.innerHeight}
 				width={window.innerWidth}
 				preload="auto"
 				autoPlay
 				muted
 				data-setup="{}">
-				<source data-testid="start-animation-source" src="StartAnimation.mp4" type="video/mp4"></source>
+				<source data-testid="start-animation-source" src="Startanimation.mov" type="video/mp4"></source>
 			</video>
 		</React.Fragment>
 	);

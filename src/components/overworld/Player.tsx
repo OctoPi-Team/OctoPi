@@ -26,8 +26,10 @@ interface PlayerArgs {
 	buttons: Mesh<BufferGeometry, Material | Material[]>[];
 	collisionObjects: Box3[];
 	setButton: Dispatch<SetStateAction<string>>;
-	isButton: Dispatch<SetStateAction<boolean>>;
+	isOnButton: boolean;
+	setIsOnButton: Dispatch<SetStateAction<boolean>>;
 	setIsPlatformFixed: ((newProps: Partial<PlatformFixProps>) => void) | undefined;
+	isPlatformFixed: PlatformFixProps | undefined;
 }
 
 function Player({
@@ -38,8 +40,10 @@ function Player({
 	sceneProps,
 	collisionObjects,
 	setButton,
-	isButton,
+	setIsOnButton,
 	setIsPlatformFixed,
+	isPlatformFixed,
+	isOnButton,
 }: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
 	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
@@ -56,67 +60,80 @@ function Player({
 
 		// Each button must have a 'customName'; based on this string a certain action for the button can be
 		// executed in the switch case construct
+
 		for (const button of buttonPositionAndName) {
 			if (playerPosition.distanceTo(button.position) < 1) {
 				const BUTTON_TIMEOUT = 3000;
-				switch (button.name) {
-					case 'shipment':
-						if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
-						if (setIsPlatformFixed) {
-							setIsPlatformFixed({ shipment: true });
-						}
-						break;
-					case 'production':
-						setButton('Production');
-						isButton(true);
-						setTimeout(() => {
-							isButton(false);
-							if (setIsPlatformFixed) {
-								setIsPlatformFixed({ production: true });
-							}
-						}, BUTTON_TIMEOUT);
-						break;
-					case 'engineering':
-						setButton('Engineering');
-						isButton(true);
-						setTimeout(() => {
-							isButton(false);
-							if (setIsPlatformFixed) {
-								setIsPlatformFixed({ engineering: true });
-							}
-						}, BUTTON_TIMEOUT);
-						break;
-					case 'parts':
-						setButton('Parts');
-						isButton(true);
-						setTimeout(() => {
-							isButton(false);
+				if (!isOnButton) {
+					switch (button.name) {
+						case 'BTPinfo':
+							if (sceneProps) sceneProps.setSceneHook(Scene.BTPinfo);
+							break;
+						case 'shipment':
+							if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
+							break;
+						case 'production':
+							setButton('Production');
+							setIsOnButton(true);
+							setTimeout(() => {
+								setIsOnButton(false);
+								if (setIsPlatformFixed) {
+									if (isPlatformFixed?.production === false) {
+										setIsPlatformFixed({ production: true });
+									}
+								}
+							}, BUTTON_TIMEOUT);
 
-							if (setIsPlatformFixed) {
-								setIsPlatformFixed({ parts: true });
-							}
-						}, BUTTON_TIMEOUT);
-						break;
-					case 'design':
-						setButton('Design');
-						isButton(true);
-						setTimeout(() => {
-							isButton(false);
-							if (setIsPlatformFixed) {
-								setIsPlatformFixed({ design: true });
-							}
-						}, BUTTON_TIMEOUT);
-						break;
-					case 'monitoring':
-						setButton('Monitoring');
-						isButton(true);
-						setTimeout(() => {
-							isButton(false);
-							if (setIsPlatformFixed) {
-								setIsPlatformFixed({ monitoring: true });
-							}
-						}, BUTTON_TIMEOUT);
-						break;
+							break;
+						case 'engineering':
+							setButton('Engineering');
+							setIsOnButton(true);
+							setTimeout(() => {
+								setIsOnButton(false);
+								if (setIsPlatformFixed) {
+									if (isPlatformFixed?.engineering === false) {
+										setIsPlatformFixed({ engineering: true });
+									}
+								}
+							}, BUTTON_TIMEOUT);
+							break;
+						case 'parts':
+							setButton('Parts');
+							setIsOnButton(true);
+							setTimeout(() => {
+								setIsOnButton(false);
+								if (setIsPlatformFixed) {
+									if (isPlatformFixed?.parts === false) {
+										setIsPlatformFixed({ parts: true });
+									}
+								}
+							}, BUTTON_TIMEOUT);
+							break;
+						case 'design':
+							setButton('Design');
+							setIsOnButton(true);
+							setTimeout(() => {
+								setIsOnButton(false);
+								if (setIsPlatformFixed) {
+									if (isPlatformFixed?.design === false) {
+										setIsPlatformFixed({ design: true });
+									}
+								}
+							}, BUTTON_TIMEOUT);
+							break;
+						case 'monitoring':
+							setButton('Monitoring');
+							setIsOnButton(true);
+							setTimeout(() => {
+								setIsOnButton(false);
+								if (setIsPlatformFixed) {
+									if (isPlatformFixed?.monitoring === false) {
+										setIsPlatformFixed({ monitoring: true });
+									}
+								}
+							}, BUTTON_TIMEOUT);
+							break;
+					}
 				}
 			}
 		}
@@ -279,6 +296,10 @@ function getNewLerpedPlayerRoation(rotation: Vector3, targetRotation: Vector3, r
 
 	// Calculate the difference between the two angles
 	let diff = targetRotationDeg - rotationDeg;
+
+	while (diff < 360) {
+		diff += 360;
+	}
 
 	// Adjust the difference to ensure it falls within the range of -180 to 180 degrees
 	diff = ((diff + 180) % 360) - 180;

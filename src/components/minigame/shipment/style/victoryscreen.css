@@ -8,9 +8,10 @@
     height: 135px;
     width: 500px;
     top: 50px;
+    padding: 10px;
     bottom: 590px;
     text-align: center;
-    background: green;
+    background: #3aaa35;
     border-radius: 10px;
     color: white;
     font-size: 50px;
@@ -29,9 +30,9 @@
     background: darkgreen;
     color: white;
     font-size: 16px;
-    padding: 10px 10px 10px 10px;
+    padding: 15px 30px 15px 30px;
     margin: 20px;
-    border-radius: 20px;
+    border-radius: 50px;
     border-style: none;
     cursor: pointer;
 }

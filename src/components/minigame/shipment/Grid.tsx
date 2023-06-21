@@ -52,7 +52,6 @@ function isNeighbourOfEmptyTile(gridPosition: [number, number], emptyTile: [numb
 	const yDistanceToEmpty = Math.abs(gridPosition[1] - emptyTile[1]);
 	// check if tile is direct neighbour, diagonals and same tilePos dont count
 	// -> if true tile can be swapped into the space of the empty tile
-	console.log(gridPosition[0] == emptyTile[0] && gridPosition[1] == emptyTile[1]);
 	return (
 		!(gridPosition[0] == emptyTile[0] && gridPosition[1] == emptyTile[1]) &&
 		((xDistanceToEmpty <= 1 && yDistanceToEmpty == 0) || (yDistanceToEmpty <= 1 && xDistanceToEmpty == 0))
@@ -244,7 +243,7 @@ export default function Grid({ size, isFinished, currentVariation }: GridProps) 
 	}
 
 	function tileClickHandler({ startVector, endVector, tileType, color, gridPosition }: TileProps) {
-		if (isNeighbourOfEmptyTile(gridPosition, emptyTile)) {
+		if (isNeighbourOfEmptyTile(gridPosition, emptyTile) && done) {
 			// swap positions of clicked and empty tile
 			const bufferedEmptyTile = emptyTile;
 			setEmptyTile(gridPosition);

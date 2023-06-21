@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Mesh, Vector3 } from 'three';
 
-import { BLUE, GREEN } from '../../../AllColorVariables';
+import { GREEN } from '../../../AllColorVariables';
 import Tube from './Tube';
 
 export enum TileType {
@@ -41,7 +41,7 @@ export default function Tile({
 	startVector,
 	endVector,
 	tileType,
-	color = BLUE,
+	color = '#cfcfcf',
 	render = true,
 }: TileProps) {
 	const ref = useRef<Mesh>(null);
@@ -103,6 +103,8 @@ export default function Tile({
 	return (
 		<>
 			<mesh
+				castShadow
+				receiveShadow
 				ref={ref}
 				onClick={() => {
 					if (tileClickHandler)

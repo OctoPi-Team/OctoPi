@@ -1,5 +1,4 @@
 @startuml
-!theme plain
 top to bottom direction
 
 class node5 as "AllColorVariables.tsx"
@@ -9,16 +8,20 @@ class node54 as "index.tsx"
 package components {
   class FixedCamera as "FixedCamera.tsx"
   class ObjectLoad as "ObjectLoad.tsx"
-
+  
   package overworld{
     class node43 as "Overworld.tsx"
     class node73 as "Player.tsx"
+    class DragVector as "DragVector.tsx"
+    
 
     package objects {
        class node59 as "Text.tsx"
        class node72 as "CreateText.tsx"
        class node15 as "Tube.tsx"
        class node40 as "Button.tsx"
+      class node71 as "SimpleText.tsx"
+      class node29 as "Stair.tsx"
     }
 
     package Plattforms {
@@ -31,21 +34,19 @@ package components {
       class node47 as "ProductionPlatform.tsx"
       class node27 as "ShipmentPlatform.tsx"
       class node56 as "SimplePlatform.tsx"
-      class node71 as "SimpleText.tsx"
-      class node29 as "Stair.tsx"
     }
   }
 
   package minigames {
     package shipment {
-      class node42 as "FinalTube.tsx"
-      class node75 as "Grid.tsx"
-      class node32 as "ShipmentGame.tsx"
-      class node22 as "Sphere.tsx"
-      class node64 as "Tile.tsx"
-      class node28 as "Tube.tsx"
-      class node52 as "WinScreen.tsx"
-      class node14 as "victoryScreen.css"
+      class GameSpec as "GameSpec.tsx"
+      class FinalTube as "FinalTube.tsx"
+      class Grid as "Grid.tsx"
+      class ShipmentGame as "ShipmentGame.tsx"
+      class Sphere as "Sphere.tsx"
+      class Tile as "Tile.tsx"
+      class Tube as "Tube.tsx"
+      class WinScreen as "WinScreen.tsx"
     }
   }
 
@@ -54,44 +55,45 @@ package components {
     class node58 as "Video.tsx"
   }
 
-  package UI {
-   class node39 as "NavigationButton.tsx"
-   class node45 as "buttonstyle.css"
-   class node30 as "components/InfoButton.tsx"
+  package ui {
+   class NavigationButton as "NavigationButton.tsx"
+   class InfoButton as "InfoButton.tsx"
+   class AlreadyFixedInformation as "AlreadyFixedInformation.tsx"
   }
 }
 
-node43  <-[#595959,plain]up-  FixedCamera
-node32  <-[#595959,plain]down-  FixedCamera
+node43  -[#595959,plain]up->  FixedCamera
+ShipmentGame  -[#595959,plain]down->  FixedCamera
 
-node43  <-[#595959,plain]up---  node73
-node43  <-[#595959,plain]--  Plattforms
-overworld  <-[#595959,plain]-  ObjectLoad
-Plattforms  <-[#595959,plain]up-  objects
-node1   <-[#595959,plain]-  node56
-node24  <-[#595959,plain]-  node56
-node18  <-[#595959,plain]-  node56
-node78  <-[#595959,plain]-  node56
-node10  <-[#595959,plain]-  node56
-node47  <-[#595959,plain]-  node56
-node27  <-[#595959,plain]-  node56
-node57  <-[#595959,plain]-  node56
-node56  <-[#595959,plain]-  node71
-node42  <-[#595959,plain]-  node32
-node42  <-[#595959,plain]-  node22
-node42  <-[#595959,plain]-  node64
-node75  <-[#595959,plain]-  node42
-node75  <-[#595959,plain]-  node64
-node32  <-[#595959,plain]-  UI
-node43  <-[#595959,plain]-  UI
-shipment  <-[#595959,plain]-  ObjectLoad
-node32  <-[#595959,plain]-  node75
-node32  <-[#595959,plain]-  node52
-node32  <-[#595959,plain]-  node14
-node22  <-[#595959,plain]-  node32
-node64  <-[#595959,plain]-  node28
-node48  <-[#595959,plain]-  node43
-node48  <-[#595959,plain]- node37
-node54  <-[#595959,plain]-  node48
-node37  <-[#595959,plain]-  node58
+node48  -[#595959,plain]-> ShipmentGame
+node43  -[#595959,plain]->  node73
+node43  -[#595959,plain]up->  Plattforms
+overworld  -[#595959,plain]->  ObjectLoad
+Plattforms  -[#595959,plain]up->  objects
+node1   -[#595959,plain]->  node56
+node24  -[#595959,plain]->  node56
+node18  -[#595959,plain]->  node56
+node78  -[#595959,plain]->  node56
+node10  -[#595959,plain]->  node56
+node47  -[#595959,plain]->  node56
+node27  -[#595959,plain]->  node56
+node57  -[#595959,plain]->  node56
+node56  -[#595959,plain]->  node71
+FinalTube  <-[#595959,plain]-  Sphere
+Grid  <-[#595959,plain]-  FinalTube
+Grid  <-[#595959,plain]-  Tile
+ShipmentGame  -[#595959,plain]->  ui
+node43  -[#595959,plain]->  ui
+shipment  -[#595959,plain]->  ObjectLoad
+ShipmentGame  <-[#595959,plain]-  Grid
+ShipmentGame  <-[#595959,plain]-  WinScreen
+Tile  <-[#595959,plain]-  Tube
+node48  -[#595959,plain]->  node43
+node48  -[#595959,plain]-> node37
+node54  -[#595959,plain]->  node48
+node37  -[#595959,plain]->  node58
+GameSpec -[#595959,plain]-> FinalTube
+GameSpec -[#595959,plain]-> ShipmentGame
+GameSpec -[#595959,plain]-> Sphere
+GameSpec -[#595959,plain]-> Grid
 @enduml
