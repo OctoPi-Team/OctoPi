@@ -129,10 +129,9 @@ export default function ObjectLoad({
 
 	if (animated) {
 		const clock = useRef<Clock>(new Clock());
-		const [startX, startY, startZ] = position;
-		const [endX, endY, endZ] = targetPosition;
-		const startPosition = new Vector3(startX, startY, startZ);
-		const endPosition = new Vector3(startX, startY, startZ - 3);
+		// convert arrays to Vector3 for lerpVectors
+		const startPosition = new Vector3(position[0], position[1], position[2]);
+		const endPosition = new Vector3(targetPosition[0], targetPosition[1], targetPosition[2]);
 
 		useFrame(() => {
 			const elapsedTime = clock.current.getElapsedTime();
@@ -144,7 +143,7 @@ export default function ObjectLoad({
 				clock.current.start();
 				t = 0;
 			}
-			// Interpolate between the starting and ending positions
+			// Switch between the starting and ending positions
 			const newPosition = new Vector3().lerpVectors(startPosition, endPosition, t);
 
 			// Update the mesh position
