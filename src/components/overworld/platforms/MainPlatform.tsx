@@ -27,7 +27,6 @@ export default function MainPlatform({
 				rotation={[0, 270, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			<gridHelper position={[position[0], position[1], position[2] + 4]} args={[2, 2, 'black', 'black']} />
 			<ObjectLoad
 				path="/TV/tv.glb"
 				position={[position[0] - 0.02, position[1] + 0.87, position[2] + 5.65]}
@@ -115,11 +114,11 @@ export default function MainPlatform({
 					reference={buttonReference}
 				/>
 			</group>
-			<gridHelper position={[position[0], position[1], position[2] - 4]} args={[2, 2, 'black', 'black']} />
 			<Button
 				customName="BTPinfo"
-				position={[position[0] - 9.9, position[1] + 6, position[2] - 6]}
+				position={[position[0], position[1], position[2] + 4]}
 				reference={buttonReference}
+				scale={[1, 1, 1]}
 			/>
 		</>
 	);
