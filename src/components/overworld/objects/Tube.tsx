@@ -1,13 +1,6 @@
-import THREE, {
-	CatmullRomCurve3,
-	DoubleSide,
-	Mesh,
-	MeshBasicMaterial,
-	SphereGeometry,
-	TubeGeometry,
-	Vector3,
-} from 'three';
+import THREE, { CatmullRomCurve3, Mesh, MeshBasicMaterial, SphereGeometry, TubeGeometry, Vector3 } from 'three';
 import { GREEN, RED, BLUE, PINK } from '../../../AllColorVariables';
+import Ball from './Ball';
 const COLORS = [GREEN, RED, BLUE, PINK];
 type TubeProps = {
 	name?: string;
@@ -32,26 +25,6 @@ function Tube({
 	const tubeGeometry = new TubeGeometry(curve, 1000, 0.4, detailed ? 50 : 15, false);
 	//const material = new MeshPhysicalMaterial({roughness: 0.01, transmission: 1, thickness: 1, side: DoubleSide });
 
-	const ballRadius = 0.3;
-	const ballGeometry = new SphereGeometry(ballRadius, 32, 32);
-	const ballMaterial = new MeshBasicMaterial({ color: ballColor });
-	const ballMesh = new Mesh(ballGeometry, ballMaterial);
-	ballMesh.castShadow = true;
-	ballMesh.receiveShadow = true;
-
-	const ballSpeed = 1;
-
-	let ballPosition = 0;
-
-	const animateBall = () => {
-		requestAnimationFrame(animateBall);
-		const tubePosition = curve.getPointAt(ballPosition % 1);
-		ballMesh.position.copy(tubePosition);
-		ballPosition += ballSpeed * 0.001;
-	};
-	if (ballAnimation) {
-		animateBall();
-	}
 	return (
 		<>
 			<mesh name={name} position={position}>
@@ -65,7 +38,14 @@ function Tube({
 					opacity={0.4}
 				/>
 			</mesh>
-			{ballAnimation && <primitive object={ballMesh} />}
+			{ballAnimation && (
+				<>
+					<Ball curve={curve} ballAnimation={ballAnimation} ballColor={ballColor} />
+					<Ball curve={curve} ballAnimation={ballAnimation} ballColor={ballColor} />
+					<Ball curve={curve} ballAnimation={ballAnimation} ballColor={ballColor} />
+					<Ball curve={curve} ballAnimation={ballAnimation} ballColor={ballColor} />
+				</>
+			)}
 		</>
 	);
 }
