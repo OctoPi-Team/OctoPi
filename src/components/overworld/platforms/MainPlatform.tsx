@@ -3,6 +3,7 @@ import { PINK } from '../../../AllColorVariables';
 import THREE, { Box3 } from 'three';
 import ObjectLoad from '../../ObjectLoad';
 import Button from '../objects/Button';
+import AnimatedMesh from '../objects/AnimatedMesh';
 
 type MainPlatformOptions = {
 	position?: [number, number, number];
@@ -39,6 +40,8 @@ export default function MainPlatform({
 				position={[position[0] - 9.9, position[1] + 6, position[2] - 6]}
 				reference={buttonReference}
 			/>
+
+			<AnimatedMesh />
 		</>
 	);
 }
