@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react';
-import THREE, { Mesh } from 'three';
+import { BufferGeometry, Material, Mesh } from 'three';
 import ObjectLoad from '../../ObjectLoad';
 
 type ButtonProps = {
 	position: [number, number, number];
 	scale: [number, number, number];
-	reference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	reference?: (meshRef: Mesh<BufferGeometry, Material | Material[]>) => void;
 	customName: string; // Add customName prop
 };
 

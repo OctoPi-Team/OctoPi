@@ -3,7 +3,10 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import Tile, { TileProps, TileType } from './Tile';
 import { FinalTube } from './FinalTube';
 import { Vector3 } from 'three';
-import { GameSpec } from './GameSpec';
+
+export const TILE_SIZE = 3;
+export const SIZE_OF_GAME_MATRIX: [number, number] = [3, 3];
+export const SPACING = 0.2;
 
 enum direction {
 	right,
@@ -13,110 +16,10 @@ enum direction {
 }
 
 type GridProps = {
+	size: [number, number];
 	isFinished: Dispatch<SetStateAction<boolean>>;
 	currentVariation: number;
-	vectorsForInputTube: Vector3[];
 };
-
-export default function Grid({ isFinished, currentVariation, vectorsForInputTube }: GridProps) {
-	const [done, setDone] = useState(true);
-	const [tiles, setTiles] = useState<TileProps[][]>(initialize2DArray());
-	const [emptyTile, setEmptyTile] = useState<[number, number]>([0, 0]);
-
-	function addTile(newTile: TileProps, x: number, z: number) {
-		const copy = tiles;
-		copy[x][z] = newTile;
-		setTiles(copy);
-	}
-
-	function removeTile(gridPosition: [number, number]) {
-		const copy = tiles;
-		copy[gridPosition[0]][gridPosition[1]].tileType = 6;
-		setTiles(copy);
-	}
-
-	function tileClickHandler({ startVector, endVector, tileType, color, gridPosition }: TileProps) {
-		if (isNeighbourOfEmptyTile(gridPosition, emptyTile)) {
-			// swap positions of clicked and empty tile
-			const bufferedEmptyTile = emptyTile;
-			setEmptyTile(gridPosition);
-			removeTile(gridPosition);
-			gridPosition = bufferedEmptyTile;
-			addTile(
-				{
-					gridPosition: gridPosition,
-					startVector: startVector,
-					endVector: endVector,
-					tileType: tileType,
-					color: color,
-					getRealPositionFromGridPosition: getRealPositionFromGridPosition,
-					tileSize: GameSpec.tileSize,
-				},
-				gridPosition[0],
-				gridPosition[1]
-			);
-		}
-	}
-
-	function onUpdate(currentVariation: number) {
-		if (!tiles.every(a => !a.length)) {
-			return [];
-		}
-		const { board, emptyTile } = generateFunctioningGrid(currentVariation);
-		setEmptyTile(emptyTile);
-		for (let x = 0; x < GameSpec.sizeOfGameMatrix[0]; x++) {
-			for (let y = 0; y < GameSpec.sizeOfGameMatrix[1]; y++) {
-				// exclude default empty tile
-				addTile(
-					{
-						gridPosition: [x, y],
-						startVector: new Vector3(-3 / 2, 0, 0),
-						endVector: new Vector3(3 / 2, 0, 0),
-						tileType: board[x][y],
-						getRealPositionFromGridPosition: getRealPositionFromGridPosition,
-						tileSize: GameSpec.tileSize,
-					},
-					x,
-					y
-				);
-			}
-		}
-	}
-
-	useEffect(() => {
-		onUpdate(currentVariation);
-	}, [currentVariation]);
-
-	onUpdate(currentVariation);
-
-	const victoryCondition = checkVictory(tiles);
-	if (victoryCondition.length > 0 && done) {
-		setDone(false);
-		setTimeout(() => {
-			isFinished(true);
-		}, 1500);
-	}
-	return (
-		<>
-			{getTilesFromProps(tiles, tileClickHandler, victoryCondition.length == 0)}
-			{typeof victoryCondition !== 'undefined' && victoryCondition.length > 0 && (
-				<FinalTube
-					getRealPositionFromGridPosition={getRealPositionFromGridPosition}
-					vectorsForInputTube={vectorsForInputTube}
-					victoryTileSequence={victoryCondition}
-				/>
-			)}
-		</>
-	);
-}
-
-function getRealPositionFromGridPosition(gridPosition: [number, number]): Vector3 {
-	return new Vector3(
-		gridPosition[0] * GameSpec.spacing + gridPosition[0] * GameSpec.tileSize,
-		0,
-		gridPosition[1] * GameSpec.spacing + gridPosition[1] * GameSpec.tileSize
-	);
-}
 
 function getTilesFromProps(
 	props: TileProps[][],
@@ -127,8 +30,8 @@ function getTilesFromProps(
 		return [];
 	}
 	const oneDimension = [];
-	for (let i = 0; i < GameSpec.sizeOfGameMatrix[0]; i++) {
-		for (let j = 0; j < GameSpec.sizeOfGameMatrix[1]; j++) {
+	for (let i = 0; i < SIZE_OF_GAME_MATRIX[0]; i++) {
+		for (let j = 0; j < SIZE_OF_GAME_MATRIX[1]; j++) {
 			if (props[i][j].tileType == 6) {
 				continue;
 			}
@@ -157,7 +60,7 @@ function isNeighbourOfEmptyTile(gridPosition: [number, number], emptyTile: [numb
 
 function initialize2DArray() {
 	const array = [];
-	for (let x = 0; x < GameSpec.sizeOfGameMatrix[0]; x++) {
+	for (let x = 0; x < SIZE_OF_GAME_MATRIX[0]; x++) {
 		array[x] = [];
 	}
 	return array;
@@ -166,10 +69,10 @@ function initialize2DArray() {
 function checkVictory(tiles: TileProps[][]): TileProps[] {
 	const victoryPath: TileProps[] = [];
 	let x = -1;
-	let y: number = GameSpec.sizeOfGameMatrix[1] - 1;
+	let y: number = SIZE_OF_GAME_MATRIX[1] - 1;
 
 	let currentDirection: direction = direction.right;
-	for (let z = 0; z < GameSpec.sizeOfGameMatrix[0] * GameSpec.sizeOfGameMatrix[1]; z++) {
+	for (let z = 0; z < SIZE_OF_GAME_MATRIX[0] * SIZE_OF_GAME_MATRIX[1]; z++) {
 		//moving into new tile
 		switch (+currentDirection) {
 			case direction.right:
@@ -188,11 +91,11 @@ function checkVictory(tiles: TileProps[][]): TileProps[] {
 				return [];
 		}
 		// final Tile
-		if (x == GameSpec.sizeOfGameMatrix[0] && y == 0 && currentDirection == direction.right) {
+		if (x == SIZE_OF_GAME_MATRIX[0] && y == 0 && currentDirection == direction.right) {
 			return victoryPath;
 		}
 		// outside the grid
-		else if (x < 0 || y < 0 || y >= GameSpec.sizeOfGameMatrix[1] || x >= GameSpec.sizeOfGameMatrix[0]) {
+		else if (x < 0 || y < 0 || y >= SIZE_OF_GAME_MATRIX[1] || x >= SIZE_OF_GAME_MATRIX[0]) {
 			return [];
 		}
 		// into the empty tile
@@ -320,6 +223,88 @@ function generateFunctioningGrid(variant: number): TableProp {
 				emptyTile: [1, 1],
 			};
 	}
+}
+
+export default function Grid({ size, isFinished, currentVariation }: GridProps) {
+	const [done, setDone] = useState(true);
+	const [tiles, setTiles] = useState<TileProps[][]>(initialize2DArray());
+	const [emptyTile, setEmptyTile] = useState<[number, number]>([0, 0]);
+
+	function addTile(newTile: TileProps, x: number, z: number) {
+		const copy = tiles;
+		copy[x][z] = newTile;
+		setTiles(copy);
+	}
+
+	function removeTile(gridPosition: [number, number]) {
+		const copy = tiles;
+		copy[gridPosition[0]][gridPosition[1]].tileType = 6;
+		setTiles(copy);
+	}
+
+	function tileClickHandler({ startVector, endVector, tileType, color, gridPosition }: TileProps) {
+		if (isNeighbourOfEmptyTile(gridPosition, emptyTile) && done) {
+			// swap positions of clicked and empty tile
+			const bufferedEmptyTile = emptyTile;
+			setEmptyTile(gridPosition);
+			removeTile(gridPosition);
+			gridPosition = bufferedEmptyTile;
+			addTile(
+				{
+					gridPosition: gridPosition,
+					startVector: startVector,
+					endVector: endVector,
+					tileType: tileType,
+					color: color,
+				},
+				gridPosition[0],
+				gridPosition[1]
+			);
+		}
+	}
+
+	function onUpdate(currentVariation: number) {
+		if (!tiles.every(a => !a.length)) {
+			return [];
+		}
+		const { board, emptyTile } = generateFunctioningGrid(currentVariation);
+		setEmptyTile(emptyTile);
+		for (let x = 0; x < size[0]; x++) {
+			for (let y = 0; y < size[1]; y++) {
+				// exclude default empty tile
+				addTile(
+					{
+						gridPosition: [x, y],
+						startVector: new Vector3(-3 / 2, 0, 0),
+						endVector: new Vector3(3 / 2, 0, 0),
+						tileType: board[x][y],
+					},
+					x,
+					y
+				);
+			}
+		}
+	}
+
+	useEffect(() => {
+		onUpdate(currentVariation);
+	}, [currentVariation]);
+
+	onUpdate(currentVariation);
+
+	const victoryCondition = checkVictory(tiles);
+	if (victoryCondition.length > 0 && done) {
+		setDone(false);
+		setTimeout(() => {
+			isFinished(true);
+		}, 1500);
+	}
+	return (
+		<>
+			{getTilesFromProps(tiles, tileClickHandler, victoryCondition.length == 0)}
+			{typeof victoryCondition !== 'undefined' && victoryCondition.length > 0 && <FinalTube {...victoryCondition} />}
+		</>
+	);
 }
 
 export const ExportedForTestingOnly = {

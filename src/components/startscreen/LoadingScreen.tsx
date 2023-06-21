@@ -1,12 +1,14 @@
 import { useProgress } from '@react-three/drei';
 import './style/loadingscreen.css';
 import Video from './Video';
+import { Scene } from '../../App';
 
 type LoadingScreenProps = {
 	setVisible: (visible: boolean) => void;
+	setScene: (newScene: Scene) => void;
 };
 
-export const LoadingScreen = ({ setVisible }: LoadingScreenProps) => {
+export const LoadingScreen = ({ setVisible, setScene }: LoadingScreenProps) => {
 	const { progress } = useProgress();
 	const button = document.querySelector('.loadingScreen__button') as HTMLElement;
 	if (button) {
@@ -15,17 +17,17 @@ export const LoadingScreen = ({ setVisible }: LoadingScreenProps) => {
 		}
 		if (progress === 100) {
 			button.style.backgroundColor = 'rgba(0, 149, 7, 0.729)';
-			window.addEventListener('touchstart', () => {
-				setVisible(false);
-			});
-			window.addEventListener('click', () => {
-				setVisible(false);
-			});
+		}
+	}
+	function showOverworld() {
+		if (progress === 100) {
+			setVisible(false);
+			setScene(Scene.Overworld);
 		}
 	}
 	return (
 		<>
-			<div className="loadingScreen">
+			<div onClick={showOverworld} onTouchStart={showOverworld} className="loadingScreen">
 				<div className="loadingScreen__progress">
 					<div
 						className="loadingScreen__progress__value"
@@ -41,6 +43,7 @@ export const LoadingScreen = ({ setVisible }: LoadingScreenProps) => {
 						disabled={progress < 100}
 						onClick={() => {
 							setVisible(false);
+							setScene(Scene.Overworld);
 						}}>
 						START
 					</button>

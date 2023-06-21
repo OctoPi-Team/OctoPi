@@ -13,7 +13,7 @@ import { Canvas } from '@react-three/fiber';
 import { useRef, useState } from 'react';
 import { Joystick } from 'react-joystick-component';
 import { OrbitControls, useHelper } from '@react-three/drei';
-import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp, resetKeys } from './Player';
+import Player, { handleJoystickMove, handleJoystickStop, handleKeyDown, handleKeyUp } from './Player';
 import Stair, { StairType } from './platforms/Stair';
 import FixedCamera from '../FixedCamera';
 import ShipmentPlatform from './platforms/ShipmentPlatform';
@@ -31,6 +31,7 @@ import DragVector from './DragVector';
 import './style/onbuttonstep.css';
 import AlreadyFixedInformation from '../ui/AlreadyFixedInformation';
 import InfoForButton from '../ui/InfoForButton';
+import AreYouSureReload from '../ui/AreYouSureReload';
 
 export default function Overworld({
 	setSceneHook,
@@ -46,6 +47,7 @@ export default function Overworld({
 	const [info, setInfo] = useState(false);
 	const [buttonName, setButtonName] = useState('');
 	const [isOnButton, setIsOnButton] = useState(false);
+	const [areYouSureReload, setAreYouSureReload] = useState(false);
 
 	const ORBITAL_CONTROLS_ACTIVE = false;
 	const CAM_WIDTH = 80;
@@ -149,11 +151,11 @@ export default function Overworld({
 							top="40px"
 							text={'\u21BB'}
 							onClick={() => {
-								resetKeys();
-								location.reload();
-								setTimeout(() => {
-									location.reload();
-								}, 50);
+								if (!areYouSureReload) {
+									setAreYouSureReload(true);
+								} else {
+									setAreYouSureReload(false);
+								}
 							}}
 						/>
 					</>
@@ -180,8 +182,8 @@ export default function Overworld({
 						<MainPlatform
 							position={[0, 0, 0]}
 							reference={addPlatform}
-							buttonReference={addButtons}
 							addCollisionBox={addCollisionBox}
+							buttonReference={addButtons}
 						/>
 						<Stair
 							startPosition={new Vector3(7.5, 0, 6.5)}
@@ -258,27 +260,15 @@ export default function Overworld({
 						setIsPlatformFixed={setIsPlatformFixed}
 						isPlatformFixed={isPlatformFixed}
 					/>
-					{/*<Tube
-						name="tubeToAllPlatfroms"
-						position={[0, 0, 0]}
-						size={[0.5, 8, 1]}
-						vectors={[
-							new Vector3(22, 2, -15),
-							new Vector3(22, 2, 19),
-	
-							new Vector3(-4, 2, 19),
-							new Vector3(-4, 0, 19),
-							new Vector3(-25, 0, 19),
-							new Vector3(-25, 0, -19),
-							new Vector3(22, 0, -19),
-							new Vector3(22, 0, -15),
-							new Vector3(22, 2, -15)
-						]}
-					/>
-					*/}
 				</Canvas>
-				{info && <InfoButton />}
 				<InfoForButton buttonName={buttonName} isOnButton={isOnButton} />
+				{info &&
+					InfoButton(
+						'Willkommen zu unserem Spiel Operation:Innovation! ' +
+							'Schaue dich mal auf den verschiedenen Platformen um, siehst du ' +
+							'einen Button auf dem Boden?\n' +
+							'Geh ruhig mal hin.'
+					)}
 			</div>
 			{(isPlatformFixed?.monitoring ||
 				isPlatformFixed?.parts ||
@@ -286,6 +276,7 @@ export default function Overworld({
 				isPlatformFixed?.engineering ||
 				isPlatformFixed?.shipment ||
 				isPlatformFixed?.production) && <AlreadyFixedInformation isPlatformFixed={isPlatformFixed} />}
+			{areYouSureReload && <AreYouSureReload setAreYouSureReload={setAreYouSureReload} />}
 		</>
 	);
 }

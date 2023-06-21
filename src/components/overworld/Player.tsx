@@ -78,7 +78,6 @@ function Player({
 						break;
 					case 'engineering':
 						setButton('Engineering');
-
 						if (setIsPlatformFixed) {
 							if (isPlatformFixed?.engineering === false) {
 								setIsPlatformFixed({ engineering: true });
@@ -296,6 +295,10 @@ function getNewLerpedPlayerRoation(rotation: Vector3, targetRotation: Vector3, r
 
 	// Calculate the difference between the two angles
 	let diff = targetRotationDeg - rotationDeg;
+
+	while (diff < 360) {
+		diff += 360;
+	}
 
 	// Adjust the difference to ensure it falls within the range of -180 to 180 degrees
 	diff = ((diff + 180) % 360) - 180;

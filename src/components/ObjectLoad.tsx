@@ -1,7 +1,18 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useMemo } from 'react';
 import { useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three-stdlib';
-import THREE, { Vector3, BufferGeometry, Material, MathUtils, Box3, InstancedMesh } from 'three';
+import {
+	Vector3,
+	BufferGeometry,
+	Material,
+	MathUtils,
+	Box3,
+	InstancedMesh,
+	Mesh,
+	MeshBasicMaterial,
+	NearestFilter,
+	Texture,
+} from 'three';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils';
 
@@ -16,10 +27,11 @@ type ObjectLoadOptions = {
 	position: [number, number, number];
 	rotation?: [number, number, number];
 	scale?: [number, number, number];
-	reference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	reference?: (meshRef: Mesh<BufferGeometry, Material | Material[]>) => void;
 	collisionRefSetter?: (meshRef: Box3) => void;
 	customCollisionBoxes?: { positionOffset: Vector3; size: Vector3 }[];
 	customName?: string; // Add customName property
+	visible?: boolean;
 };
 
 // This function is to load an object from a .obj file and a .mtl file. To use it no knowlage of the ObjectLoad function is needed.
@@ -32,6 +44,7 @@ export default function ObjectLoad({
 	collisionRefSetter,
 	customCollisionBoxes,
 	customName, // Include customName in function parameters
+	visible = true,
 }: ObjectLoadOptions): JSX.Element {
 	const SHOW_COLLISION_BOX = false;
 	const meshRef = useRef<InstancedMesh<BufferGeometry, Material | Material[]>>(null);
@@ -92,6 +105,23 @@ export default function ObjectLoad({
 		}
 	}, [position, customName]);
 
+	// buffer Mipmaps
+	useMemo(() => {
+		obj.scene.traverse(node => {
+			if (node instanceof Mesh) {
+				const materials = Array.isArray(node.material) ? node.material : [node.material];
+				materials.forEach((material: MeshBasicMaterial) => {
+					if (material.map instanceof Texture) {
+						material.map.generateMipmaps = false;
+						material.map.minFilter = NearestFilter;
+						material.map.magFilter = NearestFilter;
+						material.map.needsUpdate = true;
+					}
+				});
+			}
+		});
+	}, [obj]);
+
 	collisionBoxes.map((box, index) => (
 		<mesh key={index} position={box.getCenter(new Vector3(...position))}>
 			<boxGeometry args={box.getSize(new Vector3(0, 0, 0)).toArray()} />
@@ -109,6 +139,7 @@ export default function ObjectLoad({
 						<meshLambertMaterial color={RED} opacity={0.6} transparent={true} />
 					</mesh>
 				))}
+
 			<mesh
 				castShadow={true}
 				receiveShadow={true}
@@ -117,7 +148,7 @@ export default function ObjectLoad({
 				position={position}
 				scale={new Vector3(scale[0], scale[1], scale[2])}
 				rotation={rotation}>
-				<primitive object={clone(obj.scene)} />
+				{visible && <primitive object={clone(obj.scene)} />}
 			</mesh>
 		</>
 	);

@@ -4,14 +4,15 @@ import { PlatformFixProps, SceneProps } from '../../../App';
 import Button from '../objects/Button';
 import { SHIPMENT } from '../../../AllColorVariables';
 import Tube from '../objects/Tube';
-import Text from '../../Text';
-import { Box3, Vector3 } from 'three';
+import Text from '../objects/Text';
+import { Box3, BufferGeometry, Material, Mesh, Vector3 } from 'three';
+import Cylinder from '../objects/Cylinder';
 
 type ShipmentPlatformOptions = {
 	position?: [number, number, number];
 	reference?: (meshRef: Box3) => void;
 	sceneProps?: SceneProps;
-	buttonReference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	buttonReference?: (meshRef: Mesh<BufferGeometry, Material | Material[]>) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
 	setplayerpos?: (setplayerpos: Vector3) => void;
 	isPlatformFixed: PlatformFixProps | undefined;
@@ -241,6 +242,31 @@ export default function ShipmentPlatform({
 					position={[position[0] - 7, position[1], position[2] - 0.5]}
 					scale={[0.1, 0.1, 0.1]}
 					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+				/>
+			)}
+			<Cylinder
+				position={[position[0] - 6.95, position[1], position[2] - 7.1]}
+				color={SHIPMENT}
+				collisionRefSetter={addCollisionBox}
+			/>
+			{isPlatformFixed?.shipment ? (
+				<Cylinder
+					position={[position[0] - 7.2, position[1], position[2] + 0.2]}
+					color={SHIPMENT}
+					collisionRefSetter={addCollisionBox}
+				/>
+			) : null}
+			{isPlatformFixed?.shipment ? (
+				<Cylinder
+					position={[position[0] + 8.35, position[1], position[2] + 0.4]}
+					color={SHIPMENT}
+					collisionRefSetter={addCollisionBox}
+				/>
+			) : (
+				<Cylinder
+					position={[position[0] + 7.55, position[1], position[2] + 0.5]}
+					color={SHIPMENT}
 					collisionRefSetter={addCollisionBox}
 				/>
 			)}

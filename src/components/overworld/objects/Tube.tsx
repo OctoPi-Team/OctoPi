@@ -1,24 +1,16 @@
-import THREE, {
-	CatmullRomCurve3,
-	DoubleSide,
-	Mesh,
-	MeshBasicMaterial,
-	SphereGeometry,
-	TubeGeometry,
-	Vector3,
-} from 'three';
+import { CatmullRomCurve3, DoubleSide, Mesh, MeshBasicMaterial, SphereGeometry, TubeGeometry, Vector3 } from 'three';
 import { GREEN } from '../../../AllColorVariables';
 
 type TubeProps = {
 	name?: string;
 	position: [number, number, number];
 	size?: [number, number, number];
-	color?: number | string | THREE.Color;
-	reference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	color?: number | string | Color;
+	reference?: (meshRef: Mesh<BufferGeometry, Material | Material[]>) => void;
 	vectors?: [...Vector3[]];
 	detailed?: boolean;
 	ballAnimation?: boolean;
-	ballColor?: number | string | THREE.Color;
+	ballColor?: number | string | Color;
 };
 function Tube({
 	name = 'Tube',

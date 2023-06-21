@@ -11,6 +11,7 @@ import {
 	INFOENGINEERING,
 	HEADPARTS,
 	INFOPARTS,
+	HEADPRODUCTION,
 } from './InfotextAboutPlatforms';
 import showPlatformInfo from './Infoboard';
 
@@ -26,7 +27,7 @@ const InfoForButton: React.FC<ButtonInfoProps> = ({ isOnButton, buttonName }) =>
 		} else if (buttonName === 'designInfo') {
 			return showPlatformInfo(HEADDESIGN, INFODESIGN);
 		} else if (buttonName === 'productionInfo') {
-			return showPlatformInfo('Production Platform', INFOPRODUCTION);
+			return showPlatformInfo(HEADPRODUCTION, INFOPRODUCTION);
 		} else if (buttonName === 'monitoringInfo') {
 			return showPlatformInfo(HEADMONITORING, INFOMONITORING);
 		} else if (buttonName === 'engineeringInfo') {

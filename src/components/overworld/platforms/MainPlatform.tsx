@@ -1,21 +1,21 @@
 import SimplePlatform from './SimplePlatform';
 import { PINK } from '../../../AllColorVariables';
-import { Box3 } from 'three';
+import { Box3, BufferGeometry, Material, Mesh } from 'three';
 import ObjectLoad from '../../ObjectLoad';
 import Button from '../objects/Button';
 
 type MainPlatformOptions = {
 	position?: [number, number, number];
 	reference?: (meshRef: Box3) => void;
-	buttonReference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	buttonReference?: (meshRef: Mesh<BufferGeometry, Material | Material[]>) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
 };
 
 export default function MainPlatform({
 	position = [0, 0, 0],
 	reference,
-	buttonReference,
 	addCollisionBox,
+	buttonReference,
 }: MainPlatformOptions): JSX.Element {
 	return (
 		<>
@@ -29,13 +29,12 @@ export default function MainPlatform({
 			/>
 			<gridHelper position={[position[0], position[1], position[2] + 4]} args={[2, 2, 'black', 'black']} />
 			<ObjectLoad
-				path="/kleinerTisch/kleinerTisch.glb"
-				position={[position[0], position[1], position[2] - 5.5]}
-				scale={[0.45, 0.45, 0.45]}
+				path="/TV/tv.glb"
+				position={[position[0] - 0.02, position[1] + 0.87, position[2] + 5.65]}
+				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 270, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-
 			<group name="info-board-and-buttons">
 				<ObjectLoad
 					path="/Infotafel/infotafel.glb"
@@ -117,6 +116,11 @@ export default function MainPlatform({
 				/>
 			</group>
 			<gridHelper position={[position[0], position[1], position[2] - 4]} args={[2, 2, 'black', 'black']} />
+			<Button
+				customName="BTPinfo"
+				position={[position[0] - 9.9, position[1] + 6, position[2] - 6]}
+				reference={buttonReference}
+			/>
 		</>
 	);
 }
