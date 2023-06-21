@@ -1,4 +1,4 @@
-import "./imgScreen.css"
+import "./style/imageScreen.css"
 import NavigationButton from "../ui/NavigationButton";
 
 type ImageScreenProps = {

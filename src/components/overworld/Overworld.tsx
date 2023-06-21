@@ -264,15 +264,16 @@ export default function Overworld({
 					'einen Button auf dem Boden?\n' +
 					'Geh ruhig mal hin.'
 				)}
+				{(isPlatformFixed?.monitoring ||
+					isPlatformFixed?.parts ||
+					isPlatformFixed?.design ||
+					isPlatformFixed?.engineering ||
+					isPlatformFixed?.shipment ||
+					isPlatformFixed?.production) && <AlreadyFixedInformation isPlatformFixed={isPlatformFixed} />}
+				{isOnButton && <div className={'button'}>Minigame: {buttonName.toUpperCase()}</div>}
+				{areYouSureReload && <AreYouSureReload setAreYouSureReload={setAreYouSureReload} />}
+
 			</div >
-			{(isPlatformFixed?.monitoring ||
-				isPlatformFixed?.parts ||
-				isPlatformFixed?.design ||
-				isPlatformFixed?.engineering ||
-				isPlatformFixed?.shipment ||
-				isPlatformFixed?.production) && <AlreadyFixedInformation isPlatformFixed={isPlatformFixed} />}
-			{isOnButton && <div className={'button'}>Minigame: {buttonName.toUpperCase()}</div>}
-			{areYouSureReload && <AreYouSureReload setAreYouSureReload={setAreYouSureReload} />}
 		</>
 	);
 }
