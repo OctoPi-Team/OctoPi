@@ -45,10 +45,11 @@ export default function ShipmentPlatform({
 			/>
 			<ObjectLoad
 				path="/Packet/packet.glb"
-				position={[position[0] - 1, position[1], position[2] - 1]}
-				scale={[0.2, 0.2, 0.2]}
+				position={[position[0] - 2.5, position[1] + 0.75, position[2] + 4]}
+				scale={[0.15, 0.15, 0.15]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
+				animated
 			/>
 			<ObjectLoad
 				path="/Packet/packet.glb"

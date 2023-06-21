@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState, useMemo } from 'react';
-import { useLoader } from '@react-three/fiber';
+import { useFrame, useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three-stdlib';
 import THREE, {
 	Vector3,
@@ -12,6 +12,7 @@ import THREE, {
 	MeshBasicMaterial,
 	NearestFilter,
 	Texture,
+	Clock,
 } from 'three';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { clone } from 'three/examples/jsm/utils/SkeletonUtils';
@@ -32,6 +33,8 @@ type ObjectLoadOptions = {
 	customCollisionBoxes?: { positionOffset: Vector3; size: Vector3 }[];
 	customName?: string; // Add customName property
 	visible?: boolean;
+	animated?: boolean;
+	targetPosition?: [number, number, number];
 };
 
 // This function is to load an object from a .obj file and a .mtl file. To use it no knowlage of the ObjectLoad function is needed.
@@ -45,6 +48,8 @@ export default function ObjectLoad({
 	customCollisionBoxes,
 	customName, // Include customName in function parameters
 	visible = true,
+	animated = false,
+	targetPosition = [0, 0, 0],
 }: ObjectLoadOptions): JSX.Element {
 	const SHOW_COLLISION_BOX = false;
 	const meshRef = useRef<InstancedMesh<BufferGeometry, Material | Material[]>>(null);
@@ -121,6 +126,33 @@ export default function ObjectLoad({
 			}
 		});
 	}, [obj]);
+
+	if (animated) {
+		const clock = useRef<Clock>(new Clock());
+		const [startX, startY, startZ] = position;
+		const [endX, endY, endZ] = targetPosition;
+		const startPosition = new Vector3(startX, startY, startZ);
+		const endPosition = new Vector3(startX, startY, startZ - 3);
+
+		useFrame(() => {
+			const elapsedTime = clock.current.getElapsedTime();
+			const duration = 2;
+			let t = Math.min(elapsedTime / duration, duration);
+			// Check if the end position is reached
+			if (t === duration) {
+				// Reset the elapsed time and restart the animation
+				clock.current.start();
+				t = 0;
+			}
+			// Interpolate between the starting and ending positions
+			const newPosition = new Vector3().lerpVectors(startPosition, endPosition, t);
+
+			// Update the mesh position
+			if (meshRef.current) {
+				meshRef.current.position.copy(newPosition);
+			}
+		});
+	}
 
 	collisionBoxes.map((box, index) => (
 		<mesh key={index} position={box.getCenter(new Vector3(...position))}>

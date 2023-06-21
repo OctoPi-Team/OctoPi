@@ -40,8 +40,6 @@ export default function MainPlatform({
 				position={[position[0] - 9.9, position[1] + 6, position[2] - 6]}
 				reference={buttonReference}
 			/>
-
-			<AnimatedMesh />
 		</>
 	);
 }
