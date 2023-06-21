@@ -137,6 +137,9 @@ function Player({
 					case 'monitoringInfo':
 						setButton('monitoringInfo');
 						break;
+					case 'BTPinfo':
+						if (sceneProps) sceneProps.setSceneHook(Scene.BTPinfo);
+
 				}
 				if (standingOnButton) break;
 			}
