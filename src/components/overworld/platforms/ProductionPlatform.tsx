@@ -1,4 +1,4 @@
-import { Box3, Vector3 } from 'three';
+import { Box3, BufferGeometry, Material, Mesh, Vector3 } from 'three';
 import { PRODUCTION } from '../../../AllColorVariables';
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
@@ -11,7 +11,7 @@ import Cylinder from '../objects/Cylinder';
 type ProductionPlatformOptions = {
 	position?: [number, number, number];
 	reference?: (meshRef: Box3) => void;
-	buttonReference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	buttonReference?: (meshRef: Mesh<BufferGeometry, Material | Material[]>) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
 	isPlatformFixed: PlatformFixProps | undefined;
 };
@@ -177,7 +177,8 @@ export default function ProductionPlatform({
 			/>
 			<Button
 				customName="production"
-				position={[position[0] - 11, position[1] + 6, position[2] - 9]}
+				position={[position[0] - 1, position[1], position[2] + 1]}
+				scale={[1, 1, 1]}
 				reference={buttonReference}
 			/>
 		</>

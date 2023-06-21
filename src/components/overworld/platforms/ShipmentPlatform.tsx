@@ -5,14 +5,14 @@ import Button from '../objects/Button';
 import { SHIPMENT } from '../../../AllColorVariables';
 import Tube from '../objects/Tube';
 import Text from '../objects/Text';
-import { Box3, Vector3 } from 'three';
+import { Box3, BufferGeometry, Material, Mesh, Vector3 } from 'three';
 import Cylinder from '../objects/Cylinder';
 
 type ShipmentPlatformOptions = {
 	position?: [number, number, number];
 	reference?: (meshRef: Box3) => void;
 	sceneProps?: SceneProps;
-	buttonReference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	buttonReference?: (meshRef: Mesh<BufferGeometry, Material | Material[]>) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
 	setplayerpos?: (setplayerpos: Vector3) => void;
 	isPlatformFixed: PlatformFixProps | undefined;
@@ -272,7 +272,8 @@ export default function ShipmentPlatform({
 			)}
 			<Button
 				customName="shipment"
-				position={[position[0] - 6, position[1] + 6, position[2] - 9]}
+				position={[position[0] + 4, position[1], position[2] + 1]}
+				scale={[1, 1, 1]}
 				reference={buttonReference}
 			/>
 		</>

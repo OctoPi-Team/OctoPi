@@ -1,7 +1,8 @@
 import { RED } from '../../../AllColorVariables';
-import THREE, {
+import {
 	Box3,
 	BufferGeometry,
+	Color,
 	CylinderGeometry,
 	Group,
 	InstancedMesh,
@@ -15,8 +16,8 @@ import { useRef, useState } from 'react';
 type CylinderProps = {
 	name?: string;
 	position: [number, number, number];
-	color: number | string | THREE.Color;
-	reference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	color: number | string | Color;
+	reference?: (meshRef: Mesh<BufferGeometry, Material | Material[]>) => void;
 	collisionRefSetter?: (meshRef: Box3) => void;
 	customCollisionBoxes?: { positionOffset: Vector3; size: Vector3 }[];
 };
