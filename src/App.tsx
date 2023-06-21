@@ -5,8 +5,8 @@ import ShipmentGame from './components/minigame/shipment/ShipmentGame';
 import { LoadingScreen } from './components/startscreen/LoadingScreen';
 import { Vector3 } from 'three';
 import { resetKeys } from './components/overworld/Player';
-import ImageScreen from './components/imagescreen/ImageScreen';
-import BTPinfo from './components/BTPinfo/BTPinfo';
+import ImageScreen from './components/ui/ImageScreen';
+import BTPinfo from './components/ui/BTPinfo';
 
 // startscreen is not done via scene initially to reduce loading time,
 // therefore it is realized via the 'visible' hook
@@ -15,7 +15,7 @@ export enum Scene {
 	Shipment,
 	EndScreen,
 	IdleScreen,
-	BTPinfo
+	BTPinfo,
 }
 
 export type SceneProps = {
@@ -39,9 +39,11 @@ export type PlatformFixProps = {
 export default function App() {
 	const [playerstartingPos, setPlayerstartingPos] = useState<Vector3>(new Vector3(0, 0, 0));
 	const [scene, _setScene] = useState<Scene>(Scene.Overworld);
+
 	function setScene(newScene: Scene) {
 		_setScene(newScene);
 	}
+
 	const [visible, setVisible] = useState(true);
 	const [isPlatformFixed, setIsPlatformFixed] = useState<PlatformFixProps>({
 		shipment: false,
@@ -89,12 +91,13 @@ export default function App() {
 	}, []);
 
 	useEffect(() => {
-		if (isPlatformFixed.design
-			&& isPlatformFixed.parts
-			&& isPlatformFixed.monitoring
-			&& isPlatformFixed.production
-			&& isPlatformFixed.engineering
-			&& isPlatformFixed.shipment
+		if (
+			isPlatformFixed.design &&
+			isPlatformFixed.parts &&
+			isPlatformFixed.monitoring &&
+			isPlatformFixed.production &&
+			isPlatformFixed.engineering &&
+			isPlatformFixed.shipment
 		)
 			setScene(Scene.EndScreen);
 	}, [setScene, isPlatformFixed]);
@@ -114,7 +117,8 @@ export default function App() {
 			setScene(Scene.Overworld);
 			setVisible(true);
 		}, 0);
-	};
+	}
+
 	return (
 		<>
 			{visible && <LoadingScreen setVisible={setVisible} setScene={setScene} />}
@@ -127,8 +131,8 @@ export default function App() {
 					isPlatformFixed={isPlatformFixed}
 				/>
 			)}
-			{scene === Scene.EndScreen && <ImageScreen imageSource={"/EndScreen.png"} onclick={showStartScreen} />}
-			{scene === Scene.IdleScreen && <ImageScreen imageSource={"/Innovation-Factory.jpg"} onclick={showStartScreen} />}
+			{scene === Scene.EndScreen && <ImageScreen imageSource={'/EndScreen.png'} />}
+			{scene === Scene.IdleScreen && <ImageScreen imageSource={'/Innovation-Factory.jpg'} />}
 			{scene === Scene.Shipment && (
 				<ShipmentGame
 					setSceneHook={setScene}

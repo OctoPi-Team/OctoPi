@@ -5,7 +5,7 @@ import { Scene } from '../../App';
 
 type LoadingScreenProps = {
 	setVisible: (visible: boolean) => void;
-	setScene: (newScene: Scene) => void
+	setScene: (newScene: Scene) => void;
 };
 
 export const LoadingScreen = ({ setVisible, setScene }: LoadingScreenProps) => {

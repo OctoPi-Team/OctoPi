@@ -259,13 +259,14 @@ export default function Overworld({
 						setIsPlatformFixed={setIsPlatformFixed}
 						isPlatformFixed={isPlatformFixed}
 					/>
-					
 				</Canvas>
-				{info && InfoButton("Willkommen zu unserem Spiel Operation:Innovation! " +
-						"Schaue dich mal auf den verschiedenen Platformen um, siehst du " +
-						"einen Button auf dem Boden?\n" + 
-						"Geh ruhig mal hin.")
-						}
+				{info &&
+					InfoButton(
+						'Willkommen zu unserem Spiel Operation:Innovation! ' +
+							'Schaue dich mal auf den verschiedenen Platformen um, siehst du ' +
+							'einen Button auf dem Boden?\n' +
+							'Geh ruhig mal hin.'
+					)}
 			</div>
 			{(isPlatformFixed?.monitoring ||
 				isPlatformFixed?.parts ||

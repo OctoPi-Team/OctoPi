@@ -120,11 +120,7 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos, 
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
 					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={30} visibility={visible} />}
 					<group position={[0, 4, 0]}>
-						<Grid
-							size={SIZE_OF_GAME_MATRIX}
-							isFinished={setFinished}
-							currentVariation={currentVariation}
-						/>
+						<Grid size={SIZE_OF_GAME_MATRIX} isFinished={setFinished} currentVariation={currentVariation} />
 						<ObjectLoad
 							path="/Trichter/trichter.glb"
 							position={[(2.9 + 0.2) * SIZE_OF_GAME_MATRIX[0], -2.3, -0.5]}
@@ -135,9 +131,12 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos, 
 					</group>
 				</Canvas>
 				{finished && WinScreen(reloadGame, changeView, setIsPlatformFixed)}
-				{info && InfoButton("Willkommen zu unserem Minispiel der Shipment-Platform! " +
-					"Du kannst neben dem leeren Feld die Röhren anklicken und tauschst so die zwei Felder. " +
-					"Probiers ruhig mal aus.")}
+				{info &&
+					InfoButton(
+						'Willkommen zu unserem Minispiel der Shipment-Platform! ' +
+							'Du kannst neben dem leeren Feld die Röhren anklicken und tauschst so die zwei Felder. ' +
+							'Probiers ruhig mal aus.'
+					)}
 			</div>
 		</>
 	);
