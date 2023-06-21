@@ -5,6 +5,8 @@ import ShipmentGame from './components/minigame/shipment/ShipmentGame';
 import { LoadingScreen } from './components/startscreen/LoadingScreen';
 import { Vector3 } from 'three';
 import ImageScreen from './components/ui/ImageScreen';
+import Loader from './Loader';
+import Video from './components/startscreen/Video';
 
 export enum Scene {
 	Overworld,
@@ -40,6 +42,7 @@ export default function App() {
 
 	const [playerstartingPos, setPlayerstartingPos] = useState<Vector3>(new Vector3(0, 0, 0));
 	const [scene, setScene] = useState<Scene>(DEFAULT_SCENE);
+	const [gameIsLoaded, setGameIsLoaded] = useState(false);
 	const [isPlatformFixed, setIsPlatformFixed] = useState<PlatformFixProps>({
 		shipment: false,
 		design: false,
@@ -96,10 +99,15 @@ export default function App() {
 		// change scene to startscreen
 		setScene(Scene.StartScreen);
 	}
+
 	return (
 		<>
-			{scene === Scene.IdleScreen && <ImageScreen imageSource={'/Innovation-Factory.jpg'} onclick={showStartScreen} />}
-			{scene === Scene.StartScreen && <LoadingScreen setScene={setScene} />}
+			<Loader setGameIsLoaded={setGameIsLoaded} />
+			{scene === Scene.IdleScreen && <ImageScreen opacity={gameIsLoaded ? 1 : 0.8} imageSource={'/Innovation-Factory.jpg'} onclick={() => {
+				if (gameIsLoaded)
+					showStartScreen();
+			}} />}
+			{scene === Scene.StartScreen && <Video onClick={() => setScene(Scene.Overworld)} />}
 			{scene === Scene.EndScreen && <ImageScreen imageSource={'/EndScreen.png'} onclick={showStartScreen} />}
 			{scene === Scene.BTPinfo && (
 				<ImageScreen

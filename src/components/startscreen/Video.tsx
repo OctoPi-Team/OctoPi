@@ -1,9 +1,12 @@
 import React from 'react';
 
-export default function Video() {
+type VideoProps = {
+	onClick: () => void;
+}
+export default function Video({ onClick }: VideoProps) {
 	return (
 		<React.Fragment>
-			<video
+			<video onClick={onClick}
 				data-testid="start-animation-video"
 				className="video"
 				height={window.innerHeight}
