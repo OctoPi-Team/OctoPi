@@ -35,14 +35,11 @@ export type PlatformFixProps = {
 
 export default function App() {
 	const DEFAULT_SCENE = Scene.IdleScreen;
+	const delay = 2 * 60 * 1000;
+	let timeoutId: NodeJS.Timeout;
+
 	const [playerstartingPos, setPlayerstartingPos] = useState<Vector3>(new Vector3(0, 0, 0));
-	const [scene, _setScene] = useState<Scene>(DEFAULT_SCENE);
-	function setScene(newScene: Scene) {
-		//		if (scene === Scene.BTPinfo)
-		//			setVisible(true);
-		console.log(newScene);
-		_setScene(newScene);
-	}
+	const [scene, setScene] = useState<Scene>(DEFAULT_SCENE);
 	const [isPlatformFixed, setIsPlatformFixed] = useState<PlatformFixProps>({
 		shipment: false,
 		design: false,
@@ -51,22 +48,15 @@ export default function App() {
 		monitoring: false,
 		production: false,
 	});
-	const delay = 2 * 60 * 1000;
-	let timeoutId: NodeJS.Timeout;
 
 	function setPlatformFixed(newProps: Partial<PlatformFixProps>) {
-		setIsPlatformFixed(prevProps => ({
-			...prevProps,
-			...newProps,
-		}));
+		setIsPlatformFixed(prevProps => ({ ...prevProps, ...newProps, }));
 	}
 
 	useEffect(() => {
 		const resetTimer = () => {
 			clearTimeout(timeoutId);
-			timeoutId = setTimeout(() => {
-				setScene(Scene.IdleScreen);
-			}, delay);
+			timeoutId = setTimeout(() => setScene(Scene.IdleScreen), delay);
 		};
 		if (!timeoutId) {
 			// Add event listeners to detect user activity
@@ -77,40 +67,21 @@ export default function App() {
 		}
 		// re-start the timer
 		resetTimer();
-		// Clean up event listeners
-		return () => {
-		/*
-			clearTimeout(timeoutId);
-			document.removeEventListener('touchmove', resetTimer);
-			document.removeEventListener('keydown', resetTimer);
-			document.removeEventListener('click', resetTimer);
-			document.removeEventListener('mousemove', resetTimer);
-		*/		};
 	}, []);
 
 	useEffect(() => {
-		if (isPlatformFixed.design
-			&& isPlatformFixed.parts
-			&& isPlatformFixed.monitoring
-			&& isPlatformFixed.production
-			&& isPlatformFixed.engineering
-			&& isPlatformFixed.shipment
+		if (isPlatformFixed.design && isPlatformFixed.parts && isPlatformFixed.monitoring
+			&& isPlatformFixed.production && isPlatformFixed.engineering && isPlatformFixed.shipment
 		)
 			setScene(Scene.EndScreen);
-	}, [setScene, isPlatformFixed]);
+	}, [isPlatformFixed]);
 
 	function showStartScreen() {
 		// reset fixed state
-		setIsPlatformFixed({
-			shipment: false,
-			design: false,
-			parts: false,
-			engineering: false,
-			monitoring: false,
-			production: false,
-		});
+		setIsPlatformFixed({ shipment: false, design: false, parts: false, engineering: false, monitoring: false, production: false });
+		// move player to main platform
 		setPlayerstartingPos(new Vector3(0, 0, 0));
-		// show startscreen scene
+		// change scene to startscreen
 		setScene(Scene.StartScreen);
 	};
 	return (
@@ -118,6 +89,7 @@ export default function App() {
 			{scene === Scene.IdleScreen && <ImageScreen imageSource={"/Innovation-Factory.jpg"} onclick={showStartScreen} />}
 			{scene === Scene.StartScreen && <LoadingScreen setScene={setScene} />}
 			{scene === Scene.EndScreen && <ImageScreen imageSource={"/EndScreen.png"} onclick={showStartScreen} />}
+			{scene === Scene.BTPinfo && <ImageScreen imageSource='/BTPinfo/BTP_Vorteile.png' backButton={true} onclick={() => setScene(Scene.Overworld)} init={() => setPlayerstartingPos(new Vector3(0, 0, 0))} />}
 			{scene === Scene.Shipment && <ShipmentGame setSceneHook={setScene} setPlayerPos={setPlayerstartingPos} setIsPlatformFixed={setPlatformFixed} />}
 			{/*Overworld needs to placed beneith the minigames because it is always loaded*/}
 			<Overworld
@@ -127,10 +99,6 @@ export default function App() {
 				setIsPlatformFixed={setPlatformFixed}
 				isPlatformFixed={isPlatformFixed}
 			/>
-			{scene === Scene.BTPinfo &&
-				<ImageScreen imageSource='/BTPinfo/BTP_Vorteile.png' backButton={true} onclick={() => { setScene(Scene.Overworld); }}
-					init={() => { setPlayerstartingPos(new Vector3(0, 0, 0)); }} />
-			}
 		</>
 	);
 }
