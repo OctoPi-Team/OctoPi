@@ -5,7 +5,6 @@ export default function Video() {
 		<React.Fragment>
 			<video
 				data-testid="start-animation-video"
-				loop
 				className="video"
 				height={window.innerHeight}
 				width={window.innerWidth}
@@ -13,7 +12,7 @@ export default function Video() {
 				autoPlay
 				muted
 				data-setup="{}">
-				<source data-testid="start-animation-source" src="Startanimation.mov" type="video/mp4"></source>
+				<source data-testid="start-animation-source" src="Startanimation.mp4" type="video/mp4"></source>
 			</video>
 		</React.Fragment>
 	);
