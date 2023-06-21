@@ -12,7 +12,7 @@ export default function Video() {
 				autoPlay
 				muted
 				data-setup="{}">
-				<source data-testid="start-animation-source" src="Startanimation.mp4" type="video/mp4"></source>
+				<source data-testid="start-animation-source" src="Start_Animation.mp4" type="video/mp4"></source>
 			</video>
 		</React.Fragment>
 	);
