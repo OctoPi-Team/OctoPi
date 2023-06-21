@@ -1,4 +1,4 @@
-import { GREEN, RED } from '../../../AllColorVariables';
+import { RED } from '../../../AllColorVariables';
 import THREE, {
 	Box3,
 	BufferGeometry,
@@ -7,7 +7,6 @@ import THREE, {
 	InstancedMesh,
 	Material,
 	Mesh,
-	MeshBasicMaterial,
 	MeshStandardMaterial,
 	Vector3,
 } from 'three';
