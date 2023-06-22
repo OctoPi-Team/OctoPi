@@ -7,6 +7,7 @@ import {
 	DirectionalLight,
 	OrthographicCamera,
 	DirectionalLightHelper,
+	PCFSoftShadowMap,
 } from 'three';
 import { Canvas } from '@react-three/fiber';
 import { useRef, useState } from 'react';
@@ -174,7 +175,7 @@ export default function Overworld({
 						}}
 					/>
 				</>
-				<Canvas orthographic shadows>
+				<Canvas orthographic shadows={{ type: PCFSoftShadowMap }}>
 					<group name="lighting-and-camera">
 						<color attach="background" args={['white']} />
 						<DirLight />
@@ -270,7 +271,7 @@ export default function Overworld({
 				{info &&
 					InfoButton(
 						'Willkommen zu Operation: Innovation!' +
-							'\nSchaue dich doch mal auf den verschiedenen Platformen um. Siehst du die gelben Druckplatten auf dem Boden?\n'
+						'\nSchaue dich doch mal auf den verschiedenen Platformen um. Siehst du die gelben Druckplatten auf dem Boden?\n'
 					)}
 				{(isPlatformFixed?.monitoring ||
 					isPlatformFixed?.parts ||
