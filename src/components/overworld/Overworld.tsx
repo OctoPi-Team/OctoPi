@@ -8,7 +8,6 @@ import {
 	OrthographicCamera,
 	DirectionalLightHelper,
 	Vector2,
-	VSMShadowMap,
 	PCFSoftShadowMap,
 } from 'three';
 import { Canvas } from '@react-three/fiber';
