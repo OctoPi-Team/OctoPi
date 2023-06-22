@@ -147,7 +147,7 @@ export default function EngineeringPlatform({
 				path="/Teleskop/teleskop.glb"
 				position={[position[0] - 5.3, position[1], position[2] - 7.5]}
 				scale={[1.5, 1.5, 1.5]}
-				rotation={[0, 210, 0]}
+				rotation={[0, 20, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<Cylinder
