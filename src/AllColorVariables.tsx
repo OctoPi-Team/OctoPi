@@ -10,3 +10,5 @@ export const MONITORING = '#dddddd';
 export const PRODUCTION = '#3aaa35';
 export const PARTS = '#686868';
 export const DESIGN = '#dabb65';
+
+export const TUBE_COLOR = '0x00ff00';

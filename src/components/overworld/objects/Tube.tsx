@@ -9,7 +9,7 @@ import THREE, {
 	TubeGeometry,
 	Vector3,
 } from 'three';
-import { GREEN, RED, BLUE, PINK } from '../../../AllColorVariables';
+import { GREEN, RED, BLUE, PINK, TUBE_COLOR } from '../../../AllColorVariables';
 import Ball from './Ball';
 const COLORS = [GREEN, RED, BLUE, PINK];
 
@@ -39,7 +39,7 @@ function Tube({
 			<mesh name={name} position={position}>
 				<primitive object={tubeGeometry} />
 				<meshPhysicalMaterial
-					color={'0x00ff00'}
+					color={TUBE_COLOR}
 					roughness={0.1}
 					transmission={0.9}
 					metalness={0.1}
