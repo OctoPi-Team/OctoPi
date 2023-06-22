@@ -7,6 +7,8 @@ import {
 	DirectionalLight,
 	OrthographicCamera,
 	DirectionalLightHelper,
+	Vector2,
+	PCFSoftShadowMap,
 } from 'three';
 import { Canvas } from '@react-three/fiber';
 import { useRef, useState } from 'react';
@@ -96,7 +98,7 @@ export default function Overworld({
 				<directionalLight
 					position={[-5, 20, -15]}
 					ref={dirLight}
-					shadow-mapSize={[1024, 1024]}
+					shadow-mapSize={[2048, 2048]}
 					intensity={0.7}
 					castShadow={true}>
 					<orthographicCamera
@@ -264,10 +266,8 @@ export default function Overworld({
 				<InfoForButton buttonName={buttonName} isOnButton={isOnButton} />
 				{info &&
 					InfoButton(
-						'Willkommen zu unserem Spiel Operation:Innovation! ' +
-						'Schaue dich mal auf den verschiedenen Platformen um, siehst du ' +
-						'einen Button auf dem Boden?\n' +
-						'Geh ruhig mal hin.'
+						'Willkommen zu Operation: Innovation!' +
+							'\nSchaue dich doch mal auf den verschiedenen Platformen um. Siehst du die gelben Druckplatten auf dem Boden?\n'
 					)}
 				{(isPlatformFixed?.monitoring ||
 					isPlatformFixed?.parts ||

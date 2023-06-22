@@ -41,6 +41,11 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 		};
 	}, []);
 
+	function setShipmentGameToBeFixed() {
+		if (finished && setIsPlatformFixed) {
+			setIsPlatformFixed({ shipment: true });
+		}
+	}
 	function changeView(done = true) {
 		if (done) setSceneHook(Scene.Overworld);
 	}
@@ -52,12 +57,7 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 		setTimeout(() => {
 			setSceneHook(Scene.Shipment);
 		}, 0);
-
-		if (finished) {
-			if (setIsPlatformFixed) {
-				setIsPlatformFixed({ shipment: true });
-			}
-		}
+		setShipmentGameToBeFixed();
 	}
 
 	function DirLight() {
@@ -110,6 +110,7 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 					bottom="30px"
 					text="&larr;"
 					onClick={() => {
+						setShipmentGameToBeFixed();
 						changeView(true);
 						setSceneHook(Scene.Overworld);
 					}}
@@ -136,9 +137,9 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 				{finished && WinScreen(reloadGame, changeView, setIsPlatformFixed)}
 				{info &&
 					InfoButton(
-						'Willkommen zu unserem Minispiel der Shipment-Platform! ' +
-							'Du kannst neben dem leeren Feld die Röhren anklicken und tauschst so die zwei Felder. ' +
-							'Probiers ruhig mal aus.'
+						'Willkommen zum Minispiel der Shipment-Platform! ' +
+							'Klicke auf ein Rohr neben dem freien Feld, um deren Position zu tauschen. ' +
+							'Stelle eine Verbindung zum Trichter her!'
 					)}
 			</div>
 		</>
