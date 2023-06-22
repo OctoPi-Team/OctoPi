@@ -52,20 +52,24 @@ export default function EngineeringPlatform({
 					visible={visibiltyForDamaged}
 				/>
 			</group>
-			<ObjectLoad
-				path="/SchrankOffen/schrankOffen.glb"
-				position={[position[0] - 6.5, position[1], position[2] - 3.5]}
-				scale={[1, 1, 1]}
-				rotation={[0, 270, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
-			<ObjectLoad
-				path="/SchrankZu/schrankZu.glb"
-				position={[position[0] - 6.5, position[1], position[2] - 2]}
-				scale={[1, 1, 1]}
-				rotation={[0, 270, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
+			<group>
+				<ObjectLoad
+					path={'/Zeichentisch/zeichentisch.glb'}
+					position={[position[0] - 6.5, position[1], position[2] - 3]}
+					scale={[0.4, 0.4, 0.4]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForFixed}
+				/>
+				<ObjectLoad
+					path={'/ZeichentischKaputt/zeichentischKaputtMitPapier.glb'}
+					position={[position[0] - 6.5, position[1], position[2] - 3]}
+					scale={[0.4, 0.4, 0.4]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForDamaged}
+				/>
+			</group>
 			<ObjectLoad
 				path="/MonitorMitSchreibtischUndStuhl/monitorMitSchreibtischUndStuhl.glb"
 				position={[position[0] - 3, position[1], position[2] + 8]}
