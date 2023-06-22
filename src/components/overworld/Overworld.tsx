@@ -7,7 +7,6 @@ import {
 	DirectionalLight,
 	OrthographicCamera,
 	DirectionalLightHelper,
-	Vector2,
 } from 'three';
 import { Canvas } from '@react-three/fiber';
 import { useRef, useState } from 'react';
@@ -27,7 +26,6 @@ import EngineeringPlatform from './platforms/EngineeringPlatform';
 import Floor from './platforms/Floor';
 import NavigationButton from '../ui/NavigationButton';
 import InfoButton from '../ui/InfoButton';
-import DragVector from './DragVector';
 import './style/onbuttonstep.css';
 import AlreadyFixedInformation from '../ui/AlreadyFixedInformation';
 import InfoForButton from '../ui/InfoForButton';
@@ -46,19 +44,13 @@ export default function Overworld({
 	const [collisionBoxes, setCollisionBoxes] = useState<Box3[]>([]);
 	const [info, setInfo] = useState(false);
 	const [buttonName, setButtonName] = useState('');
-	const [isOnButton, _setIsOnButton] = useState(false);
-	function setIsOnButton(state: boolean) {
-		if (state !== isOnButton)
-			_setIsOnButton(state);
-	}
+	const [isOnButton, setIsOnButton] = useState(false);
 	const [areYouSureReload, setAreYouSureReload] = useState(false);
+	const HIDDEN_JOYSTICK_SIZE = 5000;
 
 	const ORBITAL_CONTROLS_ACTIVE = false;
 	const CAM_WIDTH = 80;
 	const CAM_HEIGHT = 80;
-
-	const { handleMouseDown, handleMouseMove, handleMouseUp, handleTouchStart, handleTouchMove, handleTouchEnd } =
-		DragVector(new Vector2(window.innerWidth / 2, window.innerHeight / 2), handleJoystickMove);
 
 	function addPlatform(newPlatform: Box3) {
 		// these platforms are used to detect player collsion iwth the edge of the platform
@@ -137,6 +129,17 @@ export default function Overworld({
 							stop={handleJoystickStop}
 						/>
 					</div>
+					<div style={{
+						opacity: "0", position: 'absolute', zIndex: '49', right: (window.innerWidth - HIDDEN_JOYSTICK_SIZE) / 2, bottom: (window.innerHeight - HIDDEN_JOYSTICK_SIZE) / 2
+					}}>
+						<Joystick
+							baseColor="lightgreen"
+							stickColor="darkgreen"
+							size={HIDDEN_JOYSTICK_SIZE}
+							move={handleJoystickMove}
+							stop={handleJoystickStop}
+						/>
+					</div>
 					<NavigationButton
 						position="absolute"
 						right="30px"
@@ -166,15 +169,7 @@ export default function Overworld({
 						}}
 					/>
 				</>
-				<Canvas
-					orthographic
-					shadows
-					onMouseDown={handleMouseDown}
-					onMouseMove={handleMouseMove}
-					onMouseUp={handleMouseUp}
-					onTouchStart={handleTouchStart}
-					onTouchMove={handleTouchMove}
-					onTouchEnd={handleTouchEnd}>
+				<Canvas orthographic shadows >
 					<group name="lighting-and-camera">
 						<color attach="background" args={['white']} />
 						<DirLight />
@@ -281,7 +276,7 @@ export default function Overworld({
 					isPlatformFixed?.shipment ||
 					isPlatformFixed?.production) && <AlreadyFixedInformation isPlatformFixed={isPlatformFixed} />}
 				{areYouSureReload && <AreYouSureReload setAreYouSureReload={setAreYouSureReload} />}
-			</div>
+			</div >
 		</>
 	);
 }
