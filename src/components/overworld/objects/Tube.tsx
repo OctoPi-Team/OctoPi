@@ -49,10 +49,10 @@ function Tube({
 			</mesh>
 			{ballAnimation && (
 				<>
-					<Ball curve={curve} ballAnimation={ballAnimation} />
-					<Ball curve={curve} ballAnimation={ballAnimation} />
-					<Ball curve={curve} ballAnimation={ballAnimation} />
-					<Ball curve={curve} ballAnimation={ballAnimation} />
+					<Ball curve={curve} />
+					<Ball curve={curve} />
+					<Ball curve={curve} />
+					<Ball curve={curve} />
 				</>
 			)}
 		</>

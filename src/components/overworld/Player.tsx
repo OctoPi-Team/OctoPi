@@ -44,6 +44,38 @@ function Player({
 	setIsPlatformFixed,
 	isPlatformFixed,
 }: PlayerArgs) {
+
+	useEffect(() => {
+		console.log("startPosition");
+	}, [startPosition])
+	useEffect(() => {
+		console.log("platforms");
+	}, [platforms])
+	useEffect(() => {
+		console.log("stairs");
+	}, [stairs])
+	useEffect(() => {
+		console.log("buttons");
+	}, [buttons])
+	useEffect(() => {
+		console.log("sceneProps");
+	}, [sceneProps])
+	useEffect(() => {
+		console.log("collisionObjects");
+	}, [collisionObjects])
+	useEffect(() => {
+		console.log("setButton");
+	}, [setButton])
+	useEffect(() => {
+		console.log("setIsOnButton");
+	}, [setIsOnButton])
+	useEffect(() => {
+		console.log("setIsPlatformFixed");
+	}, [setIsPlatformFixed])
+	useEffect(() => {
+		console.log("isPlatformFixed");
+	}, [isPlatformFixed])
+
 	const ref = useRef<Mesh>(null);
 	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
 	const [targetRotation, setTargetRotation] = useState<Vector3>(new Vector3(0, 0, 0));

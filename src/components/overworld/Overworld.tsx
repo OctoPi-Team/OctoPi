@@ -46,7 +46,11 @@ export default function Overworld({
 	const [collisionBoxes, setCollisionBoxes] = useState<Box3[]>([]);
 	const [info, setInfo] = useState(false);
 	const [buttonName, setButtonName] = useState('');
-	const [isOnButton, setIsOnButton] = useState(false);
+	const [isOnButton, _setIsOnButton] = useState(false);
+	function setIsOnButton(state: boolean) {
+		if (state !== isOnButton)
+			_setIsOnButton(state);
+	}
 	const [areYouSureReload, setAreYouSureReload] = useState(false);
 
 	const ORBITAL_CONTROLS_ACTIVE = false;
@@ -266,9 +270,9 @@ export default function Overworld({
 				{info &&
 					InfoButton(
 						'Willkommen zu unserem Spiel Operation:Innovation! ' +
-							'Schaue dich mal auf den verschiedenen Platformen um, siehst du ' +
-							'einen Button auf dem Boden?\n' +
-							'Geh ruhig mal hin.'
+						'Schaue dich mal auf den verschiedenen Platformen um, siehst du ' +
+						'einen Button auf dem Boden?\n' +
+						'Geh ruhig mal hin.'
 					)}
 				{(isPlatformFixed?.monitoring ||
 					isPlatformFixed?.parts ||
