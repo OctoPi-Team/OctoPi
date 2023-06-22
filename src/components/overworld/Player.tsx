@@ -139,7 +139,6 @@ function Player({
 						break;
 					case 'BTPinfo':
 						if (sceneProps) sceneProps.setSceneHook(Scene.BTPinfo);
-
 				}
 				if (standingOnButton) break;
 			}
