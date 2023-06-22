@@ -1,17 +1,6 @@
-import THREE, {
-	BufferGeometry,
-	CatmullRomCurve3,
-	Color,
-	Material,
-	Mesh,
-	MeshBasicMaterial,
-	SphereGeometry,
-	TubeGeometry,
-	Vector3,
-} from 'three';
-import { GREEN, RED, BLUE, PINK, TUBE_COLOR } from '../../../AllColorVariables';
+import { BufferGeometry, CatmullRomCurve3, Color, Material, Mesh, TubeGeometry, Vector3 } from 'three';
+import { TUBE_COLOR } from '../../../AllColorVariables';
 import Ball from './Ball';
-const COLORS = [GREEN, RED, BLUE, PINK];
 
 type TubeProps = {
 	name?: string;
@@ -49,10 +38,10 @@ function Tube({
 			</mesh>
 			{ballAnimation && (
 				<>
-					<Ball curve={curve} ballAnimation={ballAnimation} />
-					<Ball curve={curve} ballAnimation={ballAnimation} />
-					<Ball curve={curve} ballAnimation={ballAnimation} />
-					<Ball curve={curve} ballAnimation={ballAnimation} />
+					<Ball curve={curve} />
+					<Ball curve={curve} />
+					<Ball curve={curve} />
+					<Ball curve={curve} />
 				</>
 			)}
 		</>

@@ -115,11 +115,11 @@ export default function MainPlatform({
 				/>
 			</group>
 			<ObjectLoad
-					path="/Sitzhocker/sitzhocker.glb"
-					position={[position[0] + 1.5, position[1], position[2] - 4.8]}
-					scale={[0.15, 0.15, 0.15]}
-					rotation={[0, 30, 0]}
-					collisionRefSetter={addCollisionBox}
+				path="/Sitzhocker/sitzhocker.glb"
+				position={[position[0] + 1.5, position[1], position[2] - 4.8]}
+				scale={[0.15, 0.15, 0.15]}
+				rotation={[0, 30, 0]}
+				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
 				path="/Sitzhocker/sitzhocker.glb"

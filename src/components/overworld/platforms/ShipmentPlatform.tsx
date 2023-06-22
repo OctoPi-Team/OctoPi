@@ -231,7 +231,7 @@ export default function ShipmentPlatform({
 					size={[0.5, 8, 1]}
 					vectors={[new Vector3(8.5, 10.9, 28.7), new Vector3(5.6, 10, 30), new Vector3(5.5, 8.4, 30)]}
 				/>
-			)}{' '}
+			)}
 			{isPlatformFixed?.shipment ? null : (
 				<ObjectLoad
 					path="/ScherbenGross/scherbenGross.glb"
