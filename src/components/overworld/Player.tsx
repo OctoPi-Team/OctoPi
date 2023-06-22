@@ -120,22 +120,22 @@ function Player({
 						}
 						break;
 					case 'designInfo':
-						setButton('designInfo');
+						isPlatformFixed?.design ? setButton('designInfo') : setButton('');
 						break;
 					case 'engineeringInfo':
-						setButton('engineeringInfo');
+						isPlatformFixed?.engineering ? setButton('engineeringInfo') : setButton('');
 						break;
 					case 'productionInfo':
-						setButton('productionInfo');
+						isPlatformFixed?.production ? setButton('productionInfo') : setButton('');
 						break;
 					case 'partsInfo':
-						setButton('partsInfo');
+						isPlatformFixed?.parts ? setButton('partsInfo') : setButton('');
 						break;
 					case 'shipmentInfo':
-						setButton('shipmentInfo');
+						isPlatformFixed?.shipment ? setButton('shipmentInfo') : setButton('');
 						break;
 					case 'monitoringInfo':
-						setButton('monitoringInfo');
+						isPlatformFixed?.monitoring ? setButton('monitoringInfo') : setButton('');
 						break;
 					case 'BTPinfo':
 						if (sceneProps) sceneProps.setSceneHook(Scene.BTPinfo);
