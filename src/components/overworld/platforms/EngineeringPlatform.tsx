@@ -53,6 +53,20 @@ export default function EngineeringPlatform({
 				/>
 			</group>
 			<ObjectLoad
+				path="/SchrankOffen/schrankOffen.glb"
+				position={[position[0] - 6.5, position[1], position[2] - 3.5]}
+				scale={[1, 1, 1]}
+				rotation={[0, 270, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
+			<ObjectLoad
+				path="/SchrankZu/schrankZu.glb"
+				position={[position[0] - 6.5, position[1], position[2] - 2]}
+				scale={[1, 1, 1]}
+				rotation={[0, 270, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
+			<ObjectLoad
 				path="/MonitorMitSchreibtischUndStuhl/monitorMitSchreibtischUndStuhl.glb"
 				position={[position[0] - 3, position[1], position[2] + 8]}
 				scale={[0.3, 0.3, 0.3]}
