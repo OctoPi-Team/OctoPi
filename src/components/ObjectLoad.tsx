@@ -122,7 +122,7 @@ export default function ObjectLoad({
 						material.map.magFilter = NearestFilter;
 						material.map.needsUpdate = true;
 					}
-					material.precision = "lowp";
+					material.precision = 'lowp';
 					material.forceSinglePass = true;
 					material.reflectivity = 0;
 				});
