@@ -1,5 +1,14 @@
-
-import THREE, { CatmullRomCurve3, Mesh, MeshBasicMaterial, SphereGeometry, TubeGeometry, Vector3 } from 'three';
+import THREE, {
+	BufferGeometry,
+	CatmullRomCurve3,
+	Color,
+	Material,
+	Mesh,
+	MeshBasicMaterial,
+	SphereGeometry,
+	TubeGeometry,
+	Vector3,
+} from 'three';
 import { GREEN, RED, BLUE, PINK } from '../../../AllColorVariables';
 import Ball from './Ball';
 const COLORS = [GREEN, RED, BLUE, PINK];
