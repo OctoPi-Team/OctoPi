@@ -102,6 +102,9 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 						if (info) {
 							setInfo(false);
 						}
+						setTimeout(() => {
+							setInfo(false);
+						}, 10000);
 					}}
 				/>
 				<NavigationButton
