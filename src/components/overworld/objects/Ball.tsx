@@ -16,7 +16,7 @@ function getRandomPosition(min: number, max: number) {
 function Ball({ curve }: BallProps): JSX.Element {
 	const ballRadius = 0.3;
 	const [color] = useState(COLORS[Math.floor(getRandomPosition(0, COLORS.length - 1))]);
-	const ballGeometry = new SphereGeometry(ballRadius, 32, 32);
+	const ballGeometry = new SphereGeometry(ballRadius, 16, 16);
 	const ballMaterial = new MeshPhysicalMaterial({ color: color });
 	const ballMesh = useRef<Mesh>(null);
 	const [ballPosition, setBallPosition] = useState(getRandomPosition(1000, 100000));

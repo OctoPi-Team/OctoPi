@@ -135,9 +135,9 @@ export default function Overworld({
 							opacity: '0',
 							position: 'fixed',
 							zIndex: '1',
-							overflow: "hidden",
+							overflow: 'hidden',
 							left: (window.innerWidth - HIDDEN_JOYSTICK_SIZE) / 2,
-							top: (window.innerHeight - HIDDEN_JOYSTICK_SIZE) / 2
+							top: (window.innerHeight - HIDDEN_JOYSTICK_SIZE) / 2,
 						}}>
 						<Joystick
 							baseColor="lightgreen"
@@ -272,7 +272,7 @@ export default function Overworld({
 				{info &&
 					InfoButton(
 						'Willkommen zu Operation: Innovation!' +
-						'\nSchaue dich doch mal auf den verschiedenen Platformen um. Siehst du die gelben Druckplatten auf dem Boden?\n'
+							'\nSchaue dich doch mal auf den verschiedenen Platformen um. Siehst du die gelben Druckplatten auf dem Boden?\n'
 					)}
 				{(isPlatformFixed?.monitoring ||
 					isPlatformFixed?.parts ||

@@ -1,5 +1,5 @@
 import React from 'react';
-import './style/loadingscreen.css'
+import './style/loadingscreen.css';
 
 type VideoProps = {
 	onClick: () => void;
