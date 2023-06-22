@@ -7,8 +7,6 @@ import {
 	DirectionalLight,
 	OrthographicCamera,
 	DirectionalLightHelper,
-	Vector2,
-	PCFSoftShadowMap,
 } from 'three';
 import { Canvas } from '@react-three/fiber';
 import { useRef, useState } from 'react';
@@ -131,9 +129,14 @@ export default function Overworld({
 							stop={handleJoystickStop}
 						/>
 					</div>
-					<div style={{
-						opacity: "0", position: 'absolute', zIndex: '49', right: (window.innerWidth - HIDDEN_JOYSTICK_SIZE) / 2, bottom: (window.innerHeight - HIDDEN_JOYSTICK_SIZE) / 2
-					}}>
+					<div
+						style={{
+							opacity: '0',
+							position: 'absolute',
+							zIndex: '49',
+							right: (window.innerWidth - HIDDEN_JOYSTICK_SIZE) / 2,
+							bottom: (window.innerHeight - HIDDEN_JOYSTICK_SIZE) / 2,
+						}}>
 						<Joystick
 							baseColor="lightgreen"
 							stickColor="darkgreen"
@@ -171,7 +174,7 @@ export default function Overworld({
 						}}
 					/>
 				</>
-				<Canvas orthographic shadows >
+				<Canvas orthographic shadows>
 					<group name="lighting-and-camera">
 						<color attach="background" args={['white']} />
 						<DirLight />
@@ -276,7 +279,7 @@ export default function Overworld({
 					isPlatformFixed?.shipment ||
 					isPlatformFixed?.production) && <AlreadyFixedInformation isPlatformFixed={isPlatformFixed} />}
 				{areYouSureReload && <AreYouSureReload setAreYouSureReload={setAreYouSureReload} />}
-			</div >
+			</div>
 		</>
 	);
 }
