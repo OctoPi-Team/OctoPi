@@ -8,7 +8,13 @@ type ImageScreenProps = {
 	init?: () => void;
 	opacity?: number;
 };
-export default function ImageScreen({ imageSource, onclick = () => { }, backButton = false, init, opacity = 1 }: ImageScreenProps) {
+export default function ImageScreen({
+	imageSource,
+	onclick = () => {},
+	backButton = false,
+	init,
+	opacity = 1,
+}: ImageScreenProps) {
 	if (init) init();
 	return (
 		<div onClick={onclick} style={{ opacity: opacity }}>

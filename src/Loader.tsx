@@ -1,17 +1,17 @@
-import { useProgress } from "@react-three/drei";
-import { useEffect } from "react";
+import { useProgress } from '@react-three/drei';
+import { useEffect } from 'react';
 
 type LoaderProps = {
-    setGameIsLoaded: (state: boolean) => void;
-}
+	setGameIsLoaded: (state: boolean) => void;
+};
 
 export default function Loader({ setGameIsLoaded }: LoaderProps) {
-    const { progress } = useProgress();
+	const { progress } = useProgress();
 
-    useEffect(() => {
-        if (progress >= 100) {
-            setGameIsLoaded(true);
-        }
-    }, [progress]);
-    return <></>;
+	useEffect(() => {
+		if (progress >= 100) {
+			setGameIsLoaded(true);
+		}
+	}, [progress]);
+	return <></>;
 }
