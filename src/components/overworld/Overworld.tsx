@@ -8,6 +8,8 @@ import {
 	OrthographicCamera,
 	DirectionalLightHelper,
 	Vector2,
+	VSMShadowMap,
+	PCFSoftShadowMap,
 } from 'three';
 import { Canvas } from '@react-three/fiber';
 import { useRef, useState } from 'react';
@@ -100,7 +102,7 @@ export default function Overworld({
 				<directionalLight
 					position={[-5, 20, -15]}
 					ref={dirLight}
-					shadow-mapSize={[1024, 1024]}
+					shadow-mapSize={[2048, 2048]}
 					intensity={0.7}
 					castShadow={true}>
 					<orthographicCamera
@@ -164,7 +166,7 @@ export default function Overworld({
 				</>
 				<Canvas
 					orthographic
-					shadows
+					shadows={{ type: PCFSoftShadowMap }}
 					onMouseDown={handleMouseDown}
 					onMouseMove={handleMouseMove}
 					onMouseUp={handleMouseUp}
