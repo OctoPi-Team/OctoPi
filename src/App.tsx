@@ -80,7 +80,9 @@ export default function App() {
 			isPlatformFixed.engineering &&
 			isPlatformFixed.shipment
 		)
-			setScene(Scene.EndScreen);
+			setTimeout(() => {
+				setScene(Scene.EndScreen);
+			}, 5000);
 	}, [isPlatformFixed]);
 
 	function showStartScreen() {
