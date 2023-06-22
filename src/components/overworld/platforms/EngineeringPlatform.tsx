@@ -37,24 +37,6 @@ export default function EngineeringPlatform({
 			<group>
 				<ObjectLoad
 					path={'/Zeichentisch/zeichentisch.glb'}
-					position={[position[0] - 6.5, position[1], position[2] - 3]}
-					scale={[0.4, 0.4, 0.4]}
-					rotation={[0, 0, 0]}
-					collisionRefSetter={addCollisionBox}
-					visible={visibiltyForFixed}
-				/>
-				<ObjectLoad
-					path={'/ZeichentischKaputt/zeichentischKaputtMitPapier.glb'}
-					position={[position[0] - 6.5, position[1], position[2] - 3]}
-					scale={[0.4, 0.4, 0.4]}
-					rotation={[0, 0, 0]}
-					collisionRefSetter={addCollisionBox}
-					visible={visibiltyForDamaged}
-				/>
-			</group>
-			<group>
-				<ObjectLoad
-					path={'/Zeichentisch/zeichentisch.glb'}
 					position={[position[0] + 5.5, position[1], position[2] + 8]}
 					scale={[0.4, 0.4, 0.4]}
 					rotation={[0, 90, 0]}
@@ -70,13 +52,6 @@ export default function EngineeringPlatform({
 					visible={visibiltyForDamaged}
 				/>
 			</group>
-			{/*<ObjectLoad
-				path="/MonitorMitSchreibtischUndStuhl/monitorMitSchreibtischUndStuhl.glb"
-				position={[position[0] - 2.5, position[1], position[2] + 8]}
-				scale={[0.3, 0.3, 0.3]}
-				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>*/}
 			<ObjectLoad
 				path="/MonitorMitSchreibtischUndStuhl/monitorMitSchreibtischUndStuhl.glb"
 				position={[position[0] - 3, position[1], position[2] + 8]}
@@ -138,18 +113,18 @@ export default function EngineeringPlatform({
 			/>
 			<group>
 				<ObjectLoad
-					path={'/Whiteboard_neu/whiteboard_neu.glb'}
+					path={'/Zeichentisch/zeichentisch.glb'}
 					position={[position[0] - 0.5, position[1], position[2] - 7.5]}
-					scale={[0.6, 0.6, 0.6]}
-					rotation={[0, 0, 0]}
+					scale={[0.4, 0.4, 0.4]}
+					rotation={[0, 270, 0]}
 					collisionRefSetter={addCollisionBox}
 					visible={visibiltyForFixed}
 				/>
 				<ObjectLoad
-					path={'/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb'}
+					path={'/ZeichentischKaputt/zeichentischKaputtMitPapier.glb'}
 					position={[position[0] - 0.5, position[1], position[2] - 7.5]}
-					scale={[0.6, 0.6, 0.6]}
-					rotation={[0, 0, 0]}
+					scale={[0.4, 0.4, 0.4]}
+					rotation={[0, 270, 0]}
 					collisionRefSetter={addCollisionBox}
 					visible={visibiltyForDamaged}
 				/>
