@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { Box3, Vector3 } from 'three';
+import { Box3, Mesh, Vector3 } from 'three';
 import { PLAYER_SIZE } from '../Player';
 import { RED } from '../../../AllColorVariables';
 import Squircle from '../objects/Squircle';
@@ -15,7 +15,7 @@ type SimplePlatformProps = {
 
 // This function is to load an object from a .obj file and a .mtl file. To use it no knowlage of the ObjextLoad function is needed.
 export default function SimplePlatform({ position, size = [1, 0.1, 1], color, reference }: SimplePlatformProps) {
-	const ref = useRef<THREE.Mesh>(null);
+	const ref = useRef<Mesh>(null);
 	const [collsionRefWasSet, collsionRefSet] = useState(false);
 	const [meshBox, setMeshBox] = useState<Box3>();
 
@@ -46,8 +46,8 @@ export default function SimplePlatform({ position, size = [1, 0.1, 1], color, re
 	});
 
 	const { camera } = useThree();
-	const meshRef = useRef<THREE.Mesh>(null);
-	const textRef = useRef<THREE.Mesh>(null);
+	const meshRef = useRef<Mesh>(null);
+	const textRef = useRef<Mesh>(null);
 	useFrame(() => {
 		if (meshRef.current && textRef.current) {
 			meshRef.current.lookAt(camera.position);

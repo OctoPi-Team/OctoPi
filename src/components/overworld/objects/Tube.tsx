@@ -1,17 +1,19 @@
+
 import THREE, { CatmullRomCurve3, Mesh, MeshBasicMaterial, SphereGeometry, TubeGeometry, Vector3 } from 'three';
 import { GREEN, RED, BLUE, PINK } from '../../../AllColorVariables';
 import Ball from './Ball';
 const COLORS = [GREEN, RED, BLUE, PINK];
+
 type TubeProps = {
 	name?: string;
 	position: [number, number, number];
 	size?: [number, number, number];
-	color?: number | string | THREE.Color;
-	reference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	color?: number | string | Color;
+	reference?: (meshRef: Mesh<BufferGeometry, Material | Material[]>) => void;
 	vectors?: [...Vector3[]];
 	detailed?: boolean;
 	ballAnimation?: boolean;
-	ballColor?: number | string | THREE.Color;
+	ballColor?: number | string | Color;
 };
 function Tube({
 	name = 'Tube',
@@ -22,7 +24,6 @@ function Tube({
 }: TubeProps): JSX.Element {
 	const curve = new CatmullRomCurve3(vectors);
 	const tubeGeometry = new TubeGeometry(curve, 1000, 0.4, detailed ? 50 : 15, false);
-	//const material = new MeshPhysicalMaterial({roughness: 0.01, transmission: 1, thickness: 1, side: DoubleSide });
 
 	return (
 		<>

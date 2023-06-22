@@ -2,7 +2,7 @@ import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
 import { DESIGN } from '../../../AllColorVariables';
 import Text from '../objects/Text';
-import { Box3, Vector3 } from 'three';
+import { Box3, BufferGeometry, Material, Mesh, Vector3 } from 'three';
 import Tube from '../objects/Tube';
 import { PlatformFixProps } from '../../../App';
 import Button from '../objects/Button';
@@ -11,7 +11,7 @@ import Cylinder from '../objects/Cylinder';
 type DesignPlatformOptions = {
 	position?: [number, number, number];
 	reference?: (meshRef: Box3) => void;
-	buttonReference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	buttonReference?: (meshRef: Mesh<BufferGeometry, Material | Material[]>) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
 	isPlatformFixed: PlatformFixProps | undefined;
 };
@@ -152,10 +152,11 @@ export default function DesignPlatform({
 				collisionRefSetter={addCollisionBox}
 			/>
 			<Cylinder
-				position={[position[0] + 0.4, position[1], position[2] - 9]}
+				position={[position[0] + 0.3, position[1], position[2] - 9]}
 				color={DESIGN}
 				collisionRefSetter={addCollisionBox}
 			/>
+
 			<Cylinder
 				position={[position[0] - 7.8, position[1], position[2] + 5.7]}
 				color={DESIGN}
@@ -163,7 +164,8 @@ export default function DesignPlatform({
 			/>
 			<Button
 				customName="design"
-				position={[position[0] - 7, position[1] + 6, position[2] - 9]}
+				position={[position[0] + 3, position[1], position[2] + 1]}
+				scale={[1, 1, 1]}
 				reference={buttonReference}
 			/>
 		</>
