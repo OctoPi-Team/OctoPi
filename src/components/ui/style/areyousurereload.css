@@ -20,11 +20,14 @@
 	vertical-align: center;
 	opacity: 0.9;
 	animation: fadeIn 1s;
+	z-index: 10;
 }
 
 .buttons {
 	display: flex;
 	justify-content: space-between;
+	z-index: 10;
+
 }
 
 .buttons button {
@@ -51,6 +54,7 @@
 	0% {
 		opacity: 0;
 	}
+
 	100% {
 		opacity: 0.9;
 	}
