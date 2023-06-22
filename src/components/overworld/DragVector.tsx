@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
 import { Vector2 } from 'three';
 
 const DragVector = (startPos: Vector2, change: (v: Vector2) => void) => {
-	const [movingState, setMovingState] = useState(false);
+	let movingState = false;
 	const handleMouseMove = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
 		if (!startPos || !movingState) return;
 		const { clientX, clientY } = event;
@@ -18,10 +17,10 @@ const DragVector = (startPos: Vector2, change: (v: Vector2) => void) => {
 	};
 
 	const startMovement = () => {
-		setMovingState(true);
+		movingState = true;
 	};
 	const reset = () => {
-		setMovingState(false);
+		movingState = false;
 		change(new Vector2());
 	};
 

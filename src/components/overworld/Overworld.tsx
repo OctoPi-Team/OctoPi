@@ -167,7 +167,7 @@ export default function Overworld({
 					shadows
 					onMouseDown={handleMouseDown}
 					onMouseMove={handleMouseMove}
-					onMouseUp={handleMouseUp}
+					onMouseUp={handleMouseUp} // This one
 					onTouchStart={handleTouchStart}
 					onTouchMove={handleTouchMove}
 					onTouchEnd={handleTouchEnd}>
