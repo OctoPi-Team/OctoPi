@@ -1,8 +1,7 @@
-import {
+import THREE, {
 	BufferGeometry,
 	CatmullRomCurve3,
 	Color,
-	DoubleSide,
 	Material,
 	Mesh,
 	MeshBasicMaterial,
@@ -10,7 +9,9 @@ import {
 	TubeGeometry,
 	Vector3,
 } from 'three';
-import { GREEN } from '../../../AllColorVariables';
+import { GREEN, RED, BLUE, PINK, TUBE_COLOR } from '../../../AllColorVariables';
+import Ball from './Ball';
+const COLORS = [GREEN, RED, BLUE, PINK];
 
 type TubeProps = {
 	name?: string;
@@ -29,37 +30,31 @@ function Tube({
 	vectors = [new Vector3(0, 0, 0), new Vector3(0, 6, 0), new Vector3(-10.5, 6, 5), new Vector3(-10.6, 4.5, 5)],
 	detailed = false,
 	ballAnimation = false,
-	ballColor = GREEN,
 }: TubeProps): JSX.Element {
 	const curve = new CatmullRomCurve3(vectors);
 	const tubeGeometry = new TubeGeometry(curve, 1000, 0.4, detailed ? 50 : 15, false);
 
-	const ballRadius = 0.25;
-	const ballGeometry = new SphereGeometry(ballRadius, 32, 32);
-	const ballMaterial = new MeshBasicMaterial({ color: ballColor });
-	const ballMesh = new Mesh(ballGeometry, ballMaterial);
-
-	const ballSpeed = 1;
-
-	let ballPosition = 0;
-
-	const animateBall = () => {
-		requestAnimationFrame(animateBall);
-
-		const tubePosition = curve.getPointAt(ballPosition % 1);
-		ballMesh.position.copy(tubePosition);
-		ballPosition += ballSpeed * 0.001;
-	};
-	if (ballAnimation) {
-		animateBall();
-	}
 	return (
 		<>
 			<mesh name={name} position={position}>
 				<primitive object={tubeGeometry} />
-				<meshPhysicalMaterial roughness={0.05} transmission={1} thickness={0.5} side={DoubleSide} />
+				<meshPhysicalMaterial
+					color={TUBE_COLOR}
+					roughness={0.1}
+					transmission={0.9}
+					metalness={0.1}
+					transparent={true}
+					opacity={0.4}
+				/>
 			</mesh>
-			{ballAnimation && <primitive object={ballMesh} />}
+			{ballAnimation && (
+				<>
+					<Ball curve={curve} ballAnimation={ballAnimation} />
+					<Ball curve={curve} ballAnimation={ballAnimation} />
+					<Ball curve={curve} ballAnimation={ballAnimation} />
+					<Ball curve={curve} ballAnimation={ballAnimation} />
+				</>
+			)}
 		</>
 	);
 }
