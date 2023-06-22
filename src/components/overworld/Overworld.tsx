@@ -266,10 +266,8 @@ export default function Overworld({
 				<InfoForButton buttonName={buttonName} isOnButton={isOnButton} />
 				{info &&
 					InfoButton(
-						'Willkommen zu unserem Spiel Operation:Innovation! ' +
-							'Schaue dich mal auf den verschiedenen Platformen um, siehst du ' +
-							'einen Button auf dem Boden?\n' +
-							'Geh ruhig mal hin.'
+						'Willkommen zu Operation: Innovation!' +
+							'\nSchaue dich doch mal auf den verschiedenen Platformen um. Siehst du die gelben Druckplatten auf dem Boden?\n'
 					)}
 				{(isPlatformFixed?.monitoring ||
 					isPlatformFixed?.parts ||
