@@ -13,7 +13,7 @@ function Ball({
 	ballColor = COLORS[Math.floor(Math.random() * COLORS.length)],
 }: BallProps): JSX.Element {
 	const ballRadius = 0.3;
-	const ballGeometry = new SphereGeometry(ballRadius, 32, 32);
+	const ballGeometry = new SphereGeometry(ballRadius, 16, 16);
 	const ballMaterial = new MeshPhysicalMaterial({ color: ballColor });
 	const ballMesh = new Mesh(ballGeometry, ballMaterial);
 	ballMesh.castShadow = true;
