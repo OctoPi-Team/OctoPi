@@ -9,7 +9,7 @@ type SimpleTextProps = {
 };
 
 export function SimpleText({ position, textValue }: SimpleTextProps) {
-	const ref = useRef<THREE.Mesh>(null);
+	const ref = useRef<Mesh>(null);
 
 	const { camera } = useThree();
 	useFrame(() => {

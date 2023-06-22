@@ -1,7 +1,7 @@
 import { useFrame } from '@react-three/fiber';
 import { PlatformFixProps, Scene, SceneProps } from '../../App';
 import { IJoystickUpdateEvent } from 'react-joystick-component/build/lib/Joystick';
-import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { Box3, BufferGeometry, Material, MathUtils, Mesh, Vector2, Vector3 } from 'three';
 import { STAIR_WIDTH, StairType } from './platforms/Stair';
 import ObjectLoad from '../ObjectLoad';
@@ -43,12 +43,20 @@ function Player({
 	setIsOnButton,
 	setIsPlatformFixed,
 	isPlatformFixed,
-	isOnButton,
 }: PlayerArgs) {
 	const ref = useRef<Mesh>(null);
 	const [rotation, setRotation] = useState<Vector3>(new Vector3(0, 0, 0));
 	const [targetRotation, setTargetRotation] = useState<Vector3>(new Vector3(0, 0, 0));
 
+	// playerStarting Position Reset
+	useEffect(() => {
+		if (ref.current) {
+			ref.current.position.x = startPosition.x;
+			ref.current.position.y = startPosition.y;
+			ref.current.position.z = startPosition.z;
+		}
+		resetKeys();
+	}, [startPosition]);
 	// player movement
 	useFrame(() => {
 		if (!ref.current) return;
@@ -60,83 +68,86 @@ function Player({
 
 		// Each button must have a 'customName'; based on this string a certain action for the button can be
 		// executed in the switch case construct
-
+		let standingOnButton = false;
 		for (const button of buttonPositionAndName) {
 			if (playerPosition.distanceTo(button.position) < 1) {
-				const BUTTON_TIMEOUT = 3000;
-				if (!isOnButton) {
-					switch (button.name) {
-						case 'BTPinfo':
-							if (sceneProps) sceneProps.setSceneHook(Scene.BTPinfo);
-							break;
-						case 'shipment':
-							if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
-							break;
-						case 'production':
-							setButton('Production');
-							setIsOnButton(true);
-							setTimeout(() => {
-								setIsOnButton(false);
-								if (setIsPlatformFixed) {
-									if (isPlatformFixed?.production === false) {
-										setIsPlatformFixed({ production: true });
-									}
-								}
-							}, BUTTON_TIMEOUT);
+				standingOnButton = true;
+				setIsOnButton(true);
+				switch (button.name) {
+					case 'shipment':
+						if (sceneProps) sceneProps.setSceneHook(Scene.Shipment);
+						break;
+					case 'production':
+						setButton('Production');
+						if (setIsPlatformFixed) {
+							if (isPlatformFixed?.production === false) {
+								setIsPlatformFixed({ production: true });
+							}
+						}
+						break;
+					case 'engineering':
+						setButton('Engineering');
+						if (setIsPlatformFixed) {
+							if (isPlatformFixed?.engineering === false) {
+								setIsPlatformFixed({ engineering: true });
+							}
+						}
+						break;
+					case 'parts':
+						setButton('Parts');
 
-							break;
-						case 'engineering':
-							setButton('Engineering');
-							setIsOnButton(true);
-							setTimeout(() => {
-								setIsOnButton(false);
-								if (setIsPlatformFixed) {
-									if (isPlatformFixed?.engineering === false) {
-										setIsPlatformFixed({ engineering: true });
-									}
-								}
-							}, BUTTON_TIMEOUT);
-							break;
-						case 'parts':
-							setButton('Parts');
-							setIsOnButton(true);
-							setTimeout(() => {
-								setIsOnButton(false);
-								if (setIsPlatformFixed) {
-									if (isPlatformFixed?.parts === false) {
-										setIsPlatformFixed({ parts: true });
-									}
-								}
-							}, BUTTON_TIMEOUT);
-							break;
-						case 'design':
-							setButton('Design');
-							setIsOnButton(true);
-							setTimeout(() => {
-								setIsOnButton(false);
-								if (setIsPlatformFixed) {
-									if (isPlatformFixed?.design === false) {
-										setIsPlatformFixed({ design: true });
-									}
-								}
-							}, BUTTON_TIMEOUT);
-							break;
-						case 'monitoring':
-							setButton('Monitoring');
-							setIsOnButton(true);
-							setTimeout(() => {
-								setIsOnButton(false);
-								if (setIsPlatformFixed) {
-									if (isPlatformFixed?.monitoring === false) {
-										setIsPlatformFixed({ monitoring: true });
-									}
-								}
-							}, BUTTON_TIMEOUT);
-							break;
-					}
+						if (setIsPlatformFixed) {
+							if (isPlatformFixed?.parts === false) {
+								setIsPlatformFixed({ parts: true });
+							}
+						}
+						break;
+					case 'design':
+						setButton('Design');
+
+						if (setIsPlatformFixed) {
+							if (isPlatformFixed?.design === false) {
+								setIsPlatformFixed({ design: true });
+							}
+						}
+						break;
+					case 'monitoring':
+						setButton('Monitoring');
+						if (setIsPlatformFixed) {
+							if (isPlatformFixed?.monitoring === false) {
+								setIsPlatformFixed({ monitoring: true });
+							}
+						}
+						break;
+					case 'designInfo':
+						setButton('designInfo');
+						break;
+					case 'engineeringInfo':
+						setButton('engineeringInfo');
+						break;
+					case 'productionInfo':
+						setButton('productionInfo');
+						break;
+					case 'partsInfo':
+						setButton('partsInfo');
+						break;
+					case 'shipmentInfo':
+						setButton('shipmentInfo');
+						break;
+					case 'monitoringInfo':
+						setButton('monitoringInfo');
+						break;
+					case 'BTPinfo':
+						if (sceneProps) sceneProps.setSceneHook(Scene.BTPinfo);
+
 				}
+				if (standingOnButton) break;
 			}
 		}
+		if (!standingOnButton) {
+			setIsOnButton(false);
+		}
+
 		const movementVector = getMovementVectorFromKeys(SPEED);
 		// move player forward
 		ref.current.position.x += movementVector.x;
@@ -357,7 +368,7 @@ export const handleJoystickMove = (stick: IJoystickUpdateEvent | Vector2) => {
 	}
 };
 
-export function resetKeys() {
+function resetKeys() {
 	movementVector = new Vector3();
 }
 

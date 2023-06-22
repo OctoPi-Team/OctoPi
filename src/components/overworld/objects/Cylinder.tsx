@@ -1,13 +1,14 @@
-import { GREEN, RED } from '../../../AllColorVariables';
-import THREE, {
+import { RED } from '../../../AllColorVariables';
+import {
 	Box3,
 	BufferGeometry,
+	Color,
 	CylinderGeometry,
 	Group,
 	InstancedMesh,
 	Material,
 	Mesh,
-	MeshBasicMaterial,
+	MeshStandardMaterial,
 	Vector3,
 } from 'three';
 import { useRef, useState } from 'react';
@@ -15,8 +16,8 @@ import { useRef, useState } from 'react';
 type CylinderProps = {
 	name?: string;
 	position: [number, number, number];
-	color: number | string | THREE.Color;
-	reference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	color: number | string | Color;
+	reference?: (meshRef: Mesh<BufferGeometry, Material | Material[]>) => void;
 	collisionRefSetter?: (meshRef: Box3) => void;
 	customCollisionBoxes?: { positionOffset: Vector3; size: Vector3 }[];
 };
@@ -64,12 +65,12 @@ function Cylinder({
 		}
 	}
 	const cylinderGeometry = new CylinderGeometry(1, 1, 1, 32);
-	const cylinderMaterial = new MeshBasicMaterial({ color: GREEN });
+	const cylinderMaterial = new MeshStandardMaterial({ color: color });
 	const cylinderMesh = new Mesh(cylinderGeometry, cylinderMaterial);
 
 	// create hole
 	const holeGeometry = new CylinderGeometry(0.5, 0.5, 1, 32);
-	const holeMaterial = new MeshBasicMaterial({ color: color });
+	const holeMaterial = new MeshStandardMaterial({ color: color });
 	const holeMesh = new Mesh(holeGeometry, holeMaterial);
 
 	// hole in cylinder
@@ -91,7 +92,7 @@ function Cylinder({
 					</mesh>
 				))}
 
-			<mesh ref={meshRef} name={name} position={position}>
+			<mesh ref={meshRef} name={name} position={position} castShadow receiveShadow>
 				<primitive object={holeMesh} />
 			</mesh>
 		</>
