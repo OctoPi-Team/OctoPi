@@ -1,4 +1,12 @@
-import THREE, { CatmullRomCurve3, Mesh, MeshBasicMaterial, SphereGeometry, TubeGeometry, Vector3 } from 'three';
+import THREE, {
+	CatmullRomCurve3,
+	Mesh,
+	MeshBasicMaterial,
+	MeshPhysicalMaterial,
+	SphereGeometry,
+	TubeGeometry,
+	Vector3,
+} from 'three';
 import { GREEN, RED, BLUE, PINK } from '../../../AllColorVariables';
 const COLORS = [GREEN, RED, BLUE, PINK];
 
@@ -14,15 +22,18 @@ function Ball({
 }: BallProps): JSX.Element {
 	const ballRadius = 0.3;
 	const ballGeometry = new SphereGeometry(ballRadius, 32, 32);
-	const ballMaterial = new MeshBasicMaterial({ color: ballColor });
+	const ballMaterial = new MeshPhysicalMaterial({ color: ballColor });
 	const ballMesh = new Mesh(ballGeometry, ballMaterial);
 	ballMesh.castShadow = true;
 	ballMesh.receiveShadow = true;
 
 	const ballSpeed = 1;
 
+	function getRandomPosition(min: number, max: number) {
+		return Math.random() * (max - min) + min;
+	}
 	// random ball position
-	let ballPosition = Math.random() * 1000;
+	let ballPosition = getRandomPosition(1000, 10000);
 
 	const animateBall = () => {
 		requestAnimationFrame(animateBall);
