@@ -20,7 +20,7 @@ export default function ImageScreen({
 	const [text, setText] = useState('Bitte warten...');
 
 	useEffect(() => {
-		if (opacity === 1) setText('Klicken Sie, um fortzufahren');
+		if (opacity === 1) setText('Klicke um fortzufahren');
 	}, [opacity]);
 
 	return (
