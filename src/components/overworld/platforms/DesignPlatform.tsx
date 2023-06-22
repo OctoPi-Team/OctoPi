@@ -113,12 +113,12 @@ export default function DesignPlatform({
 					new Vector3(-33, 7, 4),
 					new Vector3(-33, 7, -11),
 					new Vector3(-28, 7, -11),
-					new Vector3(-28, 3, -11),
-					new Vector3(-25, 3, -11),
+					new Vector3(-28, 4, -11),
+					new Vector3(-25, 4, -11),
 					new Vector3(-25, 1, -11),
 					new Vector3(-23, 1, -11),
-					new Vector3(-23, 3, -11),
-					new Vector3(-20, 3, -11),
+					new Vector3(-23, 4, -11),
+					new Vector3(-20, 4, -11),
 					new Vector3(-20, 2, -11),
 				]}
 				ballAnimation={isPlatformFixed?.design}
