@@ -133,10 +133,11 @@ export default function Overworld({
 					<div
 						style={{
 							opacity: '0',
-							position: 'absolute',
-							zIndex: '49',
-							right: (window.innerWidth - HIDDEN_JOYSTICK_SIZE) / 2,
-							bottom: (window.innerHeight - HIDDEN_JOYSTICK_SIZE) / 2,
+							position: 'fixed',
+							zIndex: '1',
+							overflow: "hidden",
+							left: (window.innerWidth - HIDDEN_JOYSTICK_SIZE) / 2,
+							top: (window.innerHeight - HIDDEN_JOYSTICK_SIZE) / 2
 						}}>
 						<Joystick
 							baseColor="lightgreen"
