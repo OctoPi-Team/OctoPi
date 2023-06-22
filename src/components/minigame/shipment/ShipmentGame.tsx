@@ -41,6 +41,13 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 		};
 	}, []);
 
+	function setShipmentGameToBeFixed() {
+		if (finished) {
+			if (setIsPlatformFixed) {
+				setIsPlatformFixed({ shipment: true });
+			}
+		}
+	}
 	function changeView(done = true) {
 		if (done) setSceneHook(Scene.Overworld);
 	}
@@ -52,12 +59,7 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 		setTimeout(() => {
 			setSceneHook(Scene.Shipment);
 		}, 0);
-
-		if (finished) {
-			if (setIsPlatformFixed) {
-				setIsPlatformFixed({ shipment: true });
-			}
-		}
+		setShipmentGameToBeFixed();
 	}
 
 	function DirLight() {
@@ -110,6 +112,7 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 					bottom="30px"
 					text="&larr;"
 					onClick={() => {
+						setShipmentGameToBeFixed();
 						changeView(true);
 						setSceneHook(Scene.Overworld);
 					}}
