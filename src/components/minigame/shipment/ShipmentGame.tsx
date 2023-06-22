@@ -118,7 +118,12 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 					}}
 				/>
 			</div>
-			<div style={{ width: '100vw', height: '100vh' }} tabIndex={0}>
+			<div
+				style={{ width: '100vw', height: '100vh' }}
+				tabIndex={0}
+				onClick={() => {
+					setInfo(false);
+				}}>
 				<Canvas orthographic camera={{ zoom: 50, position: [40, 40, 40] }} shadows={{ type: PCFSoftShadowMap }}>
 					<DirLight />
 					<ambientLight intensity={0.35} />
