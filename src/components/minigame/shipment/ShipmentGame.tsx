@@ -42,10 +42,8 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 	}, []);
 
 	function setShipmentGameToBeFixed() {
-		if (finished) {
-			if (setIsPlatformFixed) {
-				setIsPlatformFixed({ shipment: true });
-			}
+		if (finished && setIsPlatformFixed) {
+			setIsPlatformFixed({ shipment: true });
 		}
 	}
 	function changeView(done = true) {
