@@ -43,13 +43,17 @@ export default function ShipmentPlatform({
 				collisionRefSetter={addCollisionBox}
 				customCollisionBoxes={[{ positionOffset: new Vector3(0.6, 0, -2.2), size: new Vector3(1.6, 5, 8.2) }]}
 			/>
-			<ObjectLoad
-				path="/Packet/packet.glb"
-				position={[position[0] - 1, position[1], position[2] - 1]}
-				scale={[0.2, 0.2, 0.2]}
-				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
+			{isPlatformFixed?.shipment ? (
+				<ObjectLoad
+					path="/Packet/packet.glb"
+					position={[position[0] - 2.5, position[1] + 0.75, position[2] + 4]}
+					scale={[0.13, 0.13, 0.13]}
+					rotation={[0, 0, 0]}
+					collisionRefSetter={addCollisionBox}
+					animated
+					targetPosition={[position[0] - 2.5, position[1] + 0.75, position[2] + 0.25]}
+				/>
+			) : null}
 			<ObjectLoad
 				path="/Packet/packet.glb"
 				position={[position[0] - 4, position[1], position[2] - 1]}
@@ -57,13 +61,23 @@ export default function ShipmentPlatform({
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			<ObjectLoad
-				path="/Hubwagen/hubwagen.glb"
-				position={[position[0] + 3, position[1], position[2] + 5]}
-				scale={[0.09, 0.09, 0.09]}
-				rotation={[0, -90, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
+			{isPlatformFixed?.shipment ? (
+				<ObjectLoad
+					path="/Hubwagen/hubwagen.glb"
+					position={[position[0] - 2.6, position[1], position[2] - 3.5]}
+					scale={[0.09, 0.09, 0.09]}
+					rotation={[0, 210, 0]}
+					collisionRefSetter={addCollisionBox}
+				/>
+			) : (
+				<ObjectLoad
+					path="/Hubwagen/hubwagen.glb"
+					position={[position[0] + 3, position[1], position[2] + 5]}
+					scale={[0.09, 0.09, 0.09]}
+					rotation={[0, -90, 0]}
+					collisionRefSetter={addCollisionBox}
+				/>
+			)}
 			<ObjectLoad
 				path="/LKW/lkw.glb"
 				position={[position[0] + 3, position[1] - 3, position[2] + 11]}
