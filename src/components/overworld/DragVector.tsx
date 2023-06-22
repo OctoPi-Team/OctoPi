@@ -4,7 +4,6 @@ let movingState = false;
 const DragVector = (startPos: Vector2, change: (v: Vector2) => void) => {
 	const handleMouseMove = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
 		if (!startPos || !movingState) return;
-		console.log('Hello');
 		const { clientX, clientY } = event;
 		const dragVector = new Vector2(clientX - startPos.x, startPos.y - clientY);
 		change(dragVector);
