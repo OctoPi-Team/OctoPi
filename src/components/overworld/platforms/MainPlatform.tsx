@@ -29,7 +29,7 @@ export default function MainPlatform({
 			/>
 			<ObjectLoad
 				path="/TV/tv.glb"
-				position={[position[0] - 0.02, position[1] + 0.87, position[2] + 5.65]}
+				position={[position[0] - 0.02, position[1] + 0.88, position[2] + 5.65]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 270, 0]}
 				collisionRefSetter={addCollisionBox}
