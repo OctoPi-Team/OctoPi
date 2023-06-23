@@ -37,7 +37,7 @@ export type PlatformFixProps = {
 
 export default function App() {
 	const DEFAULT_SCENE = Scene.IdleScreen;
-	const delay = 2 * 60 * 1000;
+	const IDLESCREEN_DELAY = 2 * 60 * 1000;
 	let timeoutId: NodeJS.Timeout;
 
 	const [playerstartingPos, setPlayerstartingPos] = useState<Vector3>(new Vector3(0, 0, 0));
@@ -59,7 +59,7 @@ export default function App() {
 	useEffect(() => {
 		const resetTimer = () => {
 			clearTimeout(timeoutId);
-			timeoutId = setTimeout(() => setScene(Scene.IdleScreen), delay);
+			timeoutId = setTimeout(() => setScene(Scene.IdleScreen), IDLESCREEN_DELAY);
 		};
 		if (!timeoutId) {
 			// Add event listeners to detect user activity
@@ -121,7 +121,7 @@ export default function App() {
 					imageSource="/BTPinfo/BTP_Vorteile.png"
 					backButton={true}
 					onclick={() => setScene(Scene.Overworld)}
-					init={() => setPlayerstartingPos(new Vector3(0, 0, 0))}
+					init={() => setPlayerstartingPos(new Vector3())}
 				/>
 			)}
 			{scene === Scene.Shipment && (

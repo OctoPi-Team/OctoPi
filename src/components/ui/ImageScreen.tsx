@@ -11,13 +11,15 @@ type ImageScreenProps = {
 };
 export default function ImageScreen({
 	imageSource,
-	onclick = () => {},
+	onclick = () => { },
 	backButton = false,
 	init,
 	opacity,
 }: ImageScreenProps) {
-	if (init) init();
 	const [text, setText] = useState('Bitte warten');
+	useEffect(() => {
+		if (init) init();
+	}, []);
 
 	useEffect(() => {
 		if (opacity === 1) setText('Klicke, um fortzufahren');

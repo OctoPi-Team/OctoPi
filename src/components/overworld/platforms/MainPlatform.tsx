@@ -32,7 +32,7 @@ export default function MainPlatform({
 			/>
 			<ObjectLoad
 				path="/TV/tv.glb"
-				position={[position[0] - 0.02, position[1] + 0.87, position[2] + 5.65]}
+				position={[position[0] - 0.02, position[1] + 0.88, position[2] + 5.65]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 270, 0]}
 				collisionRefSetter={addCollisionBox}
@@ -41,7 +41,7 @@ export default function MainPlatform({
 				<ObjectLoad
 					path="/Infotafel/infotafel.glb"
 					position={[position[0] + 5.2, position[1], position[2] + 6]}
-					scale={[0.45, 0.45, 0.45]}
+					scale={[0.35, 0.35, 0.35]}
 					rotation={[0, 0, 0]}
 					collisionRefSetter={addCollisionBox}
 					visible={isPlatformFixed?.shipment}
@@ -56,7 +56,7 @@ export default function MainPlatform({
 				<ObjectLoad
 					path="/Infotafel/infotafel.glb"
 					position={[position[0] + 9.5, position[1], position[2] + 2]}
-					scale={[0.45, 0.45, 0.45]}
+					scale={[0.35, 0.35, 0.35]}
 					rotation={[0, 90, 0]}
 					collisionRefSetter={addCollisionBox}
 					visible={isPlatformFixed?.monitoring}
@@ -71,7 +71,7 @@ export default function MainPlatform({
 				<ObjectLoad
 					path="/Infotafel/infotafel.glb"
 					position={[position[0] - 5.3, position[1], position[2] + 6]}
-					scale={[0.45, 0.45, 0.45]}
+					scale={[0.35, 0.35, 0.35]}
 					rotation={[0, 0, 0]}
 					collisionRefSetter={addCollisionBox}
 					visible={isPlatformFixed?.engineering}
@@ -86,7 +86,7 @@ export default function MainPlatform({
 				<ObjectLoad
 					path="/Infotafel/infotafel.glb"
 					position={[position[0] - 9.5, position[1], position[2] - 2.2]}
-					scale={[0.45, 0.45, 0.45]}
+					scale={[0.35, 0.35, 0.35]}
 					rotation={[0, 270, 0]}
 					collisionRefSetter={addCollisionBox}
 					visible={isPlatformFixed?.design}
@@ -101,7 +101,7 @@ export default function MainPlatform({
 				<ObjectLoad
 					path="/Infotafel/infotafel.glb"
 					position={[position[0] - 4.7, position[1], position[2] - 6]}
-					scale={[0.45, 0.45, 0.45]}
+					scale={[0.35, 0.35, 0.35]}
 					rotation={[0, 180, 0]}
 					collisionRefSetter={addCollisionBox}
 					visible={isPlatformFixed?.production}
@@ -116,7 +116,7 @@ export default function MainPlatform({
 				<ObjectLoad
 					path="/Infotafel/infotafel.glb"
 					position={[position[0] + 3.8, position[1], position[2] - 6]}
-					scale={[0.45, 0.45, 0.45]}
+					scale={[0.35, 0.35, 0.35]}
 					rotation={[0, 180, 0]}
 					collisionRefSetter={addCollisionBox}
 					visible={isPlatformFixed?.parts}
@@ -132,21 +132,21 @@ export default function MainPlatform({
 			<ObjectLoad
 				path="/Sitzhocker/sitzhocker.glb"
 				position={[position[0] + 1.5, position[1], position[2] - 4.8]}
-				scale={[0.15, 0.15, 0.15]}
+				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 30, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
 				path="/Sitzhocker/sitzhocker.glb"
 				position={[position[0], position[1], position[2] - 5.5]}
-				scale={[0.15, 0.15, 0.15]}
+				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
 				path="/Sitzhocker/sitzhocker.glb"
 				position={[position[0] - 1.5, position[1], position[2] - 5]}
-				scale={[0.15, 0.15, 0.15]}
+				scale={[0.3, 0.3, 0.3]}
 				rotation={[0, 10, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
