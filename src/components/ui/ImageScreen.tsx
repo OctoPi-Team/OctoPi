@@ -11,7 +11,10 @@ type ImageScreenProps = {
 };
 export default function ImageScreen({
 	imageSource,
-	onclick = () => {},
+	onclick = () => {
+		// used for lint error message
+		undefined;
+	},
 	backButton = false,
 	init,
 	opacity,

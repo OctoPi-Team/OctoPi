@@ -16,7 +16,6 @@ import InfoButton from '../../ui/InfoButton';
 
 import Tube from './Tube';
 import Grid, { SIZE_OF_GAME_MATRIX, SPACING, TILE_SIZE } from './Grid';
-import Squircle from '../../overworld/objects/Squircle';
 import Floor from '../../overworld/platforms/Floor';
 
 const INPUT_TUBE_POSITION = TILE_SIZE * (SIZE_OF_GAME_MATRIX[1] - 1) + (SIZE_OF_GAME_MATRIX[1] - 1) * SPACING;

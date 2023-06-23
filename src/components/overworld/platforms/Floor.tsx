@@ -1,5 +1,4 @@
-import SimplePlatform from './SimplePlatform';
-import { Box3, BoxGeometry } from 'three';
+import { Box3 } from 'three';
 
 type FloorOptions = {
 	position?: [number, number, number];
