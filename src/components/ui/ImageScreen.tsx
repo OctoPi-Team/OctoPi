@@ -1,5 +1,6 @@
 import './style/imageScreen.css';
 import NavigationButton from '../ui/NavigationButton';
+import { useEffect } from 'react';
 
 type ImageScreenProps = {
 	imageSource: string;
@@ -10,12 +11,14 @@ type ImageScreenProps = {
 };
 export default function ImageScreen({
 	imageSource,
-	onclick = () => {},
+	onclick = () => { },
 	backButton = false,
 	init,
 	opacity = 1,
 }: ImageScreenProps) {
-	if (init) init();
+	useEffect(() => {
+		if (init) init();
+	}, []);
 	return (
 		<div onClick={onclick} style={{ opacity: opacity }}>
 			<img className="imgScreen" src={imageSource} />
