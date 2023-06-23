@@ -121,11 +121,11 @@ export default function Overworld({
 				onKeyUp={handleKeyUp}
 				tabIndex={0}>
 				<>
-					<div style={{ position: 'absolute', zIndex: '50', right: '200px', bottom: '200px' }}>
+					<div style={{ position: 'absolute', zIndex: '50', right: '150px', bottom: '150px' }}>
 						<Joystick
 							baseColor="lightgreen"
 							stickColor="darkgreen"
-							size={130}
+							size={120}
 							move={handleJoystickMove}
 							stop={handleJoystickStop}
 						/>
