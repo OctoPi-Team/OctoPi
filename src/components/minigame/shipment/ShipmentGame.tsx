@@ -98,13 +98,24 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 					top="40px"
 					text="i"
 					onClick={() => {
+						let stopTimer: string | number | NodeJS.Timeout | undefined;
+
+						function setTimer() {
+							stopTimer = setTimeout(() => {
+								setInfo(false);
+							}, 10000);
+						}
+
+						function clearTimer() {
+							clearTimeout(stopTimer);
+						}
+
 						setInfo(true);
 						if (info) {
 							setInfo(false);
+							clearTimer();
 						}
-						setTimeout(() => {
-							setInfo(false);
-						}, 10000);
+						setTimer();
 					}}
 				/>
 				<NavigationButton

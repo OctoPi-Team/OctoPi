@@ -140,13 +140,24 @@ export default function Overworld({
 						top="40px"
 						text="i"
 						onClick={() => {
+							let stopTimer: string | number | NodeJS.Timeout | undefined;
+
+							function setTimer() {
+								stopTimer = setTimeout(() => {
+									setInfo(false);
+								}, 10000);
+							}
+
+							function clearTimer() {
+								clearTimeout(stopTimer);
+							}
+
 							setInfo(true);
 							if (info) {
 								setInfo(false);
+								clearTimer();
 							}
-							setTimeout(() => {
-								setInfo(false);
-							}, 10000);
+							setTimer();
 						}}
 					/>
 					<NavigationButton
@@ -171,7 +182,10 @@ export default function Overworld({
 					onMouseUp={handleMouseUp}
 					onTouchStart={handleTouchStart}
 					onTouchMove={handleTouchMove}
-					onTouchEnd={handleTouchEnd}>
+					onTouchEnd={handleTouchEnd}
+					onClick={() => {
+						setInfo(false);
+					}}>
 					<group name="lighting-and-camera">
 						<color attach="background" args={['white']} />
 						<DirLight />
