@@ -112,6 +112,7 @@ export default function App() {
 					onclick={() => {
 						if (gameIsLoaded) showStartScreen();
 					}}
+					isStartScreen={true}
 				/>
 			)}
 			{scene === Scene.StartScreen && <Video onClick={() => setScene(Scene.Overworld)} />}
