@@ -11,7 +11,7 @@ type ImageScreenProps = {
 };
 export default function ImageScreen({
 	imageSource,
-	onclick = () => { },
+	onclick = () => {},
 	backButton = false,
 	init,
 	opacity,

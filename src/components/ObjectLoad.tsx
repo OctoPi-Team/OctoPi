@@ -55,11 +55,10 @@ export default function ObjectLoad({
 	const meshRef = useRef<InstancedMesh<BufferGeometry, Material | Material[]>>(null);
 	const [collisionRefWasSet, setCollisionRefWasSet] = useState(false);
 	const [collisionBoxes, setCollisionBoxes] = useState<Box3[]>([]);
-	const [movedposition, setmovedposition] = useState<typeof position>(position);
+	const [movedPosition, setMovedPosition] = useState<typeof position>(position);
 
-	if (movedposition.toString() !== position.toString()) {
-		console.log('omg !' + position + '   ' + movedposition);
-		setmovedposition(position);
+	if (movedPosition.toString() !== position.toString()) {
+		setMovedPosition(position);
 		setCollisionRefWasSet(false);
 		setCollisionBoxes([]);
 	}
@@ -82,7 +81,7 @@ export default function ObjectLoad({
 						new Box3().setFromCenterAndSize(
 							box.positionOffset
 								.clone()
-								.add(new Vector3(movedposition[0], movedposition[1] + box.size.y / 2, movedposition[2])),
+								.add(new Vector3(movedPosition[0], movedPosition[1] + box.size.y / 2, movedPosition[2])),
 							box.size
 						)
 					);
@@ -95,7 +94,7 @@ export default function ObjectLoad({
 				collisionRefSetter(box);
 			}
 		}
-	}, [position, movedposition]);
+	}, [position, movedPosition]);
 
 	const obj = useLoader(GLTFLoader, path, loader => {
 		loader.setDRACOLoader(dracoLoader);
@@ -106,7 +105,6 @@ export default function ObjectLoad({
 		obj.scene.traverse(function (node) {
 			node.castShadow = true;
 		});
-
 	}, []);
 
 	useEffect(() => {

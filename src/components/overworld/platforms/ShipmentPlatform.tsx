@@ -25,7 +25,7 @@ export default function ShipmentPlatform({
 	addCollisionBox,
 	isPlatformFixed,
 }: ShipmentPlatformOptions): JSX.Element {
-	let shards_pos_y: number = isPlatformFixed?.shipment ? -7 : 0;
+	const shardsPosY: number = isPlatformFixed?.shipment ? -7 : 0;
 	return (
 		//TODO do something on platform when isPlatformFixed.shipment = true
 		<>
@@ -169,7 +169,7 @@ export default function ShipmentPlatform({
 
 			<ObjectLoad
 				path="/ScherbenGross/scherbenGross.glb"
-				position={[position[0] + 1, position[1] + shards_pos_y, position[2] + 2]}
+				position={[position[0] + 1, position[1] + shardsPosY, position[2] + 2]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
@@ -177,7 +177,7 @@ export default function ShipmentPlatform({
 
 			<ObjectLoad
 				path="/ScherbenKlein1/scherbenKlein.glb"
-				position={[position[0] + 2, position[1] + shards_pos_y, position[2] + 3]}
+				position={[position[0] + 2, position[1] + shardsPosY, position[2] + 3]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
@@ -185,7 +185,7 @@ export default function ShipmentPlatform({
 
 			<ObjectLoad
 				path="/ScherbenKlein2/scherbenKlein.glb"
-				position={[position[0] + 1, position[1] + shards_pos_y, position[2] + 3]}
+				position={[position[0] + 1, position[1] + shardsPosY, position[2] + 3]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
@@ -232,21 +232,21 @@ export default function ShipmentPlatform({
 			)}
 			<ObjectLoad
 				path="/ScherbenGross/scherbenGross.glb"
-				position={[position[0] - 7, position[1] + shards_pos_y, position[2] - 2]}
+				position={[position[0] - 7, position[1] + shardsPosY, position[2] - 2]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
 				path="/ScherbenKlein1/scherbenKlein.glb"
-				position={[position[0] - 7, position[1] + shards_pos_y, position[2] - 3.5]}
+				position={[position[0] - 7, position[1] + shardsPosY, position[2] - 3.5]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
 				path="/ScherbenGross/scherbenGross.glb"
-				position={[position[0] - 7, position[1] + shards_pos_y, position[2] - 0.5]}
+				position={[position[0] - 7, position[1] + shardsPosY, position[2] - 0.5]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
