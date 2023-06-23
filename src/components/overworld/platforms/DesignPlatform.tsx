@@ -166,12 +166,6 @@ export default function DesignPlatform({
 				color={DESIGN}
 				collisionRefSetter={addCollisionBox}
 			/>
-
-			<Cylinder
-				position={[position[0] - 7.8, position[1], position[2] + 5.7]}
-				color={DESIGN}
-				collisionRefSetter={addCollisionBox}
-			/>
 			<Button
 				customName="design"
 				position={[position[0] + 3, position[1], position[2] + 1]}
