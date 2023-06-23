@@ -3,12 +3,14 @@ import { PINK } from '../../../AllColorVariables';
 import { Box3, BufferGeometry, Material, Mesh } from 'three';
 import ObjectLoad from '../../ObjectLoad';
 import Button from '../objects/Button';
+import { PlatformFixProps } from '../../../App';
 
 type MainPlatformOptions = {
 	position?: [number, number, number];
 	reference?: (meshRef: Box3) => void;
 	buttonReference?: (meshRef: Mesh<BufferGeometry, Material | Material[]>) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
+	isPlatformFixed: PlatformFixProps | undefined;
 };
 
 export default function MainPlatform({
@@ -16,6 +18,7 @@ export default function MainPlatform({
 	reference,
 	addCollisionBox,
 	buttonReference,
+	isPlatformFixed,
 }: MainPlatformOptions): JSX.Element {
 	return (
 		<>
@@ -41,12 +44,14 @@ export default function MainPlatform({
 					scale={[0.35, 0.35, 0.35]}
 					rotation={[0, 0, 0]}
 					collisionRefSetter={addCollisionBox}
+					visible={isPlatformFixed?.shipment}
 				/>
 				<Button
 					customName="shipmentInfo"
 					position={[position[0] + 5.2, position[1], position[2] + 5.2]}
 					scale={[0.6, 0.6, 0.6]}
 					reference={buttonReference}
+					visible={isPlatformFixed?.shipment}
 				/>
 				<ObjectLoad
 					path="/Infotafel/infotafel.glb"
@@ -54,12 +59,14 @@ export default function MainPlatform({
 					scale={[0.35, 0.35, 0.35]}
 					rotation={[0, 90, 0]}
 					collisionRefSetter={addCollisionBox}
+					visible={isPlatformFixed?.monitoring}
 				/>
 				<Button
 					customName="monitoringInfo"
 					position={[position[0] + 8.7, position[1], position[2] + 2]}
 					scale={[0.6, 0.6, 0.6]}
 					reference={buttonReference}
+					visible={isPlatformFixed?.monitoring}
 				/>
 				<ObjectLoad
 					path="/Infotafel/infotafel.glb"
@@ -67,12 +74,14 @@ export default function MainPlatform({
 					scale={[0.35, 0.35, 0.35]}
 					rotation={[0, 0, 0]}
 					collisionRefSetter={addCollisionBox}
+					visible={isPlatformFixed?.engineering}
 				/>
 				<Button
 					customName="engineeringInfo"
 					position={[position[0] - 5.3, position[1], position[2] + 5.2]}
 					scale={[0.6, 0.6, 0.6]}
 					reference={buttonReference}
+					visible={isPlatformFixed?.engineering}
 				/>
 				<ObjectLoad
 					path="/Infotafel/infotafel.glb"
@@ -80,12 +89,14 @@ export default function MainPlatform({
 					scale={[0.35, 0.35, 0.35]}
 					rotation={[0, 270, 0]}
 					collisionRefSetter={addCollisionBox}
+					visible={isPlatformFixed?.design}
 				/>
 				<Button
 					customName="designInfo"
 					position={[position[0] - 8.7, position[1], position[2] - 2.2]}
 					scale={[0.6, 0.6, 0.6]}
 					reference={buttonReference}
+					visible={isPlatformFixed?.design}
 				/>
 				<ObjectLoad
 					path="/Infotafel/infotafel.glb"
@@ -93,12 +104,14 @@ export default function MainPlatform({
 					scale={[0.35, 0.35, 0.35]}
 					rotation={[0, 180, 0]}
 					collisionRefSetter={addCollisionBox}
+					visible={isPlatformFixed?.production}
 				/>
 				<Button
 					customName="productionInfo"
 					position={[position[0] - 4.7, position[1], position[2] - 5.2]}
 					scale={[0.6, 0.6, 0.6]}
 					reference={buttonReference}
+					visible={isPlatformFixed?.production}
 				/>
 				<ObjectLoad
 					path="/Infotafel/infotafel.glb"
@@ -106,12 +119,14 @@ export default function MainPlatform({
 					scale={[0.35, 0.35, 0.35]}
 					rotation={[0, 180, 0]}
 					collisionRefSetter={addCollisionBox}
+					visible={isPlatformFixed?.parts}
 				/>
 				<Button
 					customName="partsInfo"
 					position={[position[0] + 3.8, position[1], position[2] - 5.2]}
 					scale={[0.6, 0.6, 0.6]}
 					reference={buttonReference}
+					visible={isPlatformFixed?.parts}
 				/>
 			</group>
 			<ObjectLoad

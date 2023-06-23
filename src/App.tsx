@@ -6,6 +6,7 @@ import { Vector3 } from 'three';
 import ImageScreen from './components/ui/ImageScreen';
 import Loader from './Loader';
 import Video from './components/startscreen/Video';
+import { PLAYER_SIZE } from './components/overworld/Player';
 
 export enum Scene {
 	Overworld,
@@ -96,7 +97,7 @@ export default function App() {
 			production: false,
 		});
 		// move player to main platform
-		setPlayerstartingPos(new Vector3(0, 0, 0));
+		setPlayerstartingPos(new Vector3(0, PLAYER_SIZE / 2, 0));
 		// change scene to startscreen
 		setScene(Scene.StartScreen);
 	}
