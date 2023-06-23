@@ -62,23 +62,21 @@ export default function ShipmentPlatform({
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			{isPlatformFixed?.shipment ? (
-				<ObjectLoad
-					path="/Hubwagen/hubwagen.glb"
-					position={[position[0] - 2.6, position[1], position[2] - 3.5]}
-					scale={[0.09, 0.09, 0.09]}
-					rotation={[0, 210, 0]}
-					collisionRefSetter={addCollisionBox}
-				/>
-			) : (
-				<ObjectLoad
-					path="/Hubwagen/hubwagen.glb"
-					position={[position[0] + 3, position[1], position[2] + 5]}
-					scale={[0.09, 0.09, 0.09]}
-					rotation={[0, -90, 0]}
-					collisionRefSetter={addCollisionBox}
-				/>
-			)}
+			<ObjectLoad
+				path="/Hubwagen/hubwagen.glb"
+				position={[position[0] - 2.6, position[1], position[2] - 3.5]}
+				scale={[0.09, 0.09, 0.09]}
+				rotation={[0, 210, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
+
+			<ObjectLoad
+				path="/Hubwagen/hubwagen.glb"
+				position={[position[0] + 3.8, position[1], position[2] + 11]}
+				scale={[0.09, 0.09, 0.09]}
+				rotation={[0, -90, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
 			<ObjectLoad
 				path="/LKW/lkw.glb"
 				position={[position[0] + 3, position[1] - 3, position[2] + 11]}
@@ -169,7 +167,6 @@ export default function ShipmentPlatform({
 				position={[position[0] + 1, position[1] + shardsPosY, position[2] + 2]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
 			/>
 
 			<ObjectLoad
@@ -177,7 +174,6 @@ export default function ShipmentPlatform({
 				position={[position[0] + 2, position[1] + shardsPosY, position[2] + 3]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
 			/>
 
 			<ObjectLoad
@@ -185,7 +181,6 @@ export default function ShipmentPlatform({
 				position={[position[0] + 1, position[1] + shardsPosY, position[2] + 3]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
 			/>
 			{isPlatformFixed?.shipment ? null : (
 				<Tube
@@ -228,21 +223,18 @@ export default function ShipmentPlatform({
 				position={[position[0] - 7, position[1] + shardsPosY, position[2] - 2]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
 				path="/ScherbenKlein1/scherbenKlein.glb"
 				position={[position[0] - 7, position[1] + shardsPosY, position[2] - 3.5]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
 			/>
 			<ObjectLoad
 				path="/ScherbenGross/scherbenGross.glb"
 				position={[position[0] - 7, position[1] + shardsPosY, position[2] - 0.5]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
 			/>
 			<Cylinder
 				position={[position[0] - 6.95, position[1], position[2] - 7.1]}
