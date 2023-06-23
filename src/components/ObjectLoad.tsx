@@ -55,6 +55,13 @@ export default function ObjectLoad({
 	const meshRef = useRef<InstancedMesh<BufferGeometry, Material | Material[]>>(null);
 	const [collisionRefWasSet, setCollisionRefWasSet] = useState(false);
 	const [collisionBoxes, setCollisionBoxes] = useState<Box3[]>([]);
+	const [movedPosition, setMovedPosition] = useState<typeof position>(position);
+
+	if (movedPosition.toString() !== position.toString()) {
+		setMovedPosition(position);
+		setCollisionRefWasSet(false);
+		setCollisionBoxes([]);
+	}
 
 	function addCollisionBox(newBox: Box3) {
 		setCollisionBoxes(boxes => [...boxes, newBox]);
@@ -64,26 +71,30 @@ export default function ObjectLoad({
 		reference(meshRef.current);
 	}
 
-	if (!collisionRefWasSet && collisionRefSetter && meshRef.current) {
-		setCollisionRefWasSet(true);
-		const boxes: Box3[] = [];
-		if (customCollisionBoxes && customCollisionBoxes.length > 0) {
-			for (const box of customCollisionBoxes) {
-				boxes.push(
-					new Box3().setFromCenterAndSize(
-						box.positionOffset.clone().add(new Vector3(position[0], position[1] + box.size.y / 2, position[2])),
-						box.size
-					)
-				);
+	useEffect(() => {
+		if (!collisionRefWasSet && collisionRefSetter && meshRef.current) {
+			setCollisionRefWasSet(true);
+			const boxes: Box3[] = [];
+			if (customCollisionBoxes && customCollisionBoxes.length > 0) {
+				for (const box of customCollisionBoxes) {
+					boxes.push(
+						new Box3().setFromCenterAndSize(
+							box.positionOffset
+								.clone()
+								.add(new Vector3(movedPosition[0], movedPosition[1] + box.size.y / 2, movedPosition[2])),
+							box.size
+						)
+					);
+				}
+			} else {
+				boxes.push(new Box3().setFromObject(meshRef.current.clone()));
 			}
-		} else {
-			boxes.push(new Box3().setFromObject(meshRef.current.clone()));
+			for (const box of boxes) {
+				addCollisionBox(box);
+				collisionRefSetter(box);
+			}
 		}
-		for (const box of boxes) {
-			addCollisionBox(box);
-			collisionRefSetter(box);
-		}
-	}
+	}, [position, movedPosition]);
 
 	const obj = useLoader(GLTFLoader, path, loader => {
 		loader.setDRACOLoader(dracoLoader);
@@ -94,7 +105,6 @@ export default function ObjectLoad({
 		obj.scene.traverse(function (node) {
 			node.castShadow = true;
 		});
-
 	}, []);
 
 	useEffect(() => {

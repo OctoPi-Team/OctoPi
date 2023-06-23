@@ -1,9 +1,9 @@
 import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
-import { Clock, Vector3 } from 'three';
+import { Clock, Mesh, Vector3 } from 'three';
 
 const AnimatedMesh = () => {
-	const meshRef = useRef<any>(null);
+	const meshRef = useRef<Mesh>(null);
 	const clock = useRef<Clock>(new Clock());
 	const startPosition = new Vector3(0, 0, 0);
 	const endPosition = new Vector3(2, 0, 0);

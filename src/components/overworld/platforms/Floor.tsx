@@ -1,5 +1,4 @@
-import SimplePlatform from './SimplePlatform';
-import { Box3, BoxGeometry } from 'three';
+import { Box3 } from 'three';
 
 type FloorOptions = {
 	position?: [number, number, number];
@@ -10,8 +9,7 @@ type FloorOptions = {
 export default function Floor({ position = [0, 0, 0] }: FloorOptions): JSX.Element {
 	return (
 		<>
-			<mesh receiveShadow
-				position={position}>
+			<mesh receiveShadow position={position}>
 				<boxGeometry args={[2500, 0.1, 10000]} />
 				<meshStandardMaterial color={'beige'} />
 			</mesh>
