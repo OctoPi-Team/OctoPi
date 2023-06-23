@@ -1,5 +1,5 @@
 import SimplePlatform from './SimplePlatform';
-import { Box3 } from 'three';
+import { Box3, BoxGeometry } from 'three';
 
 type FloorOptions = {
 	position?: [number, number, number];
@@ -7,10 +7,14 @@ type FloorOptions = {
 	addCollisionBox?: (newCollisionBox: Box3) => void;
 };
 
-export default function Floor({ position = [0, 0, 0], reference }: FloorOptions): JSX.Element {
+export default function Floor({ position = [0, 0, 0] }: FloorOptions): JSX.Element {
 	return (
 		<>
-			<SimplePlatform position={position} size={[2500, 0.1, 10000]} reference={reference} color={'beige'} />
+			<mesh receiveShadow
+				position={position}>
+				<boxGeometry args={[2500, 0.1, 10000]} />
+				<meshStandardMaterial color={'beige'} />
+			</mesh>
 		</>
 	);
 }

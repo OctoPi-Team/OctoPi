@@ -89,10 +89,13 @@ export default function ObjectLoad({
 		loader.setDRACOLoader(dracoLoader);
 	});
 
-	// 'castShadows' needs to be set to true for every node of complex 3D models, since they consist of more than one part;
-	obj.scene.traverse(function (node) {
-		node.castShadow = true;
-	});
+	useEffect(() => {
+		// 'castShadows' needs to be set to true for every node of complex 3D models, since they consist of more than one part;
+		obj.scene.traverse(function (node) {
+			node.castShadow = true;
+		});
+
+	}, []);
 
 	useEffect(() => {
 		if (meshRef.current) {
@@ -122,6 +125,9 @@ export default function ObjectLoad({
 						material.map.magFilter = NearestFilter;
 						material.map.needsUpdate = true;
 					}
+					material.precision = 'lowp';
+					material.forceSinglePass = true;
+					material.reflectivity = 0;
 				});
 			}
 		});
@@ -152,13 +158,6 @@ export default function ObjectLoad({
 			}
 		});
 	}
-
-	collisionBoxes.map((box, index) => (
-		<mesh key={index} position={box.getCenter(new Vector3(...position))}>
-			<boxGeometry args={box.getSize(new Vector3(0, 0, 0)).toArray()} />
-			<meshLambertMaterial color={RED} opacity={0.6} transparent={true} />
-		</mesh>
-	));
 
 	return (
 		<>

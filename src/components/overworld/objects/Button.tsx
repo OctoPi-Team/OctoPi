@@ -7,9 +7,10 @@ type ButtonProps = {
 	scale: [number, number, number];
 	reference?: (meshRef: Mesh<BufferGeometry, Material | Material[]>) => void;
 	customName: string; // Add customName prop
+	visible?: boolean;
 };
 
-export default function Button({ position, scale, reference, customName }: ButtonProps) {
+export default function Button({ position, scale, reference, customName, visible = true }: ButtonProps) {
 	const buttonRef = useRef<Mesh>(null);
 
 	// Call the reference prop and pass the buttonRef as an argument whenever the ref changes
@@ -27,6 +28,7 @@ export default function Button({ position, scale, reference, customName }: Butto
 			rotation={[0, 90, 0]}
 			reference={reference}
 			customName={customName}
+			visible={visible}
 		/>
 	);
 }

@@ -76,14 +76,19 @@ export default function MonitoringPlatform({
 			</group>
 
 			<ObjectLoad
-				path="/TischMitTV/tischMitTV.glb"
+				path="/kleinerTisch/kleinerTisch.glb"
 				position={[position[0] + 3.5, position[1], position[2] - 0.5]}
 				scale={[0.45, 0.45, 0.45]}
-				rotation={[0, 7, 0]}
+				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
-				customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(1, 2, 2) }]}
 			/>
-
+			<ObjectLoad
+				path="/TV/tv.glb"
+				position={[position[0] + 3.8, position[1] + 0.88, position[2] - 0.5]}
+				scale={[0.1, 0.1, 0.1]}
+				rotation={[0, 0, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
 			<ObjectLoad
 				path="/kleinerTisch/kleinerTisch.glb"
 				position={[position[0] + 2.5, position[1], position[2] - 4.5]}

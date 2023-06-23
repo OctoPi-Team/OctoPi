@@ -17,6 +17,7 @@ import InfoButton from '../../ui/InfoButton';
 import Tube from './Tube';
 import Grid, { SIZE_OF_GAME_MATRIX, SPACING, TILE_SIZE } from './Grid';
 import Squircle from '../../overworld/objects/Squircle';
+import Floor from '../../overworld/platforms/Floor';
 
 const INPUT_TUBE_POSITION = TILE_SIZE * (SIZE_OF_GAME_MATRIX[1] - 1) + (SIZE_OF_GAME_MATRIX[1] - 1) * SPACING;
 export const VECTORS_FOR_INPUT_TUBE = [
@@ -41,6 +42,11 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 		};
 	}, []);
 
+	function setShipmentGameToBeFixed() {
+		if (finished && setIsPlatformFixed) {
+			setIsPlatformFixed({ shipment: true });
+		}
+	}
 	function changeView(done = true) {
 		if (done) setSceneHook(Scene.Overworld);
 	}
@@ -52,12 +58,7 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 		setTimeout(() => {
 			setSceneHook(Scene.Shipment);
 		}, 0);
-
-		if (finished) {
-			if (setIsPlatformFixed) {
-				setIsPlatformFixed({ shipment: true });
-			}
-		}
+		setShipmentGameToBeFixed();
 	}
 
 	function DirLight() {
@@ -124,6 +125,7 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 					bottom="30px"
 					text="&larr;"
 					onClick={() => {
+						setShipmentGameToBeFixed();
 						changeView(true);
 						setSceneHook(Scene.Overworld);
 					}}
@@ -138,7 +140,7 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 				<Canvas orthographic camera={{ zoom: 50, position: [40, 40, 40] }} shadows={{ type: PCFSoftShadowMap }}>
 					<DirLight />
 					<ambientLight intensity={0.35} />
-					<Squircle position={[0, 2, 0]} color="beige" dimensions={[69, 0.1, 69]} rotation={[Math.PI / 2, 0, 0]} />
+					<Floor position={[0, 2, 0]} />
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
 					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={30} visibility={false} />}
 					<group position={[0, 4, 0]}>
@@ -155,9 +157,9 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 				{finished && WinScreen(reloadGame, changeView, setIsPlatformFixed)}
 				{info &&
 					InfoButton(
-						'Willkommen zu unserem Minispiel der Shipment-Platform! ' +
-							'Du kannst neben dem leeren Feld die Röhren anklicken und tauschst so die zwei Felder. ' +
-							'Probiers ruhig mal aus.'
+						'Willkommen zum Minispiel der Shipment-Platform! ' +
+						'Klicke auf ein Rohr neben dem freien Feld, um deren Position zu tauschen. ' +
+						'Stelle eine Verbindung zum Trichter her!'
 					)}
 			</div>
 		</>

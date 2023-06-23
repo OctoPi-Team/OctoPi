@@ -1,17 +1,6 @@
-import THREE, {
-	BufferGeometry,
-	CatmullRomCurve3,
-	Color,
-	Material,
-	Mesh,
-	MeshBasicMaterial,
-	SphereGeometry,
-	TubeGeometry,
-	Vector3,
-} from 'three';
-import { GREEN, RED, BLUE, PINK, TUBE_COLOR } from '../../../AllColorVariables';
+import { BufferGeometry, CatmullRomCurve3, Color, Material, Mesh, TubeGeometry, Vector3 } from 'three';
+import { TUBE_COLOR } from '../../../AllColorVariables';
 import Ball from './Ball';
-const COLORS = [GREEN, RED, BLUE, PINK];
 
 type TubeProps = {
 	name?: string;
@@ -32,7 +21,7 @@ function Tube({
 	ballAnimation = false,
 }: TubeProps): JSX.Element {
 	const curve = new CatmullRomCurve3(vectors);
-	const tubeGeometry = new TubeGeometry(curve, 1000, 0.4, detailed ? 50 : 15, false);
+	const tubeGeometry = new TubeGeometry(curve, 700, 0.4, detailed ? 50 : 12, false);
 
 	return (
 		<>
@@ -49,10 +38,10 @@ function Tube({
 			</mesh>
 			{ballAnimation && (
 				<>
-					<Ball curve={curve} ballAnimation={ballAnimation} />
-					<Ball curve={curve} ballAnimation={ballAnimation} />
-					<Ball curve={curve} ballAnimation={ballAnimation} />
-					<Ball curve={curve} ballAnimation={ballAnimation} />
+					<Ball curve={curve} />
+					<Ball curve={curve} />
+					<Ball curve={curve} />
+					<Ball curve={curve} />
 				</>
 			)}
 		</>
