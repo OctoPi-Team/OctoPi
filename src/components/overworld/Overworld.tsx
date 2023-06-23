@@ -138,6 +138,9 @@ export default function Overworld({
 							overflow: 'hidden',
 							left: (window.innerWidth - HIDDEN_JOYSTICK_SIZE) / 2,
 							top: (window.innerHeight - HIDDEN_JOYSTICK_SIZE) / 2,
+						}}
+						onClick={() => {
+							setInfo(false);
 						}}>
 						<Joystick
 							baseColor="lightgreen"
@@ -153,13 +156,24 @@ export default function Overworld({
 						top="40px"
 						text="i"
 						onClick={() => {
+							let stopTimer: string | number | NodeJS.Timeout | undefined;
+
+							function setTimer() {
+								stopTimer = setTimeout(() => {
+									setInfo(false);
+								}, 10000);
+							}
+
+							function clearTimer() {
+								clearTimeout(stopTimer);
+							}
+
 							setInfo(true);
 							if (info) {
 								setInfo(false);
+								clearTimer();
 							}
-							setTimeout(() => {
-								setInfo(false);
-							}, 10000);
+							setTimer();
 						}}
 					/>
 					<NavigationButton

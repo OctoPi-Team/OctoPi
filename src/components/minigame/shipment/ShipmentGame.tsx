@@ -98,10 +98,24 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 					top="40px"
 					text="i"
 					onClick={() => {
+						let stopTimer: string | number | NodeJS.Timeout | undefined;
+
+						function setTimer() {
+							stopTimer = setTimeout(() => {
+								setInfo(false);
+							}, 10000);
+						}
+
+						function clearTimer() {
+							clearTimeout(stopTimer);
+						}
+
 						setInfo(true);
 						if (info) {
 							setInfo(false);
+							clearTimer();
 						}
+						setTimer();
 					}}
 				/>
 				<NavigationButton
@@ -116,7 +130,12 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 					}}
 				/>
 			</div>
-			<div style={{ width: '100vw', height: '100vh' }} tabIndex={0}>
+			<div
+				style={{ width: '100vw', height: '100vh' }}
+				tabIndex={0}
+				onClick={() => {
+					setInfo(false);
+				}}>
 				<Canvas orthographic camera={{ zoom: 50, position: [40, 40, 40] }} shadows={{ type: PCFSoftShadowMap }}>
 					<DirLight />
 					<ambientLight intensity={0.35} />
