@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CatmullRomCurve3, Mesh, MeshPhysicalMaterial, SphereGeometry } from 'three';
 import { GREEN, RED, BLUE, PINK } from '../../../AllColorVariables';
 import { useFrame } from '@react-three/fiber';
@@ -21,9 +21,10 @@ function Ball({ curve }: BallProps): JSX.Element {
 	const ballMesh = useRef<Mesh>(null);
 	const [ballPosition, setBallPosition] = useState(getRandomPosition(1000, 100000));
 	const ballSpeed = 1;
-
-	ballMaterial.transparent = true;
-	ballMaterial.transmission = 0.8;
+	useEffect(() => {
+		ballMaterial.transparent = true;
+		ballMaterial.transmission = 0.8;
+	}, [ballMaterial])
 	useFrame(() => {
 		if (ballMesh.current) {
 			const tubePosition = curve.getPointAt(ballPosition % 1);

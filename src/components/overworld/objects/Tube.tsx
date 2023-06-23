@@ -21,7 +21,7 @@ function Tube({
 	ballAnimation = false,
 }: TubeProps): JSX.Element {
 	const curve = new CatmullRomCurve3(vectors);
-	const tubeGeometry = new TubeGeometry(curve, 700, 0.4, detailed ? 50 : 12, false);
+	const tubeGeometry = new TubeGeometry(curve, 350, 0.4, detailed ? 50 : 12, false);
 
 	return (
 		<>
