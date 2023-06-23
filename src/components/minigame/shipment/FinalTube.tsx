@@ -122,7 +122,7 @@ export function FinalTube(qwd: TileProps[]) {
 					transparent={true}
 					depthWrite={false}
 					opacity={0.5}
-					roughness={0.2}
+					roughness={0.75}
 					thickness={0.5}
 					side={DoubleSide}
 				/>
