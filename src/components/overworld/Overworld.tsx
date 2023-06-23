@@ -130,26 +130,28 @@ export default function Overworld({
 							stop={handleJoystickStop}
 						/>
 					</div>
-					<div
-						style={{
-							opacity: '0',
-							position: 'fixed',
-							zIndex: '1',
-							overflow: 'hidden',
-							left: (window.innerWidth - HIDDEN_JOYSTICK_SIZE) / 2,
-							top: (window.innerHeight - HIDDEN_JOYSTICK_SIZE) / 2,
-						}}
-						onClick={() => {
-							setInfo(false);
-						}}>
-						<Joystick
-							baseColor="lightgreen"
-							stickColor="darkgreen"
-							size={HIDDEN_JOYSTICK_SIZE}
-							move={handleJoystickMove}
-							stop={handleJoystickStop}
-						/>
-					</div>
+					{!ORBITAL_CONTROLS_ACTIVE &&
+						<div
+							style={{
+								opacity: '0',
+								position: 'fixed',
+								zIndex: '1',
+								overflow: 'hidden',
+								left: (window.innerWidth - HIDDEN_JOYSTICK_SIZE) / 2,
+								top: (window.innerHeight - HIDDEN_JOYSTICK_SIZE) / 2,
+							}}
+							onClick={() => {
+								setInfo(false);
+							}}>
+							<Joystick
+								baseColor="lightgreen"
+								stickColor="darkgreen"
+								size={HIDDEN_JOYSTICK_SIZE}
+								move={handleJoystickMove}
+								stop={handleJoystickStop}
+							/>
+						</div>
+					}
 					<NavigationButton
 						position="absolute"
 						right="30px"
@@ -190,7 +192,7 @@ export default function Overworld({
 						}}
 					/>
 				</>
-				<Canvas orthographic shadows={{ type: PCFSoftShadowMap }}>
+				<Canvas orthographic={!ORBITAL_CONTROLS_ACTIVE} shadows={{ type: PCFSoftShadowMap }}>
 					<group name="lighting-and-camera">
 						<color attach="background" args={['white']} />
 						<DirLight />
@@ -287,7 +289,7 @@ export default function Overworld({
 				{info &&
 					InfoButton(
 						'Willkommen zu Operation: Innovation!' +
-							'\nSchaue dich doch mal auf den verschiedenen Platformen um. Siehst du die gelben Druckplatten auf dem Boden?\n'
+						'\nSchaue dich doch mal auf den verschiedenen Platformen um. Siehst du die gelben Druckplatten auf dem Boden?\n'
 					)}
 				{(isPlatformFixed?.monitoring ||
 					isPlatformFixed?.parts ||
