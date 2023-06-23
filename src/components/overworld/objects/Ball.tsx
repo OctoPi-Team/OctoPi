@@ -21,10 +21,7 @@ function Ball({ curve }: BallProps): JSX.Element {
 	const ballMesh = useRef<Mesh>(null);
 	const [ballPosition, setBallPosition] = useState(getRandomPosition(1000, 100000));
 	const ballSpeed = 1;
-	useEffect(() => {
-		ballMaterial.transparent = true;
-		ballMaterial.transmission = 0.8;
-	}, [ballMaterial])
+
 	useFrame(() => {
 		if (ballMesh.current) {
 			const tubePosition = curve.getPointAt(ballPosition % 1);
