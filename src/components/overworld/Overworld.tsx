@@ -125,7 +125,7 @@ export default function Overworld({
 						<Joystick
 							baseColor="lightgreen"
 							stickColor="darkgreen"
-							size={130}
+							size={120}
 							move={handleJoystickMove}
 							stop={handleJoystickStop}
 						/>
