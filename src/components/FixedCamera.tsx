@@ -10,10 +10,11 @@ type CameraProps = {
 function FixedCamera({ distanceFromPlayerToCamera, visibility }: CameraProps) {
 	const { scene, camera, gl } = useThree();
 	const cameraRef = useRef<OrthographicCamera>(null);
-	const targetZoom = visibility ? 7 : 63;
+	const targetZoom = visibility ? 7 : 90;
 	const zoomSpeed = 0.02;
 	const renderer = gl as WebGLRenderer;
 	useEffect(() => {
+		renderer.setPixelRatio(window.devicePixelRatio * 0.9);
 		return () => {
 			renderer.dispose();
 		};
