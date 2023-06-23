@@ -27,7 +27,7 @@ export default function ImageScreen({
 
 	return (
 		<div onClick={onclick} style={{ opacity: opacity }}>
-			<img className="imgScreen" src={imageSource} />
+			<img className={imageSource === 'InfoBTP/InfoBTP.png!' ? "imgScreenBTPInfo" : "imgScreen"} src={imageSource} />
 			<h1 className={`img-screen-text-heading`}>Operation: Innovation</h1>
 			<h2 className={`img-screen-text ${opacity != 1 ? 'dot-animation' : 'pump-animation'}`}>{text}</h2>
 			{backButton && <NavigationButton position="fixed" left="30px" bottom="30px" text="&larr;" onClick={onclick} />}
