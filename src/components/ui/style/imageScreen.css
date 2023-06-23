@@ -13,3 +13,43 @@
     top: 17px;
     left: 50px;
 }
+@keyframes dots {
+    0% {
+        content: "";
+    }
+
+    33% {
+        content: ".";
+    }
+
+    66% {
+        content: "..";
+    }
+
+    100% {
+        content: "...";
+    }
+}
+
+@keyframes pump {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.dot-animation::after {
+    content: "";
+    animation: dots 1s infinite;
+}
+.pump-animation {
+    font-size: 32px;
+    animation: pump 1s infinite alternate;
+}
