@@ -146,7 +146,7 @@ export default function ProductionPlatform({
 				vectors={[
 					new Vector3(-1, -1, -3),
 					new Vector3(-1, -1, -8),
-					new Vector3(-1, 0, -10),
+					new Vector3(-2, 0, -10),
 					new Vector3(-13, 0, -10),
 					new Vector3(-13, 0, -14),
 					new Vector3(-13, 4, -14),

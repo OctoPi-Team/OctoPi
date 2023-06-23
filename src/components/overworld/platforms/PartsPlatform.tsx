@@ -33,10 +33,10 @@ export default function PartsPlatform({
 				position={[0, 0, 0]}
 				size={[0.5, 8, 1]}
 				vectors={[
-					new Vector3(1, -1, -5),
-					new Vector3(1, -1, -12),
+					new Vector3(0.5, -1, -5),
+					new Vector3(1.75, -1, -12),
 					new Vector3(12, -1, -12),
-					new Vector3(12, 4, -12),
+					new Vector3(12, 4, -13),
 					new Vector3(12, 4, -18),
 					new Vector3(12, -1, -18),
 					new Vector3(12, -1, -35),

@@ -119,7 +119,7 @@ export default function MonitoringPlatform({
 				size={[0.5, 8, 1]}
 				vectors={[
 					new Vector3(2, -1, -5),
-					new Vector3(2, -1, -8),
+					new Vector3(3, -1, -8),
 					new Vector3(15, -1, -8),
 					new Vector3(15, 0, 5),
 					new Vector3(20, 0, 6),

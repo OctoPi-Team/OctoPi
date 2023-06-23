@@ -110,8 +110,8 @@ export default function EngineeringPlatform({
 				vectors={[
 					new Vector3(0, -1, -5),
 					new Vector3(0, -1, 8),
-					new Vector3(0, 5, 8),
-					new Vector3(0, 5, 12),
+					new Vector3(0, 2, 8),
+					new Vector3(0, 2, 12),
 					new Vector3(-3, 5, 14),
 					new Vector3(-3, 5, 29),
 					new Vector3(-6, 5, 29),
