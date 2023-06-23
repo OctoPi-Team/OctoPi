@@ -121,23 +121,21 @@ export default function MonitoringPlatform({
 					new Vector3(2, -1, -5),
 					new Vector3(2, -1, -8),
 					new Vector3(15, -1, -8),
-					new Vector3(15, 0, -8),
-					new Vector3(15, 1, 6),
-					new Vector3(15, 0, 6),
+					new Vector3(15, 0, 5),
 					new Vector3(20, 0, 6),
 					new Vector3(20, 6, 6),
-					new Vector3(26, 6, 6),
-					new Vector3(26, 3, 6),
+					new Vector3(25.5, 6, 6),
+					new Vector3(26.5, 3, 6),
 					new Vector3(33, 3, 6),
 					new Vector3(33, 8, 6),
 					new Vector3(33, 8, -15),
 					new Vector3(33, 5, -15),
 					new Vector3(19.5, 5, -15),
 					new Vector3(19.5, 2, -15),
-					new Vector3(19.5, 2, -11),
-					new Vector3(19.5, 6, -11),
-					new Vector3(19.5, 6, -8),
-					new Vector3(19.5, 4, -8),
+					new Vector3(19.5, 2, -11.6),
+					new Vector3(19.5, 6, -10.75),
+					new Vector3(19.5, 6, -8.25),
+					new Vector3(19.5, 4, -7.75),
 				]}
 				ballAnimation={isPlatformFixed?.monitoring}
 			/>
@@ -152,12 +150,12 @@ export default function MonitoringPlatform({
 				collisionRefSetter={addCollisionBox}
 			/>
 			<Cylinder
-				position={[position[0] - 5.4, position[1], position[2] + 8.9]}
+				position={[position[0] - 5.32, position[1], position[2] + 8.98]}
 				color={MONITORING}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<Cylinder
-				position={[position[0] + 1, position[1], position[2] + 8.9]}
+				position={[position[0] + 0.95, position[1], position[2] + 8.98]}
 				color={MONITORING}
 				collisionRefSetter={addCollisionBox}
 			/>

@@ -150,28 +150,27 @@ export default function ProductionPlatform({
 					new Vector3(-13, 0, -10),
 					new Vector3(-13, 0, -14),
 					new Vector3(-13, 4, -14),
-					new Vector3(-22.5, 4, -14),
 					new Vector3(-22.5, 4.5, -14),
 					new Vector3(-22.5, 4.5, -17),
 					new Vector3(-21, 4.5, -17),
-					new Vector3(-21, 4.5, -22),
-					new Vector3(-21, 2, -22),
-					new Vector3(-21, 2, -27),
+					new Vector3(-21, 4.5, -21.5),
+					new Vector3(-21, 2, -22.5),
+					new Vector3(-21, 2, -26),
 					new Vector3(-21, 5, -27),
 					new Vector3(-21, 5, -30),
-					new Vector3(-21, 2, -30),
-					new Vector3(-14, 2, -30),
-					new Vector3(-14, 2, -25),
+					new Vector3(-21, 2, -30.5),
+					new Vector3(-14, 1, -30),
+					new Vector3(-10, 1, -25),
 				]}
 				ballAnimation={isPlatformFixed?.production}
 			/>
 			<Cylinder
-				position={[position[0] - 10, position[1], position[2] - 0.05]}
+				position={[position[0] - 10, position[1], position[2] + 0.05]}
 				color={PRODUCTION}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<Cylinder
-				position={[position[0] - 9.9, position[1], position[2] - 4.9]}
+				position={[position[0] - 9.95, position[1], position[2] - 4.48]}
 				color={PRODUCTION}
 				collisionRefSetter={addCollisionBox}
 			/>
