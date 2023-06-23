@@ -1,13 +1,12 @@
-# Blender MTL File: 'None'
-# Material Count: 1
+# Blender 3.5.1 MTL File: 'None'
+# www.blender.org
 
-newmtl 280697_23_05_23_08_14_46_0
+newmtl Material.001
 Ns 0.000000
 Ka 1.000000 1.000000 1.000000
-Kd 0.800000 0.800000 0.800000
+Kd 0.250158 0.109462 0.014444
 Ks 0.000000 0.000000 0.000000
 Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 1
-map_Kd 280697_23_05_23_08_14_46_0_color.png
