@@ -138,6 +138,9 @@ export default function Overworld({
 							overflow: 'hidden',
 							left: (window.innerWidth - HIDDEN_JOYSTICK_SIZE) / 2,
 							top: (window.innerHeight - HIDDEN_JOYSTICK_SIZE) / 2,
+						}}
+						onClick={() => {
+							setInfo(false);
 						}}>
 						<Joystick
 							baseColor="lightgreen"
