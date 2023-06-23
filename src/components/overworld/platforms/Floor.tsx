@@ -10,7 +10,7 @@ type FloorOptions = {
 export default function Floor({ position = [0, 0, 0] }: FloorOptions): JSX.Element {
 	return (
 		<>
-			<mesh
+			<mesh receiveShadow
 				position={position}>
 				<boxGeometry args={[2500, 0.1, 10000]} />
 				<meshStandardMaterial color={'beige'} />
