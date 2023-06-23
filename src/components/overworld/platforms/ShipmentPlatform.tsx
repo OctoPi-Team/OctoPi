@@ -156,10 +156,7 @@ export default function ShipmentPlatform({
 					vectors={[
 						new Vector3(1.5, -1, -5),
 						new Vector3(1.5, -1, 8),
-						new Vector3(1.5, 3.5, 8),
-						new Vector3(1.5, 3.5, 15),
-						new Vector3(1, 2.5, 15),
-						new Vector3(2, 2.5, 15),
+						new Vector3(1.5, 2.5, 8),
 						new Vector3(2, 2.5, 18),
 						new Vector3(2, 5, 18),
 						new Vector3(2, 5.7, 21),
@@ -206,17 +203,13 @@ export default function ShipmentPlatform({
 					vectors={[
 						new Vector3(1.5, -1, -5),
 						new Vector3(1.5, -1, 8),
-						new Vector3(1.5, 3.5, 8),
-						new Vector3(1.5, 3.5, 15),
-						new Vector3(1, 2.5, 15),
-						new Vector3(2, 2.5, 15),
+						new Vector3(1.5, 2.5, 8),
 						new Vector3(2, 2.5, 18),
 						new Vector3(2, 5, 18),
 						new Vector3(2, 5, 25),
 						new Vector3(2, 2, 25.5),
 						new Vector3(16.6, 2, 25.5),
 						new Vector3(15.7, 10, 25.5),
-
 						new Vector3(5.6, 10, 30),
 						new Vector3(5.5, 8.4, 30),
 					]}

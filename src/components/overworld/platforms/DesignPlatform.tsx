@@ -119,14 +119,13 @@ export default function DesignPlatform({
 					new Vector3(-1, -1, -5),
 					new Vector3(-1, -1, 12),
 					new Vector3(-1, 1, 12),
-					new Vector3(-33, 1, 12),
-					new Vector3(-33, 1, 4),
-					new Vector3(-33, 7, 4),
-					new Vector3(-33, 7, -11),
-					new Vector3(-28, 7, -11),
-					new Vector3(-28, 4, -11),
-					new Vector3(-25, 4, -11),
-					new Vector3(-25, 1, -11),
+					new Vector3(-29, 2, 12),
+					new Vector3(-33, 7, 10),
+					new Vector3(-33, 8, -11),
+					new Vector3(-29, 7, -11),
+					new Vector3(-28, 5.1, -11),
+					new Vector3(-25.3, 4, -11),
+					new Vector3(-24.5, 1, -11),
 					new Vector3(-23, 1, -11),
 					new Vector3(-23, 4, -11),
 					new Vector3(-20, 4, -11),
@@ -164,12 +163,6 @@ export default function DesignPlatform({
 			/>
 			<Cylinder
 				position={[position[0] + 0.3, position[1], position[2] - 9]}
-				color={DESIGN}
-				collisionRefSetter={addCollisionBox}
-			/>
-
-			<Cylinder
-				position={[position[0] - 7.8, position[1], position[2] + 5.7]}
 				color={DESIGN}
 				collisionRefSetter={addCollisionBox}
 			/>
