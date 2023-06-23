@@ -1,3 +1,5 @@
+import '../ui/style/endscreen.css';
+
 type EndScreenProps = {
 	onclick?: () => void;
 };
@@ -8,7 +10,13 @@ function EndScreen({
 		undefined;
 	},
 }: EndScreenProps) {
-	return <div onClick={onclick}>EndScreen</div>;
+	return (
+		<div className="endscreen" onClick={onclick}>
+			<div className="victorybanner">
+				<p>Gewonnen!</p>
+			</div>
+		</div>
+	);
 }
 
 export default EndScreen;
