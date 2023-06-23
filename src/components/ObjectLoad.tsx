@@ -55,6 +55,14 @@ export default function ObjectLoad({
 	const meshRef = useRef<InstancedMesh<BufferGeometry, Material | Material[]>>(null);
 	const [collisionRefWasSet, setCollisionRefWasSet] = useState(false);
 	const [collisionBoxes, setCollisionBoxes] = useState<Box3[]>([]);
+	const [movedposition, setmovedposition] = useState<typeof position>(position);
+
+	if (movedposition.toString() !== position.toString()) {
+		console.log('omg !' + position + '   ' + movedposition);
+		setmovedposition(position);
+		setCollisionRefWasSet(false);
+		setCollisionBoxes([]);
+	}
 
 	function addCollisionBox(newBox: Box3) {
 		setCollisionBoxes(boxes => [...boxes, newBox]);
@@ -64,26 +72,30 @@ export default function ObjectLoad({
 		reference(meshRef.current);
 	}
 
-	if (!collisionRefWasSet && collisionRefSetter && meshRef.current) {
-		setCollisionRefWasSet(true);
-		const boxes: Box3[] = [];
-		if (customCollisionBoxes && customCollisionBoxes.length > 0) {
-			for (const box of customCollisionBoxes) {
-				boxes.push(
-					new Box3().setFromCenterAndSize(
-						box.positionOffset.clone().add(new Vector3(position[0], position[1] + box.size.y / 2, position[2])),
-						box.size
-					)
-				);
+	useEffect(() => {
+		if (!collisionRefWasSet && collisionRefSetter && meshRef.current) {
+			setCollisionRefWasSet(true);
+			const boxes: Box3[] = [];
+			if (customCollisionBoxes && customCollisionBoxes.length > 0) {
+				for (const box of customCollisionBoxes) {
+					boxes.push(
+						new Box3().setFromCenterAndSize(
+							box.positionOffset
+								.clone()
+								.add(new Vector3(movedposition[0], movedposition[1] + box.size.y / 2, movedposition[2])),
+							box.size
+						)
+					);
+				}
+			} else {
+				boxes.push(new Box3().setFromObject(meshRef.current.clone()));
 			}
-		} else {
-			boxes.push(new Box3().setFromObject(meshRef.current.clone()));
+			for (const box of boxes) {
+				addCollisionBox(box);
+				collisionRefSetter(box);
+			}
 		}
-		for (const box of boxes) {
-			addCollisionBox(box);
-			collisionRefSetter(box);
-		}
-	}
+	}, [position, movedposition]);
 
 	const obj = useLoader(GLTFLoader, path, loader => {
 		loader.setDRACOLoader(dracoLoader);
