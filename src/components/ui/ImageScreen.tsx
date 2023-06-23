@@ -17,7 +17,7 @@ export default function ImageScreen({
 	opacity,
 }: ImageScreenProps) {
 	if (init) init();
-	const [text, setText] = useState('Bitte warten...');
+	const [text, setText] = useState('Bitte warten');
 
 	useEffect(() => {
 		if (opacity === 1) setText('Klicke um fortzufahren');
@@ -26,7 +26,7 @@ export default function ImageScreen({
 	return (
 		<div onClick={onclick} style={{ opacity: opacity }}>
 			<img className="imgScreen" src={imageSource} />
-			<h1 className="imgScreenText">{text}</h1>
+			<h1 className={`imgScreenText ${opacity != 1 ? 'dot-animation' : 'pump-animation'}`}>{text}</h1>
 			{backButton && <NavigationButton position="fixed" left="30px" bottom="30px" text="&larr;" onClick={onclick} />}
 		</div>
 	);
