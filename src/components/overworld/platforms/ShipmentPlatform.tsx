@@ -25,7 +25,6 @@ export default function ShipmentPlatform({
 	addCollisionBox,
 	isPlatformFixed,
 }: ShipmentPlatformOptions): JSX.Element {
-	const shardsPosY: number = isPlatformFixed?.shipment ? -7 : 0;
 	return (
 		//TODO do something on platform when isPlatformFixed.shipment = true
 		<>
@@ -70,15 +69,15 @@ export default function ShipmentPlatform({
 					rotation={[0, 210, 0]}
 					collisionRefSetter={addCollisionBox}
 				/>
-			) : (
-				<ObjectLoad
-					path="/Hubwagen/hubwagen.glb"
-					position={[position[0] + 3, position[1], position[2] + 5]}
-					scale={[0.09, 0.09, 0.09]}
-					rotation={[0, -90, 0]}
-					collisionRefSetter={addCollisionBox}
-				/>
-			)}
+			) : null}
+
+			<ObjectLoad
+				path="/Hubwagen/hubwagen.glb"
+				position={[position[0] + 3.8, position[1], position[2] + 11]}
+				scale={[0.09, 0.09, 0.09]}
+				rotation={[0, -90, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
 			<ObjectLoad
 				path="/LKW/lkw.glb"
 				position={[position[0] + 3, position[1] - 3, position[2] + 11]}
@@ -166,26 +165,26 @@ export default function ShipmentPlatform({
 
 			<ObjectLoad
 				path="/ScherbenGross/scherbenGross.glb"
-				position={[position[0] + 1, position[1] + shardsPosY, position[2] + 2]}
+				position={[position[0] + 1, position[1], position[2] + 2]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
+				visible={!isPlatformFixed?.shipment}
 			/>
 
 			<ObjectLoad
 				path="/ScherbenKlein1/scherbenKlein.glb"
-				position={[position[0] + 2, position[1] + shardsPosY, position[2] + 3]}
+				position={[position[0] + 2, position[1], position[2] + 3]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
+				visible={!isPlatformFixed?.shipment}
 			/>
 
 			<ObjectLoad
 				path="/ScherbenKlein2/scherbenKlein.glb"
-				position={[position[0] + 1, position[1] + shardsPosY, position[2] + 3]}
+				position={[position[0] + 1, position[1], position[2] + 3]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
+				visible={!isPlatformFixed?.shipment}
 			/>
 			{isPlatformFixed?.shipment ? null : (
 				<Tube
@@ -225,24 +224,24 @@ export default function ShipmentPlatform({
 			)}
 			<ObjectLoad
 				path="/ScherbenGross/scherbenGross.glb"
-				position={[position[0] - 7, position[1] + shardsPosY, position[2] - 2]}
+				position={[position[0] - 7, position[1], position[2] - 2]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
+				visible={!isPlatformFixed?.shipment}
 			/>
 			<ObjectLoad
 				path="/ScherbenKlein1/scherbenKlein.glb"
-				position={[position[0] - 7, position[1] + shardsPosY, position[2] - 3.5]}
+				position={[position[0] - 7, position[1], position[2] - 3.5]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
+				visible={!isPlatformFixed?.shipment}
 			/>
 			<ObjectLoad
 				path="/ScherbenGross/scherbenGross.glb"
-				position={[position[0] - 7, position[1] + shardsPosY, position[2] - 0.5]}
+				position={[position[0] - 7, position[1], position[2] - 0.5]}
 				scale={[0.1, 0.1, 0.1]}
 				rotation={[0, 0, 0]}
-				collisionRefSetter={addCollisionBox}
+				visible={!isPlatformFixed?.shipment}
 			/>
 			<Cylinder
 				position={[position[0] - 6.95, position[1], position[2] - 7.1]}
