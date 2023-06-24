@@ -62,13 +62,15 @@ export default function ShipmentPlatform({
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			<ObjectLoad
-				path="/Hubwagen/hubwagen.glb"
-				position={[position[0] - 2.6, position[1], position[2] - 3.5]}
-				scale={[0.09, 0.09, 0.09]}
-				rotation={[0, 210, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
+			{isPlatformFixed?.shipment ? (
+				<ObjectLoad
+					path="/Hubwagen/hubwagen.glb"
+					position={[position[0] - 2.6, position[1], position[2] - 3.5]}
+					scale={[0.09, 0.09, 0.09]}
+					rotation={[0, 210, 0]}
+					collisionRefSetter={addCollisionBox}
+				/>
+			) : null}
 
 			<ObjectLoad
 				path="/Hubwagen/hubwagen.glb"
