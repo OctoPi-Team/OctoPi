@@ -75,13 +75,12 @@ export default function App() {
 
 	useEffect(() => {
 		if (
-			isPlatformFixed.design
-			// &&
-			// isPlatformFixed.parts &&
-			// isPlatformFixed.monitoring &&
-			// isPlatformFixed.production &&
-			// isPlatformFixed.engineering &&
-			// isPlatformFixed.shipment
+			isPlatformFixed.design &&
+			isPlatformFixed.parts &&
+			isPlatformFixed.monitoring &&
+			isPlatformFixed.production &&
+			isPlatformFixed.engineering &&
+			isPlatformFixed.shipment
 		)
 			setTimeout(() => {
 				setScene(Scene.EndScreen);
