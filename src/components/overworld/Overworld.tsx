@@ -7,7 +7,7 @@ import {
 	DirectionalLight,
 	OrthographicCamera,
 	DirectionalLightHelper,
-	Vector2,
+	PCFSoftShadowMap,
 } from 'three';
 import { Canvas } from '@react-three/fiber';
 import { useRef, useState } from 'react';
@@ -27,9 +27,9 @@ import EngineeringPlatform from './platforms/EngineeringPlatform';
 import Floor from './platforms/Floor';
 import NavigationButton from '../ui/NavigationButton';
 import InfoButton from '../ui/InfoButton';
-import DragVector from './DragVector';
 import './style/onbuttonstep.css';
 import AlreadyFixedInformation from '../ui/AlreadyFixedInformation';
+import InfoForButton from '../ui/InfoForButton';
 import AreYouSureReload from '../ui/AreYouSureReload';
 
 export default function Overworld({
@@ -47,13 +47,11 @@ export default function Overworld({
 	const [buttonName, setButtonName] = useState('');
 	const [isOnButton, setIsOnButton] = useState(false);
 	const [areYouSureReload, setAreYouSureReload] = useState(false);
+	const HIDDEN_JOYSTICK_SIZE = 5000;
 
 	const ORBITAL_CONTROLS_ACTIVE = false;
 	const CAM_WIDTH = 80;
 	const CAM_HEIGHT = 80;
-
-	const { handleMouseDown, handleMouseMove, handleMouseUp, handleTouchStart, handleTouchMove, handleTouchEnd } =
-		DragVector(new Vector2(window.innerWidth / 2, window.innerHeight / 2), handleJoystickMove);
 
 	function addPlatform(newPlatform: Box3) {
 		// these platforms are used to detect player collsion iwth the edge of the platform
@@ -99,7 +97,7 @@ export default function Overworld({
 				<directionalLight
 					position={[-5, 20, -15]}
 					ref={dirLight}
-					shadow-mapSize={[1024, 1024]}
+					shadow-mapSize={[2048, 2048]}
 					intensity={0.7}
 					castShadow={true}>
 					<orthographicCamera
@@ -117,65 +115,91 @@ export default function Overworld({
 
 	return (
 		<>
-			<div style={{ width: '100vw', height: '100vh' }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp} tabIndex={0}>
-				{!visible && (
-					<>
-						<div style={{ position: 'absolute', zIndex: '50', right: '200px', bottom: '200px' }}>
+			<div
+				style={{ width: '100vw', height: '100vh', visibility: visible ? 'visible' : 'hidden' }}
+				onKeyDown={handleKeyDown}
+				onKeyUp={handleKeyUp}
+				tabIndex={0}>
+				<>
+					<div style={{ position: 'absolute', zIndex: '50', right: '150px', bottom: '150px' }}>
+						<Joystick
+							baseColor="lightgreen"
+							stickColor="darkgreen"
+							size={120}
+							move={handleJoystickMove}
+							stop={handleJoystickStop}
+						/>
+					</div>
+					{!ORBITAL_CONTROLS_ACTIVE &&
+						<div
+							style={{
+								opacity: '0',
+								position: 'fixed',
+								zIndex: '1',
+								overflow: 'hidden',
+								left: (window.innerWidth - HIDDEN_JOYSTICK_SIZE) / 2,
+								top: (window.innerHeight - HIDDEN_JOYSTICK_SIZE) / 2,
+							}}
+							onClick={() => {
+								setInfo(false);
+							}}>
 							<Joystick
 								baseColor="lightgreen"
 								stickColor="darkgreen"
-								size={130}
+								size={HIDDEN_JOYSTICK_SIZE}
 								move={handleJoystickMove}
 								stop={handleJoystickStop}
 							/>
 						</div>
-						<NavigationButton
-							position="absolute"
-							right="30px"
-							top="40px"
-							text="i"
-							onClick={() => {
-								setInfo(true);
-								if (info) {
-									setInfo(false);
-								}
-								setTimeout(() => {
+					}
+					<NavigationButton
+						position="absolute"
+						right="30px"
+						top="40px"
+						text="i"
+						onClick={() => {
+							let stopTimer: string | number | NodeJS.Timeout | undefined;
+
+							function setTimer() {
+								stopTimer = setTimeout(() => {
 									setInfo(false);
 								}, 10000);
-							}}
-						/>
-						<NavigationButton
-							position="absolute"
-							right="100px"
-							top="40px"
-							text={'\u21BB'}
-							onClick={() => {
-								if (!areYouSureReload) {
-									setAreYouSureReload(true);
-								} else {
-									setAreYouSureReload(false);
-								}
-							}}
-						/>
-					</>
-				)}
-				<Canvas
-					orthographic
-					shadows
-					style={{ visibility: visible ? 'hidden' : 'visible' }}
-					onMouseDown={handleMouseDown}
-					onMouseMove={handleMouseMove}
-					onMouseUp={handleMouseUp}
-					onTouchStart={handleTouchStart}
-					onTouchMove={handleTouchMove}
-					onTouchEnd={handleTouchEnd}>
+							}
+
+							function clearTimer() {
+								clearTimeout(stopTimer);
+							}
+
+							setInfo(true);
+							if (info) {
+								setInfo(false);
+								clearTimer();
+							}
+							setTimer();
+						}}
+					/>
+					<NavigationButton
+						position="absolute"
+						right="100px"
+						top="40px"
+						text={'\u21BB'}
+						onClick={() => {
+							if (!areYouSureReload) {
+								setAreYouSureReload(true);
+							} else {
+								setAreYouSureReload(false);
+							}
+						}}
+					/>
+				</>
+				<Canvas orthographic={!ORBITAL_CONTROLS_ACTIVE} shadows={{ type: PCFSoftShadowMap }}>
 					<group name="lighting-and-camera">
 						<color attach="background" args={['white']} />
 						<DirLight />
 						<ambientLight intensity={0.3}></ambientLight>
 						<Floor position={[0, -3, 0]} />
 						{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
-						{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} visibility={visible} />}
+						{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={100} visibility={!visible} />}
 					</group>
 					<group name="platforms-and-stairs">
 						<MainPlatform
@@ -183,6 +207,7 @@ export default function Overworld({
 							reference={addPlatform}
 							addCollisionBox={addCollisionBox}
 							buttonReference={addButtons}
+							isPlatformFixed={isPlatformFixed}
 						/>
 						<Stair
 							startPosition={new Vector3(7.5, 0, 6.5)}
@@ -259,22 +284,21 @@ export default function Overworld({
 						setIsPlatformFixed={setIsPlatformFixed}
 						isPlatformFixed={isPlatformFixed}
 					/>
-					
 				</Canvas>
-				{info && InfoButton("Willkommen zu unserem Spiel Operation:Innovation! " +
-						"Schaue dich mal auf den verschiedenen Platformen um, siehst du " +
-						"einen Button auf dem Boden?\n" + 
-						"Geh ruhig mal hin.")
-						}
+				<InfoForButton buttonName={buttonName} isOnButton={isOnButton} />
+				{info &&
+					InfoButton(
+						'Willkommen zu Operation: Innovation!' +
+						'\nSchaue dich doch mal auf den verschiedenen Platformen um. Siehst du die gelben Druckplatten auf dem Boden?\n'
+					)}
+				{(isPlatformFixed?.monitoring ||
+					isPlatformFixed?.parts ||
+					isPlatformFixed?.design ||
+					isPlatformFixed?.engineering ||
+					isPlatformFixed?.shipment ||
+					isPlatformFixed?.production) && <AlreadyFixedInformation isPlatformFixed={isPlatformFixed} />}
+				{areYouSureReload && <AreYouSureReload setAreYouSureReload={setAreYouSureReload} />}
 			</div>
-			{(isPlatformFixed?.monitoring ||
-				isPlatformFixed?.parts ||
-				isPlatformFixed?.design ||
-				isPlatformFixed?.engineering ||
-				isPlatformFixed?.shipment ||
-				isPlatformFixed?.production) && <AlreadyFixedInformation isPlatformFixed={isPlatformFixed} />}
-			{isOnButton && <div className={'button'}>Minigame: {buttonName.toUpperCase()}</div>}
-			{areYouSureReload && <AreYouSureReload setAreYouSureReload={setAreYouSureReload} />}
 		</>
 	);
 }

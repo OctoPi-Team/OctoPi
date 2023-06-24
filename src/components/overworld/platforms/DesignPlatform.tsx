@@ -2,7 +2,7 @@ import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
 import { DESIGN } from '../../../AllColorVariables';
 import Text from '../objects/Text';
-import { Box3, Vector3 } from 'three';
+import { Box3, BufferGeometry, Material, Mesh, Vector3 } from 'three';
 import Tube from '../objects/Tube';
 import { PlatformFixProps } from '../../../App';
 import Button from '../objects/Button';
@@ -11,7 +11,7 @@ import Cylinder from '../objects/Cylinder';
 type DesignPlatformOptions = {
 	position?: [number, number, number];
 	reference?: (meshRef: Box3) => void;
-	buttonReference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	buttonReference?: (meshRef: Mesh<BufferGeometry, Material | Material[]>) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
 	isPlatformFixed: PlatformFixProps | undefined;
 };
@@ -93,13 +93,24 @@ export default function DesignPlatform({
 					visible={visibiltyForDamaged}
 				/>
 			</group>
-			<ObjectLoad
-				path="/Whiteboard_neu/whiteboard_neu.glb"
-				position={[position[0] + 8, position[1], position[2] - 6.5]}
-				scale={[0.6, 0.6, 0.6]}
-				rotation={[0, 90, 0]}
-				collisionRefSetter={addCollisionBox}
-			/>
+			<group>
+				<ObjectLoad
+					path={'/Whiteboard_neu/whiteboard_neu.glb'}
+					position={[position[0] + 8, position[1], position[2] - 6.5]}
+					scale={[0.6, 0.6, 0.6]}
+					rotation={[0, 90, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForFixed}
+				/>
+				<ObjectLoad
+					path={'/Whiteboard_kaputt_neu/whiteboard_kaputt_neu.glb'}
+					position={[position[0] + 8, position[1], position[2] - 6.5]}
+					scale={[0.6, 0.6, 0.6]}
+					rotation={[0, 90, 0]}
+					collisionRefSetter={addCollisionBox}
+					visible={visibiltyForDamaged}
+				/>
+			</group>
 			<Tube
 				name="tubeToDesign"
 				position={[0, 0, 0]}
@@ -108,17 +119,16 @@ export default function DesignPlatform({
 					new Vector3(-1, -1, -5),
 					new Vector3(-1, -1, 12),
 					new Vector3(-1, 1, 12),
-					new Vector3(-33, 1, 12),
-					new Vector3(-33, 1, 4),
-					new Vector3(-33, 7, 4),
-					new Vector3(-33, 7, -11),
-					new Vector3(-28, 7, -11),
-					new Vector3(-28, 3, -11),
-					new Vector3(-25, 3, -11),
-					new Vector3(-25, 1, -11),
+					new Vector3(-29, 2, 12),
+					new Vector3(-33, 7, 10),
+					new Vector3(-33, 8, -11),
+					new Vector3(-29, 7, -11),
+					new Vector3(-28, 5.1, -11),
+					new Vector3(-25.3, 4, -11),
+					new Vector3(-24.5, 1, -11),
 					new Vector3(-23, 1, -11),
-					new Vector3(-23, 3, -11),
-					new Vector3(-20, 3, -11),
+					new Vector3(-23, 4, -11),
+					new Vector3(-20, 4, -11),
 					new Vector3(-20, 2, -11),
 				]}
 				ballAnimation={isPlatformFixed?.design}
@@ -152,18 +162,14 @@ export default function DesignPlatform({
 				collisionRefSetter={addCollisionBox}
 			/>
 			<Cylinder
-				position={[position[0] + 0.4, position[1], position[2] - 9]}
-				color={DESIGN}
-				collisionRefSetter={addCollisionBox}
-			/>
-			<Cylinder
-				position={[position[0] - 7.8, position[1], position[2] + 5.7]}
+				position={[position[0] + 0.3, position[1], position[2] - 9]}
 				color={DESIGN}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<Button
 				customName="design"
-				position={[position[0] - 7, position[1] + 6, position[2] - 9]}
+				position={[position[0] + 3, position[1], position[2] + 1]}
+				scale={[1, 1, 1]}
 				reference={buttonReference}
 			/>
 		</>

@@ -16,7 +16,7 @@ import InfoButton from '../../ui/InfoButton';
 
 import Tube from './Tube';
 import Grid, { SIZE_OF_GAME_MATRIX, SPACING, TILE_SIZE } from './Grid';
-import Squircle from '../../overworld/objects/Squircle';
+import Floor from '../../overworld/platforms/Floor';
 
 const INPUT_TUBE_POSITION = TILE_SIZE * (SIZE_OF_GAME_MATRIX[1] - 1) + (SIZE_OF_GAME_MATRIX[1] - 1) * SPACING;
 export const VECTORS_FOR_INPUT_TUBE = [
@@ -26,7 +26,7 @@ export const VECTORS_FOR_INPUT_TUBE = [
 	new Vector3(-15, 5, INPUT_TUBE_POSITION),
 ];
 
-export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos, setIsPlatformFixed }: SceneProps) {
+export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlatformFixed }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
 	const [finished, setFinished] = useState(false);
 	const [info, setInfo] = useState(false);
@@ -35,15 +35,17 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos, 
 	const CAM_HEIGHT = 80;
 
 	useEffect(() => {
-		if (visible) {
-			setSceneHook(Scene.Overworld);
-		}
 		return () => {
 			// set position of Player for when he spawns again after the game
 			if (setPlayerPos) setPlayerPos(new Vector3(9, 4, 25));
 		};
 	}, []);
 
+	function setShipmentGameToBeFixed() {
+		if (finished && setIsPlatformFixed) {
+			setIsPlatformFixed({ shipment: true });
+		}
+	}
 	function changeView(done = true) {
 		if (done) setSceneHook(Scene.Overworld);
 	}
@@ -54,7 +56,8 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos, 
 		setSceneHook(Scene.Overworld);
 		setTimeout(() => {
 			setSceneHook(Scene.Shipment);
-		}, 50);
+		}, 0);
+		setShipmentGameToBeFixed();
 	}
 
 	function DirLight() {
@@ -95,10 +98,24 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos, 
 					top="40px"
 					text="i"
 					onClick={() => {
+						let stopTimer: string | number | NodeJS.Timeout | undefined;
+
+						function setTimer() {
+							stopTimer = setTimeout(() => {
+								setInfo(false);
+							}, 10000);
+						}
+
+						function clearTimer() {
+							clearTimeout(stopTimer);
+						}
+
 						setInfo(true);
 						if (info) {
 							setInfo(false);
+							clearTimer();
 						}
+						setTimer();
 					}}
 				/>
 				<NavigationButton
@@ -107,24 +124,26 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos, 
 					bottom="30px"
 					text="&larr;"
 					onClick={() => {
+						setShipmentGameToBeFixed();
 						changeView(true);
 						setSceneHook(Scene.Overworld);
 					}}
 				/>
 			</div>
-			<div style={{ width: '100vw', height: '100vh' }} tabIndex={0}>
+			<div
+				style={{ width: '100vw', height: '100vh' }}
+				tabIndex={0}
+				onClick={() => {
+					setInfo(false);
+				}}>
 				<Canvas orthographic camera={{ zoom: 50, position: [40, 40, 40] }} shadows={{ type: PCFSoftShadowMap }}>
 					<DirLight />
 					<ambientLight intensity={0.35} />
-					<Squircle position={[0, 2, 0]} color="beige" dimensions={[69, 0.1, 69]} rotation={[Math.PI / 2, 0, 0]} />
+					<Floor position={[0, 2, 0]} />
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
-					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={30} visibility={visible} />}
+					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={30} visibility={false} />}
 					<group position={[0, 4, 0]}>
-						<Grid
-							size={SIZE_OF_GAME_MATRIX}
-							isFinished={setFinished}
-							currentVariation={currentVariation}
-						/>
+						<Grid size={SIZE_OF_GAME_MATRIX} isFinished={setFinished} currentVariation={currentVariation} />
 						<ObjectLoad
 							path="/Trichter/trichter.glb"
 							position={[(2.9 + 0.2) * SIZE_OF_GAME_MATRIX[0], -2.3, -0.5]}
@@ -135,9 +154,12 @@ export default function ShipmentMiniGame({ setSceneHook, visible, setPlayerPos, 
 					</group>
 				</Canvas>
 				{finished && WinScreen(reloadGame, changeView, setIsPlatformFixed)}
-				{info && InfoButton("Willkommen zu unserem Minispiel der Shipment-Platform! " +
-					"Du kannst neben dem leeren Feld die Röhren anklicken und tauschst so die zwei Felder. " +
-					"Probiers ruhig mal aus.")}
+				{info &&
+					InfoButton(
+						'Willkommen zum Minispiel der Shipment-Platform! ' +
+							'Klicke auf ein Rohr neben dem freien Feld, um deren Position zu tauschen. ' +
+							'Stelle eine Verbindung zum Trichter her!'
+					)}
 			</div>
 		</>
 	);

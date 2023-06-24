@@ -1,4 +1,4 @@
-import THREE, { Vector3, TubeGeometry, DoubleSide, CubicBezierCurve3 } from 'three';
+import { Vector3, TubeGeometry, DoubleSide, CubicBezierCurve3, BufferGeometry, Color, Material, Mesh } from 'three';
 import { WHITE } from '../../../AllColorVariables';
 
 const standardVectors = [
@@ -12,8 +12,8 @@ type TubeProps = {
 	name?: string;
 	position: [number, number, number];
 	size?: [number, number, number];
-	color?: number | string | THREE.Color;
-	reference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	color?: number | string | Color;
+	reference?: (meshRef: Mesh<BufferGeometry, Material | Material[]>) => void;
 	vectors?: [...Vector3[]];
 	render?: boolean;
 };

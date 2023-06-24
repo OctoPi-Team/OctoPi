@@ -2,7 +2,7 @@ import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
 import { MONITORING } from '../../../AllColorVariables';
 import Text from '../objects/Text';
-import { Box3, Vector3 } from 'three';
+import { Box3, BufferGeometry, Material, Mesh, Vector3 } from 'three';
 import Tube from '../objects/Tube';
 import { PlatformFixProps } from '../../../App';
 import Button from '../objects/Button';
@@ -11,7 +11,7 @@ import Cylinder from '../objects/Cylinder';
 type MonitoringPlatformOptions = {
 	position?: [number, number, number];
 	reference?: (meshRef: Box3) => void;
-	buttonReference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	buttonReference?: (meshRef: Mesh<BufferGeometry, Material | Material[]>) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
 	isPlatformFixed: PlatformFixProps | undefined;
 };
@@ -76,14 +76,19 @@ export default function MonitoringPlatform({
 			</group>
 
 			<ObjectLoad
-				path="/TischMitTV/tischMitTV.glb"
+				path="/kleinerTisch/kleinerTisch.glb"
 				position={[position[0] + 3.5, position[1], position[2] - 0.5]}
 				scale={[0.45, 0.45, 0.45]}
-				rotation={[0, 7, 0]}
+				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
-				customCollisionBoxes={[{ positionOffset: new Vector3(), size: new Vector3(1, 2, 2) }]}
 			/>
-
+			<ObjectLoad
+				path="/TV/tv.glb"
+				position={[position[0] + 3.8, position[1] + 0.88, position[2] - 0.5]}
+				scale={[0.1, 0.1, 0.1]}
+				rotation={[0, 0, 0]}
+				collisionRefSetter={addCollisionBox}
+			/>
 			<ObjectLoad
 				path="/kleinerTisch/kleinerTisch.glb"
 				position={[position[0] + 2.5, position[1], position[2] - 4.5]}
@@ -114,25 +119,23 @@ export default function MonitoringPlatform({
 				size={[0.5, 8, 1]}
 				vectors={[
 					new Vector3(2, -1, -5),
-					new Vector3(2, -1, -8),
+					new Vector3(3, -1, -8),
 					new Vector3(15, -1, -8),
-					new Vector3(15, 0, -8),
-					new Vector3(15, 1, 6),
-					new Vector3(15, 0, 6),
+					new Vector3(15, 0, 5),
 					new Vector3(20, 0, 6),
 					new Vector3(20, 6, 6),
-					new Vector3(26, 6, 6),
-					new Vector3(26, 3, 6),
+					new Vector3(25.5, 6, 6),
+					new Vector3(26.5, 3, 6),
 					new Vector3(33, 3, 6),
 					new Vector3(33, 8, 6),
 					new Vector3(33, 8, -15),
 					new Vector3(33, 5, -15),
 					new Vector3(19.5, 5, -15),
 					new Vector3(19.5, 2, -15),
-					new Vector3(19.5, 2, -11),
-					new Vector3(19.5, 6, -11),
-					new Vector3(19.5, 6, -8),
-					new Vector3(19.5, 4, -8),
+					new Vector3(19.5, 2, -11.6),
+					new Vector3(19.5, 6, -10.75),
+					new Vector3(19.5, 6, -8.25),
+					new Vector3(19.5, 4, -7.75),
 				]}
 				ballAnimation={isPlatformFixed?.monitoring}
 			/>
@@ -147,19 +150,20 @@ export default function MonitoringPlatform({
 				collisionRefSetter={addCollisionBox}
 			/>
 			<Cylinder
-				position={[position[0] - 5.4, position[1], position[2] + 8.9]}
+				position={[position[0] - 5.32, position[1], position[2] + 8.98]}
 				color={MONITORING}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<Cylinder
-				position={[position[0] + 1, position[1], position[2] + 8.9]}
+				position={[position[0] + 0.95, position[1], position[2] + 8.98]}
 				color={MONITORING}
 				collisionRefSetter={addCollisionBox}
 			/>
 
 			<Button
 				customName="monitoring"
-				position={[position[0] - 8, position[1] + 6, position[2] - 9]}
+				position={[position[0] + 2, position[1], position[2] + 1]}
+				scale={[1, 1, 1]}
 				reference={buttonReference}
 			/>
 		</>

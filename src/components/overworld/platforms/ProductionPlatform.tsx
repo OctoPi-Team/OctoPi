@@ -1,4 +1,4 @@
-import { Box3, Vector3 } from 'three';
+import { Box3, BufferGeometry, Material, Mesh, Vector3 } from 'three';
 import { PRODUCTION } from '../../../AllColorVariables';
 import ObjectLoad from '../../ObjectLoad';
 import SimplePlatform from './SimplePlatform';
@@ -11,7 +11,7 @@ import Cylinder from '../objects/Cylinder';
 type ProductionPlatformOptions = {
 	position?: [number, number, number];
 	reference?: (meshRef: Box3) => void;
-	buttonReference?: (meshRef: THREE.Mesh<THREE.BufferGeometry, THREE.Material | THREE.Material[]>) => void;
+	buttonReference?: (meshRef: Mesh<BufferGeometry, Material | Material[]>) => void;
 	addCollisionBox?: (newCollisionBox: Box3) => void;
 	isPlatformFixed: PlatformFixProps | undefined;
 };
@@ -146,38 +146,38 @@ export default function ProductionPlatform({
 				vectors={[
 					new Vector3(-1, -1, -3),
 					new Vector3(-1, -1, -8),
-					new Vector3(-1, 0, -10),
+					new Vector3(-2, 0, -10),
 					new Vector3(-13, 0, -10),
 					new Vector3(-13, 0, -14),
 					new Vector3(-13, 4, -14),
-					new Vector3(-22.5, 4, -14),
-					new Vector3(-22.5, 3.5, -14),
-					new Vector3(-22.5, 3.5, -17),
-					new Vector3(-21, 3.5, -17),
-					new Vector3(-21, 3.5, -22),
-					new Vector3(-21, 2, -22),
-					new Vector3(-21, 2, -27),
-					new Vector3(-21, 4, -27),
-					new Vector3(-21, 4, -30),
-					new Vector3(-21, 2, -30),
-					new Vector3(-14, 2, -30),
-					new Vector3(-14, 2, -25),
+					new Vector3(-22.5, 4.5, -14),
+					new Vector3(-22.5, 4.5, -17),
+					new Vector3(-21, 4.5, -17),
+					new Vector3(-21, 4.5, -21.5),
+					new Vector3(-21, 2, -22.5),
+					new Vector3(-21, 2, -26),
+					new Vector3(-21, 5, -27),
+					new Vector3(-21, 5, -30),
+					new Vector3(-21, 2, -30.5),
+					new Vector3(-14, 1, -30),
+					new Vector3(-10, 1, -25),
 				]}
 				ballAnimation={isPlatformFixed?.production}
 			/>
 			<Cylinder
-				position={[position[0] - 10, position[1], position[2] - 0.05]}
+				position={[position[0] - 10, position[1], position[2] + 0.05]}
 				color={PRODUCTION}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<Cylinder
-				position={[position[0] - 9.9, position[1], position[2] - 4.9]}
+				position={[position[0] - 9.95, position[1], position[2] - 4.48]}
 				color={PRODUCTION}
 				collisionRefSetter={addCollisionBox}
 			/>
 			<Button
 				customName="production"
-				position={[position[0] - 11, position[1] + 6, position[2] - 9]}
+				position={[position[0] - 1, position[1], position[2] + 1]}
+				scale={[1, 1, 1]}
 				reference={buttonReference}
 			/>
 		</>
