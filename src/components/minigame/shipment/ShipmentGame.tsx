@@ -25,19 +25,21 @@ export const VECTORS_FOR_INPUT_TUBE = [
 	new Vector3(-1.9 + SPACING, 5, INPUT_TUBE_POSITION),
 	new Vector3(-15, 5, INPUT_TUBE_POSITION),
 ];
+function getGameVariation() {
+	return Math.floor(Math.random() * 6);
+}
 
-export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlatformFixed }: SceneProps) {
+export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlatformFixed, currentVariation, setCurrentVariation }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
 	const [finished, setFinished] = useState(false);
 	const [info, setInfo] = useState(false);
-	const [currentVariation, setVariation] = useState<number>(Math.floor(Math.random() * 6));
 	const CAM_WIDTH = 80;
 	const CAM_HEIGHT = 80;
 
 	useEffect(() => {
 		return () => {
 			// set position of Player for when he spawns again after the game
-			if (setPlayerPos) setPlayerPos(new Vector3(9, 4, 25));
+			if (setPlayerPos) setPlayerPos(new Vector3(9, 4.25, 25));
 		};
 	}, []);
 
@@ -50,10 +52,10 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 		if (done) setSceneHook(Scene.Overworld);
 	}
 	function reloadGame() {
-		let randomVariant = -1;
-		while (randomVariant > 0 && randomVariant == currentVariation) randomVariant = Math.floor(Math.random() * 6); // in range number of variants
-		setVariation(randomVariant);
-		setSceneHook(Scene.Overworld);
+		if (setCurrentVariation && typeof currentVariation === "number") {
+			setCurrentVariation(currentVariation + 1);
+		}
+		setSceneHook(Scene.EmptyScreen);
 		setTimeout(() => {
 			setSceneHook(Scene.Shipment);
 		}, 0);
@@ -143,7 +145,7 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
 					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={30} visibility={false} />}
 					<group position={[0, 4, 0]}>
-						<Grid size={SIZE_OF_GAME_MATRIX} isFinished={setFinished} currentVariation={currentVariation} />
+						<Grid size={SIZE_OF_GAME_MATRIX} isFinished={setFinished} currentVariation={currentVariation ? currentVariation : 0} />
 						<ObjectLoad
 							path="/Trichter/trichter.glb"
 							position={[(2.9 + 0.2) * SIZE_OF_GAME_MATRIX[0], -2.3, -0.5]}
@@ -157,8 +159,8 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 				{info &&
 					InfoButton(
 						'Willkommen zum Minispiel der Shipment-Platform! ' +
-							'Klicke auf ein Rohr neben dem freien Feld, um deren Position zu tauschen. ' +
-							'Stelle eine Verbindung zum Trichter her!'
+						'Klicke auf ein Rohr neben dem freien Feld, um deren Position zu tauschen. ' +
+						'Stelle eine Verbindung zum Trichter her!'
 					)}
 			</div>
 		</>

@@ -167,6 +167,7 @@ type TableProp = {
 function generateFunctioningGrid(variant: number): TableProp {
 	// returns the seected pre configured grid
 	// they are preconfigured to assure difficulty balancing
+	variant = variant % 3;
 	switch (variant) {
 		case 0:
 			return {
@@ -185,33 +186,6 @@ function generateFunctioningGrid(variant: number): TableProp {
 					[0, 2, 6],
 				],
 				emptyTile: [2, 2],
-			};
-		case 2:
-			return {
-				board: [
-					[3, 5, 0],
-					[0, 2, 0],
-					[5, 6, 5],
-				],
-				emptyTile: [2, 1],
-			};
-		case 3:
-			return {
-				board: [
-					[3, 0, 2],
-					[3, 5, 6],
-					[5, 0, 2],
-				],
-				emptyTile: [1, 2],
-			};
-		case 4:
-			return {
-				board: [
-					[6, 5, 2],
-					[2, 0, 3],
-					[0, 0, 5],
-				],
-				emptyTile: [0, 0],
 			};
 		default:
 			return {

@@ -32,7 +32,10 @@ export default function ImageScreen({
 
 	return (
 		<div onClick={onclick} style={{ opacity: opacity }}>
-			<img className={imageSource === '/BTPinfo/BTP_Vorteile.png' ? 'imgScreenBTPInfo' : 'imgScreen'} src={imageSource} />
+			<img
+				className={imageSource === '/BTPinfo/BTP_Vorteile.png' ? 'imgScreenBTPInfo' : 'imgScreen'}
+				src={imageSource}
+			/>
 			{isStartScreen && (
 				<>
 					<h1 className={`img-screen-text-heading`}>Operation: Innovation</h1>

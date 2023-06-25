@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+
+import { useRef, useState } from 'react';
+
 import { CatmullRomCurve3, Mesh, MeshPhysicalMaterial, SphereGeometry } from 'three';
 import { GREEN, RED, BLUE, PINK } from '../../../AllColorVariables';
 import { useFrame } from '@react-three/fiber';
@@ -16,8 +18,9 @@ function getRandomPosition(min: number, max: number) {
 function Ball({ curve }: BallProps): JSX.Element {
 	const ballRadius = 0.3;
 	const [color] = useState(COLORS[Math.floor(getRandomPosition(0, COLORS.length - 1))]);
-	const ballGeometry = new SphereGeometry(ballRadius, 16, 16);
-	const ballMaterial = new MeshPhysicalMaterial({ color: color });
+
+	const [ballGeometry] = useState<SphereGeometry>(new SphereGeometry(ballRadius, 16, 16));
+	const [ballMaterial] = useState<MeshPhysicalMaterial>(new MeshPhysicalMaterial({ color: color }));
 	const ballMesh = useRef<Mesh>(null);
 	const [ballPosition, setBallPosition] = useState(getRandomPosition(1000, 100000));
 	const ballSpeed = 1;
