@@ -16,7 +16,7 @@ span {
 .victorybanner {
 	width: 100%;
 	height: 400px;
-	background-color: #3aaa35;
+	background-color: rgba(58, 170, 53, 0.95);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

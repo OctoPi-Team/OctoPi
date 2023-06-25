@@ -1,4 +1,5 @@
 import '../ui/style/endscreen.css';
+import ImageScreen from './ImageScreen';
 
 type EndScreenProps = {
 	onclick?: () => void;
@@ -12,6 +13,7 @@ function EndScreen({
 }: EndScreenProps) {
 	return (
 		<div className="endscreen" onClick={onclick}>
+			<ImageScreen imageSource='/EndScreen.png' />
 			<div className="victorybanner">
 				<p>
 					<span>Glückwunsch!</span>
