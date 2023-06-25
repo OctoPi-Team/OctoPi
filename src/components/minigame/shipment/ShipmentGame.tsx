@@ -40,7 +40,7 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 	useEffect(() => {
 		return () => {
 			// set position of Player for when he spawns again after the game
-			if (setPlayerPos) setPlayerPos(new Vector3(9, 4.25, 25));
+			if (setPlayerPos) setPlayerPos(new Vector3(9, 4.25, 22));
 		};
 	}, []);
 
@@ -160,8 +160,8 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 				{info &&
 					InfoButton(
 						'Willkommen zum Minispiel der Shipment-Platform! ' +
-						'Klicke auf ein Rohr neben dem freien Feld, um deren Position zu tauschen. ' +
-						'Stelle eine Verbindung zum Trichter her!'
+							'Klicke auf ein Rohr neben dem freien Feld, um deren Position zu tauschen. ' +
+							'Stelle eine Verbindung zum Trichter her!'
 					)}
 			</div>
 		</>
