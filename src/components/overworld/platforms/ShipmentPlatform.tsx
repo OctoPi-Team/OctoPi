@@ -144,9 +144,6 @@ export default function ShipmentPlatform({
 				rotation={[0, 0, 0]}
 				collisionRefSetter={addCollisionBox}
 			/>
-			{/*
-			<Tube name="Tube" position={[position[0] + 7.6, position[1], position[2] + 0.5]} size={[0.5, 8, 1]} />
-			*/}
 			{isPlatformFixed?.shipment ? null : (
 				<Tube
 					name="brokenShipmentTube1"
@@ -207,7 +204,7 @@ export default function ShipmentPlatform({
 						new Vector3(2, 5, 18),
 						new Vector3(2, 5, 24.9),
 						new Vector3(2, 2, 24.9),
-						new Vector3(16.6, 2, 25.5),
+						new Vector3(15.55, 2, 25.6),
 						new Vector3(15.7, 10, 25.5),
 						new Vector3(5.6, 10, 30),
 						new Vector3(5.5, 8.4, 30),
@@ -255,19 +252,11 @@ export default function ShipmentPlatform({
 					collisionRefSetter={addCollisionBox}
 				/>
 			) : null}
-			{isPlatformFixed?.shipment ? (
-				<Cylinder
-					position={[position[0] + 8.35, position[1], position[2] + 0.4]}
-					color={SHIPMENT}
-					collisionRefSetter={addCollisionBox}
-				/>
-			) : (
-				<Cylinder
-					position={[position[0] + 7.55, position[1], position[2] + 0.5]}
-					color={SHIPMENT}
-					collisionRefSetter={addCollisionBox}
-				/>
-			)}
+			<Cylinder
+				position={[position[0] + 7.55, position[1], position[2] + 0.5]}
+				color={SHIPMENT}
+				collisionRefSetter={addCollisionBox}
+			/>
 			<Button
 				customName="shipment"
 				position={[position[0] + 4, position[1], position[2] + 1]}
