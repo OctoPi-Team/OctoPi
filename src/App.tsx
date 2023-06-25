@@ -26,6 +26,8 @@ export type SceneProps = {
 	playerPos?: Vector3;
 	isPlatformFixed?: PlatformFixProps;
 	setIsPlatformFixed?: (newProps: Partial<PlatformFixProps>) => void;
+	currentVariation?: number;
+	setCurrentVariation?: (val: number) => void;
 };
 
 export type PlatformFixProps = {
@@ -53,6 +55,8 @@ export default function App() {
 		monitoring: false,
 		production: false,
 	});
+
+	const [currentVariation, setCurrentVariation] = useState<number>(0);
 
 	function setPlatformFixed(newProps: Partial<PlatformFixProps>) {
 		setIsPlatformFixed(prevProps => ({ ...prevProps, ...newProps }));
@@ -132,6 +136,8 @@ export default function App() {
 					setSceneHook={setScene}
 					setPlayerPos={setPlayerstartingPos}
 					setIsPlatformFixed={setPlatformFixed}
+					currentVariation={currentVariation}
+					setCurrentVariation={setCurrentVariation}
 				/>
 			)}
 			{/*Overworld needs to placed beneith the minigames because it is always loaded*/}

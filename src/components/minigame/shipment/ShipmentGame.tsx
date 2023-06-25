@@ -29,11 +29,10 @@ function getGameVariation() {
 	return Math.floor(Math.random() * 6);
 }
 
-export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlatformFixed }: SceneProps) {
+export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlatformFixed, currentVariation, setCurrentVariation }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
 	const [finished, setFinished] = useState(false);
 	const [info, setInfo] = useState(false);
-	const [currentVariation, setVariation] = useState<number>(getGameVariation());
 	const CAM_WIDTH = 80;
 	const CAM_HEIGHT = 80;
 
@@ -53,9 +52,9 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 		if (done) setSceneHook(Scene.Overworld);
 	}
 	function reloadGame() {
-		let randomVariant = -1;
-		while (randomVariant > 0 && randomVariant == currentVariation) randomVariant = Math.floor(Math.random() * 6); // in range number of variants
-		setVariation(randomVariant);
+		if (setCurrentVariation && typeof currentVariation === "number") {
+			setCurrentVariation(currentVariation + 1);
+		}
 		setSceneHook(Scene.EmptyScreen);
 		setTimeout(() => {
 			setSceneHook(Scene.Shipment);
@@ -146,7 +145,7 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 					{ORBITAL_CONTROLS_ACTIVE && <OrbitControls />}
 					{!ORBITAL_CONTROLS_ACTIVE && <FixedCamera distanceFromPlayerToCamera={30} visibility={false} />}
 					<group position={[0, 4, 0]}>
-						<Grid size={SIZE_OF_GAME_MATRIX} isFinished={setFinished} currentVariation={currentVariation} />
+						<Grid size={SIZE_OF_GAME_MATRIX} isFinished={setFinished} currentVariation={currentVariation ? currentVariation : 0} />
 						<ObjectLoad
 							path="/Trichter/trichter.glb"
 							position={[(2.9 + 0.2) * SIZE_OF_GAME_MATRIX[0], -2.3, -0.5]}
