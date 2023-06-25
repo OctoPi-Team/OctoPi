@@ -160,8 +160,8 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 				{info &&
 					InfoButton(
 						'Willkommen zum Minispiel der Shipment-Platform! ' +
-						'Klicke auf ein Rohr neben dem freien Feld, um deren Position zu tauschen. ' +
-						'Stelle eine Verbindung zum Trichter her!'
+							'Klicke auf ein Rohr neben dem freien Feld, um deren Position zu tauschen. ' +
+							'Stelle eine Verbindung zum Trichter her!'
 					)}
 			</div>
 		</>

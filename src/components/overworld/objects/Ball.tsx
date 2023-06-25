@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { CatmullRomCurve3, Mesh, MeshPhysicalMaterial, SphereGeometry } from 'three';
 import { GREEN, RED, BLUE, PINK } from '../../../AllColorVariables';
 import { useFrame } from '@react-three/fiber';

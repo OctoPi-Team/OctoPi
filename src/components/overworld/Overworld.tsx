@@ -130,7 +130,7 @@ export default function Overworld({
 							stop={handleJoystickStop}
 						/>
 					</div>
-					{!ORBITAL_CONTROLS_ACTIVE &&
+					{!ORBITAL_CONTROLS_ACTIVE && (
 						<div
 							style={{
 								opacity: '0',
@@ -151,7 +151,7 @@ export default function Overworld({
 								stop={handleJoystickStop}
 							/>
 						</div>
-					}
+					)}
 					<NavigationButton
 						position="absolute"
 						right="30px"
@@ -289,7 +289,7 @@ export default function Overworld({
 				{info &&
 					InfoButton(
 						'Willkommen zu Operation: Innovation!' +
-						'\nSchaue dich doch mal auf den verschiedenen Platformen um. Siehst du die gelben Druckplatten auf dem Boden?\n'
+							'\nSchaue dich doch mal auf den verschiedenen Platformen um. Siehst du die gelben Druckplatten auf dem Boden?\n'
 					)}
 				{(isPlatformFixed?.monitoring ||
 					isPlatformFixed?.parts ||

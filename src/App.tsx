@@ -15,7 +15,7 @@ export enum Scene {
 	IdleScreen,
 	BTPinfo,
 	StartScreen,
-	EmptyScreen
+	EmptyScreen,
 }
 
 export type SceneProps = {
@@ -104,7 +104,7 @@ export default function App() {
 	}
 
 	return (
-		<div style={{ background: "#c0c0b3" }}>
+		<div style={{ background: '#c0c0b3' }}>
 			<Loader setGameIsLoaded={setGameIsLoaded} />
 			{scene === Scene.IdleScreen && (
 				<ImageScreen
