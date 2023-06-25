@@ -25,12 +25,15 @@ export const VECTORS_FOR_INPUT_TUBE = [
 	new Vector3(-1.9 + SPACING, 5, INPUT_TUBE_POSITION),
 	new Vector3(-15, 5, INPUT_TUBE_POSITION),
 ];
+function getGameVariation() {
+	return Math.floor(Math.random() * 6);
+}
 
 export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlatformFixed }: SceneProps) {
 	const ORBITAL_CONTROLS_ACTIVE = false;
 	const [finished, setFinished] = useState(false);
 	const [info, setInfo] = useState(false);
-	const [currentVariation, setVariation] = useState<number>(Math.floor(Math.random() * 6));
+	const [currentVariation, setVariation] = useState<number>(getGameVariation());
 	const CAM_WIDTH = 80;
 	const CAM_HEIGHT = 80;
 
@@ -53,7 +56,7 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 		let randomVariant = -1;
 		while (randomVariant > 0 && randomVariant == currentVariation) randomVariant = Math.floor(Math.random() * 6); // in range number of variants
 		setVariation(randomVariant);
-		setSceneHook(Scene.Overworld);
+		setSceneHook(Scene.EmptyScreen);
 		setTimeout(() => {
 			setSceneHook(Scene.Shipment);
 		}, 0);
@@ -157,8 +160,8 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 				{info &&
 					InfoButton(
 						'Willkommen zum Minispiel der Shipment-Platform! ' +
-							'Klicke auf ein Rohr neben dem freien Feld, um deren Position zu tauschen. ' +
-							'Stelle eine Verbindung zum Trichter her!'
+						'Klicke auf ein Rohr neben dem freien Feld, um deren Position zu tauschen. ' +
+						'Stelle eine Verbindung zum Trichter her!'
 					)}
 			</div>
 		</>
