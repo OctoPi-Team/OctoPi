@@ -53,7 +53,6 @@ export default function ShipmentMiniGame({ setSceneHook, setPlayerPos, setIsPlat
 		let randomVariant = -1;
 		while (randomVariant > 0 && randomVariant == currentVariation) randomVariant = Math.floor(Math.random() * 6); // in range number of variants
 		setVariation(randomVariant);
-		setSceneHook(Scene.Overworld);
 		setTimeout(() => {
 			setSceneHook(Scene.Shipment);
 		}, 0);
