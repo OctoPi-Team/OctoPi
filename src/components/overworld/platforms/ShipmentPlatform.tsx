@@ -205,8 +205,8 @@ export default function ShipmentPlatform({
 						new Vector3(1.5, 2.5, 8),
 						new Vector3(2, 2.5, 18),
 						new Vector3(2, 5, 18),
-						new Vector3(2, 5, 25),
-						new Vector3(2, 2, 25.5),
+						new Vector3(2, 5, 24.9),
+						new Vector3(2, 2, 24.9),
 						new Vector3(16.6, 2, 25.5),
 						new Vector3(15.7, 10, 25.5),
 						new Vector3(5.6, 10, 30),
@@ -250,7 +250,7 @@ export default function ShipmentPlatform({
 			/>
 			{isPlatformFixed?.shipment ? (
 				<Cylinder
-					position={[position[0] - 7.2, position[1], position[2] + 0.2]}
+					position={[position[0] - 7.1, position[1], position[2] + 0.13]}
 					color={SHIPMENT}
 					collisionRefSetter={addCollisionBox}
 				/>
