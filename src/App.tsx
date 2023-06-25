@@ -7,6 +7,7 @@ import ImageScreen from './components/ui/ImageScreen';
 import Loader from './Loader';
 import Video from './components/startscreen/Video';
 import { PLAYER_SIZE } from './components/overworld/Player';
+import EndScreen from './components/ui/EndScreen';
 
 export enum Scene {
 	Overworld,
@@ -116,7 +117,7 @@ export default function App() {
 				/>
 			)}
 			{scene === Scene.StartScreen && <Video onClick={() => setScene(Scene.Overworld)} />}
-			{scene === Scene.EndScreen && <ImageScreen imageSource={'/EndScreen.png'} onclick={showStartScreen} />}
+			{scene === Scene.EndScreen && <EndScreen onclick={showStartScreen} />}
 			{scene === Scene.BTPinfo && (
 				<ImageScreen
 					imageSource="/BTPinfo/BTP_Vorteile.png"
